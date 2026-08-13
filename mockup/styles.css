@@ -152,7 +152,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* ---------- hero ---------- */
 .hero { padding: 40px 0 32px; }
 
-.hero .eyebrow {
+.eyebrow {
   display: block;
   font-size: 0.7rem;
   letter-spacing: 0.1em;
