@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F6F1E7">
+<meta name="theme-color" content="#FBF9F4">
 <title>Field Notes — a field guide to behavioural economics</title>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,64 +11,79 @@
 
 <nav class="site-nav">
   <div class="wrap">
-    <div class="logo">Field Notes</div>
-    <ul>
-      <li><a href="#practice">Principles</a></li>
-      <li><a href="#explore">Explore</a></li>
-      <li><a href="#newsletter">Newsletter</a></li>
-    </ul>
+    <div class="bar">
+      <div class="logo">Field Notes</div>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="links" id="navLinks">
+      <a href="#practice">Principles</a>
+      <a href="#explore">Explore</a>
+      <a href="#newsletter">Newsletter</a>
+    </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <span class="kicker">Field guide</span>
-    <h1>You're already doing behavioural economics. Probably without knowing it. And probably doing it badly.</h1>
-    <p class="lede">This is a field guide to the forces already shaping how people decide — so you can use them deliberately, not by accident.</p>
+    <span class="eyebrow">Applied behavioural economics</span>
+    <h1>You're already doing <span class="annotate">behavioural
+      <svg class="ink" viewBox="0 0 200 70" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M8,36 C8,14 42,4 100,4 C162,4 192,13 192,35 C192,58 158,66 100,67 C40,68 8,60 8,36 Z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"></path>
+      </svg>
+    </span> economics.</h1>
+    <p class="subline">Probably without knowing it. And probably doing it badly.</p>
   </div>
 </header>
 
+<hr class="rule">
+
 <section class="practice" id="practice">
   <div class="wrap">
-    <h2>See it in practice</h2>
-    <div class="practice-row">
-      <a class="practice-chip" href="#anchoring">
+    <p class="lede">This is a field guide to the forces already shaping how people decide — <b>so you can use them deliberately</b>, not by accident.</p>
+    <span class="label">See it in practice</span>
+    <div class="practice-grid">
+      <a class="practice-item" href="#anchoring">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="5" r="2.2"></circle>
+          <circle cx="12" cy="5" r="0.9" fill="var(--terracotta)" stroke="none"></circle>
           <line x1="12" y1="7.2" x2="12" y2="21"></line>
           <line x1="7" y1="10" x2="17" y2="10"></line>
           <path d="M5 14a7 7 0 0 0 14 0"></path>
         </svg>
-        Anchoring
+        <span class="label">Anchoring</span>
       </a>
-      <a class="practice-chip" href="#sludge">
+      <a class="practice-item" href="#sludge">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="9"></circle>
-          <line x1="5.5" y1="18.5" x2="18.5" y2="5.5"></line>
+          <line x1="5.5" y1="18.5" x2="18.5" y2="5.5" stroke="var(--terracotta)"></line>
         </svg>
-        Sludge
+        <span class="label">Sludge</span>
       </a>
-      <a class="practice-chip" href="#zero-price">
+      <a class="practice-item" href="#zero-price">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M12.5 3H20a1 1 0 0 1 1 1v7.5a1 1 0 0 1-.3.7l-8.5 8.5a1 1 0 0 1-1.4 0l-7.5-7.5a1 1 0 0 1 0-1.4l8.5-8.5a1 1 0 0 1 .7-.3z"></path>
-          <circle cx="16.5" cy="7.5" r="1.6"></circle>
+          <circle cx="16.5" cy="7.5" r="1.6" fill="var(--terracotta)" stroke="none"></circle>
         </svg>
-        Zero Price Effect
+        <span class="label">Zero Price Effect</span>
       </a>
-      <a class="practice-chip" href="#decoy">
+      <a class="practice-item" href="#decoy">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="5" y1="19" x2="5" y2="10"></line>
           <line x1="12" y1="19" x2="12" y2="5"></line>
           <line x1="19" y1="19" x2="19" y2="13"></line>
+          <circle cx="12" cy="5" r="1.4" fill="var(--terracotta)" stroke="none"></circle>
         </svg>
-        Decoy Effect
+        <span class="label">Decoy Effect</span>
       </a>
-      <a class="practice-chip" href="#transparency">
+      <a class="practice-item" href="#transparency">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
           <circle cx="12" cy="12" r="3"></circle>
+          <circle cx="12" cy="12" r="1.1" fill="var(--terracotta)" stroke="none"></circle>
         </svg>
-        Operational Transparency
+        <span class="label">Operational Transparency</span>
       </a>
     </div>
   </div>
@@ -80,6 +95,7 @@
       <div class="principle-number">01</div>
       <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="5" r="2.2"></circle>
+        <circle cx="12" cy="5" r="0.9" fill="var(--terracotta)" stroke="none"></circle>
         <line x1="12" y1="7.2" x2="12" y2="21"></line>
         <line x1="7" y1="10" x2="17" y2="10"></line>
         <path d="M5 14a7 7 0 0 0 14 0"></path>
@@ -100,7 +116,7 @@
       <div class="principle-number">02</div>
       <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="9"></circle>
-        <line x1="5.5" y1="18.5" x2="18.5" y2="5.5"></line>
+        <line x1="5.5" y1="18.5" x2="18.5" y2="5.5" stroke="var(--terracotta)"></line>
       </svg>
       <h3>Sludge <span class="subterm">(Obstruction)</span></h3>
       <p class="definition">Friction added deliberately against your interest — like a cancellation flow that interrupts you with a retention offer instead of letting you leave.</p>
@@ -118,10 +134,14 @@
       <div class="principle-number">03</div>
       <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M12.5 3H20a1 1 0 0 1 1 1v7.5a1 1 0 0 1-.3.7l-8.5 8.5a1 1 0 0 1-1.4 0l-7.5-7.5a1 1 0 0 1 0-1.4l8.5-8.5a1 1 0 0 1 .7-.3z"></path>
-        <circle cx="16.5" cy="7.5" r="1.6"></circle>
+        <circle cx="16.5" cy="7.5" r="1.6" fill="var(--terracotta)" stroke="none"></circle>
       </svg>
       <h3>Zero Price Effect</h3>
-      <p class="definition">Free isn't just a low price — it's a different category of decision. Demand jumps disproportionately the moment a price hits $0.</p>
+      <p class="definition">Free isn't just a low price — it's a different category of decision. Demand jumps disproportionately the moment a price hits <span class="annotate">$0
+        <svg class="ink" viewBox="0 0 90 60" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M6,30 C6,13 24,4 45,4 C68,4 84,12 84,29 C84,48 66,56 45,57 C22,58 6,49 6,30 Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+      </span>.</p>
     </div>
     <div>
       <div class="illustration bg-mustard"><span>Illustration, from the real photo</span></div>
@@ -138,6 +158,7 @@
         <line x1="5" y1="19" x2="5" y2="10"></line>
         <line x1="12" y1="19" x2="12" y2="5"></line>
         <line x1="19" y1="19" x2="19" y2="13"></line>
+        <circle cx="12" cy="5" r="1.4" fill="var(--terracotta)" stroke="none"></circle>
       </svg>
       <h3>Decoy Effect <span class="subterm">(Asymmetric Dominance)</span></h3>
       <p class="definition">Add a third, clearly worse option and people switch to the option it makes look better — even though nothing about that option changed.</p>
@@ -159,6 +180,7 @@
       <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
         <circle cx="12" cy="12" r="3"></circle>
+        <circle cx="12" cy="12" r="1.1" fill="var(--terracotta)" stroke="none"></circle>
       </svg>
       <h3>Operational Transparency</h3>
       <p class="definition">Watching the work happen increases how much people value it — effort becomes visible, and visible effort feels worth more.</p>
@@ -214,5 +236,6 @@
   </div>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
