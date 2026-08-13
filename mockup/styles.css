@@ -152,30 +152,82 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* ---------- hero ---------- */
 .hero { padding: 28px 0 22px; }
 
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes drawPath {
+  to { stroke-dashoffset: 0; }
+}
+
 .eyebrow {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 14px;
+  animation: heroFadeUp 0.6s ease-out both;
 }
+
+.eyebrow-icon { width: 14px; height: 14px; color: var(--terracotta); flex-shrink: 0; }
 
 .hero h1 {
   font-size: clamp(1.9rem, 8vw, 3.6rem);
   letter-spacing: -0.01em;
   max-width: 18ch;
+  animation: heroFadeUp 0.7s ease-out 0.12s both;
 }
+
+.hero .annotate .ink path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawPath 0.65s ease-out 0.55s forwards;
+}
+
+.hero-link {
+  display: block;
+  width: 46px;
+  height: 22px;
+  margin: 6px 0 8px 2px;
+  color: var(--terracotta);
+  opacity: 0;
+  animation: heroFadeUp 0.4s ease-out 0.85s both;
+}
+
+.hero-link path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: drawPath 0.5s ease-out 0.95s forwards;
+}
+
+.hero-link path:last-child { animation-delay: 1.3s; animation-duration: 0.25s; }
 
 .hero .subline {
   font-size: clamp(0.98rem, 3.6vw, 1.15rem);
   color: var(--muted);
   max-width: 40ch;
-  margin-top: 14px;
+  margin-top: 0;
+  animation: heroFadeUp 0.6s ease-out 1.15s both;
 }
 
 @media (min-width: 640px) {
   .hero { padding: 72px 0 56px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow, .hero h1, .hero .subline, .hero-link {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hero .annotate .ink path, .hero-link path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }
 
 /* ---------- about ---------- */
