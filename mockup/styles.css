@@ -293,6 +293,55 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .credentials { flex-direction: row; flex-wrap: wrap; gap: 28px; margin-top: 28px; }
 }
 
+/* ---------- contents / index ---------- */
+.toc { padding: 22px 0 26px; }
+
+.toc .label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+}
+
+@media (min-width: 640px) {
+  .toc-list { grid-template-columns: 1fr 1fr; column-gap: 32px; }
+}
+
+.toc-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 2px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.92rem;
+  border-bottom: 1px dashed var(--line);
+  min-height: 44px;
+}
+
+.toc-list a:hover { color: var(--terracotta); }
+
+.toc-num {
+  font-family: Georgia, serif;
+  color: var(--muted);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  width: 1.6em;
+}
+
+.toc-sub { font-size: 0.82em; color: var(--muted); }
+
 /* ---------- practice ---------- */
 .practice { padding: 22px 0 28px; scroll-margin-top: 64px; }
 
