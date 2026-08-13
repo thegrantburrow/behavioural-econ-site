@@ -585,10 +585,17 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .bg-ink { background: var(--ink); }
 
 /* ---------- special report ---------- */
-.report { padding: 28px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+.report {
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 64px;
+  background: rgba(43, 102, 96, 0.05);
+}
+.report .eyebrow { color: var(--teal); }
 .report h2 { font-size: clamp(1.35rem, 6vw, 2rem); margin: 8px 0 12px; max-width: 22ch; }
 .report .lede { font-size: 0.95rem; color: rgba(30, 27, 22, 0.8); max-width: 62ch; margin: 0 0 26px; }
-.report .lede b { color: var(--terracotta); }
+.report .lede b { color: var(--teal); }
 
 .report-section { margin-top: 34px; scroll-margin-top: 64px; }
 .report-section:first-of-type { margin-top: 0; }
@@ -600,8 +607,21 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .case-card {
   background: var(--card);
   border: 1px solid var(--line);
+  border-left: 3px solid var(--teal);
   border-radius: 12px;
   padding: 14px 16px;
+}
+
+.case-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--teal);
+  color: var(--paper);
+  margin-bottom: 8px;
 }
 
 .case-card h4 { font-size: 0.98rem; margin-bottom: 6px; }
