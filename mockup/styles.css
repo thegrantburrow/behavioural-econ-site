@@ -150,7 +150,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- hero ---------- */
-.hero { padding: 40px 0 32px; }
+.hero { padding: 28px 0 22px; }
 
 .eyebrow {
   display: block;
@@ -179,7 +179,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- about ---------- */
-.about { padding: 32px 0 36px; scroll-margin-top: 64px; }
+.about { padding: 22px 0 24px; scroll-margin-top: 64px; }
 
 .about .lede {
   font-size: clamp(1rem, 3.6vw, 1.15rem);
@@ -193,14 +193,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   font-size: 0.95rem;
   color: var(--muted);
   max-width: 58ch;
-  margin: 16px 0 0;
+  margin: 12px 0 0;
 }
 
 .credentials {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .credential-item {
@@ -219,14 +219,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- practice ---------- */
-.practice { padding: 32px 0 40px; scroll-margin-top: 64px; }
+.practice { padding: 22px 0 28px; scroll-margin-top: 64px; }
 
 .practice .label {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   display: block;
 }
 
@@ -234,17 +234,17 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px 6px;
+  gap: 4px 4px;
 }
 
 .practice-item {
-  flex: 0 0 108px;
+  flex: 0 0 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 10px;
-  padding: 12px 4px;
+  gap: 7px;
+  padding: 8px 4px;
   text-decoration: none;
   color: var(--ink);
   border-radius: 10px;
@@ -253,18 +253,20 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .practice-item:hover, .practice-item:active { background: rgba(178, 71, 43, 0.06); }
-.practice-item .icon { width: 30px; height: 30px; }
-.practice-item span.label { font-size: 0.82rem; font-weight: 700; line-height: 1.25; }
+.practice-item .icon { width: 26px; height: 26px; }
+.practice-item span.label { font-size: 0.76rem; font-weight: 700; line-height: 1.2; }
 
 @media (min-width: 640px) {
-  .practice { padding: 48px 0 64px; }
+  .practice { padding: 40px 0 56px; }
   .practice-grid { gap: 12px; }
   .practice-item { flex-basis: 130px; }
+  .practice-item .icon { width: 30px; height: 30px; }
+  .practice-item span.label { font-size: 0.82rem; }
 }
 
 /* ---------- principle sections ---------- */
 .principle {
-  padding: 44px 0;
+  padding: 28px 0;
   scroll-margin-top: 64px;
   border-top: 1px solid var(--line);
 }
@@ -272,7 +274,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .principle-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 14px;
   align-items: center;
 }
 
@@ -281,17 +283,23 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .principle-grid { grid-template-columns: 1.1fr 1fr; gap: 56px; }
 }
 
-.principle-number {
-  font-family: Georgia, serif;
-  font-size: clamp(2.4rem, 9vw, 3.4rem);
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(30, 27, 22, 0.2);
-  margin-bottom: 2px;
+.principle-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
 }
 
-.principle-icon { width: 32px; height: 32px; margin-bottom: 12px; color: var(--ink); }
-.principle h3 { font-size: clamp(1.4rem, 6vw, 1.9rem); }
+.principle-number {
+  font-family: Georgia, serif;
+  font-size: clamp(1.5rem, 6vw, 3.4rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(30, 27, 22, 0.22);
+}
+
+.principle-icon { width: 24px; height: 24px; color: var(--ink); }
+.principle h3 { font-size: clamp(1.25rem, 5.5vw, 1.9rem); }
 
 .principle .subterm {
   font-size: 0.55em;
@@ -300,23 +308,33 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .principle .definition {
-  font-size: 0.98rem;
+  font-size: 0.95rem;
   color: rgba(30, 27, 22, 0.78);
   max-width: 46ch;
-  margin: 10px 0 0;
+  margin: 8px 0 0;
+}
+
+@media (min-width: 760px) {
+  .principle-head { gap: 14px; margin-bottom: 0; }
+  .principle-icon { width: 32px; height: 32px; }
+  .principle .definition { font-size: 0.98rem; margin-top: 10px; }
 }
 
 .illustration {
   position: relative;
   border-radius: 14px;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 20px;
+  padding: 16px;
   color: rgba(251, 249, 244, 0.95);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+}
+
+@media (min-width: 760px) {
+  .illustration { aspect-ratio: 4 / 3; padding: 20px; font-size: 0.85rem; }
 }
 
 .illustration::before {
@@ -330,12 +348,17 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .illustration span { position: relative; max-width: 22ch; }
 
-.illustration-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.illustration-pair .illustration { aspect-ratio: 1 / 1; }
+.illustration-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.illustration-pair .illustration { aspect-ratio: 4 / 3; }
+
+@media (min-width: 760px) {
+  .illustration-pair { gap: 10px; }
+  .illustration-pair .illustration { aspect-ratio: 1 / 1; }
+}
 
 .caption {
-  margin-top: 12px;
-  font-size: 0.82rem;
+  margin-top: 8px;
+  font-size: 0.8rem;
   color: var(--muted);
   font-style: italic;
 }
@@ -346,10 +369,10 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .bg-ink { background: var(--ink); }
 
 /* ---------- explore ---------- */
-.explore { padding: 44px 0; border-top: 1px solid var(--line); }
-.explore h2 { font-size: 1.4rem; margin-bottom: 20px; }
+.explore { padding: 28px 0; border-top: 1px solid var(--line); }
+.explore h2 { font-size: 1.25rem; margin-bottom: 14px; }
 
-.explore-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.explore-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
 
 @media (min-width: 640px) {
   .explore { padding: 72px 0; }
@@ -361,21 +384,27 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 20px;
+  padding: 14px 16px;
   text-decoration: none;
   color: var(--ink);
   transition: border-color 0.15s ease;
 }
 
 .explore-card:hover { border-color: var(--terracotta); }
-.explore-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
-.explore-card p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+.explore-card h3 { font-size: 1rem; margin-bottom: 3px; }
+.explore-card p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+@media (min-width: 640px) {
+  .explore-card { padding: 20px; }
+  .explore-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+  .explore-card p { font-size: 0.88rem; }
+}
 
 /* ---------- newsletter ---------- */
-.newsletter { background: var(--ink); color: var(--paper); padding: 48px 0; }
+.newsletter { background: var(--ink); color: var(--paper); padding: 36px 0; }
 .newsletter .wrap { max-width: 540px; text-align: center; }
-.newsletter h2 { font-size: clamp(1.4rem, 6vw, 2rem); }
-.newsletter p { color: rgba(251, 249, 244, 0.68); margin: 10px 0 24px; font-size: 0.92rem; }
+.newsletter h2 { font-size: clamp(1.3rem, 6vw, 2rem); }
+.newsletter p { color: rgba(251, 249, 244, 0.68); margin: 8px 0 18px; font-size: 0.9rem; }
 
 .newsletter-form { display: flex; flex-direction: column; gap: 10px; max-width: 380px; margin: 0 auto; }
 
@@ -417,7 +446,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- footer ---------- */
-footer { padding: 28px 0 max(28px, env(safe-area-inset-bottom)); font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--line); }
+footer { padding: 18px 0 max(18px, env(safe-area-inset-bottom)); font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--line); }
 footer .wrap { display: flex; flex-direction: column; gap: 12px; }
 footer ul { list-style: none; display: flex; gap: 16px; margin: 0; padding: 0; flex-wrap: wrap; }
 footer a { text-decoration: none; }
