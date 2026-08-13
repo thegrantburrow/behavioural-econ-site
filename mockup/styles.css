@@ -182,31 +182,40 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   animation: heroFadeUp 0.7s ease-out 0.12s both;
 }
 
-.hero .annotate .ink path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: drawPath 0.65s ease-out 0.55s forwards;
+@keyframes drawScaleX {
+  to { transform: scaleX(1); }
 }
 
-.hero-link {
-  display: block;
-  width: 46px;
-  height: 22px;
-  margin: 6px 0 8px 2px;
+@keyframes wordColorShift {
+  to { color: var(--terracotta); }
+}
+
+.accent-word {
+  position: relative;
+  display: inline-block;
+  color: var(--ink);
+  animation: wordColorShift 0.5s ease-out 0.95s forwards;
+}
+
+.accent-underline {
+  position: absolute;
+  left: -3%;
+  bottom: -0.12em;
+  width: 106%;
+  height: 0.3em;
+  overflow: visible;
   color: var(--terracotta);
-  opacity: 0;
-  animation: heroFadeUp 0.4s ease-out 0.85s both;
+  pointer-events: none;
 }
 
-.hero-link path {
+.accent-underline path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: drawPath 0.5s ease-out 0.95s forwards;
+  animation: drawPath 0.55s ease-out 0.55s forwards;
 }
-
-.hero-link path:last-child { animation-delay: 1.3s; animation-duration: 0.25s; }
 
 .hero .subline {
+  position: relative;
   font-size: clamp(0.98rem, 3.6vw, 1.15rem);
   color: var(--muted);
   max-width: 40ch;
@@ -214,19 +223,33 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   animation: heroFadeUp 0.6s ease-out 1.15s both;
 }
 
+.subline-underline {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 100%;
+  background: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: drawScaleX 0.6s ease-out 1.85s forwards;
+}
+
 @media (min-width: 640px) {
   .hero { padding: 72px 0 56px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .eyebrow, .hero h1, .hero .subline, .hero-link {
+  .eyebrow, .hero h1, .hero .subline, .accent-word {
     animation: none;
     opacity: 1;
     transform: none;
   }
-  .hero .annotate .ink path, .hero-link path {
+  .accent-word { color: var(--terracotta); }
+  .accent-underline path, .subline-underline {
     animation: none;
     stroke-dashoffset: 0;
+    transform: scaleX(1);
   }
 }
 
