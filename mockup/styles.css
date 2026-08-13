@@ -584,6 +584,42 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .bg-teal { background: var(--teal); }
 .bg-ink { background: var(--ink); }
 
+/* ---------- special report ---------- */
+.report { padding: 28px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+.report h2 { font-size: clamp(1.35rem, 6vw, 2rem); margin: 8px 0 12px; max-width: 22ch; }
+.report .lede { font-size: 0.95rem; color: rgba(30, 27, 22, 0.8); max-width: 62ch; margin: 0 0 26px; }
+.report .lede b { color: var(--terracotta); }
+
+.report-section { margin-top: 34px; scroll-margin-top: 64px; }
+.report-section:first-of-type { margin-top: 0; }
+.report-section h3 { font-size: 1.15rem; margin-bottom: 10px; }
+.report-section .intro { font-size: 0.9rem; color: rgba(30, 27, 22, 0.82); max-width: 64ch; margin: 0 0 16px; }
+
+.case-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+.case-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.case-card h4 { font-size: 0.98rem; margin-bottom: 6px; }
+.case-card .case-body p { margin: 0 0 8px; font-size: 0.87rem; color: rgba(30, 27, 22, 0.85); }
+.case-card .case-body p.lesson { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); margin-bottom: 0; }
+.case-card .lesson b { color: var(--terracotta); }
+.case-card .case-cite { font-size: 0.76rem; color: var(--muted); margin-top: 10px; }
+.case-card .case-cite a { color: var(--terracotta); text-decoration: underline; }
+
+@media (min-width: 700px) {
+  .case-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 640px) {
+  .report { padding: 64px 0; }
+  .report-section { margin-top: 48px; }
+}
+
 /* ---------- explore ---------- */
 .explore { padding: 28px 0; border-top: 1px solid var(--line); }
 .explore h2 { font-size: 1.25rem; margin-bottom: 14px; }
