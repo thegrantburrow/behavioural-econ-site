@@ -15,25 +15,6 @@
 })();
 
 (function () {
-  // Homepage intro: a live anchoring demo the reader clicks themselves,
-  // instead of a stat about someone else's study.
-  var toggle = document.getElementById('demoToggle');
-  var old = document.getElementById('demoOld');
-  var stage = document.getElementById('demoStage');
-  var reveal = document.getElementById('demoReveal');
-  if (!toggle || !old || !stage || !reveal) return;
-
-  var anchorRemoved = false;
-  toggle.addEventListener('click', function () {
-    anchorRemoved = !anchorRemoved;
-    old.hidden = anchorRemoved;
-    stage.classList.toggle('anchor-removed', anchorRemoved);
-    toggle.textContent = anchorRemoved ? 'Add the $40 back →' : 'Remove the $40 →';
-    reveal.hidden = !anchorRemoved;
-  });
-})();
-
-(function () {
   // Principles archive page: search box + category chips both filter the
   // same single list of principle rows (not two separate representations
   // of the 36 principles — that duplication was part of what made the
@@ -91,47 +72,56 @@
 })();
 
 (function () {
-  // Homepage journey selector: the fork question reveals one of two lenses'
-  // 5 stages, each pill linking to principles.html?stage=X&lens=Y. No-ops
-  // on principles.html, which doesn't have this markup.
-  var buttons = document.querySelectorAll('#journey .fork-btn');
+  // Homepage journey selector: a lens toggle (customer journey / product)
+  // switches an always-visible row of 5 icon nodes, each linking to
+  // principles.html?stage=X&lens=Y. Grid layout, not a scroll strip — every
+  // stage must fit without horizontal scrolling on a phone. No-ops on
+  // principles.html, which doesn't have this markup.
+  var buttons = document.querySelectorAll('#journey .lens-btn');
   var row = document.getElementById('stageRow');
-  var hint = document.getElementById('lensHint');
-  if (!buttons.length || !row || !hint) return;
+  if (!buttons.length || !row) return;
+
+  var ICONS = {
+    awareness: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.8-6.5 10-6.5S22 12 22 12s-3.8 6.5-10 6.5S2 12 2 12z"></path><circle cx="12" cy="12" r="2.6"></circle></svg>',
+    consideration: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="12" r="6.2"></circle><circle cx="15" cy="12" r="6.2"></circle></svg>',
+    conversion: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.4l2.6 2.6L16.5 9"></path></svg>',
+    retention: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.9-5.4M20 12a8 8 0 0 1-13.9 5.4"></path><path d="M17 3.5V7h-3.5M7 20.5V17h3.5"></path></svg>',
+    advocacy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10H9l-4 4v-4H4z"></path><path d="M8.6 10.3c0-.9.7-1.5 1.5-1.5.6 0 1 .3 1.3.7.3-.4.7-.7 1.3-.7.8 0 1.5.6 1.5 1.5 0 1.3-1.5 2.2-2.8 3-1.3-.8-2.8-1.7-2.8-3z" fill="currentColor" stroke="none"></path></svg>'
+  };
 
   var STAGES = [
-    { id: 'awareness', count: 5, marketing: 'Awareness', product: 'Acquisition' },
-    { id: 'consideration', count: 13, marketing: 'Consideration', product: 'Activation' },
-    { id: 'conversion', count: 14, marketing: 'Conversion', product: 'Conversion' },
-    { id: 'retention', count: 11, marketing: 'Retention', product: 'Retention' },
-    { id: 'advocacy', count: 3, marketing: 'Advocacy', product: 'Referral' }
+    { id: 'awareness', count: 5, marketing: 'Awareness', product: 'Acquisition', short: { marketing: 'Awareness', product: 'Acquire' } },
+    { id: 'consideration', count: 13, marketing: 'Consideration', product: 'Activation', short: { marketing: 'Compare', product: 'Activate' } },
+    { id: 'conversion', count: 14, marketing: 'Conversion', product: 'Conversion', short: { marketing: 'Convert', product: 'Convert' } },
+    { id: 'retention', count: 11, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
+    { id: 'advocacy', count: 3, marketing: 'Advocacy', product: 'Referral', short: { marketing: 'Advocate', product: 'Refer' } }
   ];
+
+  function render(lens) {
+    row.innerHTML = '';
+    STAGES.forEach(function (stage) {
+      var node = document.createElement('a');
+      node.className = 'stage-node';
+      node.href = 'principles.html?stage=' + stage.id + '&lens=' + lens;
+      node.innerHTML = '<span class="stage-icon-wrap">' + ICONS[stage.id] + '</span>' +
+        '<span class="stage-node-label">' + stage.short[lens] + '</span>' +
+        '<span class="stage-node-count">' + stage.count + '</span>';
+      row.appendChild(node);
+    });
+  }
 
   buttons.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      buttons.forEach(function (b) { b.classList.toggle('active', b === btn); });
-      var lens = btn.getAttribute('data-lens');
-      hint.textContent = lens === 'marketing'
-        ? 'Marketing funnel: Awareness → Consideration → Conversion → Retention → Advocacy'
-        : 'Product funnel: Acquisition → Activation → Conversion → Retention → Referral';
-      row.innerHTML = '';
-      STAGES.forEach(function (stage, i) {
-        var pill = document.createElement('a');
-        pill.className = 'stage-pill';
-        pill.href = 'principles.html?stage=' + stage.id + '&lens=' + lens;
-        pill.innerHTML = '<span class="sp-name">' + stage[lens] + '</span><span class="sp-count">' + stage.count + ' principles</span>';
-        row.appendChild(pill);
-        if (i < STAGES.length - 1) {
-          var arrow = document.createElement('span');
-          arrow.className = 'stage-arrow';
-          arrow.setAttribute('aria-hidden', 'true');
-          arrow.textContent = '→';
-          row.appendChild(arrow);
-        }
+      buttons.forEach(function (b) {
+        var active = b === btn;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
       });
-      row.hidden = false;
+      render(btn.getAttribute('data-lens'));
     });
   });
+
+  render('marketing');
 })();
 
 (function () {
