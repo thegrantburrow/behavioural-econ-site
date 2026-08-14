@@ -64,11 +64,17 @@
 
   searchInput.addEventListener('input', applyFilter);
 
-  var urlQuery = new URLSearchParams(window.location.search).get('q');
-  if (urlQuery) {
-    searchInput.value = urlQuery;
+  function applyQuery(q) {
+    searchInput.value = q || '';
     applyFilter();
   }
+
+  var urlQuery = new URLSearchParams(window.location.search).get('q');
+  if (urlQuery) applyQuery(urlQuery);
+
+  // Exposed so a combined single-page preview can re-run this without a
+  // real page load; unused by the real two-file site.
+  window.__applySearchQuery = applyQuery;
 })();
 
 (function () {
@@ -149,37 +155,52 @@
     advocacy: { marketing: 'Advocacy', product: 'Referral', desc: 'Whether the experience is good enough to repeat, out loud.' }
   };
 
-  var params = new URLSearchParams(window.location.search);
-  var stageId = params.get('stage');
-  var lens = params.get('lens') === 'product' ? 'product' : 'marketing';
-  var meta = stageId ? STAGE_META[stageId] : null;
-  var content = stageId ? stageView.querySelector('.stage-content[data-stage-content="' + stageId + '"]') : null;
-  if (!meta || !content) return;
-
-  document.getElementById('stageViewLabel').textContent = lens === 'marketing' ? 'Journey stage' : 'Product stage';
-  document.getElementById('stageViewTitle').textContent = meta[lens];
-  document.getElementById('stageViewDesc').textContent = meta.desc;
-  content.hidden = false;
-  stageView.hidden = false;
-
-  content.querySelectorAll('.view-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var view = btn.getAttribute('data-view-btn');
-      content.querySelectorAll('.view-btn').forEach(function (b) { b.classList.toggle('active', b === btn); });
-      var grouped = content.querySelector('.view-grouped');
-      var sequence = content.querySelector('.view-sequence');
-      if (grouped) grouped.hidden = view !== 'grouped';
-      if (sequence) sequence.hidden = view !== 'sequence';
+  function wireToggle(content) {
+    content.querySelectorAll('.view-btn').forEach(function (btn) {
+      if (btn.dataset.wired) return;
+      btn.dataset.wired = '1';
+      btn.addEventListener('click', function () {
+        var view = btn.getAttribute('data-view-btn');
+        content.querySelectorAll('.view-btn').forEach(function (b) { b.classList.toggle('active', b === btn); });
+        var grouped = content.querySelector('.view-grouped');
+        var sequence = content.querySelector('.view-sequence');
+        if (grouped) grouped.hidden = view !== 'grouped';
+        if (sequence) sequence.hidden = view !== 'sequence';
+      });
     });
-  });
+  }
+
+  function activateStage(stageId, lens) {
+    lens = lens === 'product' ? 'product' : 'marketing';
+    var meta = stageId ? STAGE_META[stageId] : null;
+    var content = stageId ? stageView.querySelector('.stage-content[data-stage-content="' + stageId + '"]') : null;
+    stageView.querySelectorAll('.stage-content').forEach(function (c) { c.hidden = true; });
+    if (!meta || !content) {
+      stageView.hidden = true;
+      return;
+    }
+    document.getElementById('stageViewLabel').textContent = lens === 'marketing' ? 'Journey stage' : 'Product stage';
+    document.getElementById('stageViewTitle').textContent = meta[lens];
+    document.getElementById('stageViewDesc').textContent = meta.desc;
+    content.hidden = false;
+    stageView.hidden = false;
+    wireToggle(content);
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  activateStage(params.get('stage'), params.get('lens'));
+
+  // Exposed so a combined single-page preview can re-run this without a
+  // real page load; unused by the real two-file site.
+  window.__activateStageView = activateStage;
 })();
 
 (function () {
   // Principle sections are collapsed by default. Jumping to one via any
   // anchor link (Contents, practice grid, "see also" cross-links) should
   // land on it already open, not force a second click after the jump.
-  function openTargetPrinciple() {
-    var hash = window.location.hash;
+  function openTargetPrinciple(hash) {
+    hash = hash || window.location.hash;
     if (!hash || hash.length < 2) return;
     var target = document.getElementById(hash.slice(1));
     if (!target) return;
@@ -187,7 +208,12 @@
       ? target
       : target.querySelector('details.principle-details');
     if (details && !details.open) details.open = true;
+    target.scrollIntoView();
   }
-  openTargetPrinciple();
-  window.addEventListener('hashchange', openTargetPrinciple);
+  openTargetPrinciple(window.location.hash);
+  window.addEventListener('hashchange', function () { openTargetPrinciple(window.location.hash); });
+
+  // Exposed so a combined single-page preview can re-run this without a
+  // real page load; unused by the real two-file site.
+  window.__openTargetPrinciple = openTargetPrinciple;
 })();
