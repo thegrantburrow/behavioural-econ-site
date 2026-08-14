@@ -321,7 +321,7 @@ edit or the preview will drift from the real opening line.
 ## Contents section — 6 behavioural-theme tabs, click to filter the list below
 
 With 36 principles, a single flat `<ol>` stopped being scannable. Went
-through three iterations before landing on the current one:
+through four iterations before landing on the current one:
 1. All 6 theme groups stacked vertically, always fully expanded —
    rejected, still too much permanently-visible content on mobile.
 2. Chips that `flex-wrap` onto multiple rows — rejected after seeing it
@@ -330,18 +330,22 @@ through three iterations before landing on the current one:
    sits under a long one like "Judgment & Memory" with no shared edges to
    align to) that reads as scattered rather than deliberate, exactly the
    opposite of "tight."
-3. **Current: a single-row horizontal scroll strip.** `.toc-tabs` is
-   `display:flex; overflow-x:auto; scroll-snap-type:x proximity`, so
-   every chip sits on one clean, aligned line regardless of label length
-   — no ragged wrapping. `scrollbar-width:none` hides the native
-   scrollbar; a `::after` gradient fade on `.toc-tabs-wrap` (same
-   fade-to-background technique as the article teaser pattern above)
-   appears only when there's actually more to scroll — `script.js` checks
-   `scrollWidth > clientWidth` on load/resize/scroll and toggles a
-   `.scrollable` class, rather than always showing the fade even when all
-   chips already fit (which happens by default at desktop width).
-   Clicking a tab also calls `scrollIntoView({inline:'center'})` on it so
-   the active chip is never left off-screen after a scroll-and-tap.
+3. A single-row horizontal scroll strip (`overflow-x:auto` +
+   `scroll-snap-type`, with a fade hint only shown when actually
+   scrollable) — fixed the raggedness, but rejected once tested on a real
+   phone: requiring a swipe just to see the rest of the categories is
+   itself bad UX, independent of how "tight" the row looked.
+4. **Current: an equal-width responsive grid, no scrolling at all.**
+   `.toc-tabs` is `display:grid; grid-template-columns: repeat(2, 1fr)`
+   (3 columns at 560px+, 6 — one full row — at 900px+), so every chip
+   stretches to fill its cell rather than being sized to its own label.
+   This is what actually fixes the raggedness (real grid alignment, not
+   content-sized flex items) *and* keeps all 6 categories visible with no
+   interaction needed to see them. Each `.toc-tab` uses
+   `justify-content: space-between` internally so the label sits left and
+   the count badge sits right, filling the cell tidily. The scroll-fade
+   CSS/JS from iteration 3 was removed as dead code once scrolling went
+   away entirely.
 
 Clicking a chip swaps which theme's list is showing in `.toc-panels`
 below — only one `.toc-panel` visible at a time, matching a standard tab

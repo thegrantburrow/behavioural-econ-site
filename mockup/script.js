@@ -15,23 +15,9 @@
 })();
 
 (function () {
-  var tabsWrap = document.querySelector('.toc-tabs-wrap');
-  var tabsEl = document.querySelector('.toc-tabs');
   var tabs = document.querySelectorAll('.toc-tab');
   var panels = document.querySelectorAll('.toc-panel');
   if (!tabs.length || !panels.length) return;
-
-  function updateScrollFade() {
-    if (!tabsWrap || !tabsEl) return;
-    tabsWrap.classList.toggle('scrollable', tabsEl.scrollWidth > tabsEl.clientWidth + 2);
-  }
-  updateScrollFade();
-  window.addEventListener('resize', updateScrollFade);
-  if (tabsEl) tabsEl.addEventListener('scroll', function () {
-    if (!tabsWrap) return;
-    var atEnd = tabsEl.scrollLeft + tabsEl.clientWidth >= tabsEl.scrollWidth - 2;
-    tabsWrap.classList.toggle('scrollable', !atEnd && tabsEl.scrollWidth > tabsEl.clientWidth + 2);
-  });
 
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
@@ -48,7 +34,6 @@
           p.setAttribute('hidden', '');
         }
       });
-      tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     });
   });
 })();
