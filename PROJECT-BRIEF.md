@@ -263,6 +263,46 @@ New principles get this by default going forward (per earlier scope
 decision); the ~34 other existing articles keep their plain strength/weakness
 format unless specifically flagged for a retrofit.
 
+## "Article teaser" pattern — applied site-wide to all 36 principle articles
+
+Every `<details class="article">` (the collapsed "Read the research" section)
+now shows a 2-line preview of its opening sentence before the reader clicks,
+instead of the toggle being the only visible thing. Structure, inside
+`<summary>` (the only child of `<details>` that stays visible while
+closed — this is why the teaser has to live there and not in
+`.article-body`):
+```html
+<summary>
+  <div class="teaser-fade"><p class="teaser-text"><b>The psychology.</b> {first sentence(s) of the article's opening "The psychology" paragraph, verbatim}</p></div>
+  <div class="summary-row"><span class="article-tag">Article</span> The full write-up — study, numbers, and caveats <span class="chev">›</span></div>
+</summary>
+```
+`.teaser-fade` is `max-height` + `overflow: hidden` with a `::after`
+linear-gradient fading to `var(--paper)` (the page background — NOT
+`var(--card)`, since `.article` sits directly on the page, not inside a
+white card) over the last ~1.7em, so the text visibly trails off rather
+than hard-cutting. `.article[open] .teaser-fade { display: none; }` hides
+it once expanded so the real paragraph (shown in full in `.article-body`
+right below) doesn't appear twice.
+
+Two decisions worth keeping if this gets touched again:
+- **Gradient fade, not blur.** A blurred trailing clause was tried and
+  rejected — the gradient reads as "there's more below," a blur reads as
+  a rendering glitch.
+- **The CTA names something real, never a curiosity-gap tease.** Landed on
+  "The full write-up — study, numbers, and caveats" over four other
+  candidates (a generic "Continue reading," a "there's a real experiment
+  behind this" hook, etc.) specifically because it's a concrete, honest
+  preview of what's actually behind the click rather than manufactured
+  suspense.
+
+Applied via a script that pulled each article's existing first "The
+psychology" paragraph verbatim into the teaser (not a separately-written
+summary), so it's a real excerpt rather than paraphrased marketing copy.
+It's a copy, not a live reference, though — if a psychology paragraph gets
+edited later, its `.teaser-text` copy in the `<summary>` needs the same
+edit or the preview will drift from the real opening line.
+
 ## Open decisions / next steps
 - Get eachlabs style-transfer skill actually generating output on the gelato
   photo and the 6 principle photos
