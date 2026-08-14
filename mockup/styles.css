@@ -305,6 +305,24 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: block;
 }
 
+.toc-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toc-group-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.toc-group:first-child .toc-group-title { padding-top: 0; border-top: none; }
+
 .toc-list {
   list-style: none;
   margin: 0;

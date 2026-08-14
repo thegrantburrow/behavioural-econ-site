@@ -318,6 +318,38 @@ It's a copy, not a live reference, though — if a psychology paragraph gets
 edited later, its `.teaser-text` copy in the `<summary>` needs the same
 edit or the preview will drift from the real opening line.
 
+## Contents section — grouped by behavioural theme, not a flat numbered list
+
+With 36 principles, a single flat `<ol>` stopped being scannable. Regrouped
+into 6 theme-based sections (`.toc-groups` > `.toc-group` > `.toc-group-title`
++ the existing `.toc-list`), each principle keeping its original number
+(01&ndash;36) rather than being renumbered per group:
+- Judgment, Memory &amp; Perception of Evidence (10)
+- Choice Architecture &amp; Decision-Making (8)
+- Pricing &amp; Value Perception (6)
+- Social &amp; Normative Influence (3)
+- Motivation &amp; Goal Pursuit (5)
+- Friction &amp; Transparency (4)
+
+Two decisions worth keeping if this list grows:
+- **Themes, not customer-journey stage.** A journey-stage grouping
+  (Awareness / Consideration / Checkout / Onboarding / Retention) was
+  considered and rejected as the *primary* structure — it works well for
+  the pricing/UX principles but roughly 10 general judgment-and-memory
+  principles (Noise, Hindsight Bias, Illusion of Control, Survivorship
+  Bias, etc.) aren't tied to a specific funnel step and would get
+  force-fit into an artificial "reflection" bucket. Themes give every
+  principle an unforced home. Journey stage is still a good *secondary*
+  lens if wanted later (e.g. a filterable tag per principle) rather than
+  a restructure.
+- **Numbers stay with the principle, not the group.** Each principle's
+  number is hardcoded into its own section too (`.principle-number`, e.g.
+  Not Enough Choice is permanently "06") — renumbering to be sequential
+  within each theme would mean touching all 36 section headers just to
+  keep two numbering schemes in sync. Numbers appearing out of sequence
+  within a themed group (e.g. 01, 11, 12, 19... in one section) is
+  expected and fine; they're identifiers, not a reading order.
+
 ## Open decisions / next steps
 - Get eachlabs style-transfer skill actually generating output on the gelato
   photo and the 6 principle photos
