@@ -654,7 +654,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 16px 14px;
+  padding: 16px 10px;
 }
 
 .flow-tag {
@@ -716,7 +716,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .flow-branches {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 6px;
 }
 
 .flow-path {
@@ -724,7 +724,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 9px 8px;
+  padding: 8px 6px;
 }
 
 .flow-path.path-a { border-top: 3px solid var(--terracotta); }
@@ -749,6 +749,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   align-items: flex-start;
   gap: 6px;
   margin-bottom: 8px;
+  min-width: 0;
 }
 .flow-step:last-child { margin-bottom: 0; }
 .flow-step-icon { width: 16px; height: 16px; color: var(--ink); flex-shrink: 0; margin-top: 1px; }
@@ -756,10 +757,23 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .flow-step.step-rows-wrap { align-items: flex-start; }
 .flow-step.step-rows-wrap .flow-step-icon { margin-top: 3px; }
-.step-rows { display: flex; flex-direction: column; gap: 5px; }
-.step-row { display: flex; align-items: center; gap: 3px; font-size: 0.7rem; color: rgba(30, 27, 22, 0.88); flex-wrap: wrap; }
-.step-row .step-arrow { color: var(--muted); font-size: 0.68rem; flex-shrink: 0; }
-.step-row .step-cell.dash { color: var(--muted); min-width: 1.4em; text-align: center; }
+.step-rows {
+  display: grid;
+  grid-template-columns: 1.3em 0.7em 3em 0.7em minmax(0, 1fr);
+  align-items: center;
+  column-gap: 2px;
+  row-gap: 7px;
+  font-size: 0.66rem;
+  color: rgba(30, 27, 22, 0.88);
+  min-width: 0;
+  flex: 1;
+}
+.step-row { display: contents; }
+.step-row .step-arrow { color: var(--muted); font-size: 0.58rem; text-align: center; }
+.step-row .step-cell.dash { color: var(--muted); text-align: center; }
+.step-row .diff-highlight { text-align: center; justify-self: start; padding: 1px 4px; }
+.step-rows .flavor-icon, .step-rows > .step-row > span:last-child { min-width: 0; }
+.step-rows > .step-row > span:last-child { overflow-wrap: break-word; }
 .flavor-icon { width: 14px; height: 14px; display: inline-block; vertical-align: -2px; margin-right: 3px; flex-shrink: 0; }
 .condition-icon { width: 13px; height: 13px; display: inline-block; vertical-align: -1px; margin-right: 4px; flex-shrink: 0; }
 

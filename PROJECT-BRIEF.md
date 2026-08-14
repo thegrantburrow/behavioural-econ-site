@@ -153,6 +153,48 @@ branch's `.path-tag` AND the result table's column header (`th.col-a`/
 automatically from the existing `.path-a`/`.path-b`/`.col-a`/`.col-b` CSS —
 don't hardcode the colour on the icon itself.
 
+**Branches sit side-by-side even on phone width** — no vertical stacking
+breakpoint. Within each branch, when a condition has a multi-part sequence
+(e.g. task → medium → outcome), use CSS Grid (`.step-rows`, `display:contents`
+on `.step-row` so its `<span>` children become direct grid items), with the
+**same `grid-template-columns` definition shared by both conditions** — this
+is what actually delivers "the thing that changed visually stands out": fixed
+first/last columns keep the outer values (time, outcome) pinned to the same
+x-position in both branches, and only the manipulated-variable column (fixed
+width, but its content varies — a dash vs. a value) is where the eye lands on
+a difference.
+
+**This breaks on real phone widths (~375-390px) if not actively verified** —
+squeezing two full condition cards plus a 3-5 column grid into that space is
+tight enough that it broke twice while building it (content overflowing the
+box edges; then, after fixing overflow, a long word like "pistachio" breaking
+mid-word). Both were invisible in the desktop-width preview and only showed
+up on an actual narrow render. **Don't ship a layout change to this component
+on the strength of the desktop artifact preview alone** — render it
+headless at ~390px and screenshot the specific section before pushing:
+```python
+# playwright is available; chromium lives at /opt/pw-browsers/chromium
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium')
+    page = b.new_page(viewport={'width': 390, 'height': 1200})
+    page.goto('file:///path/to/built/preview.html')
+    page.eval_on_selector('#some-principle details.article', 'el => el.open = true')  # it's collapsed by default
+    page.locator('#some-principle .flow-diagram').screenshot(path='check.png')
+```
+Fixes that got it working at 390px: `min-width: 0` at every flex/grid
+nesting level in the chain (`.flow-path`, `.flow-step`, `.step-rows`) —
+flex/grid items default to a content-based minimum width that silently
+overrides an ancestor's `flex: 1` and forces overflow; the last grid column
+needs `minmax(0, 1fr)`, not bare `1fr`, for the same reason; and
+`overflow-wrap: break-word` on the outcome cell as a safety net once space
+is genuinely tight. Beyond the CSS fixes, actually reclaiming width mattered
+just as much: drop decorative icons that aren't load-bearing at this size
+(the leading tag icon inside a multi-row branch), abbreviate labels where
+the full word isn't essential ("6 min" → "6m"), and trim padding/gaps
+throughout the component — a few px removed from five different places adds
+up faster than any single "big" fix.
+
 **Micro-icons for the specific options being compared** (`.flavor-icon`, 14x14,
 inline before the label, wherever that label appears — branch step text AND
 table row-labels): every option/outcome in the study gets one small hand-drawn
