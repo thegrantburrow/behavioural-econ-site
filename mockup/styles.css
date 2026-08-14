@@ -376,6 +376,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .toc-extra a:hover strong { text-decoration: underline; }
 .toc-extra a .toc-sub { color: rgba(251, 249, 244, 0.75); }
 
+.toc-extra-alt {
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+
+.toc-extra-tag-alt {
+  background: var(--line);
+  color: var(--muted);
+}
+
+.toc-extra-alt a { color: var(--ink); }
+.toc-extra-alt a .toc-sub { color: var(--muted); }
+
 @media (min-width: 640px) {
   .toc-extra { margin-top: 24px; padding: 18px 20px; }
 }
@@ -689,6 +702,25 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 @media (min-width: 640px) {
   .report { padding: 80px 0 88px; }
   .report-section { margin-top: 56px; padding-top: 48px; }
+}
+
+/* ---------- field note (stance piece, not a study) ---------- */
+.field-note { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+
+.field-note-tag {
+  display: inline-block;
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800;
+  padding: 3px 9px; border-radius: 999px;
+  background: var(--line); color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.field-note h3 { font-family: Georgia, serif; font-size: 1.2rem; margin: 0 0 14px; max-width: 30ch; }
+.field-note p { font-size: 0.92rem; color: rgba(30, 27, 22, 0.85); max-width: 62ch; margin: 0 0 12px; }
+.field-note .stance-note { font-style: italic; color: var(--muted); font-size: 0.85rem; }
+
+@media (min-width: 640px) {
+  .field-note { padding: 52px 0; }
 }
 
 /* ---------- explore ---------- */
