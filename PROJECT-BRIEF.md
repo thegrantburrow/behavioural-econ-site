@@ -120,13 +120,20 @@ Structure (`.flow-diagram` in styles.css), in order:
    going in, not just in hindsight.
 3. **Two branches** (`.flow-path`, terracotta top-border for condition A / teal
    for condition B) — each a tag label + the exact stimuli shown to that group.
-4. **Result** — a real bar chart (`.result-row`/`.result-bar-fill`) grouped by
-   condition, colour-matched to its branch. Read exact numbers off the source
-   paper/figure — never estimate or invent them. If only a test statistic is
-   reported (e.g. a chi-square) and the source has a results figure, render
-   the actual PDF page as an image (pymupdf `get_pixmap()` works even when
-   poppler-utils isn't installed) and read the bar heights directly rather
-   than leaving the finding unquantified.
+4. **Result** — a comparison table (`.result-table`), NOT grouped-by-condition
+   bar stacks (tried that first, it forces the reader to jump between two
+   separate blocks to compare the same product/outcome across conditions —
+   rejected). Rows = the outcomes being compared (e.g. each product, or each
+   measured behaviour); columns = condition A / arrow / condition B / swing.
+   Condition-A numbers coloured terracotta, condition-B teal (matching the
+   branch colours), and a mustard "swing" badge per row showing the delta
+   (e.g. "+28") so the direction and size of the effect is legible at a
+   glance without doing the subtraction yourself. Read exact numbers off the
+   source paper/figure — never estimate or invent them. If only a test
+   statistic is reported (e.g. a chi-square) and the source has a results
+   figure, render the actual PDF page as an image (pymupdf `get_pixmap()`
+   works even when poppler-utils isn't installed) and read the bar heights
+   directly rather than leaving the finding unquantified.
 5. **One bolded insight line** (`.flow-insight`) — a single sentence, not a
    paragraph.
 6. **Two validity badges** (`.v-badge.internal` / `.v-badge.external`) — one

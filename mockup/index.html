@@ -684,15 +684,34 @@
             </div>
             <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
             <div class="flow-result">
-              <div class="result-group group-a">
-                <span class="result-group-label">Result &mdash; cost condition</span>
-                <div class="result-row"><span class="result-label">Hershey's</span><div class="result-bar-track"><div class="result-bar-fill" style="width:14%; background:var(--terracotta);"></div></div><span class="result-pct">14%</span></div>
-                <div class="result-row"><span class="result-label">Lindt</span><div class="result-bar-track"><div class="result-bar-fill" style="width:36%; background:var(--terracotta);"></div></div><span class="result-pct">36%</span></div>
-              </div>
-              <div class="result-group group-b">
-                <span class="result-group-label">Result &mdash; free condition</span>
-                <div class="result-row"><span class="result-label">Hershey's</span><div class="result-bar-track"><div class="result-bar-fill" style="width:42%; background:var(--teal);"></div></div><span class="result-pct">42%</span></div>
-                <div class="result-row"><span class="result-label">Lindt</span><div class="result-bar-track"><div class="result-bar-fill" style="width:19%; background:var(--teal);"></div></div><span class="result-pct">19%</span></div>
+              <div class="result-table-wrap">
+                <table class="result-table">
+                  <thead>
+                    <tr>
+                      <th>Result</th>
+                      <th class="col-a">Cost</th>
+                      <th></th>
+                      <th class="col-b">Free</th>
+                      <th>Swing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-label">Hershey's</td>
+                      <td class="pct a">14%</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">42%</td>
+                      <td class="result-delta">+28</td>
+                    </tr>
+                    <tr>
+                      <td class="row-label">Lindt</td>
+                      <td class="pct a">36%</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">19%</td>
+                      <td class="result-delta">&minus;17</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <p class="flow-insight"><b>Only the zero moved.</b> The 14&cent; gap between the two chocolates was identical in both conditions &mdash; yet making the Hershey's free flipped which one people picked.</p>
@@ -1443,15 +1462,34 @@
             </div>
             <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
             <div class="flow-result">
-              <div class="result-group group-a">
-                <span class="result-group-label">Result &mdash; control</span>
-                <div class="result-row"><span class="result-label">Chose long task</span><div class="result-bar-track"><div class="result-bar-fill" style="width:25%; background:var(--terracotta);"></div></div><span class="result-pct">~25%</span></div>
-                <div class="result-row"><span class="result-label">Preferred pistachio</span><div class="result-bar-track"><div class="result-bar-fill" style="width:27%; background:var(--terracotta);"></div></div><span class="result-pct">~27%</span></div>
-              </div>
-              <div class="result-group group-b">
-                <span class="result-group-label">Result &mdash; medium</span>
-                <div class="result-row"><span class="result-label">Chose long task</span><div class="result-bar-track"><div class="result-bar-fill" style="width:53%; background:var(--teal);"></div></div><span class="result-pct">~53%</span></div>
-                <div class="result-row"><span class="result-label">Preferred pistachio</span><div class="result-bar-track"><div class="result-bar-fill" style="width:29%; background:var(--teal);"></div></div><span class="result-pct">~29%</span></div>
+              <div class="result-table-wrap">
+                <table class="result-table">
+                  <thead>
+                    <tr>
+                      <th>Result</th>
+                      <th class="col-a">Control</th>
+                      <th></th>
+                      <th class="col-b">Medium</th>
+                      <th>Swing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-label">Chose long task</td>
+                      <td class="pct a">~25%</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">~53%</td>
+                      <td class="result-delta">+28</td>
+                    </tr>
+                    <tr>
+                      <td class="row-label">Preferred pistachio</td>
+                      <td class="pct a">~27%</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">~29%</td>
+                      <td class="result-delta">+2</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <p class="flow-insight"><b>Choice moved, taste didn't.</b> In the control condition, task choice and flavour preference tracked closely together. Add points, and choice of the long task roughly doubled &mdash; while real preference for pistachio barely shifted at all.</p>
