@@ -266,11 +266,37 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .about .lede b { font-weight: 700; }
 
+.about-receipts {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  max-width: 58ch;
+}
+
+.about-receipts li {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding-left: 12px;
+  border-left: 2px solid var(--line);
+}
+
+.receipt-cause { color: var(--ink); }
+.receipt-arrow { color: var(--terracotta); font-weight: 700; }
+.receipt-effect { color: var(--muted); }
+.receipt-effect b { color: var(--ink); font-weight: 700; }
+
 .about .bio {
   font-size: 0.95rem;
   color: var(--muted);
   max-width: 58ch;
-  margin: 12px 0 0;
+  margin: 16px 0 0;
 }
 
 .credentials {
@@ -1181,14 +1207,11 @@ a.report-card:hover strong { color: var(--terracotta); }
 /* ---------- inline newsletter (compact, sits right after the hero so
    signing up doesn't require scrolling past all 36 principles to reach
    the full version at the very bottom of the page) ---------- */
-.newsletter-inline { padding: 4px 0 8px; }
+.newsletter-inline { padding: 20px 0 8px; }
 
-.newsletter-inline-card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--mustard);
-  border-radius: 14px;
-  padding: 18px 20px;
+.newsletter-inline-row {
+  padding-top: 20px;
+  border-top: 1px dashed var(--line);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1228,7 +1251,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 .newsletter-inline-form button:hover { background: var(--terracotta); }
 
 @media (min-width: 640px) {
-  .newsletter-inline-card { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
+  .newsletter-inline-row { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
   .newsletter-inline-form { flex-direction: row; flex-shrink: 0; }
   .newsletter-inline-form input { width: 220px; }
 }
