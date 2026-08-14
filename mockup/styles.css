@@ -152,7 +152,35 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- hero ---------- */
-.hero { padding: 28px 0 22px; }
+.hero { position: relative; padding: 28px 0 22px; overflow: hidden; }
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::before {
+  width: 340px;
+  height: 340px;
+  top: -160px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(178, 71, 43, 0.14), transparent 70%);
+}
+
+.hero::after {
+  width: 280px;
+  height: 280px;
+  bottom: -150px;
+  left: -90px;
+  background: radial-gradient(circle, rgba(217, 164, 65, 0.14), transparent 70%);
+}
+
+.hero .wrap { position: relative; z-index: 1; }
 
 @keyframes heroFadeUp {
   from { opacity: 0; transform: translateY(12px); }
@@ -168,10 +196,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   align-items: center;
   gap: 6px;
   font-size: 0.7rem;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 14px;
+  color: var(--terracotta-dim);
+  background: rgba(178, 71, 43, 0.1);
+  border-radius: 999px;
+  padding: 7px 14px 7px 11px;
+  margin-bottom: 18px;
   animation: heroFadeUp 0.6s ease-out both;
 }
 
@@ -272,6 +304,60 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   color: var(--muted);
   max-width: 58ch;
   margin: 16px 0 0;
+}
+
+/* ---------- proof strip: the one confident bold-colour block on the
+   page (per brief: "bold colour used in confident blocks, not just
+   accents") — three honest, checkable facts, not vanity metrics ---------- */
+.proof-strip { background: var(--ink); padding: 26px 0; }
+
+.proof-strip .wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.proof-item {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.proof-num {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 1.6ch;
+}
+
+.proof-item:nth-child(1) .proof-num { color: var(--terracotta); }
+.proof-item:nth-child(2) .proof-num { color: var(--mustard); }
+.proof-item:nth-child(3) .proof-num { color: var(--terracotta); }
+
+.proof-item p {
+  margin: 0;
+  color: rgba(251, 249, 244, 0.78);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.proof-item p b { color: var(--paper); font-weight: 700; }
+
+@media (min-width: 640px) {
+  .proof-strip { padding: 34px 0; }
+  .proof-strip .wrap { flex-direction: row; gap: 0; }
+  .proof-item {
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 0 24px;
+    border-left: 1px solid rgba(251, 249, 244, 0.14);
+  }
+  .proof-item:first-child { padding-left: 0; border-left: none; }
+  .proof-num { font-size: 2.4rem; }
 }
 
 .credentials {
@@ -1384,31 +1470,31 @@ a.report-card:hover strong { color: var(--terracotta); }
 .newsletter-inline-heading strong { font-size: 1rem; }
 
 .newsletter-inline-points {
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 10px;
 }
 
 .newsletter-inline-points li {
-  position: relative;
-  padding-left: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   font-size: 0.85rem;
   color: var(--muted);
   line-height: 1.5;
 }
 
-.newsletter-inline-points li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 7px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--terracotta);
+.newsletter-inline-points li b { color: var(--ink); font-weight: 700; }
+
+.newsletter-point-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--ink);
 }
 
 .newsletter-inline-form { display: flex; flex-direction: column; gap: 8px; }
