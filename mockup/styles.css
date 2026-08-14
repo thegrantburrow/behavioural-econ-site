@@ -757,6 +757,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .step-row { display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: rgba(30, 27, 22, 0.88); }
 .step-row .step-arrow { color: var(--muted); font-size: 0.72rem; flex-shrink: 0; }
 .step-row .step-cell.dash { color: var(--muted); min-width: 1.4em; text-align: center; }
+.flavor-icon { width: 14px; height: 14px; display: inline-block; vertical-align: -2px; margin-right: 3px; flex-shrink: 0; }
 
 .flow-result { margin-top: 6px; }
 .result-group { margin-bottom: 12px; }
