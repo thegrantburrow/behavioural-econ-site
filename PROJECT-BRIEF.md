@@ -229,6 +229,30 @@ its exact location inside the branch that has it — never just described in
 the badge alone. Three reinforcing layers: named in the split badge, marked
 inline in the branch, shown as a bar in the result.
 
+**Desktop/wide-viewport treatment — there is no "growing into desktop"
+for this component.** `.article-body { max-width: 62ch; }` is a pre-existing
+site-wide typography rule that caps `.flow-diagram`'s rendered width at
+~518px permanently — confirmed by direct measurement, identical at 1100px
+and 1600px viewport widths. So the approach is NOT "give the grid bigger
+tracks at a wider breakpoint" (tried that first with a naive
+`@media (min-width: 480px)` bump to `grid-template-columns`; re-measuring
+the actual computed column widths afterward showed the outcome column
+still resolved to ~35px — far too narrow for "pistachio" — because 5 grid
+tracks plus 4 gaps is inherently too many discrete segments for a
+permanently-capped ~518px width, no matter how generously each track is
+sized). The real fix at any width is to reduce the *track count*, not
+enlarge it: `.step-rows` went from 5 tracks (time / arrow / mid / arrow /
+outcome) to 3 (time / mid / outcome), with each arrow moved from being its
+own grid column to a `.cell-arrow` span living *inside* the time cell and
+the mid cell (`.step-cell` is `display:flex` internally, so the arrow sits
+right after that cell's content without needing its own track or gap).
+That alone reclaimed enough width for the outcome column to comfortably
+fit "pistachio" at both mobile and the 62ch desktop ceiling. What a wider
+viewport *does* still buy this component: room to stop abbreviating ("6
+min" instead of "6m", via a `.lbl-short`/`.lbl-full` pair toggled at
+`min-width: 480px`) and more generous padding/font-size/icon-size — real
+breathing room, just not a growing grid.
+
 Applied so far: Zero Price Effect, Medium Maximization. Both linked from a
 dedicated "Experiment Teardown" callout in the Contents section
 (`#experiment-teardowns`, mustard-toned to match the pattern's own accent
