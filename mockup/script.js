@@ -15,6 +15,25 @@
 })();
 
 (function () {
+  // Homepage intro: a live anchoring demo the reader clicks themselves,
+  // instead of a stat about someone else's study.
+  var toggle = document.getElementById('demoToggle');
+  var old = document.getElementById('demoOld');
+  var stage = document.getElementById('demoStage');
+  var reveal = document.getElementById('demoReveal');
+  if (!toggle || !old || !stage || !reveal) return;
+
+  var anchorRemoved = false;
+  toggle.addEventListener('click', function () {
+    anchorRemoved = !anchorRemoved;
+    old.hidden = anchorRemoved;
+    stage.classList.toggle('anchor-removed', anchorRemoved);
+    toggle.textContent = anchorRemoved ? 'Add the $40 back →' : 'Remove the $40 →';
+    reveal.hidden = !anchorRemoved;
+  });
+})();
+
+(function () {
   // Principles archive page: search box + category chips both filter the
   // same single list of principle rows (not two separate representations
   // of the 36 principles — that duplication was part of what made the

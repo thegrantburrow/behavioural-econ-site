@@ -51,11 +51,17 @@
 <section class="about" id="intention">
   <div class="wrap">
     <p class="lede">This is a field guide to the forces already shaping how people decide — <b>so you can use them deliberately</b>, not by accident.</p>
-    <ul class="about-receipts">
-      <li><span class="receipt-cause">A price drops from 1&cent; to $0</span><span class="receipt-arrow" aria-hidden="true">&rarr;</span><span class="receipt-effect">pick rate doesn't inch up, it triples: <b>14% &rarr; 42%</b></span></li>
-      <li><span class="receipt-cause">A jam display grows from 6 flavours to 24</span><span class="receipt-arrow" aria-hidden="true">&rarr;</span><span class="receipt-effect">purchases don't multiply, they collapse: <b>30% &rarr; 3%</b></span></li>
-      <li><span class="receipt-cause">One piece of litter sits in an otherwise clean lot</span><span class="receipt-arrow" aria-hidden="true">&rarr;</span><span class="receipt-effect">littering nearly quadruples: <b>11% &rarr; 41%</b></span></li>
-    </ul>
+
+    <div class="live-demo" id="anchorDemo">
+      <p class="live-demo-prompt">Try it. Which price below feels like the better deal?</p>
+      <div class="live-demo-stage" id="demoStage">
+        <span class="demo-price-old" id="demoOld">$40</span>
+        <span class="demo-price-new">$29</span>
+        <button type="button" class="live-demo-toggle" id="demoToggle">Remove the $40 &rarr;</button>
+      </div>
+      <p class="live-demo-reveal" id="demoReveal" role="status" hidden>The $29 never moved. Only the crossed&#8209;out $40 did &mdash; and most of the "deal" feeling left with it. That first number wasn't information. It was an anchor, and you judged the real price against it anyway.</p>
+    </div>
+
     <p class="bio">Real signage, real menus, real checkouts &mdash; each one broken down to the actual study behind it, not just the theory.</p>
   </div>
 </section>
@@ -64,13 +70,13 @@
   <div class="wrap">
     <div class="newsletter-inline-row">
       <div class="newsletter-inline-text">
-        <strong>Get the next field note by email</strong>
-        <span>One real example per note. No spam, no sleazy tricks.</span>
+        <strong>Get the next teardown before it's added to this page</strong>
+        <span>Same format as above &mdash; one real study, broken down to the actual mechanism and the actual numbers. See a lever clearly enough and you stop guessing what changes a customer's decision, and start designing for it. No schedule, no drip sequence &mdash; sent only when there's a teardown worth sending.</span>
       </div>
       <form class="newsletter-inline-form" onsubmit="return false;">
         <label for="email-input-inline" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Email address</label>
         <input id="email-input-inline" type="email" placeholder="you@example.com" required>
-        <button type="submit">Subscribe</button>
+        <button type="submit">Send me the next one</button>
       </form>
     </div>
   </div>
