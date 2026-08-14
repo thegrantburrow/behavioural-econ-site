@@ -92,6 +92,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   font-size: 0.95rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
 }
 
 .menu-toggle {
@@ -293,10 +295,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .credentials { flex-direction: row; flex-wrap: wrap; gap: 28px; margin-top: 28px; }
 }
 
-/* ---------- contents / index ---------- */
-.toc { padding: 22px 0 26px; scroll-margin-top: 64px; }
-
-.toc .label {
+/* ---------- shared section eyebrow label ---------- */
+.label {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -304,6 +304,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   margin-bottom: 8px;
   display: block;
 }
+
+/* ---------- category filter chips (used on the Principles archive page) ---------- */
 
 .toc-intro {
   font-size: 0.85rem;
@@ -323,11 +325,11 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 @media (min-width: 560px) {
-  .toc-tabs { grid-template-columns: repeat(3, 1fr); }
+  .toc-tabs { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (min-width: 900px) {
-  .toc-tabs { grid-template-columns: repeat(6, 1fr); }
+  .toc-tabs { grid-template-columns: repeat(7, 1fr); }
 }
 
 .toc-tab {
@@ -381,191 +383,178 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   color: var(--paper);
 }
 
-.toc-panel[hidden] { display: none; }
+/* ---------- featured principles (homepage curated set) ---------- */
+.featured { padding: 22px 0 28px; scroll-margin-top: 64px; }
 
-.toc-panel-title {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.02rem;
-  font-weight: 700;
-  color: var(--ink);
-  margin: 0 0 10px;
-}
-
-.toc-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.featured-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2px;
-}
-
-@media (min-width: 640px) {
-  .toc-list { grid-template-columns: 1fr 1fr; column-gap: 32px; }
-}
-
-.toc-list a {
-  display: flex;
-  align-items: baseline;
   gap: 10px;
-  padding: 9px 2px;
-  text-decoration: none;
-  color: var(--ink);
-  font-size: 0.92rem;
-  border-bottom: 1px dashed var(--line);
-  min-height: 44px;
+  margin-top: 16px;
 }
 
-.toc-list a:hover { color: var(--terracotta); }
-
-.toc-num {
-  font-family: Georgia, serif;
-  color: var(--muted);
-  font-size: 0.85rem;
-  flex-shrink: 0;
-  width: 1.6em;
+@media (min-width: 560px) {
+  .featured-grid { grid-template-columns: 1fr 1fr; }
 }
 
-.toc-sub { font-size: 0.82em; color: var(--muted); }
-
-.toc-extra {
-  margin-top: 18px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  background: var(--teal);
+@media (min-width: 900px) {
+  .featured-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-.toc-extra-tag {
-  display: inline-block;
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 800;
-  padding: 3px 9px;
-  border-radius: 999px;
-  background: var(--mustard);
-  color: var(--ink);
-  margin-bottom: 10px;
-}
-
-.toc-extra a {
+.featured-card {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  text-decoration: none;
-  color: var(--paper);
-  min-height: 44px;
-  justify-content: center;
-}
-
-.toc-extra a strong { font-size: 1rem; }
-.toc-extra a:hover strong { text-decoration: underline; }
-.toc-extra a .toc-sub { color: rgba(251, 249, 244, 0.75); }
-
-.toc-extra-alt {
+  gap: 6px;
   background: var(--card);
   border: 1px solid var(--line);
-}
-
-.toc-extra-tag-alt {
-  background: var(--line);
-  color: var(--muted);
-}
-
-.toc-extra-alt a { color: var(--ink); }
-.toc-extra-alt a .toc-sub { color: var(--muted); }
-
-.toc-extra-changed {
-  background: var(--mustard);
-  color: var(--ink);
-  scroll-margin-top: 64px;
-}
-
-.toc-extra-tag-changed {
-  background: var(--ink);
-  color: var(--paper);
-}
-
-.toc-changed-intro {
-  display: block;
-  color: rgba(30, 27, 22, 0.75);
-  margin-bottom: 10px;
-}
-
-.toc-changed-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.toc-changed-list a {
-  display: inline-block;
-  padding: 7px 12px;
-  background: var(--card);
-  border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--ink);
+  border-radius: 14px;
+  padding: 18px 20px;
   text-decoration: none;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
+  color: var(--ink);
+  transition: border-color 0.15s ease;
 }
 
-.toc-changed-list a:hover { background: var(--ink); color: var(--paper); }
+.featured-card:hover { border-color: var(--terracotta); }
+.featured-card .principle-icon { width: 24px; height: 24px; color: var(--ink); }
+.featured-card h3 { font-size: 1.05rem; margin: 4px 0 0; }
+.featured-card p { font-size: 0.85rem; color: var(--muted); margin: 0; line-height: 1.5; }
 
-@media (min-width: 640px) {
-  .toc-extra { margin-top: 24px; padding: 18px 20px; }
-}
-
-/* ---------- practice ---------- */
-.practice { padding: 22px 0 28px; scroll-margin-top: 64px; }
-
-.practice .label {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  margin-bottom: 14px;
-  display: block;
-}
-
-.practice-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px 4px;
-}
-
-.practice-item {
-  flex: 0 0 100px;
+.featured-cta {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--line);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 7px;
-  padding: 8px 4px;
+  gap: 14px;
+}
+
+.principles-search-cta { display: flex; gap: 8px; }
+
+.principles-search-cta input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-family: inherit;
+  min-height: 44px;
+}
+
+.principles-search-cta button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  min-height: 44px;
+  flex-shrink: 0;
+}
+
+.principles-search-cta button:hover { background: var(--terracotta); }
+
+.featured-browse-all {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--terracotta);
+  text-decoration: none;
+}
+
+.featured-browse-all:hover { text-decoration: underline; }
+
+@media (min-width: 560px) {
+  .featured-cta { flex-direction: row; align-items: center; justify-content: space-between; }
+  .principles-search-cta { max-width: 340px; }
+}
+
+/* ---------- reports row (Reading the Research / Ethics of Not
+   Experimenting / Experiment Teardowns) — same card template, small
+   accent-colour top border only, so the set reads as one designed system
+   instead of three different full-colour blocks ---------- */
+.reports-row { padding: 22px 0 28px; scroll-margin-top: 64px; }
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@media (min-width: 760px) {
+  .reports-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+}
+
+.report-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent, var(--terracotta));
+  border-radius: 14px;
+  padding: 18px 20px;
   text-decoration: none;
   color: var(--ink);
+  transition: border-color 0.15s ease;
+}
+
+a.report-card:hover { border-color: var(--line); }
+a.report-card:hover strong { color: var(--terracotta); }
+
+.report-card.accent-teal { --accent: var(--teal); }
+.report-card.accent-mustard { --accent: var(--mustard); }
+.report-card.accent-terracotta { --accent: var(--terracotta); }
+
+.report-card-tag {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.report-card strong { font-size: 1.05rem; transition: color 0.15s ease; }
+.report-card-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+.report-card-links { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 6px; font-size: 0.8rem; }
+.report-card-links a { color: var(--terracotta); text-decoration: underline; }
+
+/* ---------- principles archive page (search + filter + full list) ---------- */
+.principles-index { padding: 28px 0 40px; scroll-margin-top: 64px; }
+
+.principles-index-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 6vw, 2.2rem);
+  margin: 0 0 8px;
+}
+
+.principles-search { margin-bottom: 16px; }
+
+.principles-search input {
+  width: 100%;
+  padding: 12px 16px;
   border-radius: 10px;
-  min-height: 44px;
-  transition: background-color 0.15s ease;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 1rem;
+  font-family: inherit;
+  min-height: 48px;
 }
 
-.practice-item:hover, .practice-item:active { background: rgba(178, 71, 43, 0.06); }
-.practice-item .icon { width: 26px; height: 26px; }
-.practice-item span.label { font-size: 0.76rem; font-weight: 700; line-height: 1.2; }
-
-@media (min-width: 640px) {
-  .practice { padding: 40px 0 56px; }
-  .practice-grid { gap: 12px; }
-  .practice-item { flex-basis: 130px; }
-  .practice-item .icon { width: 30px; height: 30px; }
-  .practice-item span.label { font-size: 0.82rem; }
+.principles-empty {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding: 20px 0;
+  text-align: center;
 }
+
+.principles-list { margin-top: 6px; }
 
 /* ---------- principle sections ---------- */
 .principle {

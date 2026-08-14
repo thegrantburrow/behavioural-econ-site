@@ -15,27 +15,60 @@
 })();
 
 (function () {
-  var tabs = document.querySelectorAll('.toc-tab');
-  var panels = document.querySelectorAll('.toc-panel');
-  if (!tabs.length || !panels.length) return;
+  // Principles archive page: search box + category chips both filter the
+  // same single list of principle rows (not two separate representations
+  // of the 36 principles — that duplication was part of what made the
+  // homepage feel like "everything, twice"). No-ops on any page that
+  // doesn't have this markup (i.e. the homepage).
+  var searchInput = document.getElementById('principlesSearch');
+  var tabs = document.querySelectorAll('#principlesFilterTabs .toc-tab');
+  var rows = document.querySelectorAll('.principles-list > section.principle');
+  var emptyMsg = document.getElementById('principlesEmpty');
+  if (!searchInput || !tabs.length || !rows.length) return;
+
+  var activeCategory = 'all';
+
+  function rowText(row) {
+    if (row.dataset.searchText) return row.dataset.searchText;
+    var title = row.querySelector('h3');
+    var def = row.querySelector('.definition');
+    var text = ((title ? title.textContent : '') + ' ' + (def ? def.textContent : '')).toLowerCase();
+    row.dataset.searchText = text;
+    return text;
+  }
+
+  function applyFilter() {
+    var query = searchInput.value.trim().toLowerCase();
+    var visibleCount = 0;
+    rows.forEach(function (row) {
+      var matchesCategory = activeCategory === 'all' || row.getAttribute('data-theme') === activeCategory;
+      var matchesSearch = query === '' || rowText(row).indexOf(query) !== -1;
+      var visible = matchesCategory && matchesSearch;
+      row.hidden = !visible;
+      if (visible) visibleCount++;
+    });
+    if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+  }
 
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
-      var target = tab.getAttribute('data-toc-target');
+      activeCategory = tab.getAttribute('data-filter-target');
       tabs.forEach(function (t) {
         var active = t === tab;
         t.classList.toggle('active', active);
         t.setAttribute('aria-selected', active ? 'true' : 'false');
       });
-      panels.forEach(function (p) {
-        if (p.getAttribute('data-toc-panel') === target) {
-          p.removeAttribute('hidden');
-        } else {
-          p.setAttribute('hidden', '');
-        }
-      });
+      applyFilter();
     });
   });
+
+  searchInput.addEventListener('input', applyFilter);
+
+  var urlQuery = new URLSearchParams(window.location.search).get('q');
+  if (urlQuery) {
+    searchInput.value = urlQuery;
+    applyFilter();
+  }
 })();
 
 (function () {

@@ -31,28 +31,88 @@ real examples encountered in daily life, plus original research/case studies.
   Unloan (bold colour blocks, dynamic layout), Vox (editorial illustration),
   New Yorker cover illustration (flat/detailed vector scenes, NOT simple icons)
 
-## Homepage structure (current — superseded the original "See it in
-practice" version below once the page grew to 36 principles)
-1. Hero — mission statement above
-2. Compact inline newsletter signup (`.newsletter-inline`, see below)
-3. Contents — 6 behavioural-theme category chips + filtered list (see below)
-4. One collapsed-by-default row per principle, expanding in place on click
-   (`.principle-details`, see below) — icon, number, title, one-line
-   definition always visible; illustration + full research article only
-   render once opened
-5. "More to explore" — Case Studies / Articles / Insights as secondary nav
-6. Full newsletter signup (repeated, more prominent), footer
+## Site is now two pages, not one (`index.html` + `principles.html`)
 
-~~Original layout~~ (removed once it became redundant — see
-"Principle sections" below for why): a "See it in practice" section, a
-compact icon row linking to all 36 principles, used to sit between
-Contents and the principle sections. Once Contents grew into a proper
-categorised browser with counts, this became a second, fully duplicate
-index of the same 36 items — and worse, it physically sat between
-Contents and every principle section, so every single click-through had
-to scroll past it. Removed entirely; the top-nav "Principles" link and
-the footer link that used to point to `#practice` now point to
-`#contents` instead.
+Every earlier iteration of the homepage (single icon-grid nav → categorised
+Contents chips + inline lists → collapsed-by-default accordions) was still
+fundamentally trying to make one page do two jobs: pitch the site *and*
+be a comprehensive index of 36 things. No amount of compacting individual
+rows fixes that — a page whose job is "list all 36 principles" will always
+read as "a list of everything," collapsed rows or not. The actual fix was
+to stop trying to do both on one page.
+
+**`index.html` (homepage)** — a pitch, not an index:
+1. Hero — mission statement
+2. About/lede
+3. Compact inline newsletter signup (`.newsletter-inline`)
+4. **Featured** (`#featured`) — 6 hand-picked principles as preview cards
+   (icon, title, one-line definition, link to the full entry on the
+   archive page) — chosen for topic spread across all 6 themes and
+   strength of content (real photos and/or Experiment Teardowns where
+   possible): Anchoring, Decoy Effect, Zero Price Effect, Social Proof,
+   Medium Maximization, Sludge
+5. A search box (submits to `principles.html?q=...`, which pre-fills and
+   auto-applies the filter on load) plus a plain "Browse all 36
+   principles →" link — both lead to the archive page, they just serve
+   people who already know what they want (search) vs. people who want to
+   browse (browse-all)
+6. **More ways in** (`#reports-row`) — the 3 special-report callouts,
+   redesigned (see below)
+7. Reading the Research / Ethics of Not Experimenting (full long-form
+   content, unchanged, still live here) / Explore / About / full
+   newsletter signup / footer
+
+**`principles.html`** (new page) — the actual index, allowed to be long
+because that's its whole job:
+1. Page intro + a prominent search input (`#principlesSearch`, live
+   client-side filter, no page reload)
+2. Category filter chips — same visual language as the old Contents tabs
+   (`.toc-tab`), now with an "All" option added (7 total, grid bumped to
+   `repeat(4,1fr)` / `repeat(7,1fr)` at wider breakpoints to fit)
+3. **One single list of all 36 principles** — each the same collapsed-by-
+   default `.principle-details` accordion built earlier, now tagged with
+   `data-theme="..."` for filtering. Critically, this is the *only*
+   representation of the 36 principles left anywhere on the site — the
+   old design had two (a compact Contents link + a full section further
+   down); collapsing that duplication down to one list, filtered in place
+   by search/category, is what actually killed the "menu lists so many
+   things, then you have every single symbol and principle again" feeling.
+
+Filtering logic (`script.js`): search text and the active category chip
+combine (`AND`) over the same 36 rows — `row.hidden` toggled directly,
+no swap-between-panels indirection. `?q=` in the URL (set by the
+homepage's search form via a plain GET) is read on load and applied
+immediately, so the homepage search box and the archive page's own search
+box are really the same feature with two entry points.
+
+Cross-page links: anywhere the homepage links into principle content, it's
+`principles.html#slug`; anywhere the archive page links back to homepage-
+only sections (nav, footer, "see also" references from the reports into
+principles — wait, those go the other direction, from a report *on* the
+homepage into a principle *on* the archive page, so those became
+`principles.html#slug` too), it's `index.html#slug`. Same-page anchors
+(a principle's own "see also" link to another principle) needed no change
+since both sides moved to `principles.html` together.
+
+**Special reports, redesigned as an equal row of 3** (`.reports-grid` >
+`.report-card`): previously three different full-saturated-colour blocks
+(teal / mustard-black / white) stacked vertically with no shared visual
+logic — flagged directly as "look random." Fixed with the same card
+template for all three (white background, same border/radius/padding) and
+a thin colour-coded top border as the *only* differentiator (teal /
+mustard / terracotta) — reuses the accent-bar language already established
+for `.article-hook` and `.newsletter-inline` rather than inventing a new
+treatment. Laid out as an actual 3-column grid at 760px+, stacked on
+mobile.
+
+~~Superseded~~: the "See it in practice" icon grid (removed once
+redundant with Contents — see prior note in git history) and the 6-tab
+Contents-chips-swap-inline-lists component (removed and replaced by the
+archive page above) both no longer exist. `.toc-tab`/`.toc-tab-label`/
+`.toc-tab-count` CSS survives and is reused for the archive page's filter
+chips; `.toc-panel`, `.toc-list`, `.toc-extra*`, `.toc-changed-*`,
+`.practice*` were all dead code after this change and have been removed
+from `styles.css`.
 
 ## The 5 launch principles (final, precisely researched)
 Originally 6 were drafted; two were merged after realising they illustrated the
@@ -332,41 +392,30 @@ It's a copy, not a live reference, though — if a psychology paragraph gets
 edited later, its `.teaser-text` copy in the `<summary>` needs the same
 edit or the preview will drift from the real opening line.
 
-## Contents section — 6 behavioural-theme tabs, click to filter the list below
+## Category filter chips — history (component now lives on principles.html)
 
-With 36 principles, a single flat `<ol>` stopped being scannable. Went
-through four iterations before landing on the current one:
-1. All 6 theme groups stacked vertically, always fully expanded —
-   rejected, still too much permanently-visible content on mobile.
-2. Chips that `flex-wrap` onto multiple rows — rejected after seeing it
-   rendered on a real phone: wrapped chips of different label lengths
-   produce a ragged, uneven grid (a short chip like "Social Influence"
-   sits under a long one like "Judgment & Memory" with no shared edges to
-   align to) that reads as scattered rather than deliberate, exactly the
-   opposite of "tight."
-3. A single-row horizontal scroll strip (`overflow-x:auto` +
-   `scroll-snap-type`, with a fade hint only shown when actually
-   scrollable) — fixed the raggedness, but rejected once tested on a real
-   phone: requiring a swipe just to see the rest of the categories is
-   itself bad UX, independent of how "tight" the row looked.
-4. **Current: an equal-width responsive grid, no scrolling at all.**
-   `.toc-tabs` is `display:grid; grid-template-columns: repeat(2, 1fr)`
-   (3 columns at 560px+, 6 — one full row — at 900px+), so every chip
-   stretches to fill its cell rather than being sized to its own label.
-   This is what actually fixes the raggedness (real grid alignment, not
-   content-sized flex items) *and* keeps all 6 categories visible with no
-   interaction needed to see them. Each `.toc-tab` uses
-   `justify-content: space-between` internally so the label sits left and
-   the count badge sits right, filling the cell tidily. The scroll-fade
-   CSS/JS from iteration 3 was removed as dead code once scrolling went
-   away entirely.
+This component went through several rounds before the underlying page
+structure changed (see "Site is now two pages" above for the current
+architecture — this section preserves *why* the chip design itself looks
+the way it does, since that reasoning still applies on the archive page):
+1. All 6 theme groups stacked vertically, always fully expanded — too
+   much permanently-visible content.
+2. Chips that `flex-wrap` onto multiple rows — rejected on a real phone:
+   different-length labels produce a ragged, unaligned grid.
+3. A horizontal scroll strip — fixed the raggedness, but requiring a
+   swipe just to see the rest of the categories is itself bad UX.
+4. **Landed on: an equal-width responsive grid, no scrolling.**
+   `.toc-tabs` is `display:grid` with equal-width columns (real grid
+   alignment, not content-sized flex items), and every chip carries a
+   visible count badge (`.toc-tab-count`) so it's obvious there's real
+   content behind each one, not just a label.
 
-Clicking a chip swaps which theme's list is showing in `.toc-panels`
-below — only one `.toc-panel` visible at a time, matching a standard tab
-pattern (`role="tab"` / `role="tabpanel"`, `hidden` attribute toggled in
-`script.js` rather than a CSS-only approach, since this needs actual
-state — which one panel is active). Each principle keeps its original
-number (01&ndash;36) rather than being renumbered per group:
+This grid/chip styling is what got reused directly for the archive page's
+filter row (now 7 chips — All + 6 themes — see above), just with the
+interaction changed from "swap which panel of links is showing" to
+"filter the one shared list of full principle rows." The theme grouping
+itself (vs. a customer-journey-stage grouping) was decided earlier and
+still holds:
 - Judgment, Memory &amp; Perception of Evidence (10)
 - Choice Architecture &amp; Decision-Making (8)
 - Pricing &amp; Value Perception (6)
@@ -374,50 +423,20 @@ number (01&ndash;36) rather than being renumbered per group:
 - Motivation &amp; Goal Pursuit (5)
 - Friction &amp; Transparency (4)
 
-Decisions worth keeping if this list grows:
-- **Every chip carries a visible count badge** (`.toc-tab-count`, e.g.
-  "Judgment & Memory 10") — this was the direct fix for "make it obvious
-  there are detailed articles in here to browse": the count is concrete
-  proof there's real content behind the click, and giving every chip the
-  same two-part anatomy (label + numeric pill) is also what makes the row
-  read as one consistent, designed system rather than assorted buttons.
-- **An explicit one-line intro** (`.toc-intro`, directly under the
-  "Contents" eyebrow) states what the section is and how to use it:
-  "36 principles, grouped by the underlying psychological mechanism — tap
-  a category to browse its articles." Added because the interaction
-  wasn't self-explanatory from the chips alone.
-- **Chips carry a short label, panels carry the full theme name.** The
-  button text is intentionally shorter ("Choice Architecture") than the
-  full section heading shown once a tab is active ("Choice Architecture &amp;
-  Decision-Making") — chips need to stay tight and scannable, so they
-  don't carry the full title.
-- **First tab defaults active, not an empty state.** So there's never a
-  moment with no list visible — avoids an extra "select a category" step
-  before the page shows anything useful.
-- **`.toc` needed `scroll-margin-top: 64px` added** — found missing while
-  testing (every other major section — `.about`, `.principle`,
-  `.practice`, `.field-note` — already has it) so jumping/scrolling to
-  Contents was hiding its heading behind the sticky nav. Unrelated to the
-  chip redesign itself but surfaced by testing it.
-- **Themes, not customer-journey stage.** A journey-stage grouping
-  (Awareness / Consideration / Checkout / Onboarding / Retention) was
-  considered and rejected as the underlying grouping — it works well for
-  the pricing/UX principles but roughly 10 general judgment-and-memory
-  principles (Noise, Hindsight Bias, Illusion of Control, Survivorship
-  Bias, etc.) aren't tied to a specific funnel step and would get
-  force-fit into an artificial "reflection" bucket. Themes give every
-  principle an unforced home. Journey stage is still a good *secondary*
-  lens if wanted later (e.g. a second row of filter chips) rather than a
-  full restructure.
-- **Numbers stay with the principle, not the group.** Each principle's
-  number is hardcoded into its own section too (`.principle-number`, e.g.
-  Not Enough Choice is permanently "06") — renumbering to be sequential
-  within each theme would mean touching all 36 section headers just to
-  keep two numbering schemes in sync. Numbers appearing out of sequence
-  within a themed panel (e.g. 01, 11, 12, 19... in one list) is expected
-  and fine; they're identifiers, not a reading order.
+Themes were kept over a journey-stage grouping (Awareness / Consideration
+/ Checkout / Onboarding / Retention) because roughly 10 general judgment-
+and-memory principles (Noise, Hindsight Bias, Illusion of Control,
+Survivorship Bias, etc.) aren't tied to a specific funnel step and would
+get force-fit into an artificial bucket. Themes give every principle an
+unforced home.
 
 ## Principle sections — collapsed by default, expand in place on click
+
+(Note: this pattern was built while all 36 principles still lived on the
+homepage. That page has since split into `index.html` + `principles.html`
+— see "Site is now two pages" above — and all 36 of these collapsed
+sections now live on `principles.html`. The collapse/expand mechanics
+below are unchanged and still exactly how each row behaves there.)
 
 With 36 full principle sections always rendered open, the homepage was
 ~19,000px tall on mobile and jumping from Contents to any given principle
