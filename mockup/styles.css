@@ -392,6 +392,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .toc-extra-changed {
   background: var(--mustard);
   color: var(--ink);
+  scroll-margin-top: 64px;
 }
 
 .toc-extra-tag-changed {
@@ -749,6 +750,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .flow-step:last-child { margin-bottom: 0; }
 .flow-step-icon { width: 20px; height: 20px; color: var(--ink); flex-shrink: 0; }
 .flow-step-label { font-size: 0.8rem; color: rgba(30, 27, 22, 0.88); }
+
+.flow-step.step-rows-wrap { align-items: flex-start; }
+.flow-step.step-rows-wrap .flow-step-icon { margin-top: 3px; }
+.step-rows { display: flex; flex-direction: column; gap: 5px; }
+.step-row { display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: rgba(30, 27, 22, 0.88); }
+.step-row .step-arrow { color: var(--muted); font-size: 0.72rem; flex-shrink: 0; }
+.step-row .step-cell.dash { color: var(--muted); min-width: 1.4em; text-align: center; }
 
 .flow-result { margin-top: 6px; }
 .result-group { margin-bottom: 12px; }

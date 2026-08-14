@@ -105,6 +105,60 @@ genuine AI-based style transfer rather than OpenCV approximations.
   glasses/ponytail standing upright, one bent forward into a low tub, a
   sharp-focus hand reaching in from the foreground
 
+## "Experiment Teardown" pattern — design rules (read before adding another)
+
+A reusable component inside a principle's `.study-card`, showing exactly how the
+underlying study was run — visually, not as prose. Named **"Experiment Teardown"**
+(rejected names along the way: "How the study was actually run" as plain text,
+"What Changed" — both read as too generic/prose-y once seen on the page).
+
+Structure (`.flow-diagram` in styles.css), in order:
+1. **Recruited** — one node, participant count, people icon.
+2. **The split badge** (`.flow-split-badge`, mustard pill) — names the ONE
+   manipulated variable in plain words, e.g. "Only a points system was added."
+   This is stated before the branches so the reader knows what to look for
+   going in, not just in hindsight.
+3. **Two branches** (`.flow-path`, terracotta top-border for condition A / teal
+   for condition B) — each a tag label + the exact stimuli shown to that group.
+4. **Result** — a real bar chart (`.result-row`/`.result-bar-fill`) grouped by
+   condition, colour-matched to its branch. Read exact numbers off the source
+   paper/figure — never estimate or invent them. If only a test statistic is
+   reported (e.g. a chi-square) and the source has a results figure, render
+   the actual PDF page as an image (pymupdf `get_pixmap()` works even when
+   poppler-utils isn't installed) and read the bar heights directly rather
+   than leaving the finding unquantified.
+5. **One bolded insight line** (`.flow-insight`) — a single sentence, not a
+   paragraph.
+6. **Two validity badges** (`.v-badge.internal` / `.v-badge.external`) — one
+   sentence each, not the old paragraph-length strength/weakness writeup.
+
+Critical layout rule — **row parity**: the two condition branches must wrap
+to the same shape. If one condition's content is inherently longer (e.g. a
+medium/token condition has an extra step — task → token → outcome — that the
+control condition skips), don't just append a parenthetical explaining the
+absence; restructure BOTH sides into the same fixed-column row grid
+(`.step-rows`/`.step-row`), using an em-dash (`.step-cell.dash`) as the
+placeholder on the side that lacks that step. Same column count, same row
+count, both sides — so the manipulated variable is not just named and
+highlighted, but occupies the exact same visual position in both branches,
+making the comparison scannable at a glance rather than read as two
+differently-shaped paragraphs.
+
+The manipulated variable gets highlighted (`.diff-highlight`, mustard) at
+its exact location inside the branch that has it — never just described in
+the badge alone. Three reinforcing layers: named in the split badge, marked
+inline in the branch, shown as a bar in the result.
+
+Applied so far: Zero Price Effect, Medium Maximization. Both linked from a
+dedicated "Experiment Teardown" callout in the Contents section
+(`#experiment-teardowns`, mustard-toned to match the pattern's own accent
+colour) and from a top-nav link — promote more principles into that list as
+they get the treatment, don't build a new index each time.
+
+New principles get this by default going forward (per earlier scope
+decision); the ~34 other existing articles keep their plain strength/weakness
+format unless specifically flagged for a retrofit.
+
 ## Open decisions / next steps
 - Get eachlabs style-transfer skill actually generating output on the gelato
   photo and the 6 principle photos
