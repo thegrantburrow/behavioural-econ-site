@@ -139,6 +139,20 @@ Structure (`.flow-diagram` in styles.css), in order:
 6. **Two validity badges** (`.v-badge.internal` / `.v-badge.external`) — one
    sentence each, not the old paragraph-length strength/weakness writeup.
 
+**Universal control/treatment symbols** (`.condition-icon`, 13x13, ALWAYS present —
+this is the one that actually scales to every future teardown, unlike the
+product-specific icons below which only apply when the study happens to have
+nameable comparable items). Two fixed symbols, reused unchanged regardless of
+topic:
+- Control/baseline condition (path-a, terracotta): a plain outline circle.
+- Treatment/manipulated condition (path-b, teal): the same circle with a
+  small plus inside it — a "something was added" mark.
+Place both inline before the label, everywhere that condition is named: the
+branch's `.path-tag` AND the result table's column header (`th.col-a`/
+`th.col-b`). `stroke="currentColor"` so each inherits its branch's colour
+automatically from the existing `.path-a`/`.path-b`/`.col-a`/`.col-b` CSS —
+don't hardcode the colour on the icon itself.
+
 **Micro-icons for the specific options being compared** (`.flavor-icon`, 14x14,
 inline before the label, wherever that label appears — branch step text AND
 table row-labels): every option/outcome in the study gets one small hand-drawn
