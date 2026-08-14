@@ -327,11 +327,30 @@ min" instead of "6m", via a `.lbl-short`/`.lbl-full` pair toggled at
 `min-width: 480px`) and more generous padding/font-size/icon-size — real
 breathing room, just not a growing grid.
 
-Applied so far (6 of 36): Zero Price Effect, Medium Maximization, Choice
-Overload, Ordering Effects, Social Norm, Peak-End Rule. All linked from the
-"Experiment Teardowns" report card on the homepage (`#experiment-teardowns`)
-and from a top-nav link — promote more principles into that list as they
-get the treatment, don't build a new index each time.
+Applied so far (7 of 36): Zero Price Effect, Medium Maximization, Choice
+Overload, Ordering Effects, Social Norm, Peak-End Rule, Tradeoff
+Transparency. All linked from the "Experiment Teardowns" report card on the
+homepage (`#experiment-teardowns`) and from a top-nav link — promote more
+principles into that list as they get the treatment, don't build a new
+index each time.
+
+**Tradeoff Transparency's citation was replaced, not just supplemented.**
+It originally cited Thaler, Sunstein & Balz (2013) — the RECAP disclosure
+proposal, explicitly excluded from Teardown consideration above as "a policy
+proposal chapter, not one experiment." That's still true of that source; it
+was swapped for a real controlled field experiment that actually tests the
+same idea: Buell, R. W., & Choi, M. (2025), "Improving Customer
+Compatibility with Tradeoff Transparency," *Management Science*, 71(2),
+1335–1355 — a randomised field experiment (n=393,036) run inside
+Commonwealth Bank of Australia's real credit card acquisition funnel
+("The Good and the Bad," also documented as HBS Case 619-018). Take-up was
+statistically unchanged, but customers shown each card's drawbacks
+alongside its benefits went on to spend 9.9% more per month, cancel 20.5%
+less, and make late payments less often. The result table shows relative
+swings only (no absolute baseline figures were available), so both
+condition-A cells use an em-dash rather than an invented baseline number —
+consistent with the site's own "never estimate, round loosely, or invent"
+rule.
 
 New principles get this by default going forward (per earlier scope
 decision); the other 30 existing articles keep their plain strength/weakness
@@ -349,7 +368,8 @@ each. 9 principles were excluded here regardless of number availability,
 because the underlying research isn't that shape and forcing it would
 misrepresent what was actually done: Sludge (an audit/crawl, no control
 group), Tradeoff Transparency (a policy proposal chapter, not one
-experiment), Illusion of Explanatory Depth (single-group before/after, not
+experiment — true of the citation it had *then*; superseded by a real
+field experiment, see below), Illusion of Explanatory Depth (single-group before/after, not
 two conditions), Noise (test-retest reliability — no manipulation at all),
 Salience (a theoretical model tested against existing data, not one field
 experiment), Chunking (a synthesis of many older studies), Pain of Paying
