@@ -139,6 +139,23 @@ Structure (`.flow-diagram` in styles.css), in order:
 6. **Two validity badges** (`.v-badge.internal` / `.v-badge.external`) — one
    sentence each, not the old paragraph-length strength/weakness writeup.
 
+**Micro-icons for the specific options being compared** (`.flavor-icon`, 14x14,
+inline before the label, wherever that label appears — branch step text AND
+table row-labels): every option/outcome in the study gets one small hand-drawn
+icon, reused consistently everywhere its name shows up. Two sub-rules for
+picking the icon itself:
+- If the two options are the *same kind of thing* (two ice cream flavours,
+  two sizes, two colours), draw ONE shape and vary only the fill colour —
+  see vanilla/pistachio (cone+scoop shape, mustard vs. teal fill).
+- If the two options are *different real objects* (a Hershey's Kiss vs. a
+  Lindt truffle), draw two different simple silhouettes instead of forcing
+  one shape — see Hershey's (teardrop/kiss shape) vs. Lindt (round truffle
+  with twisted wrapper ends). Don't reuse the condition colours (terracotta/
+  teal) for these — that pair is reserved for condition A/B throughout the
+  diagram; product icons get a single neutral terracotta accent detail
+  instead, consistent with the site's general icon convention (outline +
+  one terracotta accent), so the two colour systems don't collide.
+
 Critical layout rule — **row parity**: the two condition branches must wrap
 to the same shape. If one condition's content is inherently longer (e.g. a
 medium/token condition has an extra step — task → token → outcome — that the
