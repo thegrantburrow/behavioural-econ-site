@@ -266,29 +266,44 @@ format unless specifically flagged for a retrofit.
 ## "Article teaser" pattern — applied site-wide to all 36 principle articles
 
 Every `<details class="article">` (the collapsed "Read the research" section)
-now shows a 2-line preview of its opening sentence before the reader clicks,
-instead of the toggle being the only visible thing. Structure, inside
-`<summary>` (the only child of `<details>` that stays visible while
-closed — this is why the teaser has to live there and not in
-`.article-body`):
+now shows a 4-line preview of its opening sentence before the reader clicks,
+framed as one bordered card, instead of the toggle being the only visible
+thing. Structure, inside `<summary>` (the only child of `<details>` that
+stays visible while closed — this is why the teaser has to live there and
+not in `.article-body`):
 ```html
 <summary>
-  <div class="teaser-fade"><p class="teaser-text"><b>The psychology.</b> {first sentence(s) of the article's opening "The psychology" paragraph, verbatim}</p></div>
-  <div class="summary-row"><span class="article-tag">Article</span> The full write-up — study, numbers, and caveats <span class="chev">›</span></div>
+  <div class="article-hook">
+    <div class="teaser-fade"><p class="teaser-text"><b>The psychology.</b> {first sentence(s) of the article's opening "The psychology" paragraph, verbatim}</p></div>
+    <div class="summary-row"><span class="article-tag">Article</span> The full write-up — study, numbers, and caveats <span class="chev">›</span></div>
+  </div>
 </summary>
 ```
-`.teaser-fade` is `max-height` + `overflow: hidden` with a `::after`
-linear-gradient fading to `var(--paper)` (the page background — NOT
-`var(--card)`, since `.article` sits directly on the page, not inside a
-white card) over the last ~1.7em, so the text visibly trails off rather
-than hard-cutting. `.article[open] .teaser-fade { display: none; }` hides
-it once expanded so the real paragraph (shown in full in `.article-body`
-right below) doesn't appear twice.
+`.article-hook` wraps both pieces in one `.study-card`-style bordered box
+(`background: var(--card); border: 1px solid var(--line); border-radius:
+12px; padding: 16px 18px`) — this was a deliberate fix after an initial
+version that put the fading text and the CTA row as loose siblings read as
+two disconnected elements rather than one obvious "click to read more"
+unit. `.teaser-fade` is `max-height: 6.4em` (4 lines) + `overflow: hidden`
+with a `::after` linear-gradient fading to `var(--card)` (matches the hook
+card's own background, not the page background, now that the teaser lives
+inside a card) over the last 3em — deliberately tall/generous after an
+initial 2-line/1.7em version read as too subtle to notice.
+`.article[open] .teaser-fade { display: none; }` hides it once expanded so
+the real paragraph (shown in full in `.article-body` right below) doesn't
+appear twice; the card shrinks down to just the CTA row, which stays put
+as the collapse control.
 
-Two decisions worth keeping if this gets touched again:
+Decisions worth keeping if this gets touched again:
 - **Gradient fade, not blur.** A blurred trailing clause was tried and
   rejected — the gradient reads as "there's more below," a blur reads as
   a rendering glitch.
+- **Frame the hook as one card, not loose text + a toggle line.** Makes it
+  unambiguous that the whole thing — preview text included — is the
+  click target, and gives every collapsed article a consistent visual
+  boundary against the page (this doubles as the "separate articles from
+  each other" ask — no extra component needed, the hook card itself does
+  it).
 - **The CTA names something real, never a curiosity-gap tease.** Landed on
   "The full write-up — study, numbers, and caveats" over four other
   candidates (a generic "Continue reading," a "there's a real experiment

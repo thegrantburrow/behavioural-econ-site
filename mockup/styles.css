@@ -595,7 +595,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .article summary::-webkit-details-marker { display: none; }
 .article summary::marker { content: ""; }
-.article summary:hover .summary-row { color: var(--terracotta); }
 
 .article-tag {
   font-size: 0.62rem;
@@ -608,14 +607,27 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   flex-shrink: 0;
 }
 
-/* teaser: 2-line gradient-fade preview of the article's opening line, always
+/* the whole closed-state preview (fading text + CTA row) reads as one
+   clickable card, same visual language as .study-card, so it's obviously
+   an invitation to read on rather than two loosely-related pieces */
+.article-hook {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition: border-color 0.15s ease;
+}
+.article summary:hover .article-hook { border-color: var(--terracotta); }
+.article summary:hover .summary-row { color: var(--terracotta); }
+
+/* teaser: 4-line gradient-fade preview of the article's opening line, always
    visible (lives inside <summary>, so it survives the closed state) */
 .teaser-fade {
   position: relative;
-  max-height: 3.4em;
+  max-height: 6.4em;
   max-width: 62ch;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .teaser-fade::after {
   content: '';
@@ -623,13 +635,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 1.7em;
-  background: linear-gradient(to bottom, rgba(251, 249, 244, 0), var(--paper));
+  height: 3em;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--card) 80%);
 }
 .teaser-text {
   font-size: 0.83rem;
   line-height: 1.55;
-  color: rgba(30, 27, 22, 0.72);
+  color: rgba(30, 27, 22, 0.78);
   margin: 0;
 }
 .teaser-text b { color: var(--ink); }
@@ -641,7 +653,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   font-size: 0.88rem;
   font-weight: 700;
   color: var(--ink);
-  min-height: 44px;
+  min-height: 40px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
 }
 
 .summary-row .chev {
@@ -653,6 +667,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .article[open] .summary-row .chev { transform: rotate(90deg); }
 .article[open] .teaser-fade { display: none; }
+.article[open] .summary-row { padding-top: 0; border-top: none; }
 
 .article-body { margin-top: 18px; max-width: 62ch; }
 
