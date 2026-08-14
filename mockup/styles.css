@@ -645,6 +645,32 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .flow-arrow-down svg { width: 16px; height: 16px; }
 
+.flow-split {
+  display: flex;
+  justify-content: center;
+  margin: 2px 0 4px;
+}
+
+.flow-split-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--mustard);
+  color: var(--ink);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-align: center;
+  max-width: 32ch;
+}
+
+.diff-highlight {
+  background: rgba(217, 164, 65, 0.4);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
 .flow-branches {
   display: flex;
   flex-direction: column;
