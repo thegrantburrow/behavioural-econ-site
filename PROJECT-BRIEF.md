@@ -31,14 +31,28 @@ real examples encountered in daily life, plus original research/case studies.
   Unloan (bold colour blocks, dynamic layout), Vox (editorial illustration),
   New Yorker cover illustration (flat/detailed vector scenes, NOT simple icons)
 
-## Homepage structure (validated layout)
+## Homepage structure (current — superseded the original "See it in
+practice" version below once the page grew to 36 principles)
 1. Hero — mission statement above
-2. "See it in practice" — compact icon row linking to 5 principle sections (anchor
-   links, same-page jump, not separate pages)
-3. One detail section per principle: icon + one-line definition + illustration +
-   caption naming the real photo it's based on
-4. "More to explore" — Case Studies / Articles / Insights as secondary nav
-5. Newsletter signup, footer
+2. Compact inline newsletter signup (`.newsletter-inline`, see below)
+3. Contents — 6 behavioural-theme category chips + filtered list (see below)
+4. One collapsed-by-default row per principle, expanding in place on click
+   (`.principle-details`, see below) — icon, number, title, one-line
+   definition always visible; illustration + full research article only
+   render once opened
+5. "More to explore" — Case Studies / Articles / Insights as secondary nav
+6. Full newsletter signup (repeated, more prominent), footer
+
+~~Original layout~~ (removed once it became redundant — see
+"Principle sections" below for why): a "See it in practice" section, a
+compact icon row linking to all 36 principles, used to sit between
+Contents and the principle sections. Once Contents grew into a proper
+categorised browser with counts, this became a second, fully duplicate
+index of the same 36 items — and worse, it physically sat between
+Contents and every principle section, so every single click-through had
+to scroll past it. Removed entirely; the top-nav "Principles" link and
+the footer link that used to point to `#practice` now point to
+`#contents` instead.
 
 ## The 5 launch principles (final, precisely researched)
 Originally 6 were drafted; two were merged after realising they illustrated the
@@ -402,6 +416,65 @@ Decisions worth keeping if this list grows:
   keep two numbering schemes in sync. Numbers appearing out of sequence
   within a themed panel (e.g. 01, 11, 12, 19... in one list) is expected
   and fine; they're identifiers, not a reading order.
+
+## Principle sections — collapsed by default, expand in place on click
+
+With 36 full principle sections always rendered open, the homepage was
+~19,000px tall on mobile and jumping from Contents to any given principle
+(via its anchor link) could mean scrolling past dozens of full sections —
+both flagged directly ("too much scrolling when clicking the menu
+options," "homepage is now super long"). Fix: every
+`<section class="principle">` is now a `<details class="principle-details">`,
+collapsed by default. What's visible in the collapsed row (lives inside
+`<summary class="principle-summary">`, so it stays visible either way):
+icon, number, title, and a 2-line-clamped definition. What only renders
+once opened (`.principle-body`): the illustration/photo + caption, and the
+already-separately-collapsed research article (`details.article`, the
+teaser-card pattern documented above) — so a fully expanded principle is
+two nested disclosures, each collapsed independently.
+
+- **Auto-expand on navigation, not just anchor scroll.** A plain anchor
+  jump to a closed `<details>` lands you at a collapsed row with nothing
+  to read — you'd have to scroll there, then click again. `script.js` adds
+  a `hashchange` listener (plus a check on initial load) that finds the
+  target's `details.principle-details` and sets `.open = true` before/as
+  the browser scrolls. This makes every existing anchor link into a
+  principle (Contents, "see also" cross-references, etc.) land already
+  open, with no dead click needed after the jump.
+- **This is what actually fixed the "too much scrolling" complaint,
+  more than the collapsing alone.** Collapsing shrinks each row from
+  ~600-750px to ~90-110px, which shrinks the scroll *distance* too (since
+  document position is cumulative) — from tens of thousands of px in the
+  worst case down to under 5,000px Contents-to-last-principle. Removing
+  the fully redundant "See it in practice" section (see homepage structure
+  above) compounded this further, since it used to sit directly in the
+  path between Contents and every principle.
+- **Definition is line-clamped to 2 lines** (`-webkit-line-clamp: 2`) in
+  the collapsed summary specifically so row height stays uniform
+  regardless of how long an individual principle's one-liner runs —
+  same reasoning as the article teaser's clamp, applied one level up.
+- **The old 2-column `.principle-grid` (text | illustration side by side)
+  was dropped, not preserved inside the revealed body.** Once title/
+  definition permanently live in the always-visible summary, there's
+  nothing left to pair the illustration against in a 2-column layout —
+  revealed content (illustration + caption + article) now just stacks
+  single-column, capped at `max-width: 620px` on desktop so it doesn't
+  sprawl edge-to-edge once nothing else shares the row.
+
+## Inline newsletter signup — a second, compact copy right after the hero
+
+The full newsletter section (`.newsletter`, dark full-bleed, at the very
+bottom of the page) still exists unchanged, but on a ~36-principle-long
+page it's effectively unreachable without scrolling through everything or
+using the nav link. Added `.newsletter-inline` — a compact bordered card
+(mustard top accent, matching the site's existing card language) — right
+after the About/hero section and before Contents, so subscribing doesn't
+require scrolling past the entire principle list first. Same underlying
+intent (email capture) and same non-functional `onsubmit="return false;"`
+placeholder as the original (still awaiting real Beehiiv wiring — see
+open decisions), just a second, earlier entry point with its own `id`
+(`email-input-inline`) so it doesn't collide with the bottom form's
+`email-input`.
 
 ## Open decisions / next steps
 - Get eachlabs style-transfer skill actually generating output on the gelato

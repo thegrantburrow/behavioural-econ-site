@@ -37,3 +37,21 @@
     });
   });
 })();
+
+(function () {
+  // Principle sections are collapsed by default. Jumping to one via any
+  // anchor link (Contents, practice grid, "see also" cross-links) should
+  // land on it already open, not force a second click after the jump.
+  function openTargetPrinciple() {
+    var hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    var target = document.getElementById(hash.slice(1));
+    if (!target) return;
+    var details = target.matches('details.principle-details')
+      ? target
+      : target.querySelector('details.principle-details');
+    if (details && !details.open) details.open = true;
+  }
+  openTargetPrinciple();
+  window.addEventListener('hashchange', openTargetPrinciple);
+})();

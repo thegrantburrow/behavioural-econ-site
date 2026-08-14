@@ -569,58 +569,83 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* ---------- principle sections ---------- */
 .principle {
-  padding: 28px 0;
+  padding: 4px 0;
   scroll-margin-top: 64px;
   border-top: 1px solid var(--line);
 }
 
-.principle-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
+/* collapsed by default — a compact, scannable row (icon, number, title,
+   one-line definition). Expanding reveals the illustration + full article
+   below. This is what keeps the homepage from being a 36-section wall of
+   text: only what you click open takes up real space. */
+.principle-details summary.principle-summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
   align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  min-height: 44px;
 }
 
-@media (min-width: 760px) {
-  .principle { padding: 84px 0; }
-  .principle-grid { grid-template-columns: 1.1fr 1fr; gap: 56px; }
-}
+.principle-summary::-webkit-details-marker { display: none; }
+.principle-summary::marker { content: ""; }
+.principle-summary:hover h3 { color: var(--terracotta); }
 
 .principle-head {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 6px;
+  flex-shrink: 0;
 }
 
 .principle-number {
   font-family: Georgia, serif;
-  font-size: clamp(1.5rem, 6vw, 3.4rem);
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1.2px rgba(30, 27, 22, 0.22);
 }
 
-.principle-icon { width: 24px; height: 24px; color: var(--ink); }
-.principle h3 { font-size: clamp(1.25rem, 5.5vw, 1.9rem); }
+.principle-icon { width: 22px; height: 22px; color: var(--ink); flex-shrink: 0; }
+
+.principle-summary-text { flex: 1; min-width: 0; }
+.principle h3 { font-size: clamp(1.05rem, 3.6vw, 1.3rem); margin: 0; transition: color 0.15s ease; }
 
 .principle .subterm {
-  font-size: 0.55em;
+  font-size: 0.6em;
   color: var(--muted);
   font-family: inherit;
 }
 
 .principle .definition {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: rgba(30, 27, 22, 0.78);
-  max-width: 46ch;
-  margin: 8px 0 0;
+  max-width: 60ch;
+  margin: 4px 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+.principle-chev {
+  flex-shrink: 0;
+  color: var(--terracotta);
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.principle-details[open] .principle-chev { transform: rotate(90deg); }
+
+.principle-body { margin: 4px 0 24px; max-width: 480px; }
+.principle-body .illustration { margin: 0 auto; }
+.principle-body .article { margin-top: 22px; }
+
 @media (min-width: 760px) {
-  .principle-head { gap: 14px; margin-bottom: 0; }
-  .principle-icon { width: 32px; height: 32px; }
-  .principle .definition { font-size: 0.98rem; margin-top: 10px; }
+  .principle-icon { width: 26px; height: 26px; }
+  .principle .definition { font-size: 0.9rem; }
+  .principle-body { max-width: 620px; }
 }
 
 .illustration {
@@ -1162,6 +1187,61 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .explore-card { padding: 20px; }
   .explore-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
   .explore-card p { font-size: 0.88rem; }
+}
+
+/* ---------- inline newsletter (compact, sits right after the hero so
+   signing up doesn't require scrolling past all 36 principles to reach
+   the full version at the very bottom of the page) ---------- */
+.newsletter-inline { padding: 4px 0 8px; }
+
+.newsletter-inline-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--mustard);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.newsletter-inline-text strong { display: block; font-size: 1rem; }
+.newsletter-inline-text span { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 3px; }
+
+.newsletter-inline-form { display: flex; flex-direction: column; gap: 8px; }
+
+.newsletter-inline-form input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-family: inherit;
+  min-height: 44px;
+}
+
+.newsletter-inline-form input::placeholder { color: var(--muted); }
+
+.newsletter-inline-form button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background 0.15s ease;
+}
+
+.newsletter-inline-form button:hover { background: var(--terracotta); }
+
+@media (min-width: 640px) {
+  .newsletter-inline-card { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
+  .newsletter-inline-form { flex-direction: row; flex-shrink: 0; }
+  .newsletter-inline-form input { width: 220px; }
 }
 
 /* ---------- newsletter ---------- */
