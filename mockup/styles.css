@@ -606,41 +606,123 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   padding: 14px 16px;
 }
 
-.design-block {
+/* ---------- study flow diagram (how the study was actually run) ---------- */
+.flow-diagram {
   margin-top: 14px;
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 13px 15px;
+  border-radius: 12px;
+  padding: 16px 14px;
 }
 
-.design-tag {
+.flow-tag {
   display: block;
   font-size: 0.66rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 800;
   color: var(--muted);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
+  text-align: center;
 }
 
-.design-conditions { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 4px; }
-.design-cond { font-size: 0.85rem; }
-.design-cond .cond-label { display: block; font-weight: 700; font-size: 0.78rem; margin-bottom: 3px; color: var(--ink); }
-.design-cond p { margin: 0; color: rgba(30, 27, 22, 0.85); }
+.flow-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
 
-.design-result, .design-why { font-size: 0.86rem; margin: 10px 0 0; color: rgba(30, 27, 22, 0.85); }
-.design-result b, .design-why b { color: var(--terracotta); }
+.flow-icon { width: 26px; height: 26px; color: var(--ink); flex-shrink: 0; }
+.flow-start-label { font-size: 0.8rem; font-weight: 700; }
 
-.validity-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
-.validity-col { font-size: 0.82rem; }
-.validity-col .lbl { display: block; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
-.validity-col.internal .lbl { color: var(--teal); }
-.validity-col.external .lbl { color: var(--terracotta); }
+.flow-arrow-down {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0;
+  color: rgba(30, 27, 22, 0.3);
+}
+.flow-arrow-down svg { width: 16px; height: 16px; }
+
+.flow-branches {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flow-path {
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.flow-path.path-a { border-top: 3px solid var(--terracotta); }
+.flow-path.path-b { border-top: 3px solid var(--teal); }
+
+.path-tag {
+  display: block;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+.path-a .path-tag { color: var(--terracotta); }
+.path-b .path-tag { color: var(--teal); }
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 8px;
+}
+.flow-step:last-child { margin-bottom: 0; }
+.flow-step-icon { width: 20px; height: 20px; color: var(--ink); flex-shrink: 0; }
+.flow-step-label { font-size: 0.8rem; color: rgba(30, 27, 22, 0.88); }
+
+.flow-result { margin-top: 6px; }
+.result-group { margin-bottom: 12px; }
+.result-group:last-child { margin-bottom: 0; }
+.result-group-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.result-group.group-a .result-group-label { color: var(--terracotta); }
+.result-group.group-b .result-group-label { color: var(--teal); }
+
+.result-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.78rem; }
+.result-row:last-child { margin-bottom: 0; }
+.result-label { width: 8.5em; flex-shrink: 0; }
+.result-bar-track { flex: 1; background: var(--line); border-radius: 5px; height: 10px; overflow: hidden; }
+.result-bar-fill { height: 100%; border-radius: 5px; background: var(--ink); }
+.result-pct { font-weight: 700; width: 3.4em; text-align: right; flex-shrink: 0; }
+
+.flow-insight {
+  font-size: 0.85rem;
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  color: rgba(30, 27, 22, 0.85);
+}
+.flow-insight b { color: var(--terracotta); }
+
+.flow-validity { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.v-badge { font-size: 0.78rem; padding: 9px 11px; border-radius: 8px; background: var(--card); border: 1px solid var(--line); }
+.v-badge b { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+.v-badge.internal b { color: var(--teal); }
+.v-badge.external b { color: var(--terracotta); }
 
 @media (min-width: 600px) {
-  .design-conditions { grid-template-columns: 1fr 1fr; gap: 14px; }
-  .validity-grid { grid-template-columns: 1fr 1fr; }
+  .flow-branches { flex-direction: row; gap: 16px; }
+  .flow-validity { flex-direction: row; }
+  .v-badge { flex: 1; }
 }
 
 .study-card .citation { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }

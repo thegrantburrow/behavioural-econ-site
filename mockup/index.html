@@ -640,23 +640,54 @@
         <div class="study-card">
           <div class="citation">Shampanier, K., Mazar, N., &amp; Ariely, D. (2007). "Zero as a Special Price: The True Value of Free Products." <a href="https://pubsonline.informs.org/doi/10.1287/mksc.1060.0254" target="_blank" rel="noopener">Marketing Science, 26(6), 742–757</a></div>
           <div class="journal">The paper that gives this principle its name — the ordinary vs. luxury chocolate study.</div>
-          <div class="design-block">
-            <span class="design-tag">How the study was actually run</span>
-            <div class="design-conditions">
-              <div class="design-cond">
-                <span class="cond-label">Cost condition</span>
-                <p>398 participants chose between two chocolates at small positive prices: a Hershey's Kiss (ordinary, low-quality) for 1¢, or a Lindt Lindor truffle (a nicer, pricier brand) for 15¢ — a 14-cent gap. They could pick one, or neither.</p>
+          <div class="flow-diagram">
+            <span class="flow-tag">How the study was actually run</span>
+            <div class="flow-start">
+              <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="3.2"></circle><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"></path></svg>
+              <span class="flow-start-label">398 participants</span>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-branches">
+              <div class="flow-path path-a">
+                <span class="path-tag">Cost condition</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11z"></path><circle cx="7" cy="7" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+                  <span class="flow-step-label">1&cent; Hershey's, 15&cent; Lindt</span>
+                </div>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke-width="1.8"></path></svg>
+                  <span class="flow-step-label">Picked one, or neither</span>
+                </div>
               </div>
-              <div class="design-cond">
-                <span class="cond-label">Free condition</span>
-                <p>The identical 14-cent gap, shifted down by exactly one cent: the Hershey's Kiss became free (0¢), the Lindt truffle cost 14¢. The relative value between the two chocolates never changed — only whether the cheap end of the gap landed on zero.</p>
+              <div class="flow-path path-b">
+                <span class="path-tag">Free condition</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11z"></path><circle cx="7" cy="7" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+                  <span class="flow-step-label">0&cent; Hershey's, 14&cent; Lindt</span>
+                </div>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke-width="1.8"></path></svg>
+                  <span class="flow-step-label">Picked one, or neither</span>
+                </div>
               </div>
             </div>
-            <p class="design-result"><b>Result:</b> In the cost condition, the Lindt was the more popular pick (36% chose Lindt vs. 14% Hershey's). Dropping both prices by exactly one cent — making the Hershey's free — reversed it: 42% chose the now-free Hershey's, versus 19% for the Lindt.</p>
-            <p class="design-why"><b>Why this isolates the effect:</b> Standard theory says a 1-cent shift shouldn't matter, since the 14-cent value gap between the two chocolates stayed identical throughout. The only thing that changed was whether the cheap option happened to be exactly $0 — so the reversal has to be attributed to zero itself, not to the size of the discount.</p>
-            <div class="validity-grid">
-              <div class="validity-col internal"><span class="lbl">Internal validity</span>Random assignment to condition and a design that isolates the manipulation to a single cent at the boundary support treating the swing as caused by the zero price itself. The authors also re-ran the same logic with a real chocolate cart in an MIT building lobby (n=232) — actual passersby, real money — and found the same pattern.</div>
-              <div class="validity-col external"><span class="lbl">External validity</span>Both settings are small, low-stakes, low-involvement impulse purchases (candy priced in cents). The authors don't claim the exact size of the swing holds at higher stakes — and later work (see <a href="#zero-price-paradox">Zero Price Paradox</a>) shows the zero-price pull can weaken or reverse once people suspect a catch.</div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-result">
+              <div class="result-group group-a">
+                <span class="result-group-label">Result &mdash; cost condition</span>
+                <div class="result-row"><span class="result-label">Hershey's</span><div class="result-bar-track"><div class="result-bar-fill" style="width:14%; background:var(--terracotta);"></div></div><span class="result-pct">14%</span></div>
+                <div class="result-row"><span class="result-label">Lindt</span><div class="result-bar-track"><div class="result-bar-fill" style="width:36%; background:var(--terracotta);"></div></div><span class="result-pct">36%</span></div>
+              </div>
+              <div class="result-group group-b">
+                <span class="result-group-label">Result &mdash; free condition</span>
+                <div class="result-row"><span class="result-label">Hershey's</span><div class="result-bar-track"><div class="result-bar-fill" style="width:42%; background:var(--teal);"></div></div><span class="result-pct">42%</span></div>
+                <div class="result-row"><span class="result-label">Lindt</span><div class="result-bar-track"><div class="result-bar-fill" style="width:19%; background:var(--teal);"></div></div><span class="result-pct">19%</span></div>
+              </div>
+            </div>
+            <p class="flow-insight"><b>Only the zero moved.</b> The 14&cent; gap between the two chocolates was identical in both conditions &mdash; yet making the Hershey's free flipped which one people picked.</p>
+            <div class="flow-validity">
+              <div class="v-badge internal"><b>Internal validity</b>Random assignment, plus a real chocolate cart in an MIT lobby (n=232) that replicated it with real money.</div>
+              <div class="v-badge external"><b>External validity</b>Small, low-stakes candy only &mdash; the exact swing size hasn't been shown to hold at higher prices.</div>
             </div>
           </div>
           <div class="excerpts">
@@ -1360,23 +1391,54 @@
         <div class="study-card">
           <div class="citation">Hsee, C. K., Yu, F., Zhang, J., &amp; Zhang, Y. (2003). &ldquo;Medium Maximization.&rdquo; <a href="https://academic.oup.com/jcr/article-abstract/30/1/1/1801715" target="_blank" rel="noopener">Journal of Consumer Research, 30(1), 1&ndash;14</a></div>
           <div class="journal">The paper that names the effect &mdash; Study 1 is the ice cream/task experiment.</div>
-          <div class="design-block">
-            <span class="design-tag">How the study was actually run</span>
-            <div class="design-conditions">
-              <div class="design-cond">
-                <span class="cond-label">Control condition</span>
-                <p>96 university students were told about a study the following week, offering a gallon of H&auml;agen-Dazs ice cream in return. They chose between a 6-minute task paired directly with vanilla ice cream, or a 7-minute task paired directly with pistachio &mdash; flavor tied straight to task length, no points involved.</p>
+          <div class="flow-diagram">
+            <span class="flow-tag">How the study was actually run</span>
+            <div class="flow-start">
+              <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="3.2"></circle><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"></path></svg>
+              <span class="flow-start-label">96 students recruited</span>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-branches">
+              <div class="flow-path path-a">
+                <span class="path-tag">Control condition</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11z"></path><circle cx="7" cy="7" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+                  <span class="flow-step-label">6 min &rarr; vanilla, 7 min &rarr; pistachio</span>
+                </div>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke-width="1.8"></path></svg>
+                  <span class="flow-step-label">Chose a task</span>
+                </div>
               </div>
-              <div class="design-cond">
-                <span class="cond-label">Medium condition</span>
-                <p>The identical choice, routed through points: the 6-minute task earned 60 points (redeemable for vanilla), the 7-minute task earned 100 points (redeemable for pistachio) &mdash; a 100:60 ratio, wider than how much anyone actually preferred pistachio. The points had no other use and couldn't be saved or transferred.</p>
+              <div class="flow-path path-b">
+                <span class="path-tag">Medium condition</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h8l10 10-8 8L3 11z"></path><circle cx="7" cy="7" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+                  <span class="flow-step-label">6 min &rarr; 60 pts, 7 min &rarr; 100 pts</span>
+                </div>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke-width="1.8"></path></svg>
+                  <span class="flow-step-label">Chose a task</span>
+                </div>
               </div>
             </div>
-            <p class="design-result"><b>Result:</b> Significantly more participants chose the longer task when it earned &ldquo;100 points&rdquo; rather than being offered pistachio directly (&chi;&sup2; = 7.43, p &lt; .01). Asked afterward which flavor they actually preferred, participants in both conditions preferred vanilla at the same rate &mdash; the points didn't change anyone's real taste preference, only which task they picked.</p>
-            <p class="design-why"><b>Why this isolates the effect:</b> Because flavor preference was measured separately and came out identical across both conditions, the shift in task choice can't be explained by points teaching people to like pistachio more. The 100-vs-60 point gap was wider than the real difference in how much anyone preferred pistachio &mdash; so points made the longer task look like better value than the ice cream itself justified. That gap between the medium's ratio and the real preference ratio is the &ldquo;illusion of advantage&rdquo; the paper is named for.</p>
-            <div class="validity-grid">
-              <div class="validity-col internal"><span class="lbl">Internal validity</span>Both conditions used identical recruitment and an identical follow-up preference question, cleanly isolating the presence of points as the one thing that changed. One real gap: the paper doesn't state how participants were assigned to each condition &mdash; worth flagging as unstated rather than assumed to be random.</div>
-              <div class="validity-col external"><span class="lbl">External validity</span>One campus, one reward (ice cream), one hypothetical future task narrows how far this exact scenario generalises. The authors address this directly inside the same paper by re-running the logic in an unrelated context &mdash; a bank certificate-of-deposit promotion, cash now vs. more cash later, with or without a points medium &mdash; and finding the same pattern, a real replication across domains rather than one scenario alone.</div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-result">
+              <div class="result-group group-a">
+                <span class="result-group-label">Result &mdash; control</span>
+                <div class="result-row"><span class="result-label">Chose long task</span><div class="result-bar-track"><div class="result-bar-fill" style="width:25%; background:var(--terracotta);"></div></div><span class="result-pct">~25%</span></div>
+                <div class="result-row"><span class="result-label">Preferred pistachio</span><div class="result-bar-track"><div class="result-bar-fill" style="width:27%; background:var(--terracotta);"></div></div><span class="result-pct">~27%</span></div>
+              </div>
+              <div class="result-group group-b">
+                <span class="result-group-label">Result &mdash; medium</span>
+                <div class="result-row"><span class="result-label">Chose long task</span><div class="result-bar-track"><div class="result-bar-fill" style="width:53%; background:var(--teal);"></div></div><span class="result-pct">~53%</span></div>
+                <div class="result-row"><span class="result-label">Preferred pistachio</span><div class="result-bar-track"><div class="result-bar-fill" style="width:29%; background:var(--teal);"></div></div><span class="result-pct">~29%</span></div>
+              </div>
+            </div>
+            <p class="flow-insight"><b>Choice moved, taste didn't.</b> In the control condition, task choice and flavour preference tracked closely together. Add points, and choice of the long task roughly doubled &mdash; while real preference for pistachio barely shifted at all.</p>
+            <div class="flow-validity">
+              <div class="v-badge internal"><b>Internal validity</b>Identical recruitment and an identical follow-up preference question in both conditions &mdash; though the paper doesn't state how people were assigned to each group.</div>
+              <div class="v-badge external"><b>External validity</b>One campus, one reward. The authors re-ran the same logic in a bank CD scenario (Study 2) and found the same pattern.</div>
             </div>
           </div>
           <div class="excerpts">
