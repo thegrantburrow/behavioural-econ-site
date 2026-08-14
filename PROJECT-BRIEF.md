@@ -327,15 +327,107 @@ min" instead of "6m", via a `.lbl-short`/`.lbl-full` pair toggled at
 `min-width: 480px`) and more generous padding/font-size/icon-size — real
 breathing room, just not a growing grid.
 
-Applied so far: Zero Price Effect, Medium Maximization. Both linked from a
-dedicated "Experiment Teardown" callout in the Contents section
-(`#experiment-teardowns`, mustard-toned to match the pattern's own accent
-colour) and from a top-nav link — promote more principles into that list as
-they get the treatment, don't build a new index each time.
+Applied so far (6 of 36): Zero Price Effect, Medium Maximization, Choice
+Overload, Ordering Effects, Social Norm, Peak-End Rule. All linked from the
+"Experiment Teardowns" report card on the homepage (`#experiment-teardowns`)
+and from a top-nav link — promote more principles into that list as they
+get the treatment, don't build a new index each time.
 
 New principles get this by default going forward (per earlier scope
-decision); the ~34 other existing articles keep their plain strength/weakness
+decision); the other 30 existing articles keep their plain strength/weakness
 format unless specifically flagged for a retrofit.
+
+### Why only 6 of the 25 structurally-eligible principles got one
+
+Went through all 36 principles looking for more Teardown candidates. Two
+separate filters apply, and it's worth keeping both explicit for next time:
+
+**Filter 1 — does the study even have the right shape?** The Teardown
+format depicts a controlled comparison: one population, split into two
+conditions by a single manipulated variable, with a measurable outcome in
+each. 9 principles were excluded here regardless of number availability,
+because the underlying research isn't that shape and forcing it would
+misrepresent what was actually done: Sludge (an audit/crawl, no control
+group), Tradeoff Transparency (a policy proposal chapter, not one
+experiment), Illusion of Explanatory Depth (single-group before/after, not
+two conditions), Noise (test-retest reliability — no manipulation at all),
+Salience (a theoretical model tested against existing data, not one field
+experiment), Chunking (a synthesis of many older studies), Pain of Paying
+(theoretical/synthesis paper), Survivorship Bias (historical reconstruction,
+no participants), Take-the-Best Heuristic (a computer simulation, not human
+participants).
+
+**Filter 2 — can the exact numbers actually be verified?** Of the 25
+remaining principles that do have the right experimental shape, real
+numbers were pulled via 4 parallel research passes (WebSearch only — direct
+PDF fetching was blocked for every academic domain tried: JCR, PNAS,
+ScienceDirect, PMC, NBER, even Wikipedia, across all 4 attempts). Only 6
+came back with numbers solid enough — consistent across independent
+sources, not self-contradictory, not plausibly confused with a different
+paper by the same authors — to meet this site's standing "never estimate,
+round loosely, or invent" rule. The other 19 hit real, specific problems:
+- **No number surfaced at all**, only qualitative direction: Framing Effect,
+  Not Enough Choice, Illusory Truth Effect, Hindsight Bias, Zero Price
+  Paradox, Translating Information.
+- **Numbers found but flagged as likely belonging to a different paper**
+  by the same or adjacent authors (a real misattribution risk, not just a
+  minor gap): Goal Gradient (risk of conflation with Nunes & Drèze 2006),
+  Compromise Effect (risk of conflation with Simonson & Tversky 1992),
+  Decoy Effect (conflicting secondary numbers, unclear which experiment),
+  Emergency Reserves (risk of conflation with a related 2019 paper by the
+  same authors), Precision Effect (conflicting sample sizes across sources,
+  possible wrong-paper attribution).
+- **Only half the comparison verified** (one condition's number found, the
+  other not): Illusion of Control ($8.67 confirmed for the chose-own-ticket
+  condition; the assigned-ticket condition's figure could not be confirmed).
+- **Directly conflicting numbers between independent sources** for the same
+  figure: Choice Bracketing (48% vs. 50%), Social Proof (Gini coefficients
+  simply not recoverable via search at all).
+- **Structural mismatch discovered only after finding the numbers**:
+  Default Effect had usable numbers (84% / 96%) but they come from two
+  different natural experiments in the same paper, not two arms of one
+  controlled comparison — using them side-by-side would overstate how
+  clean the causal comparison is, so it was left out despite having real
+  numbers in hand.
+- Left Digit Bias, Operational Transparency, Behavioural Labels, and
+  Similarity Effect all had partial/directional confirmation but gaps
+  (exact threshold figure, exact means, or which-study attribution) large
+  enough not to clear the bar.
+
+None of this means these 19 studies lack real numbers — almost all of them
+almost certainly report exact figures in their actual tables. It's a
+tooling limit of this research pass (no PDF access), not a verdict on the
+research. Revisit any of them if primary-source access becomes available
+(institutional login, uploaded PDF, or a session with unrestricted
+fetching) — the citations, conditions, and what to look for are already
+captured in each principle's existing article text.
+
+**One correction made along the way**: Peak-End Rule's Teardown required
+splitting the citation. The "extended procedure with a milder ending"
+condition — the actual RCT the Teardown depicts (n=682) — is a *separate*,
+later paper (Redelmeier, Katz &amp; Kahneman, 2003) from the one originally
+cited on this principle (Redelmeier &amp; Kahneman, 1996, which established
+the foundational n=154/n=133 peak/end-vs-duration correlation but did not
+itself contain a randomised "change the ending" trial). Fixed by making
+the 2003 paper the Teardown's primary citation and moving 1996 to an
+"Also worth citing" note explaining what it established. The site's own
+excerpts had been describing the 2003 finding as if it were "a follow-up
+condition" within the 1996 paper — worth flagging since it's exactly the
+kind of same-authors-different-year mix-up this whole verification pass
+was designed to catch.
+
+**A layout bug the longer condition names exposed**: Peak-End Rule's
+"Standard"/"Extended" condition labels plus its more verbose row labels
+("Final-moments pain (0–10)", "Overall retrospective rating (0–10)") were
+enough to overflow `.result-table-wrap`'s fixed width at mobile — the
+Swing column got pushed out of view rather than clipped visibly, which is
+worse than a wrapping label since nothing looks obviously broken until you
+measure it. Fixed by shortening the row labels ("Final pain", "Overall
+rating") rather than changing the table's CSS — the existing two Teardowns
+had gotten away with longer condition words only because their row labels
+happened to be short single words ("Hershey's", "Lindt"). Worth checking
+`result-table-wrap` scrollWidth vs. clientWidth specifically (not just
+eyeballing a screenshot) on any future Teardown with multi-word row labels.
 
 ## "Article teaser" pattern — applied site-wide to all 36 principle articles
 

@@ -480,9 +480,76 @@
         <div class="study-card">
           <div class="citation">Iyengar, S. S., &amp; Lepper, M. R. (2000). "When Choice is Demotivating: Can One Desire Too Much of a Good Thing?" <a href="https://psycnet.apa.org/record/2001-01474-006" target="_blank" rel="noopener">Journal of Personality and Social Psychology, 79(6), 995–1006</a></div>
           <div class="journal">The famous "jam study."</div>
-          <div class="method-grid">
-            <div class="method-col strength"><span class="lbl">Strength</span>A real in-store field experiment at an actual grocery store — measuring real purchase behaviour, not just stated preference, with a tasting booth offering either 6 or 24 jams.</div>
-            <div class="method-col weakness"><span class="lbl">Weakness</span>Single product category and single store. Later replication work found the underlying effect is genuine but smaller and more context-dependent than the original headline numbers suggested — worth citing honestly rather than treating the original figures as the final word.</div>
+          <div class="flow-diagram">
+            <span class="flow-tag">Experiment Teardown</span>
+            <div class="flow-start">
+              <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="3.2"></circle><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"></path></svg>
+              <span class="flow-start-label">502 shoppers passed the booth</span>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-split"><span class="flow-split-badge">Only the number of jams on display changed</span></div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-branches">
+              <div class="flow-path path-a">
+                <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>6-jam display</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="9" width="12" height="11" rx="1.5"></rect><rect x="7.5" y="5" width="9" height="4" rx="1" stroke="var(--terracotta)"></rect><line x1="9" y1="13" x2="15" y2="13"></line></svg>
+                  <span class="flow-step-label"><span class="diff-highlight">6</span> jams on the table</span>
+                </div>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke-width="1.8"></path></svg>
+                  <span class="flow-step-label">Stopped, or walked on</span>
+                </div>
+              </div>
+              <div class="flow-path path-b">
+                <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>24-jam display</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="9" width="12" height="11" rx="1.5"></rect><rect x="7.5" y="5" width="9" height="4" rx="1" stroke="var(--terracotta)"></rect><line x1="9" y1="13" x2="15" y2="13"></line></svg>
+                  <span class="flow-step-label"><span class="diff-highlight">24</span> jams on the table</span>
+                </div>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M8.3 12.3l2.4 2.4 5-5.4" stroke-width="1.8"></path></svg>
+                  <span class="flow-step-label">Stopped, or walked on</span>
+                </div>
+              </div>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-result">
+              <div class="result-table-wrap">
+                <table class="result-table">
+                  <thead>
+                    <tr>
+                      <th>Result</th>
+                      <th class="col-a"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>6 jams</th>
+                      <th></th>
+                      <th class="col-b"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>24 jams</th>
+                      <th>Swing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-label">Stopped to look</td>
+                      <td class="pct a">40%</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">60%</td>
+                      <td class="result-delta">+20</td>
+                    </tr>
+                    <tr>
+                      <td class="row-label">Purchased (of stoppers)</td>
+                      <td class="pct a">30%</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">3%</td>
+                      <td class="result-delta">&minus;27</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p class="flow-insight"><b>More choice drew a crowd, not a sale.</b> The 24-jam display attracted more browsers, but of everyone who stopped, ten times as many bought from the small display as the large one.</p>
+            <div class="flow-validity">
+              <div class="v-badge internal"><b>Internal validity</b>A real grocery store, real purchases, not stated preference — the two displays ran on alternating days at the same tasting booth.</div>
+              <div class="v-badge external"><b>External validity</b>One product category (jam) at one upscale store; later meta-analyses found the effect genuine but smaller and more context-dependent than this original study alone suggests.</div>
+            </div>
           </div>
           <div class="excerpts">
             <span class="lbl">Key findings</span>
@@ -846,10 +913,70 @@
         <div class="article-block"><span class="k">Where it can help</span><p>Correctly identifying and stating the actual descriptive norm &mdash; &ldquo;the majority of guests in this room reuse their towels&rdquo; &mdash; reliably outperforms appeals based purely on abstract values like environmental protection, without requiring any deception: the norm has to be real.</p></div>
         <div class="study-card">
           <div class="citation">Cialdini, R. B., Reno, R. R., &amp; Kallgren, C. A. (1990). &ldquo;A Focus Theory of Normative Conduct: Recycling the Concept of Norms to Reduce Littering in Public Places.&rdquo; <a href="https://doi.org/10.1037/0022-3514.58.6.1015" target="_blank" rel="noopener">Journal of Personality and Social Psychology, 58(6), 1015&ndash;1026</a></div>
-          <div class="journal">The origin of the descriptive/injunctive norm distinction.</div>
-          <div class="method-grid">
-            <div class="method-col strength"><span class="lbl">Strength</span>Three field experiments manipulating an actual physical environment (a clean vs. littered parking structure) rather than survey questions &mdash; participants encountered a real handbill on their windshield and their real littering behaviour was covertly observed, not self-reported.</div>
-            <div class="method-col weakness"><span class="lbl">Weakness</span>The core paradigm is littering in a parking structure &mdash; a low-stakes, low-identity-threat behaviour. Whether the same focus-theory dynamics generalise cleanly to higher-stakes behaviours like voting, spending, or health decisions needed separate replication.</div>
+          <div class="journal">Study 1 &mdash; the parking-structure littering experiment.</div>
+          <div class="flow-diagram">
+            <span class="flow-tag">Experiment Teardown</span>
+            <div class="flow-start">
+              <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="3.2"></circle><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"></path></svg>
+              <span class="flow-start-label">139 drivers</span>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-split"><span class="flow-split-badge">Only the visible state of the parking structure changed</span></div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-branches">
+              <div class="flow-path path-a">
+                <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Clean environment</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="19" x2="21" y2="19"></line><rect x="8" y="6" width="8" height="10" rx="1"></rect></svg>
+                  <span class="flow-step-label">No litter visible on arrival</span>
+                </div>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="5" width="12" height="15" rx="1"></rect><line x1="9" y1="10" x2="15" y2="10"></line><line x1="9" y1="13" x2="15" y2="13"></line></svg>
+                  <span class="flow-step-label">Found a handbill on the windshield</span>
+                </div>
+              </div>
+              <div class="flow-path path-b">
+                <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>Littered environment</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="19" x2="21" y2="19"></line><rect x="8" y="6" width="8" height="10" rx="1"></rect><path d="M3 17l2-1.5M18 16l2 1.5M5 20l1.5-1" stroke="var(--terracotta)" stroke-width="1.4"></path></svg>
+                  <span class="flow-step-label">Litter already scattered around</span>
+                </div>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="5" width="12" height="15" rx="1"></rect><line x1="9" y1="10" x2="15" y2="10"></line><line x1="9" y1="13" x2="15" y2="13"></line></svg>
+                  <span class="flow-step-label">Found the same handbill</span>
+                </div>
+              </div>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-result">
+              <div class="result-table-wrap">
+                <table class="result-table">
+                  <thead>
+                    <tr>
+                      <th>Result</th>
+                      <th class="col-a"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Clean</th>
+                      <th></th>
+                      <th class="col-b"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>Littered</th>
+                      <th>Swing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-label">Littered the handbill</td>
+                      <td class="pct a">11%</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">41%</td>
+                      <td class="result-delta">+30</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p class="flow-insight"><b>The environment did the persuading.</b> Seeing existing litter nearly quadrupled the littering rate &mdash; same handbill, same parking structure, just a different visible norm.</p>
+            <div class="flow-validity">
+              <div class="v-badge internal"><b>Internal validity</b>A real, physically altered environment &mdash; not a survey &mdash; with real littering behaviour covertly observed, not self-reported.</div>
+              <div class="v-badge external"><b>External validity</b>One behaviour (littering) in one setting; the paper's own focus theory predicts the mechanism should generalise, but that needed separate confirmation elsewhere.</div>
+            </div>
           </div>
           <div class="excerpts">
             <span class="lbl">Key findings</span>
@@ -1409,9 +1536,61 @@
         <div class="study-card">
           <div class="citation">Miller, J. M., &amp; Krosnick, J. A. (1998). &ldquo;The Impact of Candidate Name Order on Election Outcomes.&rdquo; <a href="https://academic.oup.com/poq/article-abstract/62/3/291/1936633" target="_blank" rel="noopener">Public Opinion Quarterly, 62(3), 291&ndash;330</a></div>
           <div class="journal">Real 1992 Ohio ballot data across 118 races.</div>
-          <div class="method-grid">
-            <div class="method-col strength"><span class="lbl">Strength</span>Analysed real ballot results across 118 actual down-ballot races from a real 1992 Ohio election, where ballot order was effectively randomised across precincts by local printing procedures &mdash; a genuine natural experiment on real votes, not a hypothetical survey.</div>
-            <div class="method-col weakness"><span class="lbl">Weakness</span>Down-ballot, low-information races are precisely where an order effect would be expected to be largest; the same size of effect wouldn't be expected &mdash; and the paper doesn't claim it would &mdash; in high-information, high-salience races where voters have strong independent reasons for their choice.</div>
+          <div class="flow-diagram">
+            <span class="flow-tag">Experiment Teardown</span>
+            <div class="flow-start">
+              <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9l8-5 8 5"></path><rect x="4" y="9" width="16" height="10" rx="1"></rect><rect x="10" y="13" width="4" height="1.4" rx="0.7" fill="var(--terracotta)" stroke="none"></rect></svg>
+              <span class="flow-start-label">118 down-ballot races</span>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-split"><span class="flow-split-badge">Only whether a candidate was listed first changed</span></div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-branches">
+              <div class="flow-path path-a">
+                <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Listed later</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="7" x2="19" y2="7" opacity="0.35"></line><line x1="5" y1="12" x2="19" y2="12" opacity="0.35"></line><line x1="5" y1="17" x2="12" y2="17" stroke="var(--terracotta)" stroke-width="2.2"></line></svg>
+                  <span class="flow-step-label">Same candidate, printed lower on the ballot</span>
+                </div>
+              </div>
+              <div class="flow-path path-b">
+                <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>Listed first</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="7" x2="12" y2="7" stroke="var(--terracotta)" stroke-width="2.2"></line><line x1="5" y1="12" x2="19" y2="12" opacity="0.35"></line><line x1="5" y1="17" x2="19" y2="17" opacity="0.35"></line></svg>
+                  <span class="flow-step-label">Same candidate, printed top of the ballot</span>
+                </div>
+              </div>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-result">
+              <div class="result-table-wrap">
+                <table class="result-table">
+                  <thead>
+                    <tr>
+                      <th>Result</th>
+                      <th class="col-a"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Later</th>
+                      <th></th>
+                      <th class="col-b"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>First</th>
+                      <th>Swing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-label">Avg. vote share vs. reference</td>
+                      <td class="pct a">0 (ref)</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">+2.5 pts</td>
+                      <td class="result-delta">+2.5</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p class="flow-insight"><b>Position alone moved real votes.</b> In the roughly half of races where the effect showed up, simply being listed first was worth an average +2.5 percentage points &mdash; same candidate, same platform, different print order.</p>
+            <div class="flow-validity">
+              <div class="v-badge internal"><b>Internal validity</b>Ballot position was effectively randomised across precincts by local printing procedures within each county &mdash; a genuine natural experiment on real votes, not a survey.</div>
+              <div class="v-badge external"><b>External validity</b>Effect concentrated in low-information down-ballot races; not expected, and not claimed, to hold at the same size in high-salience races with strong independent voter cues.</div>
+            </div>
           </div>
           <div class="excerpts">
             <span class="lbl">Key findings</span>
@@ -1680,18 +1859,77 @@
         <div class="article-block"><span class="k">Where it causes errors</span><p>A genuinely good service can be remembered as worse than it was because of one badly-timed moment near the end &mdash; a rushed goodbye, a clumsy final step &mdash; and a long, mostly excellent experience gets no credit in memory for all the time it was going well, simply because duration isn't what memory tracks.</p></div>
         <div class="article-block"><span class="k">Where it can help</span><p>Deliberately engineering a strong, positive final moment &mdash; a genuine thank-you, a small unexpected touch right at the end &mdash; reliably improves how an entire experience is remembered, even without changing anything that happened earlier. One of the most replicated, low-cost levers in service design.</p></div>
         <div class="study-card">
-          <div class="citation">Redelmeier, D. A., &amp; Kahneman, D. (1996). &ldquo;Patients&rsquo; Memories of Painful Medical Treatments: Real-Time and Retrospective Evaluations of Two Minimally Invasive Procedures.&rdquo; <a href="https://doi.org/10.1016/0304-3959(96)03022-3" target="_blank" rel="noopener">Pain, 66(1), 3&ndash;8</a></div>
-          <div class="journal">The landmark real-patient colonoscopy/lithotripsy field study.</div>
-          <div class="method-grid">
-            <div class="method-col strength"><span class="lbl">Strength</span>Measured real-time pain intensity throughout an actual medical procedure on real patients (n=154 colonoscopy, n=133 lithotripsy), then compared it against their own retrospective memory of the same procedure &mdash; a genuine within-subject comparison of experience versus memory, not a lab simulation.</div>
-            <div class="method-col weakness"><span class="lbl">Weakness</span>The procedures studied are specifically painful medical experiences; whether the same peak/end dominance applies identically to purely positive or emotionally complex (not just physically painful) experiences needed separate replication in other domains.</div>
+          <div class="citation">Redelmeier, D. A., Katz, J., &amp; Kahneman, D. (2003). &ldquo;Memories of Colonoscopy: A Randomized Trial.&rdquo; <a href="https://doi.org/10.1016/S0304-3959(03)00003-4" target="_blank" rel="noopener">Pain, 104(1&ndash;2), 187&ndash;194</a></div>
+          <div class="journal">The follow-up randomised trial &mdash; deliberately extends the procedure to test whether a milder ending changes memory.</div>
+          <div class="flow-diagram">
+            <span class="flow-tag">Experiment Teardown</span>
+            <div class="flow-start">
+              <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="3.2"></circle><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"></path></svg>
+              <span class="flow-start-label">682 colonoscopy patients</span>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-split"><span class="flow-split-badge">Only how the procedure ended differed</span></div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-branches">
+              <div class="flow-path path-a">
+                <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Standard procedure</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 3.5" stroke="var(--terracotta)"></path></svg>
+                  <span class="flow-step-label">Ends as soon as the scope is withdrawn</span>
+                </div>
+              </div>
+              <div class="flow-path path-b">
+                <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>Extended procedure</span>
+                <div class="flow-step">
+                  <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 3.5" stroke="var(--terracotta)"></path></svg>
+                  <span class="flow-step-label">Scope held still an extra interval &mdash; mild, not zero, discomfort</span>
+                </div>
+              </div>
+            </div>
+            <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+            <div class="flow-result">
+              <div class="result-table-wrap">
+                <table class="result-table">
+                  <thead>
+                    <tr>
+                      <th>Result</th>
+                      <th class="col-a"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Standard</th>
+                      <th></th>
+                      <th class="col-b"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>Extended</th>
+                      <th>Swing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-label">Final pain</td>
+                      <td class="pct a">2.5</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">1.7</td>
+                      <td class="result-delta">&minus;0.8</td>
+                    </tr>
+                    <tr>
+                      <td class="row-label">Overall rating</td>
+                      <td class="pct a">4.9</td>
+                      <td class="result-arrow">&rarr;</td>
+                      <td class="pct b">4.4</td>
+                      <td class="result-delta">&minus;0.5</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p class="flow-insight"><b>A longer, more painful procedure &mdash; remembered as better.</b> Adding a milder tail end lowered both the final-moment pain and the overall retrospective score, even though total pain and duration both increased.</p>
+            <div class="flow-validity">
+              <div class="v-badge internal"><b>Internal validity</b>A randomised trial (n=682, split standard vs. extended) with real-time pain recorded during the procedure, not only recalled afterward.</div>
+              <div class="v-badge external"><b>External validity</b>Tested on colonoscopy specifically; the original 1996 study found the same peak/end pattern in a second, different procedure (lithotripsy), suggesting the mechanism isn't specific to one procedure.</div>
+            </div>
           </div>
           <div class="excerpts">
             <span class="lbl">Key findings</span>
-            <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>Patients' retrospective ratings of how bad the overall procedure was correlated strongly with the peak pain intensity and the pain intensity in the final few minutes &mdash; but had almost no relationship with how long the procedure actually lasted.</div>
-            <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>In a follow-up condition, deliberately extending a colonoscopy with a period of mild (not zero) discomfort at the end &mdash; making the ending less bad, even though total pain and duration increased &mdash; led to a better retrospective rating and higher willingness to return for a repeat procedure.</div>
+            <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>In the original 1996 study, patients' retrospective ratings of how bad the overall procedure was correlated strongly with the peak pain intensity and the pain intensity in the final few minutes &mdash; but had almost no relationship with how long the procedure actually lasted.</div>
+            <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>Patients in the extended-procedure group also returned for a repeat colonoscopy at a higher rate over a median 5.3-year follow-up (odds ratio 1.41) than patients in the standard-procedure group &mdash; the better memory measurably changed later behaviour, not just the retrospective rating.</div>
           </div>
-
+          <div class="also-note"><b>Also worth citing:</b> Redelmeier, D. A., &amp; Kahneman, D. (1996). &ldquo;Patients&rsquo; Memories of Painful Medical Treatments: Real-Time and Retrospective Evaluations of Two Minimally Invasive Procedures.&rdquo; <a href="https://doi.org/10.1016/0304-3959(96)03022-3" target="_blank" rel="noopener">Pain, 66(1), 3&ndash;8</a> &mdash; the original paper (n=154 colonoscopy, n=133 lithotripsy) that first established the peak/end correlation and duration neglect, setting up the randomised follow-up trial above.</div>
         </div>
       </div>
     </details>
