@@ -318,12 +318,19 @@ It's a copy, not a live reference, though — if a psychology paragraph gets
 edited later, its `.teaser-text` copy in the `<summary>` needs the same
 edit or the preview will drift from the real opening line.
 
-## Contents section — grouped by behavioural theme, not a flat numbered list
+## Contents section — 6 behavioural-theme tabs, click to filter the list below
 
-With 36 principles, a single flat `<ol>` stopped being scannable. Regrouped
-into 6 theme-based sections (`.toc-groups` > `.toc-group` > `.toc-group-title`
-+ the existing `.toc-list`), each principle keeping its original number
-(01&ndash;36) rather than being renumbered per group:
+With 36 principles, a single flat `<ol>` stopped being scannable. First
+tried stacking all 6 theme groups vertically with every list always
+expanded — rejected (still too much permanently-visible content, especially
+on mobile). Landed on a tight horizontal row of category chips
+(`.toc-tabs` > `.toc-tab`, one `<button>` per theme) where clicking a chip
+swaps which theme's list is showing in `.toc-panels` below — only one
+`.toc-panel` visible at a time, matching a standard tab pattern (`role="tab"`
+/ `role="tabpanel"`, `hidden` attribute toggled in `script.js` rather than a
+CSS-only approach, since this needs actual state — which one panel is
+active). Each principle keeps its original number (01&ndash;36) rather than
+being renumbered per group:
 - Judgment, Memory &amp; Perception of Evidence (10)
 - Choice Architecture &amp; Decision-Making (8)
 - Pricing &amp; Value Perception (6)
@@ -331,24 +338,32 @@ into 6 theme-based sections (`.toc-groups` > `.toc-group` > `.toc-group-title`
 - Motivation &amp; Goal Pursuit (5)
 - Friction &amp; Transparency (4)
 
-Two decisions worth keeping if this list grows:
+Decisions worth keeping if this list grows:
+- **Chips carry a short label, panels carry the full theme name.** The
+  button text is intentionally shorter ("Choice Architecture") than the
+  full section heading shown once a tab is active ("Choice Architecture &amp;
+  Decision-Making") — chips need to stay tight and scannable in a single
+  wrapped row, especially on mobile, so they don't carry the full title.
+- **First tab defaults active, not an empty state.** So there's never a
+  moment with no list visible — avoids an extra "select a category" step
+  before the page shows anything useful.
 - **Themes, not customer-journey stage.** A journey-stage grouping
   (Awareness / Consideration / Checkout / Onboarding / Retention) was
-  considered and rejected as the *primary* structure — it works well for
+  considered and rejected as the underlying grouping — it works well for
   the pricing/UX principles but roughly 10 general judgment-and-memory
   principles (Noise, Hindsight Bias, Illusion of Control, Survivorship
   Bias, etc.) aren't tied to a specific funnel step and would get
   force-fit into an artificial "reflection" bucket. Themes give every
   principle an unforced home. Journey stage is still a good *secondary*
-  lens if wanted later (e.g. a filterable tag per principle) rather than
-  a restructure.
+  lens if wanted later (e.g. a second row of filter chips) rather than a
+  full restructure.
 - **Numbers stay with the principle, not the group.** Each principle's
   number is hardcoded into its own section too (`.principle-number`, e.g.
   Not Enough Choice is permanently "06") — renumbering to be sequential
   within each theme would mean touching all 36 section headers just to
   keep two numbering schemes in sync. Numbers appearing out of sequence
-  within a themed group (e.g. 01, 11, 12, 19... in one section) is
-  expected and fine; they're identifiers, not a reading order.
+  within a themed panel (e.g. 01, 11, 12, 19... in one list) is expected
+  and fine; they're identifiers, not a reading order.
 
 ## Open decisions / next steps
 - Get eachlabs style-transfer skill actually generating output on the gelato

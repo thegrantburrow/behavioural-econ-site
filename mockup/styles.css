@@ -305,23 +305,47 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: block;
 }
 
-.toc-groups {
+/* tight horizontal category chips — click one to swap the list below */
+.toc-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
 }
 
-.toc-group-title {
+.toc-tab {
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 32px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.toc-tab:hover { border-color: var(--terracotta); color: var(--ink); }
+
+.toc-tab.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.toc-panel[hidden] { display: none; }
+
+.toc-panel-title {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.02rem;
   font-weight: 700;
   color: var(--ink);
-  margin: 0 0 8px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
+  margin: 0 0 10px;
 }
-
-.toc-group:first-child .toc-group-title { padding-top: 0; border-top: none; }
 
 .toc-list {
   list-style: none;
