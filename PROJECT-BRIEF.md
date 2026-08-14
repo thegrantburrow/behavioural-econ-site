@@ -320,17 +320,35 @@ edit or the preview will drift from the real opening line.
 
 ## Contents section — 6 behavioural-theme tabs, click to filter the list below
 
-With 36 principles, a single flat `<ol>` stopped being scannable. First
-tried stacking all 6 theme groups vertically with every list always
-expanded — rejected (still too much permanently-visible content, especially
-on mobile). Landed on a tight horizontal row of category chips
-(`.toc-tabs` > `.toc-tab`, one `<button>` per theme) where clicking a chip
-swaps which theme's list is showing in `.toc-panels` below — only one
-`.toc-panel` visible at a time, matching a standard tab pattern (`role="tab"`
-/ `role="tabpanel"`, `hidden` attribute toggled in `script.js` rather than a
-CSS-only approach, since this needs actual state — which one panel is
-active). Each principle keeps its original number (01&ndash;36) rather than
-being renumbered per group:
+With 36 principles, a single flat `<ol>` stopped being scannable. Went
+through three iterations before landing on the current one:
+1. All 6 theme groups stacked vertically, always fully expanded —
+   rejected, still too much permanently-visible content on mobile.
+2. Chips that `flex-wrap` onto multiple rows — rejected after seeing it
+   rendered on a real phone: wrapped chips of different label lengths
+   produce a ragged, uneven grid (a short chip like "Social Influence"
+   sits under a long one like "Judgment & Memory" with no shared edges to
+   align to) that reads as scattered rather than deliberate, exactly the
+   opposite of "tight."
+3. **Current: a single-row horizontal scroll strip.** `.toc-tabs` is
+   `display:flex; overflow-x:auto; scroll-snap-type:x proximity`, so
+   every chip sits on one clean, aligned line regardless of label length
+   — no ragged wrapping. `scrollbar-width:none` hides the native
+   scrollbar; a `::after` gradient fade on `.toc-tabs-wrap` (same
+   fade-to-background technique as the article teaser pattern above)
+   appears only when there's actually more to scroll — `script.js` checks
+   `scrollWidth > clientWidth` on load/resize/scroll and toggles a
+   `.scrollable` class, rather than always showing the fade even when all
+   chips already fit (which happens by default at desktop width).
+   Clicking a tab also calls `scrollIntoView({inline:'center'})` on it so
+   the active chip is never left off-screen after a scroll-and-tap.
+
+Clicking a chip swaps which theme's list is showing in `.toc-panels`
+below — only one `.toc-panel` visible at a time, matching a standard tab
+pattern (`role="tab"` / `role="tabpanel"`, `hidden` attribute toggled in
+`script.js` rather than a CSS-only approach, since this needs actual
+state — which one panel is active). Each principle keeps its original
+number (01&ndash;36) rather than being renumbered per group:
 - Judgment, Memory &amp; Perception of Evidence (10)
 - Choice Architecture &amp; Decision-Making (8)
 - Pricing &amp; Value Perception (6)
@@ -339,14 +357,30 @@ being renumbered per group:
 - Friction &amp; Transparency (4)
 
 Decisions worth keeping if this list grows:
+- **Every chip carries a visible count badge** (`.toc-tab-count`, e.g.
+  "Judgment & Memory 10") — this was the direct fix for "make it obvious
+  there are detailed articles in here to browse": the count is concrete
+  proof there's real content behind the click, and giving every chip the
+  same two-part anatomy (label + numeric pill) is also what makes the row
+  read as one consistent, designed system rather than assorted buttons.
+- **An explicit one-line intro** (`.toc-intro`, directly under the
+  "Contents" eyebrow) states what the section is and how to use it:
+  "36 principles, grouped by the underlying psychological mechanism — tap
+  a category to browse its articles." Added because the interaction
+  wasn't self-explanatory from the chips alone.
 - **Chips carry a short label, panels carry the full theme name.** The
   button text is intentionally shorter ("Choice Architecture") than the
   full section heading shown once a tab is active ("Choice Architecture &amp;
-  Decision-Making") — chips need to stay tight and scannable in a single
-  wrapped row, especially on mobile, so they don't carry the full title.
+  Decision-Making") — chips need to stay tight and scannable, so they
+  don't carry the full title.
 - **First tab defaults active, not an empty state.** So there's never a
   moment with no list visible — avoids an extra "select a category" step
   before the page shows anything useful.
+- **`.toc` needed `scroll-margin-top: 64px` added** — found missing while
+  testing (every other major section — `.about`, `.principle`,
+  `.practice`, `.field-note` — already has it) so jumping/scrolling to
+  Contents was hiding its heading behind the sticky nav. Unrelated to the
+  chip redesign itself but surfaced by testing it.
 - **Themes, not customer-journey stage.** A journey-stage grouping
   (Awareness / Consideration / Checkout / Onboarding / Retention) was
   considered and rejected as the underlying grouping — it works well for

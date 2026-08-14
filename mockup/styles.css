@@ -294,47 +294,94 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- contents / index ---------- */
-.toc { padding: 22px 0 26px; }
+.toc { padding: 22px 0 26px; scroll-margin-top: 64px; }
 
 .toc .label {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   display: block;
 }
 
-/* tight horizontal category chips — click one to swap the list below */
+.toc-intro {
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: 46ch;
+  margin: 0 0 16px;
+}
+
+/* tight horizontal category strip — single row, scrolls rather than
+   wraps, so it reads as one deliberate menu instead of a ragged grid */
+.toc-tabs-wrap { position: relative; margin-bottom: 22px; }
+
 .toc-tabs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 18px;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.toc-tabs::-webkit-scrollbar { display: none; }
+
+.toc-tabs-wrap.scrollable::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 2px;
+  width: 32px;
+  background: linear-gradient(to right, rgba(251, 249, 244, 0), var(--paper));
+  pointer-events: none;
 }
 
 .toc-tab {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  padding: 7px 12px;
+  padding: 8px 8px 8px 14px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--card);
-  color: var(--muted);
+  color: var(--ink);
   cursor: pointer;
   white-space: nowrap;
-  min-height: 32px;
+  min-height: 36px;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.toc-tab:hover { border-color: var(--terracotta); color: var(--ink); }
+.toc-tab:hover { border-color: var(--terracotta); }
+
+.toc-tab-count {
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: var(--muted);
+  background: var(--line);
+  border-radius: 999px;
+  padding: 2px 7px;
+  min-width: 1.5em;
+  text-align: center;
+}
 
 .toc-tab.active {
   background: var(--ink);
   color: var(--paper);
   border-color: var(--ink);
+}
+
+.toc-tab.active .toc-tab-count {
+  background: rgba(251, 249, 244, 0.2);
+  color: var(--paper);
 }
 
 .toc-panel[hidden] { display: none; }
