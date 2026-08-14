@@ -75,13 +75,16 @@
 
 <section class="journey" id="journey">
   <div class="wrap">
-    <span class="label">Start here</span>
-    <h2 class="journey-question">Where do you want to convert better?</h2>
-    <div class="lens-switch" role="tablist" aria-label="Choose a lens">
-      <button type="button" class="lens-btn active" data-lens="marketing" role="tab" aria-selected="true">Customer journey</button>
-      <button type="button" class="lens-btn" data-lens="product" role="tab" aria-selected="false">Product</button>
+    <div class="journey-inner">
+      <span class="label">Start here</span>
+      <h2 class="journey-question">Where do you want to convert better?</h2>
+      <div class="lens-switch" role="tablist" aria-label="Choose how the 5 stages are labelled">
+        <button type="button" class="lens-btn active" data-lens="marketing" role="tab" aria-selected="true">Customer journey</button>
+        <button type="button" class="lens-btn" data-lens="product" role="tab" aria-selected="false">Product</button>
+      </div>
+      <p class="lens-note">Same 5 stages either way &mdash; just the vocabulary your team already uses.</p>
+      <div class="stage-row" id="stageRow"></div>
     </div>
-    <div class="stage-row" id="stageRow"></div>
     <div class="featured-cta">
       <form class="principles-search-cta" action="principles.html" method="get">
         <label for="homeSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>

@@ -387,12 +387,18 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* ---------- journey selector (homepage curated entry point) ---------- */
 .journey { padding: 22px 0 28px; scroll-margin-top: 64px; }
 
+.journey-inner {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .journey-question {
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 700;
   font-size: clamp(1.15rem, 3.6vw, 1.4rem);
   line-height: 1.28;
-  margin: 12px 0 0;
+  margin: 12px auto 0;
   max-width: 22ch;
 }
 
@@ -400,7 +406,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: inline-flex;
   gap: 3px;
   padding: 3px;
-  margin-top: 14px;
+  margin-top: 16px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -421,16 +427,23 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .lens-btn.active { background: var(--ink); color: var(--paper); }
 
+.lens-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 8px auto 0;
+  max-width: 34ch;
+}
+
 .stage-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 2px;
-  margin: 18px 0 0;
+  display: flex;
+  align-items: flex-start;
+  margin: 18px auto 0;
   max-width: 460px;
 }
 
 .stage-node {
   position: relative;
+  flex: 1 1 0;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -441,18 +454,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   color: var(--ink);
 }
 
-.stage-node::before {
-  content: "";
-  position: absolute;
-  top: 23px;
-  left: -50%;
-  width: 100%;
-  height: 1px;
-  background: var(--line);
-  z-index: 0;
+.stage-connector {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 38px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--terracotta);
+  opacity: 0.85;
 }
 
-.stage-node:first-child::before { display: none; }
+.stage-connector svg { width: 13px; height: 13px; }
 
 .stage-icon-wrap {
   position: relative;
