@@ -1630,6 +1630,26 @@ a.report-card:hover strong { color: var(--terracotta); }
   .session-toc a { height: 100%; }
 }
 
+.session-upcoming-label { display: block; margin: 22px 0 8px; }
+
+.session-toc-upcoming li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+}
+
+.session-toc-upcoming .session-toc-title { font-weight: 700; font-size: 0.95rem; color: var(--muted); }
+.session-toc-upcoming .session-toc-meta { font-size: 0.8rem; color: var(--muted); }
+
+@media (min-width: 640px) {
+  .session-toc-upcoming { flex-direction: row; flex-wrap: wrap; }
+  .session-toc-upcoming li { flex: 1 1 260px; }
+}
+
 .session { padding: 8px 0 48px; scroll-margin-top: 64px; }
 .session .field-note-tag { margin-right: 8px; }
 .session > .wrap > .case-tag { display: inline-block; margin-bottom: 14px; }
