@@ -249,6 +249,57 @@
 })();
 
 (function () {
+  // Section rail: sticky wayfinding for long articles (Experiments,
+  // Field Sessions' full write-ups). Each [data-rail-root] wraps a
+  // .rail-nav (desktop) and/or .rail-strip (mobile) alongside the real
+  // content, whose top-level chunks carry data-rail-section +
+  // data-rail-label. A section counts as "current" once it crosses into
+  // the top band of the viewport (rootMargin trick), not merely once
+  // it's visible — otherwise several short sections fit on screen at
+  // once and fight over which one is "active". Scoped per root, so a
+  // Field Session's rail only tracks sections inside that same panel;
+  // when the panel is hidden (a toggle switched away from "full"), its
+  // sections aren't in layout, so the observer simply reports nothing
+  // and the rail sits idle until the panel is shown again.
+  document.querySelectorAll('[data-rail-root]').forEach(function (root) {
+    var sections = Array.from(root.querySelectorAll('[data-rail-section]'));
+    if (!sections.length) return;
+
+    var railSteps = Array.from(root.querySelectorAll('.rail-nav .rail-step'));
+    var stripFill = root.querySelector('.rail-strip-fill');
+    var stripLabel = root.querySelector('.rail-strip-label');
+
+    function setActive(idx) {
+      railSteps.forEach(function (step, i) {
+        step.classList.toggle('active', i === idx);
+        step.classList.toggle('done', i < idx);
+      });
+      if (stripFill) stripFill.style.width = (((idx + 1) / sections.length) * 100) + '%';
+      if (stripLabel && sections[idx]) stripLabel.textContent = sections[idx].getAttribute('data-rail-label') || '';
+    }
+
+    var current = 0;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var i = sections.indexOf(entry.target);
+          if (i !== -1) current = i;
+        }
+      });
+      setActive(current);
+    }, { rootMargin: '-84px 0px -55% 0px', threshold: 0 });
+    sections.forEach(function (s) { observer.observe(s); });
+    setActive(0);
+
+    railSteps.forEach(function (step, i) {
+      step.addEventListener('click', function () {
+        if (sections[i]) sections[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
+})();
+
+(function () {
   // Field Session pages: each session's toggle switches between full
   // alternate renderings of that same session (full write-up / condensed /
   // applied variants), not two small lists — so this reuses the

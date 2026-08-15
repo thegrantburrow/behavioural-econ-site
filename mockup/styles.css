@@ -1655,7 +1655,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 .session > .wrap > .case-tag { display: inline-block; margin-bottom: 14px; }
 .session h2 { font-size: clamp(1.4rem, 6vw, 2rem); margin: 4px 0 8px; max-width: 24ch; }
 .session-meta { font-size: 0.85rem; color: var(--muted); margin: 0 0 20px; }
-.session .session-panel > p { font-size: 0.95rem; color: rgba(30, 27, 22, 0.85); max-width: 68ch; margin: 0 0 18px; }
+.session .session-panel > p, .session .rail-content > p { font-size: 0.95rem; color: rgba(30, 27, 22, 0.85); max-width: 68ch; margin: 0 0 18px; }
 .session .case-grid { margin: 24px 0; }
 
 .session-quote {
@@ -2026,6 +2026,79 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 @media (min-width: 640px) {
   .experiment { padding: 16px 0 72px; }
+}
+
+/* ---------- section rail (sticky wayfinding nav for long articles:
+   Experiments and Field Sessions' full write-ups) ---------- */
+.rail-layout { display: block; }
+.rail-content { min-width: 0; }
+.rail-nav { display: none; }
+
+@media (min-width: 900px) {
+  .rail-layout { display: grid; grid-template-columns: 148px 1fr; gap: 32px; align-items: start; }
+  .rail-nav {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 84px;
+    padding-top: 6px;
+  }
+}
+
+.rail-step { display: flex; align-items: flex-start; gap: 9px; min-height: 42px; }
+.rail-dot-col { display: flex; flex-direction: column; align-items: center; }
+.rail-dot { width: 9px; height: 9px; margin-top: 4px; border-radius: 50%; background: var(--line); border: 1.5px solid var(--line); flex-shrink: 0; transition: background 0.2s ease, border-color 0.2s ease; }
+.rail-line { width: 2px; flex: 1; min-height: 16px; background: var(--line); transition: background 0.2s ease; }
+.rail-step:last-child .rail-line { display: none; }
+
+.rail-label {
+  font-family: inherit;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--muted);
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+.rail-label:hover { color: var(--terracotta); }
+.rail-step.active .rail-dot { background: var(--terracotta); border-color: var(--terracotta); }
+.rail-step.active .rail-label { color: var(--terracotta); font-weight: 800; }
+.rail-step.done .rail-dot { background: var(--teal); border-color: var(--teal); }
+.rail-step.done .rail-line { background: var(--teal); }
+
+/* mobile: a permanent side rail costs too much of an already-narrow
+   reading column, so the same "where am I" job is done by a slim sticky
+   progress strip instead — same rail-section data, a different shape.
+   This is a direct child of .rail-layout, not wrapped in an extra div —
+   an otherwise-unstyled wrapper around a sticky element was observed to
+   silently disable its stickiness, so the sticky element stays unwrapped
+   and the responsive show/hide applies to it directly. */
+.rail-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 64px;
+  z-index: 5;
+  background: rgba(251, 249, 244, 0.94);
+  backdrop-filter: blur(6px);
+  padding: 9px 0;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.rail-strip-label { font-size: 0.7rem; font-weight: 800; color: var(--terracotta); white-space: nowrap; flex-shrink: 0; }
+.rail-strip-track { flex: 1; height: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.rail-strip-fill { height: 100%; width: 0%; background: var(--terracotta); transition: width 0.2s ease; }
+
+@media (min-width: 900px) {
+  .rail-strip { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail-dot, .rail-line, .rail-label, .rail-strip-fill { transition: none; }
 }
 
 /* ---------- footer ---------- */
