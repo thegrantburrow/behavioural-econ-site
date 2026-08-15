@@ -140,6 +140,64 @@ same underlying mechanism. **Do not re-split these:**
    kitchen with "HAND CUT FRIES" signage — watching the work happen increases
    perceived value.
 
+## Second expansion: 36 → 42 principles
+
+Six more added in one pass: **Mental Accounting**, **Endowment Effect**, **IKEA
+Effect**, **Ostrich Effect**, **Order Effect**, **Shooting the Messenger**
+(breaking bad news). All follow the standard 7-section article structure and
+were researched the same way as every other principle on this site — primary
+source found and verified via search first, numbers only stated where they
+could actually be confirmed.
+
+**"Order Effect" is deliberately distinct from the existing "Ordering
+Effects,"** not a duplicate — the two are cross-linked both directions so the
+difference is explicit wherever either appears. **Ordering Effects** (Miller
+&amp; Krosnick 1998, ballot position) is about which item gets *selected* from
+a set by its position in it. **Order Effect** (Asch 1946, trait-list
+reversal) is about how the order information *arrives in* changes the
+*judgement* of a single target, independent of any choice between options.
+Same underlying "position matters" family, different mechanism and different
+underlying study — worth keeping separate rather than merging, unlike the
+one deliberate 6→5 principle merge noted above.
+
+**Only one of the six got a full Experiment Teardown: Mental Accounting**
+(Kahneman &amp; Tversky 1984's lost-ticket-vs-lost-cash vignette, n=383,
+46% vs. 88%). The other five hit the same wall documented below for the
+original 36 — real, well-corroborated findings, but exact figures
+(reservation-price gaps, willingness-to-pay means, login-frequency deltas,
+likability ratings) sat behind sources this research pass couldn't reach:
+- **Endowment Effect** (Kahneman, Knetsch &amp; Thaler 1990): the mug
+  experiment's reservation-price gap is real and replicated, but the exact
+  dollar figures varied across the paper's several internal trials rather
+  than landing on one number — used the plain strength/weakness format and
+  said so directly rather than picking one trial's number and presenting it
+  as *the* finding.
+- **IKEA Effect** (Norton, Mochon &amp; Ariely 2012): got one solid number
+  pair (liking ratings, builders M=3.81 vs. non-builders M=2.50) but not
+  exact willingness-to-pay figures — used what was verifiable, didn't invent
+  the rest.
+- **Ostrich Effect** (Karlsson, Loewenstein &amp; Seppi 2009) and **Shooting
+  the Messenger** (John, Blunden &amp; Liu 2019): direction and mechanism are
+  well corroborated across independent summaries; no specific percentages or
+  rating values could be confirmed this pass, so none are stated.
+
+All five say exactly this in their own methodology-critique "Weakness" field
+— the site's honesty standard applies the same way to new principles as it
+did to the original 19 that didn't qualify for a Teardown.
+
+**Every count on the site that depended on 36 was propagated, not just
+the principle list itself**: both pages' hero/heading copy, the search
+placeholder and "browse all" link, the category filter chip counts
+(Judgment &amp; Memory 10→12, Pricing &amp; Value 6→8, Social Influence
+3→4, Motivation &amp; Goals 5→6 — Choice Architecture and Friction &amp;
+Transparency unchanged), the five journey-stage counts in `script.js`
+(awareness 5→6, consideration 13→15, conversion 14→16, retention 11→15,
+advocacy 3→5), and the hand-curated grouped/sequence lists inside each of
+the five stage-view panels — every new principle's `data-stages` tag was
+individually threaded into the matching panel(s), not just counted. Verified
+programmatically after editing (counting actual `data-stages`/`data-theme`
+attributes in the rendered HTML) rather than trusting the arithmetic by eye.
+
 ## Illustration approach — lessons learned (important, read before redoing work)
 Several rounds of hand-coded SVG illustration were attempted and rejected:
 - Pure icon/diagram style: rejected as "not real illustration"
@@ -449,7 +507,7 @@ happened to be short single words ("Hershey's", "Lindt"). Worth checking
 `result-table-wrap` scrollWidth vs. clientWidth specifically (not just
 eyeballing a screenshot) on any future Teardown with multi-word row labels.
 
-## "Article teaser" pattern — applied site-wide to all 36 principle articles
+## "Article teaser" pattern — applied site-wide to all 42 principle articles
 
 Every `<details class="article">` (the collapsed "Read the research" section)
 now shows a 4-line preview of its opening sentence before the reader clicks,
