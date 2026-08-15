@@ -1603,13 +1603,16 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .session .also-note { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.85rem; }
 
+.session-demo { margin: 22px 0 28px; }
+.session-demo .flow-diagram { background: var(--card); }
+.session-demo .also-note { margin-top: 12px; padding-top: 0; border-top: none; }
+
+.case-icon { width: 24px; height: 24px; color: var(--ink); margin-bottom: 8px; }
+
 @media (min-width: 640px) {
   .session { padding: 16px 0 72px; }
   .session-quote { padding: 22px 26px; font-size: 1.15rem; }
-}
-
-@media (min-width: 900px) {
-  .session .case-grid { grid-template-columns: repeat(3, 1fr); }
+  .session-demo { margin: 30px 0 36px; }
 }
 
 /* ---------- footer ---------- */
