@@ -1580,6 +1580,32 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 /* ---------- field sessions page ---------- */
+.session-toc { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+
+.session-toc a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  text-decoration: none;
+  transition: border-color 0.15s ease;
+}
+
+.session-toc a:hover { border-color: var(--terracotta); }
+.session-toc a:hover .session-toc-title { color: var(--terracotta); }
+
+.session-toc-title { font-weight: 700; font-size: 0.95rem; color: var(--ink); transition: color 0.15s ease; }
+.session-toc-meta { font-size: 0.8rem; color: var(--muted); }
+
+@media (min-width: 640px) {
+  .session-toc { flex-direction: row; flex-wrap: wrap; }
+  .session-toc li { flex: 1 1 260px; }
+  .session-toc a { height: 100%; }
+}
+
 .session { padding: 8px 0 48px; scroll-margin-top: 64px; }
 .session .field-note-tag { margin-right: 8px; }
 .session > .wrap > .case-tag { display: inline-block; margin-bottom: 14px; }
