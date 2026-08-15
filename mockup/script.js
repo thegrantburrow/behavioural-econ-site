@@ -219,6 +219,36 @@
 })();
 
 (function () {
+  // Digital & Product Experiments page: category chips filter the list of
+  // experiment articles by product area. An experiment can carry more than
+  // one area (space-separated in data-industries), so this is an "any
+  // match" filter, not the exact-match single-category filter the
+  // Principles page uses. No-ops on any page without this markup.
+  var tabs = document.querySelectorAll('#experimentsFilterTabs .toc-tab');
+  var cards = document.querySelectorAll('article.experiment');
+  if (!tabs.length || !cards.length) return;
+
+  function applyFilter(target) {
+    cards.forEach(function (card) {
+      var areas = (card.getAttribute('data-industries') || '').split(/\s+/);
+      card.hidden = target !== 'all' && areas.indexOf(target) === -1;
+    });
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var target = tab.getAttribute('data-filter-target');
+      tabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      applyFilter(target);
+    });
+  });
+})();
+
+(function () {
   // Field Session pages: each session's toggle switches between full
   // alternate renderings of that same session (full write-up / condensed /
   // applied variants), not two small lists — so this reuses the

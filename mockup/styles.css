@@ -1825,6 +1825,20 @@ a.report-card:hover strong { color: var(--terracotta); }
   color: var(--ink);
 }
 
+.app-chip.selected { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.app-mock-callout {
+  margin: 6px 0 14px;
+  padding: 9px 11px;
+  background: var(--paper);
+  border-left: 3px solid var(--terracotta);
+  border-radius: 4px 8px 8px 4px;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: rgba(30, 27, 22, 0.82);
+}
+.app-mock-callout b { color: var(--ink); }
+
 .app-cta {
   display: block;
   width: 100%;
@@ -1923,6 +1937,96 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 .doc-mock + .app-mock-note { max-width: 460px; }
+
+/* ---------- digital & product experiments page ---------- */
+.experiment { padding: 8px 0 48px; scroll-margin-top: 64px; border-top: 1px solid var(--line); }
+.experiment .field-note-tag { margin-right: 8px; }
+.experiment > .wrap > .case-tag { display: inline-block; margin-bottom: 14px; }
+.experiment h2 { font-size: clamp(1.4rem, 6vw, 2rem); margin: 4px 0 8px; max-width: 26ch; }
+.experiment .also-note { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.85rem; }
+.experiment h3 { font-size: 1.05rem; margin: 30px 0 4px; }
+.experiment > .wrap > p.exp-lede { font-size: 0.95rem; color: rgba(30, 27, 22, 0.85); max-width: 68ch; margin: 0 0 6px; }
+
+.exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 12px; }
+
+.exp-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+}
+
+.exp-tag.industry { border-color: var(--terracotta); color: var(--terracotta-dim); background: rgba(178, 71, 43, 0.06); }
+.exp-tag.applies { color: var(--muted); }
+.exp-tag.status { background: var(--line); color: var(--muted); border-color: transparent; }
+
+.experiment .article-block { max-width: 68ch; }
+.experiment .article-block:first-of-type { margin-top: 22px; }
+
+/* control-vs-treatment comparison: reuses .app-mock-grid, with a 3-up
+   variant for designs that need a second treatment arm alongside control */
+.app-mock-grid.cols-3 { gap: 22px; }
+@media (min-width: 900px) {
+  .app-mock-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ---------- power calc (sample size the experiment would need) ---------- */
+.power-calc {
+  margin-top: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  max-width: 68ch;
+}
+
+.power-calc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 14px;
+  margin-top: 12px;
+}
+
+.power-stat .stat-lbl {
+  display: block;
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 800;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.power-stat .stat-val { font-family: Georgia, serif; font-size: 1.3rem; font-weight: 700; color: var(--ink); line-height: 1.15; }
+.power-stat .stat-val small { font-family: -apple-system, sans-serif; font-size: 0.6rem; font-weight: 700; color: var(--muted); display: block; margin-top: 1px; }
+.power-stat.accent .stat-val { color: var(--terracotta); }
+
+.power-calc-note {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.power-calc-note b { color: var(--ink); }
+
+@media (min-width: 560px) {
+  .power-calc-grid { grid-template-columns: repeat(4, 1fr); }
+  .power-stat .stat-val { font-size: 1.45rem; }
+}
+
+.experiment .doc-mock { margin: 18px 0 0; max-width: 68ch; }
+.experiment .doc-mock + .app-mock-note { margin: 10px 0 0; text-align: left; max-width: 68ch; }
+
+@media (min-width: 640px) {
+  .experiment { padding: 16px 0 72px; }
+}
 
 /* ---------- footer ---------- */
 footer { padding: 18px 0 max(18px, env(safe-area-inset-bottom)); font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--line); }
