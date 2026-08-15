@@ -249,33 +249,43 @@
 })();
 
 (function () {
-  // Section rail: sticky wayfinding for long articles (Experiments,
-  // Field Sessions' full write-ups). Each [data-rail-root] wraps a
-  // .rail-nav (desktop) and/or .rail-strip (mobile) alongside the real
-  // content, whose top-level chunks carry data-rail-section +
-  // data-rail-label. A section counts as "current" once it crosses into
-  // the top band of the viewport (rootMargin trick), not merely once
-  // it's visible — otherwise several short sections fit on screen at
-  // once and fight over which one is "active". Scoped per root, so a
-  // Field Session's rail only tracks sections inside that same panel;
-  // when the panel is hidden (a toggle switched away from "full"), its
-  // sections aren't in layout, so the observer simply reports nothing
-  // and the rail sits idle until the panel is shown again.
+  // Section rail: wayfinding for long articles (Experiments, Field
+  // Sessions' full write-ups). Each [data-rail-root] wraps a .rail-scroll
+  // box — its own overflow-y:auto scrollport — holding a .rail-nav
+  // (sticky within that box, not the page) alongside the real content,
+  // whose top-level chunks carry data-rail-section + data-rail-label.
+  //
+  // The rail intentionally scrolls inside its own box rather than
+  // tracking the document's scroll. A rail sticky to the page only stays
+  // pinned if the page itself is the thing scrolling — but viewed through
+  // the Claude Artifact preview, the outer viewer stretches the page to
+  // its full height and scrolls its own outer window instead, so a
+  // document-sticky rail never sees any scroll to react to. Giving the
+  // rail a real internal scroll container sidesteps that: it works the
+  // same in the preview and once deployed, because it never depends on
+  // what, if anything, is scrolling outside it.
+  //
+  // A section counts as "current" once it crosses into the top band of
+  // the rail-scroll box (rootMargin trick, scoped to that box via the
+  // observer's root), not merely once it's visible — otherwise several
+  // short sections fit in the box at once and fight over which is
+  // "active". Scoped per root, so a Field Session's rail only tracks
+  // sections inside that same panel; when the panel is hidden (a toggle
+  // switched away from "full"), its sections aren't in layout, so the
+  // observer simply reports nothing and the rail sits idle until the
+  // panel is shown again.
   document.querySelectorAll('[data-rail-root]').forEach(function (root) {
     var sections = Array.from(root.querySelectorAll('[data-rail-section]'));
-    if (!sections.length) return;
+    var scrollBox = root.querySelector('.rail-scroll');
+    if (!sections.length || !scrollBox) return;
 
     var railSteps = Array.from(root.querySelectorAll('.rail-nav .rail-step'));
-    var stripFill = root.querySelector('.rail-strip-fill');
-    var stripLabel = root.querySelector('.rail-strip-label');
 
     function setActive(idx) {
       railSteps.forEach(function (step, i) {
         step.classList.toggle('active', i === idx);
         step.classList.toggle('done', i < idx);
       });
-      if (stripFill) stripFill.style.width = (((idx + 1) / sections.length) * 100) + '%';
-      if (stripLabel && sections[idx]) stripLabel.textContent = sections[idx].getAttribute('data-rail-label') || '';
     }
 
     var current = 0;
@@ -287,7 +297,7 @@
         }
       });
       setActive(current);
-    }, { rootMargin: '-84px 0px -55% 0px', threshold: 0 });
+    }, { root: scrollBox, rootMargin: '0px 0px -55% 0px', threshold: 0 });
     sections.forEach(function (s) { observer.observe(s); });
     setActive(0);
 

@@ -2028,33 +2028,59 @@ a.report-card:hover strong { color: var(--terracotta); }
   .experiment { padding: 16px 0 72px; }
 }
 
-/* ---------- section rail (sticky wayfinding nav for long articles:
-   Experiments and Field Sessions' full write-ups) ---------- */
-.rail-layout { display: block; }
-.rail-content { min-width: 0; }
-.rail-nav { display: none; }
-
+/* ---------- section rail (wayfinding nav for long articles: Experiments
+   and Field Sessions' full write-ups) — one vertical dot-rail at every
+   width, living inside its own internally-scrolling frame (.rail-scroll).
+   Sticky only engages against a real scrolling ancestor, and the page
+   itself isn't reliably that ancestor: viewed through the Claude Artifact
+   preview, the outer viewer stretches the page to its full content height
+   and scrolls its own outer window instead, so a rail sticky to the
+   document never sees any scroll to react to and just sits inert. Giving
+   the rail its own overflow-y:auto box sidesteps that entirely — the nav
+   sticks to a container that is guaranteed to actually scroll, in the
+   preview and once deployed alike. */
+.rail-layout { margin: 22px 0 0; }
+.rail-scroll {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 14px;
+  align-items: start;
+  height: min(72vh, 620px);
+  min-height: 340px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  padding: 18px 16px 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+}
+@media (min-width: 640px) {
+  .rail-scroll { grid-template-columns: 128px 1fr; gap: 22px; padding: 22px 26px 26px; }
+}
 @media (min-width: 900px) {
-  .rail-layout { display: grid; grid-template-columns: 148px 1fr; gap: 32px; align-items: start; }
-  .rail-nav {
-    display: flex;
-    flex-direction: column;
-    position: sticky;
-    top: 84px;
-    padding-top: 6px;
-  }
+  .rail-scroll { grid-template-columns: 148px 1fr; gap: 32px; }
 }
 
-.rail-step { display: flex; align-items: flex-start; gap: 9px; min-height: 42px; }
+.rail-nav {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  padding-top: 2px;
+}
+.rail-content { min-width: 0; }
+
+.rail-step { display: flex; align-items: flex-start; gap: 7px; min-height: 34px; }
 .rail-dot-col { display: flex; flex-direction: column; align-items: center; }
-.rail-dot { width: 9px; height: 9px; margin-top: 4px; border-radius: 50%; background: var(--line); border: 1.5px solid var(--line); flex-shrink: 0; transition: background 0.2s ease, border-color 0.2s ease; }
-.rail-line { width: 2px; flex: 1; min-height: 16px; background: var(--line); transition: background 0.2s ease; }
+.rail-dot { width: 8px; height: 8px; margin-top: 4px; border-radius: 50%; background: var(--line); border: 1.5px solid var(--line); flex-shrink: 0; transition: background 0.2s ease, border-color 0.2s ease; }
+.rail-line { width: 2px; flex: 1; min-height: 12px; background: var(--line); transition: background 0.2s ease; }
 .rail-step:last-child .rail-line { display: none; }
 
 .rail-label {
   font-family: inherit;
-  font-size: 0.75rem;
-  line-height: 1.3;
+  font-size: 0.68rem;
+  line-height: 1.25;
   color: var(--muted);
   background: none;
   border: none;
@@ -2063,42 +2089,18 @@ a.report-card:hover strong { color: var(--terracotta); }
   cursor: pointer;
   transition: color 0.2s ease, font-weight 0.2s ease;
 }
+@media (min-width: 640px) {
+  .rail-label { font-size: 0.75rem; }
+}
 .rail-label:hover { color: var(--terracotta); }
 .rail-step.active .rail-dot { background: var(--terracotta); border-color: var(--terracotta); }
 .rail-step.active .rail-label { color: var(--terracotta); font-weight: 800; }
 .rail-step.done .rail-dot { background: var(--teal); border-color: var(--teal); }
 .rail-step.done .rail-line { background: var(--teal); }
 
-/* mobile: a permanent side rail costs too much of an already-narrow
-   reading column, so the same "where am I" job is done by a slim sticky
-   progress strip instead — same rail-section data, a different shape.
-   This is a direct child of .rail-layout, not wrapped in an extra div —
-   an otherwise-unstyled wrapper around a sticky element was observed to
-   silently disable its stickiness, so the sticky element stays unwrapped
-   and the responsive show/hide applies to it directly. */
-.rail-strip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: sticky;
-  top: 64px;
-  z-index: 5;
-  background: rgba(251, 249, 244, 0.94);
-  backdrop-filter: blur(6px);
-  padding: 9px 0;
-  margin-bottom: 6px;
-  border-bottom: 1px solid var(--line);
-}
-.rail-strip-label { font-size: 0.7rem; font-weight: 800; color: var(--terracotta); white-space: nowrap; flex-shrink: 0; }
-.rail-strip-track { flex: 1; height: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
-.rail-strip-fill { height: 100%; width: 0%; background: var(--terracotta); transition: width 0.2s ease; }
-
-@media (min-width: 900px) {
-  .rail-strip { display: none; }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .rail-dot, .rail-line, .rail-label, .rail-strip-fill { transition: none; }
+  .rail-dot, .rail-line, .rail-label { transition: none; }
+  .rail-scroll { scroll-behavior: auto; }
 }
 
 /* ---------- footer ---------- */
