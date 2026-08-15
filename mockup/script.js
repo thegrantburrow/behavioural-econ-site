@@ -217,3 +217,24 @@
   // real page load; unused by the real two-file site.
   window.__openTargetPrinciple = openTargetPrinciple;
 })();
+
+(function () {
+  // Field Session page: one toggle switches between four full alternate
+  // renderings of the same session (full write-up / condensed / applied
+  // in a banking app / applied as in-app messages), not two small lists —
+  // so this reuses the .view-toggle/.view-btn look but drives visibility
+  // of whole .session-panel blocks instead. No-ops elsewhere.
+  var toggle = document.querySelector('.session-toggle');
+  if (!toggle) return;
+  var panels = document.querySelectorAll('.session-panel');
+  toggle.querySelectorAll('.view-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var view = btn.getAttribute('data-view-btn');
+      toggle.querySelectorAll('.view-btn').forEach(function (b) {
+        b.classList.toggle('active', b === btn);
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+      });
+      panels.forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== view; });
+    });
+  });
+})();

@@ -46,58 +46,195 @@
     <h2>Teaching Year 8/9 students the maths their brains skip</h2>
     <p class="session-meta">Airds High School &middot; Year 8/9 &middot; an &ldquo;Everyday Banking&rdquo; talk</p>
 
-    <p>When my own kids ask what I actually do at a bank, the answer that works has never been a sentence &mdash; it's a demonstration. I got the same chance with a room of Year 8 and 9 students, and opened with the one that always lands hardest: a $5 chocolate bar, marked down live in front of them.</p>
-
-    <div class="session-demo">
-      <div class="flow-diagram">
-        <span class="flow-tag">Live demo, not a controlled study</span>
-        <div class="flow-start">
-          <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="8" cy="8" r="2.6"></circle>
-            <path d="M3 19c0-3 2.2-5 5-5s5 2 5 5"></path>
-            <circle cx="17.5" cy="9" r="2.2"></circle>
-            <path d="M13.8 19c.3-2.6 2-4.4 4.4-4.4 2 0 3.6 1.2 4.1 3.2" stroke="var(--terracotta)"></path>
-          </svg>
-          <span class="flow-start-label">A room of Year 8/9 students, no warning about what was coming</span>
-        </div>
-        <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
-        <div class="flow-step">
-          <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12.6 3H20a1 1 0 0 1 1 1v7.4a1 1 0 0 1-.3.7l-8.6 8.6a1 1 0 0 1-1.4 0l-7.4-7.4a1 1 0 0 1 0-1.4L11.9 3.3a1 1 0 0 1 .7-.3z"></path>
-            <circle cx="16.5" cy="7.5" r="1.4" fill="var(--terracotta)" stroke="none"></circle>
-          </svg>
-          <span class="flow-step-label">Held up a chocolate bar. Priced it at $5.</span>
-        </div>
-        <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
-        <div class="flow-step">
-          <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="19" x2="19" y2="5" stroke="var(--terracotta)"></line>
-            <circle cx="7" cy="7" r="2.4"></circle>
-            <circle cx="17" cy="17" r="2.4"></circle>
-          </svg>
-          <span class="flow-step-label">Dropped the price to $2.50, live &mdash; 50% off.</span>
-        </div>
-        <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
-        <div class="flow-step">
-          <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9"></circle>
-            <path d="M9.2 9.5a2.8 2.8 0 1 1 3.9 2.6c-.9.5-1.1 1-1.1 2.1" stroke="var(--terracotta)"></path>
-            <circle cx="12" cy="17.3" r="0.9" fill="var(--terracotta)" stroke="none"></circle>
-          </svg>
-          <span class="flow-step-label">Asked the room: &ldquo;How much are you saving?&rdquo;</span>
-        </div>
-        <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
-        <div class="flow-split"><span class="flow-split-badge">Hands shot up: &ldquo;$2.50&rdquo;</span></div>
-        <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
-        <p class="flow-insight"><b>Wrong question, wrong answer &mdash; and that was the point.</b> Nobody in that room had $5 in their hand a minute earlier. They weren't saving $2.50, they were spending it. The $5 was never a real price; it was planted as the number everything else would get judged against &mdash; the same mechanic behind every &ldquo;was $160, now $80&rdquo; tag in a shop window.</p>
-        <div class="also-note"><b>Why it landed:</b> A wrong answer they'd all just given out loud, corrected on the spot, stuck harder than being handed the definition first. See the full write-up: <a href="principles.html#anchoring">Anchoring</a>.</div>
-      </div>
+    <div class="view-toggle session-toggle" role="tablist" aria-label="Choose how to read this session">
+      <button type="button" class="view-btn active" data-view-btn="full" role="tab" aria-selected="true">Full write-up</button>
+      <button type="button" class="view-btn" data-view-btn="condensed" role="tab" aria-selected="false">Condensed</button>
+      <button type="button" class="view-btn" data-view-btn="app-steps" role="tab" aria-selected="false">In your banking app</button>
+      <button type="button" class="view-btn" data-view-btn="app-messages" role="tab" aria-selected="false">In-app messages</button>
     </div>
 
-    <div class="session-trio">
-      <h3>Three saving habits, not a budgeting app</h3>
-      <p class="trio-sub">The rules behind the envelopes &mdash; simple enough to run without a spreadsheet, a calculator, or an adult checking in.</p>
-      <div class="case-grid trio-grid">
+    <div class="session-panel" data-panel="full">
+      <p>When my own kids ask what I actually do at a bank, the answer that works has never been a sentence &mdash; it's a demonstration. I got the same chance with a room of Year 8 and 9 students, and opened with the one that always lands hardest: a $5 chocolate bar, marked down live in front of them.</p>
+
+      <div class="session-collage-wrap">
+        <div class="session-collage">
+          <div class="photo-cell area-hero"><img class="session-photo" src="images/airds-room-wide.jpg" alt="Presenting to a room of Year 8/9 students at Airds High School" loading="lazy"></div>
+          <div class="photo-cell area-podium"><img class="session-photo" src="images/airds-podium-piechart.jpg" alt="At the podium, presenting the &ldquo;a third, a third, a third&rdquo; rule" loading="lazy"></div>
+          <div class="photo-cell area-env"><img class="session-photo" src="images/airds-envelopes-wide.jpg" alt="Four hand-labelled envelopes: Spend for Now, Save for Phone, Save for Future" loading="lazy"></div>
+          <div class="photo-cell area-traps"><img class="session-photo" src="images/airds-spending-traps.jpg" alt="The &ldquo;3 Spending Traps&rdquo; handout: anchoring, scarcity, social proof" loading="lazy"></div>
+          <div class="photo-cell area-screen"><img class="session-photo" src="images/airds-screen-rules.jpg" alt="The &ldquo;3 Simple Rules For Your Money&rdquo; slide on screen" loading="lazy"></div>
+        </div>
+        <p class="caption">From the actual session &mdash; the envelopes, the handout, and the room.</p>
+      </div>
+
+      <div class="session-demo">
+        <div class="flow-diagram">
+          <span class="flow-tag">Live demo, not a controlled study</span>
+          <div class="flow-start">
+            <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="2.6"></circle>
+              <path d="M3 19c0-3 2.2-5 5-5s5 2 5 5"></path>
+              <circle cx="17.5" cy="9" r="2.2"></circle>
+              <path d="M13.8 19c.3-2.6 2-4.4 4.4-4.4 2 0 3.6 1.2 4.1 3.2" stroke="var(--terracotta)"></path>
+            </svg>
+            <span class="flow-start-label">A room of Year 8/9 students, no warning about what was coming</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step">
+            <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12.6 3H20a1 1 0 0 1 1 1v7.4a1 1 0 0 1-.3.7l-8.6 8.6a1 1 0 0 1-1.4 0l-7.4-7.4a1 1 0 0 1 0-1.4L11.9 3.3a1 1 0 0 1 .7-.3z"></path>
+              <circle cx="16.5" cy="7.5" r="1.4" fill="var(--terracotta)" stroke="none"></circle>
+            </svg>
+            <span class="flow-step-label">Held up a chocolate bar. Priced it at $5.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step">
+            <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="19" x2="19" y2="5" stroke="var(--terracotta)"></line>
+              <circle cx="7" cy="7" r="2.4"></circle>
+              <circle cx="17" cy="17" r="2.4"></circle>
+            </svg>
+            <span class="flow-step-label">Dropped the price to $2.50, live &mdash; 50% off.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step">
+            <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M9.2 9.5a2.8 2.8 0 1 1 3.9 2.6c-.9.5-1.1 1-1.1 2.1" stroke="var(--terracotta)"></path>
+              <circle cx="12" cy="17.3" r="0.9" fill="var(--terracotta)" stroke="none"></circle>
+            </svg>
+            <span class="flow-step-label">Asked the room: &ldquo;How much are you saving?&rdquo;</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-split"><span class="flow-split-badge">Hands shot up: &ldquo;$2.50&rdquo;</span></div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <p class="flow-insight"><b>Wrong question, wrong answer &mdash; and that was the point.</b> Nobody in that room had $5 in their hand a minute earlier. They weren't saving $2.50, they were spending it. The $5 was never a real price; it was planted as the number everything else would get judged against &mdash; the same mechanic behind every &ldquo;was $160, now $80&rdquo; tag in a shop window.</p>
+          <div class="also-note"><b>Why it landed:</b> A wrong answer they'd all just given out loud, corrected on the spot, stuck harder than being handed the definition first. See the full write-up: <a href="principles.html#anchoring">Anchoring</a>.</div>
+        </div>
+      </div>
+
+      <div class="session-trio">
+        <h3>Three saving habits, not a budgeting app</h3>
+        <p class="trio-sub">The rules behind the envelopes &mdash; simple enough to run without a spreadsheet, a calculator, or an adult checking in.</p>
+        <div class="case-grid trio-grid">
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12 L12 3 A9 9 0 0 1 19.79 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
+              <path d="M12 12 L19.79 16.5 A9 9 0 0 1 4.21 16.5 Z" fill="var(--teal)" stroke="var(--card)" stroke-width="0.6"></path>
+              <path d="M12 12 L4.21 16.5 A9 9 0 0 1 12 3 Z" fill="var(--mustard)" stroke="var(--card)" stroke-width="0.6"></path>
+            </svg>
+            <span class="case-tag">Heuristic</span>
+            <h4>A third, a third, a third</h4>
+            <div class="case-body">
+              <p>Split whatever comes in three equal ways before deciding what to do with any of it &mdash; a third to spend now, a third to save for something specific, a third to put away for later. No tracking, no app, just one rule simple enough to actually use.</p>
+            </div>
+          </div>
+
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16v12.5L15 21H4z"></path>
+              <path d="M15 21v-4.5h5" stroke="var(--terracotta)"></path>
+              <line x1="7.5" y1="9" x2="16.5" y2="9"></line>
+            </svg>
+            <span class="case-tag">Mental Accounting</span>
+            <h4>Name your money</h4>
+            <div class="case-body">
+              <p>Giving each third a label before it reaches your hand &mdash; &ldquo;spending for now,&rdquo; &ldquo;saving for phone,&rdquo; &ldquo;saving for future&rdquo; &mdash; makes it feel already spoken for. Unlabelled money is money your brain treats as fair game.</p>
+            </div>
+          </div>
+
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+              <line x1="3.5" y1="20.5" x2="20.5" y2="3.5" stroke="var(--terracotta)"></line>
+            </svg>
+            <span class="case-tag">Salience + Friction</span>
+            <h4>Out of sight, out of mind</h4>
+            <div class="case-body">
+              <p>Hidden savings feel less available and take more effort to reach &mdash; which is exactly why they survive. The friction of pulling money back out isn't a flaw in the system; it's the point.</p>
+            </div>
+          </div>
+        </div>
+        <div class="also-note"><b>Why it landed:</b> We simulated ten weeks together, one coin at a time into each envelope, and by the end there was $30 sitting in the &ldquo;save&rdquo; envelopes that nobody had consciously decided to save &mdash; it just never got the chance to be spent, because it already had a job. See the full write-up: <a href="principles.html#mental-accounting">Mental Accounting</a> &amp; <a href="principles.html#salience">Salience</a>.</div>
+      </div>
+
+      <div class="session-trio">
+        <h3>Three spending traps</h3>
+        <p class="trio-sub">The same tricks, printed on one slide, that shops and apps use every day &mdash; none of them needed to be true to work.</p>
+        <div class="case-grid trio-grid">
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="var(--mustard)" stroke="var(--terracotta)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3.5l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.5l-5.1 2.7 1-5.7-4.1-4 5.7-.8z"></path>
+            </svg>
+            <span class="case-tag">Social Proof</span>
+            <h4>Everyone has it</h4>
+            <div class="case-body">
+              <p>&ldquo;4.8&#9733; from 860 reviews, 1,200+ bought this month.&rdquo; What other people already picked leaks into what feels safe to pick, whether or not it's actually the best option on the shelf.</p>
+            </div>
+          </div>
+
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6.5 3h11"></path>
+              <path d="M6.5 21h11"></path>
+              <path d="M7.5 3c0 4.2 4.5 5.3 4.5 8s-4.5 3.8-4.5 8"></path>
+              <path d="M16.5 3c0 4.2-4.5 5.3-4.5 8s4.5 3.8 4.5 8"></path>
+              <circle cx="12" cy="11" r="1" fill="var(--terracotta)" stroke="none"></circle>
+            </svg>
+            <span class="case-tag">Scarcity</span>
+            <h4>Limited time!</h4>
+            <div class="case-body">
+              <p>&ldquo;Flash sale ends in 09:47, only 2 left.&rdquo; A countdown or a low-stock label creates urgency to decide before there's time to actually think it over &mdash; true shortage or not.</p>
+            </div>
+          </div>
+
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="19" x2="19" y2="5" stroke="var(--terracotta)"></line>
+              <circle cx="7" cy="7" r="2.4"></circle>
+              <circle cx="17" cy="17" r="2.4"></circle>
+            </svg>
+            <span class="case-tag">Anchoring</span>
+            <h4>50% off!</h4>
+            <div class="case-body">
+              <p>&ldquo;Was $160, now $80.&rdquo; The struck-through price, not the actual price, does the persuading &mdash; the same demo that opened this session, printed onto a product tile.</p>
+            </div>
+          </div>
+        </div>
+        <div class="also-note"><b>Why it landed:</b> Naming each trick out loud, once, made it recognisable later &mdash; a few students called out &ldquo;anchoring!&rdquo; unprompted at the last tile, having only heard the word twice before. See the full write-up: <a href="principles.html#scarcity">Scarcity</a> &amp; <a href="principles.html#social-proof">Social Proof</a>.</div>
+      </div>
+
+      <blockquote class="session-quote">To a teenager's brain, money isn't a calculator &mdash; it's closer to a calculator crossed with Instagram.</blockquote>
+
+      <p>What actually stuck wasn't a definition &mdash; none of them will remember the word &ldquo;anchoring&rdquo; by lunch, and that's fine. What stuck was the moment thirty hands went up for &ldquo;$2.50 in savings&rdquo; and got told, on the spot, that they'd just fallen for it. If I ran this again, I'd get real coins into every pair of hands for the envelope demo instead of narrating it from the front &mdash; the parts they touched were the parts they argued about afterwards, which is exactly the reaction I was after.</p>
+
+      <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#anchoring">Anchoring</a>, <a href="principles.html#mental-accounting">Mental Accounting</a>, <a href="principles.html#salience">Salience</a>, <a href="principles.html#scarcity">Scarcity</a>, and <a href="principles.html#social-proof">Social Proof</a> &mdash; each gets the full study-and-citation treatment on the Principles page. This is what they look like applied to a room of 13- and 14-year-olds instead of a lab.</div>
+    </div>
+
+    <div class="session-panel" data-panel="condensed" hidden>
+      <p>Opened with a $5 chocolate bar, marked down live to $2.50 &mdash; 50% off. Asked the room how much they were saving. &ldquo;$2.50,&rdquo; hands said. Wrong: nobody had $5 a minute earlier, so nobody was saving anything &mdash; they were about to spend $2.50 they didn't have to. That's anchoring, live, and it opened the room up for everything after it.</p>
+
+      <div class="session-demo condensed-demo">
+        <div class="flow-diagram">
+          <span class="flow-tag">The demo, in three beats</span>
+          <div class="flow-start">
+            <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="8" cy="8" r="2.6"></circle>
+              <path d="M3 19c0-3 2.2-5 5-5s5 2 5 5"></path>
+              <circle cx="17.5" cy="9" r="2.2"></circle>
+              <path d="M13.8 19c.3-2.6 2-4.4 4.4-4.4 2 0 3.6 1.2 4.1 3.2" stroke="var(--terracotta)"></path>
+            </svg>
+            <span class="flow-start-label">$5 bar &rarr; marked to $2.50, live &mdash; 50% off &rarr; &ldquo;how much are you saving?&rdquo;</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-split"><span class="flow-split-badge">Hands shot up: &ldquo;$2.50&rdquo;</span></div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <p class="flow-insight"><b>Wrong question, wrong answer.</b> Nobody had $5 in hand a minute earlier &mdash; they were spending $2.50, not saving it.</p>
+        </div>
+      </div>
+
+      <div class="case-grid trio-grid condensed-trio">
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 12 L12 3 A9 9 0 0 1 19.79 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
@@ -106,11 +243,7 @@
           </svg>
           <span class="case-tag">Heuristic</span>
           <h4>A third, a third, a third</h4>
-          <div class="case-body">
-            <p>Split whatever comes in three equal ways before deciding what to do with any of it &mdash; a third to spend now, a third to save for something specific, a third to put away for later. No tracking, no app, just one rule simple enough to actually use.</p>
-          </div>
         </div>
-
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 4h16v12.5L15 21H4z"></path>
@@ -119,11 +252,7 @@
           </svg>
           <span class="case-tag">Mental Accounting</span>
           <h4>Name your money</h4>
-          <div class="case-body">
-            <p>Giving each third a label before it reaches your hand &mdash; &ldquo;spending for now,&rdquo; &ldquo;saving for phone,&rdquo; &ldquo;saving for future&rdquo; &mdash; makes it feel already spoken for. Unlabelled money is money your brain treats as fair game.</p>
-          </div>
         </div>
-
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path>
@@ -132,29 +261,17 @@
           </svg>
           <span class="case-tag">Salience + Friction</span>
           <h4>Out of sight, out of mind</h4>
-          <div class="case-body">
-            <p>Hidden savings feel less available and take more effort to reach &mdash; which is exactly why they survive. The friction of pulling money back out isn't a flaw in the system; it's the point.</p>
-          </div>
         </div>
       </div>
-      <div class="also-note"><b>Why it landed:</b> We simulated ten weeks together, one coin at a time into each envelope, and by the end there was $30 sitting in the &ldquo;save&rdquo; envelopes that nobody had consciously decided to save &mdash; it just never got the chance to be spent, because it already had a job. See the full write-up: <a href="principles.html#mental-accounting">Mental Accounting</a> &amp; <a href="principles.html#salience">Salience</a>.</div>
-    </div>
 
-    <div class="session-trio">
-      <h3>Three spending traps</h3>
-      <p class="trio-sub">The same tricks, printed on one slide, that shops and apps use every day &mdash; none of them needed to be true to work.</p>
-      <div class="case-grid trio-grid">
+      <div class="case-grid trio-grid condensed-trio">
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="var(--mustard)" stroke="var(--terracotta)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3.5l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.5l-5.1 2.7 1-5.7-4.1-4 5.7-.8z"></path>
           </svg>
           <span class="case-tag">Social Proof</span>
           <h4>Everyone has it</h4>
-          <div class="case-body">
-            <p>&ldquo;4.8&#9733; from 860 reviews, 1,200+ bought this month.&rdquo; What other people already picked leaks into what feels safe to pick, whether or not it's actually the best option on the shelf.</p>
-          </div>
         </div>
-
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6.5 3h11"></path>
@@ -165,11 +282,7 @@
           </svg>
           <span class="case-tag">Scarcity</span>
           <h4>Limited time!</h4>
-          <div class="case-body">
-            <p>&ldquo;Flash sale ends in 09:47, only 2 left.&rdquo; A countdown or a low-stock label creates urgency to decide before there's time to actually think it over &mdash; true shortage or not.</p>
-          </div>
         </div>
-
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="5" y1="19" x2="19" y2="5" stroke="var(--terracotta)"></line>
@@ -178,19 +291,100 @@
           </svg>
           <span class="case-tag">Anchoring</span>
           <h4>50% off!</h4>
-          <div class="case-body">
-            <p>&ldquo;Was $160, now $80.&rdquo; The struck-through price, not the actual price, does the persuading &mdash; the same demo that opened this session, printed onto a product tile.</p>
-          </div>
         </div>
       </div>
-      <div class="also-note"><b>Why it landed:</b> Naming each trick out loud, once, made it recognisable later &mdash; a few students called out &ldquo;anchoring!&rdquo; unprompted at the last tile, having only heard the word twice before. See the full write-up: <a href="principles.html#scarcity">Scarcity</a> &amp; <a href="principles.html#social-proof">Social Proof</a>.</div>
+
+      <blockquote class="session-quote">To a teenager's brain, money isn't a calculator &mdash; it's closer to a calculator crossed with Instagram.</blockquote>
+
+      <p>What stuck wasn't the definitions &mdash; it was getting the wrong answer out loud, in front of everyone, and having it corrected on the spot.</p>
+
+      <div class="also-note"><b>The mechanisms:</b> <a href="principles.html#anchoring">Anchoring</a>, <a href="principles.html#mental-accounting">Mental Accounting</a>, <a href="principles.html#salience">Salience</a>, <a href="principles.html#scarcity">Scarcity</a>, <a href="principles.html#social-proof">Social Proof</a>. Full version has the photos, the numbers, and the reflection.</div>
     </div>
 
-    <blockquote class="session-quote">To a teenager's brain, money isn't a calculator &mdash; it's closer to a calculator crossed with Instagram.</blockquote>
+    <div class="session-panel" data-panel="app-steps" hidden>
+      <p>None of this needs a talk, an envelope, or a spare $5 chocolate bar. Most banking apps already have the pieces &mdash; here's how the same three habits map onto features you probably already have access to.</p>
 
-    <p>What actually stuck wasn't a definition &mdash; none of them will remember the word &ldquo;anchoring&rdquo; by lunch, and that's fine. What stuck was the moment thirty hands went up for &ldquo;$2.50 in savings&rdquo; and got told, on the spot, that they'd just fallen for it. If I ran this again, I'd get real coins into every pair of hands for the envelope demo instead of narrating it from the front &mdash; the parts they touched were the parts they argued about afterwards, which is exactly the reaction I was after.</p>
+      <div class="session-demo">
+        <div class="flow-diagram">
+          <span class="flow-tag">Do this yourself &mdash; five minutes</span>
 
-    <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#anchoring">Anchoring</a>, <a href="principles.html#mental-accounting">Mental Accounting</a>, <a href="principles.html#salience">Salience</a>, <a href="principles.html#scarcity">Scarcity</a>, and <a href="principles.html#social-proof">Social Proof</a> &mdash; each gets the full study-and-citation treatment on the Principles page. This is what they look like applied to a room of 13- and 14-year-olds instead of a lab.</div>
+          <div class="flow-step numbered">
+            <span class="step-num">1</span>
+            <span class="flow-step-label"><b>Open your banking app</b> and look for Pockets, Spaces, Goals, or Sub-accounts &mdash; most apps now let you split money into named, separate places without opening a new account. If yours doesn't yet, three ordinary savings accounts do the same job.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">2</span>
+            <span class="flow-step-label"><b>Pick your split.</b> A third, a third, a third is a starting point, not a rule &mdash; the mechanism works at any ratio, as long as it's decided in advance, not after the money's already spent.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">3</span>
+            <span class="flow-step-label"><b>Rename each one by its job,</b> not its number. &ldquo;Save for Phone&rdquo; beats &ldquo;Savings Account 2&rdquo; every time &mdash; a name you can picture is a name your brain protects.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">4</span>
+            <span class="flow-step-label"><b>Automate the split on payday.</b> A standing transfer or an auto-split rule moves the money before you ever see it as spendable &mdash; the single biggest lever here, because it removes the moment of decision entirely.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">5</span>
+            <span class="flow-step-label"><b>Hide two of the three</b> from your home screen if your app allows it. Keep &ldquo;Spend for Now&rdquo; visible, tuck the other two out of the default view. Less visible, less spent.</span>
+          </div>
+
+          <p class="flow-insight"><b>None of this requires willpower.</b> Every step above moves the decision earlier &mdash; before the money's in your hand, not after it's already gone.</p>
+        </div>
+      </div>
+
+      <div class="also-note"><b>The mechanisms behind this:</b> <a href="principles.html#mental-accounting">Mental Accounting</a> and <a href="principles.html#salience">Salience</a> &mdash; the full study-and-citation write-up is on the Principles page.</div>
+    </div>
+
+    <div class="session-panel" data-panel="app-messages" hidden>
+      <p>Two different constraints, same underlying idea: a brand-new customer who's never heard any of this, and a home screen with about four lines to spare.</p>
+
+      <div class="app-mock-grid">
+        <div class="app-mock-col">
+          <span class="app-mock-label">Onboarding &middot; new account</span>
+          <div class="app-mock-phone">
+            <div class="app-mock-screen">
+              <svg class="app-mock-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12 L12 3 A9 9 0 0 1 19.79 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
+                <path d="M12 12 L19.79 16.5 A9 9 0 0 1 4.21 16.5 Z" fill="var(--teal)" stroke="var(--card)" stroke-width="0.6"></path>
+                <path d="M12 12 L4.21 16.5 A9 9 0 0 1 12 3 Z" fill="var(--mustard)" stroke="var(--card)" stroke-width="0.6"></path>
+              </svg>
+              <h4>Split it 3 ways from day one</h4>
+              <p>Most people who do this end up saving more &mdash; not because they earn more, but because the decision only gets made once.</p>
+              <div class="app-mock-chips">
+                <span class="app-chip">Spend</span>
+                <span class="app-chip">Save &middot; Phone</span>
+                <span class="app-chip">Save &middot; Future</span>
+              </div>
+              <button type="button" class="app-cta">Set up my 3 pockets</button>
+              <a href="#" class="app-skip" tabindex="-1">I'll do this later</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-mock-col">
+          <span class="app-mock-label">Check-in &middot; limited real estate</span>
+          <div class="app-mock-banner">
+            <svg class="app-mock-banner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6.5 3h11"></path>
+              <path d="M6.5 21h11"></path>
+              <path d="M7.5 3c0 4.2 4.5 5.3 4.5 8s-4.5 3.8-4.5 8"></path>
+              <path d="M16.5 3c0 4.2-4.5 5.3-4.5 8s4.5 3.8 4.5 8"></path>
+              <circle cx="12" cy="11" r="1" fill="var(--terracotta)" stroke="none"></circle>
+            </svg>
+            <span class="app-mock-banner-text"><b>Save for Future</b> just passed $30 &mdash; out of sight, still working.</span>
+            <a href="#" class="app-mock-banner-cta" tabindex="-1">View</a>
+          </div>
+          <p class="app-mock-note">Deliberately this small &mdash; a wellbeing nudge that respects the screen, not a full-page interruption.</p>
+        </div>
+      </div>
+
+      <div class="also-note"><b>The mechanisms behind this:</b> <a href="principles.html#mental-accounting">Mental Accounting</a>, <a href="principles.html#salience">Salience</a>, and a light touch of <a href="principles.html#symbolic-rewards">Symbolic Rewards</a> &mdash; progress worth noticing, without turning saving into a game.</div>
+    </div>
   </div>
 </article>
 
