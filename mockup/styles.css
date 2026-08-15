@@ -1609,10 +1609,18 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .case-icon { width: 24px; height: 24px; color: var(--ink); margin-bottom: 8px; }
 
+.session-trio { margin: 30px 0; }
+.session-trio h3 { font-size: 1.1rem; margin: 0 0 4px; }
+.session-trio .trio-sub { font-size: 0.85rem; color: var(--muted); max-width: 56ch; margin: 0 0 16px; }
+.session-trio .also-note { margin-top: 14px; padding-top: 0; border-top: none; }
+.trio-card .case-body p { margin-bottom: 0; }
+
 @media (min-width: 640px) {
   .session { padding: 16px 0 72px; }
   .session-quote { padding: 22px 26px; font-size: 1.15rem; }
   .session-demo { margin: 30px 0 36px; }
+  .session-trio { margin: 40px 0; }
+  .trio-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* ---------- footer ---------- */
