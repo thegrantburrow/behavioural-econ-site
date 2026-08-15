@@ -80,7 +80,7 @@
 
         <div class="article-block" data-rail-section data-rail-label="Theory">
           <span class="k">Theory</span>
-          <p>Mental Accounting says money doesn't sit in one undifferentiated pool in people's heads — it gets sorted into labelled accounts, and a labelled account is protected in a way an unlabelled one isn't. Salience does the actual labelling work: a name you can picture (&ldquo;Save for Phone&rdquo;) stays visible to the mind in a way a generic one (&ldquo;Savings Pocket 2&rdquo;) doesn't. <a href="sessions.html#airds-high-money-talk">The Airds field session</a> tested this live, with paper envelopes and thirty teenagers, and watched $30 accumulate in the &ldquo;save&rdquo; envelopes that nobody consciously decided to save. This is the same mechanism, run as an actual randomised test inside a live banking app instead of a classroom.</p>
+          <p>Mental Accounting says money doesn't sit in one undifferentiated pool in people's heads — it gets sorted into labelled accounts, and a labelled account is protected in a way an unlabelled one isn't. Salience does the actual labelling work, and not by being more memorable in the abstract, but by contrast: a name you can picture (&ldquo;Save for Phone&rdquo;) stands out against the generic, interchangeable rows around it (&ldquo;Savings Pocket 2,&rdquo; &ldquo;Everyday Account&rdquo;), much like one bold number jumping off an otherwise plain bill. <a href="sessions.html#airds-high-money-talk">The Airds field session</a> tested the labelling half of this live, with paper envelopes and a room of Year 8/9 students, and watched $30 accumulate in the &ldquo;save&rdquo; envelopes that nobody consciously decided to save. This experiment tests the contrast half directly: does a name that stands out in a list of accounts protect a balance as well as a name that stood out on a hand-labelled envelope did?</p>
         </div>
 
         <div class="article-block" data-rail-section data-rail-label="Hypothesis">
@@ -95,6 +95,7 @@
 
         <div data-rail-section data-rail-label="Design">
           <h3>Control vs. treatment</h3>
+          <p>The only thing that changes between the two arms is who chooses the label — everything else about opening a pocket stays identical.</p>
           <div class="app-mock-grid">
             <div class="app-mock-col">
               <span class="app-mock-label">Control &middot; auto-named pocket</span>
@@ -208,7 +209,7 @@
 
         <div class="article-block" data-rail-section data-rail-label="Hypothesis">
           <span class="k">Hypothesis</span>
-          <p>Showing a customer's actual financing options &mdash; credit card, personal loan, BNPL &mdash; side by side, with each one's real drawbacks named as plainly as its benefits, before they commit to a product type, will shift some customers toward the option that actually fits how they intend to use it, the same way CBA's within-category version changed which card people picked &mdash; without reducing how many customers convert into a financing product at all.</p>
+          <p>Showing a customer's actual financing options &mdash; credit card, personal loan, BNPL &mdash; side by side, with each one's real drawbacks named as plainly as its benefits, will shift some customers toward the option that actually fits how they intend to use it. Take-up itself shouldn't move: CBA's within-category version changed which card people picked without changing how many applied, and this is that same mechanism working one level up.</p>
         </div>
 
         <div class="article-block" data-rail-section data-rail-label="Baseline">
@@ -218,7 +219,7 @@
 
         <div class="article-block" data-rail-section data-rail-label="Ethics">
           <span class="k">Ethical guardrail</span>
-          <p>This isn't designed to talk anyone out of a credit card &mdash; for plenty of customers, revolving credit is the right tool. The design only makes the other real options visible before the commitment, the same restraint the original CBA study used: inform the decision, don't engineer it. See <a href="index.html#ethics-of-not-experimenting">Ethics of Not Experimenting</a> for the fuller case for that line.</p>
+          <p>Making a financing alternative visible for the first time isn't a neutral change, so the line is worth stating before the design, not after. This isn't built to talk anyone out of a credit card &mdash; for plenty of customers, revolving credit is the right tool. The design only surfaces the other real options before the commitment: inform the decision, don't engineer it, exactly the restraint the original CBA study held to. See <a href="index.html#ethics-of-not-experimenting">Ethics of Not Experimenting</a> for the fuller case for that line.</p>
         </div>
 
         <div data-rail-section data-rail-label="Design">
@@ -292,8 +293,9 @@
             <span>Outcome variables</span>
           </div>
           <ul class="doc-mock-list">
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Primary:</b> % of applicants selecting a personal loan or BNPL plan instead of a credit card (higher is the win)</li>
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Secondary:</b> among applicants who still choose the card, average interest paid in the first 6 months &mdash; does even staying on-card get cheaper when the choice was more informed, mirroring CBA's own within-category result</li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Primary:</b> among applicants who switch to a loan or BNPL plan, missed-payment or default rate in the first 6 months, benchmarked against that product's normal book &mdash; the actual fit test: does an informed switch perform better, or just happen more often</li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Secondary:</b> % of applicants selecting a personal loan or BNPL plan instead of a credit card &mdash; the volume shift the primary outcome needs to be interpreted against</li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Secondary:</b> among applicants who still choose the card, average interest paid in the first 6 months &mdash; does staying on-card get cheaper too when the choice was more informed, mirroring CBA's own within-category result</li>
             <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Guardrail:</b> overall financing conversion rate across all three products combined &mdash; must not drop as a side effect of showing the comparison</li>
             <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Guardrail:</b> support-contact rate referencing the comparison screen, as an early read on confusion</li>
           </ul>
@@ -319,7 +321,7 @@
     </div>
     <h2>Does a costly, specific apology beat a generic one after a service failure?</h2>
     <p class="salient-question lg">List found a costly apology <mark>paid for itself</mark> once, and <mark>backfired</mark> the moment it repeated. How do you design for both?</p>
-    <p class="session-meta">Builds on <a href="sessions.html#voltage-effect-scaling">the Voltage Effect field session</a>'s apology-design panel &middot; Halperin, Ho, List &amp; Muir (2022), <i>The Economic Journal</i></p>
+    <p class="session-meta">Builds on <a href="sessions.html#voltage-effect-scaling">the Voltage Effect field session</a>'s apology-design panel &middot; <a href="principles.html#reciprocity">Reciprocity</a> &middot; Halperin, Ho, List &amp; Muir (2022), <i>The Economic Journal</i></p>
 
     <div class="rail-layout" data-rail-root>
       <div class="rail-scroll">
@@ -336,7 +338,7 @@
 
         <div class="article-block" data-rail-section data-rail-label="Theory">
           <span class="k">Theory</span>
-          <p>Halperin, Ho, List and Muir ran this at real scale on 1.5 million Uber riders who'd just had a late ride: a $5 coupon apology paid for itself, restoring future spend that a generic &ldquo;sorry&rdquo; alone didn't. The same paper also found a sharper result worth designing around from the start: sending the identical coupon again after a second bad ride backfired &mdash; riders spent less than if Uber had said nothing at all. The authors' own explanation: an apology reads as a promise, and reusing the exact same one a second time reads as that promise already broken. The full teardown, with the real numbers, is in <a href="sessions.html#voltage-effect-scaling">the Voltage Effect field session</a>.</p>
+          <p>Halperin, Ho, List and Muir ran this at real scale on 1.5 million Uber riders who'd just had a late ride: a $5 coupon apology paid for itself, restoring future spend that a generic &ldquo;sorry&rdquo; alone didn't &mdash; a costly signal doing work a free one can't, the mechanism this site documents as <a href="principles.html#reciprocity">Reciprocity</a>. Their paper also found a sharper result worth designing around from the start: sending the identical coupon again after a second bad ride backfired &mdash; riders spent less than if Uber had said nothing at all. The authors' own explanation: an apology reads as a promise, and reusing the exact same one a second time reads as that promise already broken. The full teardown, with the real numbers, is in <a href="sessions.html#voltage-effect-scaling">the Voltage Effect field session</a>.</p>
         </div>
 
         <div class="article-block" data-rail-section data-rail-label="Hypothesis">
@@ -351,6 +353,7 @@
 
         <div data-rail-section data-rail-label="Design">
           <h3>Control vs. treatment</h3>
+          <p>Both arms fire at the same moment &mdash; right after a qualifying failure is logged. Only the cost and the specificity of the response change.</p>
           <div class="app-mock-grid">
             <div class="app-mock-col">
               <span class="app-mock-label">Control &middot; generic script</span>
@@ -388,7 +391,7 @@
           <span class="label">Sample size to actually trust this</span>
           <div class="power-calc-grid">
             <div class="power-stat"><span class="stat-lbl">Baseline mean</span><span class="stat-val">3.1<small>CSAT, 1&ndash;5 scale</small></span></div>
-            <div class="power-stat accent"><span class="stat-lbl">Target mean</span><span class="stat-val">3.4<small>MDE +0.3</small></span></div>
+            <div class="power-stat accent"><span class="stat-lbl">Target mean</span><span class="stat-val">3.4<small>+0.3, ~10% relative</small></span></div>
             <div class="power-stat"><span class="stat-lbl">Assumed SD</span><span class="stat-val">1.1<small>illustrative</small></span></div>
             <div class="power-stat"><span class="stat-lbl">Significance</span><span class="stat-val">&alpha; = 0.05<small>two-sided</small></span></div>
             <div class="power-stat accent"><span class="stat-lbl">Sample per arm</span><span class="stat-val">212<small>incidents</small></span></div>
@@ -413,14 +416,14 @@
             <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Primary:</b> post-incident CSAT (1&ndash;5), collected immediately after resolution</li>
             <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Secondary:</b> 90-day retention for affected customers, matching the real spend-based outcome List's team used</li>
             <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Guardrail:</b> cost per incident (average credit issued) weighed against retained-revenue estimate — the whole point of List's finding is that this pays for itself</li>
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Guardrail:</b> support re-contact rate — a good specific explanation should reduce follow-up queries, not just soften the moment</li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><b>Guardrail:</b> support re-contact rate — the test of whether a specific explanation actually resolves the question, rather than only sounding reassuring</li>
           </ul>
         </div>
 
         <div data-rail-section data-rail-label="Sub-branch">
           <div class="article-block">
             <span class="k">Sub-branch &mdash; if the failure repeats</span>
-            <p>Not the headline test, and not recruited separately: whichever customers in the sample above have a second qualifying failure within the test window fall into this branch automatically. Because who gets a second failure isn't random, treat this cut as exploratory, not confirmatory — a read worth having, not a result to ship a policy on by itself.</p>
+            <p>Whichever customers in the headline sample have a second qualifying failure within the test window fall into this branch automatically — it isn't a separately recruited group, and it isn't the result the experiment is powered to confirm. Because who gets a second failure isn't random, treat this cut as exploratory: a read worth having, not a policy to ship on its own.</p>
           </div>
 
           <h3>Sub-branch: same script again vs. varied</h3>
@@ -450,16 +453,17 @@
                     <circle cx="12" cy="15.5" r="1" fill="var(--terracotta)" stroke="none"></circle>
                   </svg>
                   <h4>This shouldn't have happened twice</h4>
-                  <p>We've escalated the underlying issue to our transfers team — here's what's changing, not just another credit.</p>
+                  <p>We've escalated the underlying issue to our transfers team, and changed how it's handled going forward.</p>
                   <button type="button" class="app-cta">See what's being fixed</button>
                 </div>
               </div>
             </div>
           </div>
-          <p class="app-mock-note">The mechanism under test here: not whether to apologise again, but whether the repeat apology reads as a new response to a new problem, or the same promise, broken again.</p>
+          <p class="app-mock-note">The mechanism under test here isn't whether to apologise again — it's whether the repeat apology reads as a new response to a new problem, or the same promise, broken again.</p>
+          <p class="app-mock-note"><b>Outcome for this branch:</b> the same post-incident CSAT measure as the headline test, read only within this subset — plus, as a directional check rather than a powered comparison, whether &ldquo;varied&rdquo; avoids the spend-drop the Uber study found when the identical coupon repeated.</p>
         </div>
 
-        <div class="also-note"><b>The mechanism behind this:</b> drawn from real research covered on this site — see <a href="sessions.html#voltage-effect-scaling">the Voltage Effect field session</a> for the full Uber study, numbers included.</div>
+        <div class="also-note"><b>The mechanism behind this:</b> <a href="principles.html#reciprocity">Reciprocity</a> — see <a href="sessions.html#voltage-effect-scaling">the Voltage Effect field session</a> for the full Uber study, numbers included.</div>
       </div>
     </div>
     </div>
