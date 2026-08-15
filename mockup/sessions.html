@@ -38,6 +38,7 @@
       <li><a href="#airds-high-money-talk"><span class="session-toc-title">Teaching Year 8/9 students the maths their brains skip</span><span class="session-toc-meta">Airds High School &middot; Year 8/9</span></a></li>
       <li><a href="#mapping-outcome-logic"><span class="session-toc-title">Finding the &ldquo;Phase 2&rdquo; every roadmap quietly skips</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
       <li><a href="#safe-to-spend-backfire"><span class="session-toc-title">Why telling customers what's &ldquo;safe to spend&rdquo; can make them spend more</span><span class="session-toc-meta">Digital, Design &amp; Product teams</span></a></li>
+      <li><a href="#voltage-effect-scaling"><span class="session-toc-title">Why your best pilot is the one most likely to lose its voltage</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
     </ul>
 
     <span class="label session-upcoming-label">Coming soon &mdash; not yet written up</span>
@@ -863,6 +864,285 @@
       <p class="app-mock-note">Four checks, not forty &mdash; and the last one is the one most teams skip.</p>
 
       <div class="also-note"><b>The mechanisms behind this:</b> <a href="principles.html#pain-of-paying">Pain of Paying</a>, applied as a design review instead of a one-off talk.</div>
+    </div>
+  </div>
+</article>
+
+<article class="session" id="voltage-effect-scaling">
+  <div class="wrap">
+    <span class="field-note-tag">A session recap, not a study</span>
+    <span class="case-tag">Field Session</span>
+    <h2>Why your best pilot is the one most likely to lose its voltage</h2>
+    <p class="salient-question lg">What if using your <mark>very best</mark> people is exactly what makes a pilot fail to scale?</p>
+    <p class="session-meta">Product, Design &amp; Digital teams &middot; a talk built around John List's <i>The Voltage Effect</i></p>
+
+    <div class="view-toggle session-toggle" role="tablist" aria-label="Choose how to read this session">
+      <button type="button" class="view-btn active" data-view-btn="full" role="tab" aria-selected="true">Full write-up</button>
+      <button type="button" class="view-btn" data-view-btn="condensed" role="tab" aria-selected="false">Condensed</button>
+      <button type="button" class="view-btn" data-view-btn="before-scale" role="tab" aria-selected="false">Before you scale it</button>
+      <button type="button" class="view-btn" data-view-btn="apology-design" role="tab" aria-selected="false">Apologies that don't backfire</button>
+    </div>
+
+    <div class="session-panel" data-panel="full">
+      <p>Economist John List has spent years asking a specific, unglamorous question: why do so many ideas that work beautifully in a small pilot fall apart the moment you try to run them for everyone? His book <i>The Voltage Effect</i> calls the pattern a &ldquo;voltage drop,&rdquo; and I'd already used it lightly in an earlier session on outcome logic. This talk was the deeper version &mdash; built around one of List's own field experiments, and the story I think most directly explains the &ldquo;very best&rdquo; trap product teams fall into without noticing.</p>
+
+      <div class="session-demo">
+        <div class="flow-diagram">
+          <span class="flow-tag">Experiment Teardown</span>
+          <div class="flow-start">
+            <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 16v-3.5l2-4.5h12l2 4.5V16"></path>
+              <path d="M4 16h16" stroke="var(--terracotta)"></path>
+              <circle cx="7.5" cy="17.5" r="1.5"></circle>
+              <circle cx="16.5" cy="17.5" r="1.5"></circle>
+            </svg>
+            <span class="flow-start-label">1.5 million real Uber riders who'd just had a ride arrive more than 5 minutes late</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step">
+            <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 7l6 5 4-2 6 8"></path>
+              <path d="M20 14v4h-4" stroke="var(--terracotta)"></path>
+            </svg>
+            <span class="flow-step-label">Left with nothing, a bad ride quietly cost Uber future business: riders spent 5&ndash;10% less afterward than riders who hadn't had one.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-split"><span class="flow-split-badge">Same late ride, same rider &mdash; only the apology differed</span></div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-branches">
+            <div class="flow-path path-a">
+              <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Words only</span>
+              <div class="flow-step">
+                <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-4 4V16H4z"></path></svg>
+                <span class="flow-step-label">An apology message &mdash; no compensation attached</span>
+              </div>
+            </div>
+            <div class="flow-path path-b">
+              <span class="path-tag"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>+ $5 coupon</span>
+              <div class="flow-step">
+                <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="2"></rect><circle cx="12" cy="12" r="2" stroke="var(--terracotta)"></circle></svg>
+                <span class="flow-step-label">The same message, with a $5 credit toward a future ride</span>
+              </div>
+            </div>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-result">
+            <div class="result-table-wrap">
+              <table class="result-table">
+                <thead>
+                  <tr>
+                    <th>Result</th>
+                    <th class="col-a"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg>Words only</th>
+                    <th></th>
+                    <th class="col-b"><svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v8M8 12h8"></path></svg>+ $5 coupon</th>
+                    <th>Wins</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="row-label">Spend</td>
+                    <td class="pct a">Flat</td>
+                    <td class="result-arrow">&rarr;</td>
+                    <td class="pct b">Recovers</td>
+                    <td class="result-delta">&check;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="flow-insight"><b>A costly signal repaired the relationship. A free one didn't move it.</b> But run the identical $5-coupon apology after a rider's second or third bad ride, and it stopped working &mdash; the same coupon that repaired trust the first time measurably backfired the second, leaving people spending less than if Uber had said nothing at all.</p>
+          <div class="flow-validity">
+            <div class="v-badge internal"><b>Internal validity</b>A real nationwide dataset &mdash; 1.5 million riders' actual future spending, not a survey of stated intent to keep using the app.</div>
+            <div class="v-badge external"><b>External validity</b>One company, one type of failure (a late ride). Whether the same backfire threshold holds for a costlier failure &mdash; a bounced payment, a frozen card &mdash; or a different industry entirely isn't something this study can answer on its own; worth testing before assuming it transfers.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="study-card">
+        <div class="citation">Halperin, B., Ho, B., List, J. A., &amp; Muir, I. (2022). &ldquo;Toward an Understanding of the Economics of Apologies: Evidence from a Large-Scale Natural Field Experiment.&rdquo; <a href="https://academic.oup.com/ej/article-abstract/132/641/273/6325164" target="_blank" rel="noopener">The Economic Journal, 132(641), 273&ndash;298</a></div>
+        <div class="journal">A nationwide field experiment on 1.5 million real Uber riders, run while List was the company's chief economist &mdash; not a lab survey.</div>
+        <div class="excerpts">
+          <span class="lbl">Key findings</span>
+          <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>A late ride, left unaddressed, cost Uber roughly 5&ndash;10% of that rider's future spend on the platform.</div>
+          <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>A $5 coupon was a more effective apology than words alone, and paid for itself &mdash; a positive net return for Uber even after the cost of the coupon.</div>
+          <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>Sending the same coupon apology after a second or third bad ride reversed direction &mdash; a &ldquo;backfire effect&rdquo; the authors attribute to riders reading each apology as a promise, broken again by the next failure.</div>
+        </div>
+        <div class="also-note"><b>See also:</b> <a href="index.html#lab-vs-field">The Voltage Drop at Scale</a> on this site's Reading the Research page, and the Voltage Effect trio in the <a href="#mapping-outcome-logic">outcome-logic session</a> above &mdash; this is the same idea, one study deeper.</div>
+      </div>
+
+      <div class="session-trio">
+        <h3>Three ways a promising pilot lies to you</h3>
+        <p class="trio-sub">List calls these &ldquo;vital signs.&rdquo; Miss one, and the same idea that worked in the room won't survive contact with everyone else.</p>
+        <div class="case-grid trio-grid">
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M12 7.5v5" stroke="var(--terracotta)"></path>
+              <circle cx="12" cy="16" r="1" fill="var(--terracotta)" stroke="none"></circle>
+            </svg>
+            <span class="case-tag">Vital sign</span>
+            <h4>False positives</h4>
+            <div class="case-body">
+              <p>A pilot that &ldquo;worked&rdquo; might just be noise, or a novelty effect that fades once the excitement of being watched wears off. Small samples make it easy to mistake luck for a real, repeatable effect.</p>
+            </div>
+          </div>
+
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 3c0 3-2 3-2 6a3 3 0 0 0 6 0c0-3-2-3-2-6"></path>
+              <path d="M9 15v6M15 15v6" stroke="var(--terracotta)"></path>
+              <path d="M6 15h12v3a6 6 0 0 1-12 0v-3z"></path>
+            </svg>
+            <span class="case-tag">List, Fryer, Levitt &amp; Samek</span>
+            <h4>Chef, not ingredients</h4>
+            <div class="case-body">
+              <p>If a pilot only worked because you staffed it with your <i>very best</i> people, it can't scale &mdash; you can't mass-produce a star performer. List's own Chicago Heights preschool experiment (CHECC) deliberately used a representative sample of ordinary local teachers, not the best ones, precisely so its result &mdash; a real 0.22 SD gain in early academic skills across ~600 children &mdash; would still hold once it left the pilot.</p>
+            </div>
+          </div>
+
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3c3 4 6 7 6 10.5a6 6 0 1 1-12 0C6 10 9 7 12 3z"></path>
+              <path d="M9.5 15.5a2.5 2.5 0 0 0 3 2.4" stroke="var(--terracotta)"></path>
+            </svg>
+            <span class="case-tag">Vital sign</span>
+            <h4>Spillovers</h4>
+            <div class="case-body">
+              <p>Scale changes the system around the idea. Uber's own rider-growth coupons boosted demand enough, at scale, to push up fares and wait times &mdash; which then suppressed the very demand the coupons had created. A pilot too small to move the market can't see this coming.</p>
+            </div>
+          </div>
+        </div>
+        <div class="also-note"><b>Citation:</b> List, J. A., Fryer, R. G., Levitt, S. D., &amp; Samek, A. &mdash; the Chicago Heights Early Childhood Center (CHECC), funded by a $10M Griffin Foundation grant, is documented across several NBER working papers including <a href="https://www.nber.org/papers/w21477" target="_blank" rel="noopener">NBER No. 21477</a>. Reported effect at the 9-month follow-up: +0.22 SD on early academic skills, +0.16 SD on executive functioning, relative to control.</div>
+      </div>
+
+      <blockquote class="session-quote">The pilot that used your best people isn't evidence the idea works. It's evidence your best people work.</blockquote>
+
+      <p>What actually landed was the CHECC story, not the Uber one &mdash; because it's the opposite of instinct. Every product team I've sat with stacks a pilot with its strongest people, on purpose, to give the idea its best shot. List's point is that doing that answers a different question than the one you meant to ask. If I ran this again, I'd open with a show of hands &mdash; who staffed their last pilot with their A-team &mdash; before I said a word about voltage. I suspect it's most of the room, every time.</p>
+
+      <div class="also-note"><b>The mechanisms behind this session:</b> <a href="index.html#lab-vs-field">Lab vs. Field</a> and <a href="principles.html#survivorship-bias">Survivorship Bias</a> &mdash; each gets the full study-and-citation treatment elsewhere on this site. This is what they look like applied to a scaling decision instead of a lab task.</div>
+    </div>
+
+    <div class="session-panel" data-panel="condensed" hidden>
+      <p>John List's <i>The Voltage Effect</i> asks why pilots that work beautifully shrink at scale. The clearest case: Uber's own economists found a $5 coupon apology after a late ride was a far better (and profitable) apology than words alone &mdash; but the identical coupon backfired after a second bad ride, leaving riders spending less than if Uber had stayed silent. The deeper trap: List's Chicago preschool pilot (CHECC) deliberately used ordinary teachers, not the very best ones, because a pilot staffed with your A-team only proves your A-team works &mdash; not that the idea does.</p>
+
+      <div class="study-card">
+        <div class="citation">Halperin, Ho, List &amp; Muir (2022). &ldquo;Toward an Understanding of the Economics of Apologies.&rdquo; <a href="https://academic.oup.com/ej/article-abstract/132/641/273/6325164" target="_blank" rel="noopener">The Economic Journal, 132(641), 273&ndash;298</a></div>
+        <div class="excerpts">
+          <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>A $5 coupon apology paid for itself after one bad ride &mdash; but backfired, worse than silence, after a second.</div>
+        </div>
+      </div>
+
+      <div class="case-grid trio-grid condensed-trio">
+        <div class="case-card trio-card">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 7.5v5" stroke="var(--terracotta)"></path>
+            <circle cx="12" cy="16" r="1" fill="var(--terracotta)" stroke="none"></circle>
+          </svg>
+          <span class="case-tag">Vital sign</span>
+          <h4>False positives</h4>
+        </div>
+        <div class="case-card trio-card">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 3c0 3-2 3-2 6a3 3 0 0 0 6 0c0-3-2-3-2-6"></path>
+            <path d="M9 15v6M15 15v6" stroke="var(--terracotta)"></path>
+            <path d="M6 15h12v3a6 6 0 0 1-12 0v-3z"></path>
+          </svg>
+          <span class="case-tag">CHECC</span>
+          <h4>Chef, not ingredients</h4>
+        </div>
+        <div class="case-card trio-card">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3c3 4 6 7 6 10.5a6 6 0 1 1-12 0C6 10 9 7 12 3z"></path>
+            <path d="M9.5 15.5a2.5 2.5 0 0 0 3 2.4" stroke="var(--terracotta)"></path>
+          </svg>
+          <span class="case-tag">Vital sign</span>
+          <h4>Spillovers</h4>
+        </div>
+      </div>
+
+      <blockquote class="session-quote">The pilot that used your best people isn't evidence the idea works. It's evidence your best people work.</blockquote>
+
+      <div class="also-note"><b>The mechanisms:</b> <a href="index.html#lab-vs-field">Lab vs. Field</a>, <a href="principles.html#survivorship-bias">Survivorship Bias</a>. Full version has the diagram, all three vital signs, and the reflection.</div>
+    </div>
+
+    <div class="session-panel" data-panel="before-scale" hidden>
+      <p>The exercise the room ran against their own next rollout &mdash; List's five vital signs, turned into questions instead of a definition.</p>
+
+      <div class="session-demo">
+        <div class="flow-diagram">
+          <span class="flow-tag">Run this before the rollout meeting</span>
+
+          <div class="flow-step numbered">
+            <span class="step-num">1</span>
+            <span class="flow-step-label"><b>Could this be a false positive?</b> Would the pilot's result survive being run again, on a different week, with a different novelty factor?</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">2</span>
+            <span class="flow-step-label"><b>Was the pilot audience representative?</b> Or did it quietly select for your most engaged, most forgiving, or most tech-savvy customers?</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">3</span>
+            <span class="flow-step-label"><b>Is this the chef, or the ingredients?</b> Did it work because of a repeatable process, or because your strongest team ran it? Would it survive your average team running it instead?</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">4</span>
+            <span class="flow-step-label"><b>What happens to the system once everyone does this?</b> A pilot too small to move the market can hide a spillover that a full rollout won't.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">5</span>
+            <span class="flow-step-label"><b>Do the unit economics still work at ten times the volume?</b> Support cost, review time, and manual exceptions rarely scale as smoothly as the happy-path demo.</span>
+          </div>
+
+          <p class="flow-insight"><b>None of these are answerable from inside the pilot.</b> Every one of them requires deliberately asking what's different about the people, the system, and the cost base once &ldquo;everyone&rdquo; replaces &ldquo;this room.&rdquo;</p>
+        </div>
+      </div>
+
+      <div class="also-note"><b>The mechanisms behind this:</b> <a href="index.html#lab-vs-field">Lab vs. Field</a> and <a href="principles.html#survivorship-bias">Survivorship Bias</a> &mdash; the full study-and-citation write-up is on their respective pages.</div>
+    </div>
+
+    <div class="session-panel" data-panel="apology-design" hidden>
+      <p>The Uber finding translates directly to a banking app: when something breaks &mdash; a delayed transfer, a declined card, an outage &mdash; the instinct is to apologise the same way every time. The research says that instinct is exactly what backfires.</p>
+
+      <div class="app-mock-grid">
+        <div class="app-mock-col">
+          <span class="app-mock-label">First failure &mdash; a costly, specific apology</span>
+          <div class="app-mock-phone">
+            <div class="app-mock-screen">
+              <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="var(--terracotta)"></circle>
+                <path d="M9 12l2 2 4-4" stroke="var(--terracotta)"></path>
+              </svg>
+              <h4>Your transfer arrived 40 minutes late</h4>
+              <p>We've refunded the $3 transfer fee and added a $5 credit &mdash; sorry for the wait.</p>
+              <button type="button" class="app-cta">View the credit</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-mock-col">
+          <span class="app-mock-label">Second failure &mdash; don't reuse the same script</span>
+          <div class="app-mock-phone">
+            <div class="app-mock-screen">
+              <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="var(--terracotta)"></circle>
+                <path d="M12 8v5" stroke="var(--terracotta)"></path>
+                <circle cx="12" cy="15.5" r="1" fill="var(--terracotta)" stroke="none"></circle>
+              </svg>
+              <h4>This shouldn't have happened twice</h4>
+              <p>We've escalated the underlying issue to our transfers team &mdash; here's what we're changing, not just another credit.</p>
+              <button type="button" class="app-cta">See what's being fixed</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="app-mock-note">The research's own signal: a repeated coupon reads as a broken promise. A repeated <i>fix</i> doesn't &mdash; because it's evidence the underlying problem, not just the apology, is being taken seriously.</p>
+
+      <div class="also-note"><b>The mechanisms behind this:</b> <a href="index.html#lab-vs-field">Lab vs. Field</a>, applied as a service-recovery design pattern instead of a one-off talk.</div>
     </div>
   </div>
 </article>
