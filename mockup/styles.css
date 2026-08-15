@@ -1685,12 +1685,30 @@ a.report-card:hover strong { color: var(--terracotta); }
 .session-trio .also-note { margin-top: 14px; padding-top: 0; border-top: none; }
 .trio-card .case-body p { margin-bottom: 0; }
 
+/* condensed panels: these cards carry only an icon, a tag, and a title —
+   no body copy — so the full-size card padding built for the "why it
+   landed" paragraph just leaves empty space. Tighten everything and go
+   2-up even on the narrowest phones, so density matches content. */
+.condensed-trio { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+.condensed-trio .trio-card {
+  padding: 10px 12px;
+  border-left-width: 3px;
+  border-radius: 3px 8px 8px 3px;
+}
+
+.condensed-trio .case-icon { width: 18px; height: 18px; margin-bottom: 5px; }
+.condensed-trio .case-tag { font-size: 0.56rem; padding: 2px 6px; margin-bottom: 5px; letter-spacing: 0.04em; }
+.condensed-trio h4 { font-size: 0.82rem; margin-bottom: 0; line-height: 1.25; }
+
 @media (min-width: 640px) {
   .session { padding: 16px 0 72px; }
   .session-quote { padding: 22px 26px; font-size: 1.15rem; }
   .session-demo { margin: 30px 0 36px; }
   .session-trio { margin: 40px 0; }
   .trio-grid { grid-template-columns: repeat(3, 1fr); }
+  .condensed-trio .trio-card { padding: 12px 14px; }
+  .condensed-trio h4 { font-size: 0.88rem; }
 }
 
 /* session view toggle (Full / Condensed / In your banking app / In-app messages) */
