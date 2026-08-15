@@ -99,8 +99,8 @@
     { id: 'awareness', count: 6, marketing: 'Awareness', product: 'Acquisition', short: { marketing: 'Awareness', product: 'Acquire' } },
     { id: 'consideration', count: 15, marketing: 'Consideration', product: 'Activation', short: { marketing: 'Compare', product: 'Activate' } },
     { id: 'conversion', count: 16, marketing: 'Conversion', product: 'Conversion', short: { marketing: 'Convert', product: 'Convert' } },
-    { id: 'retention', count: 15, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
-    { id: 'advocacy', count: 5, marketing: 'Advocacy', product: 'Referral', short: { marketing: 'Advocate', product: 'Refer' } }
+    { id: 'retention', count: 16, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
+    { id: 'advocacy', count: 6, marketing: 'Advocacy', product: 'Referral', short: { marketing: 'Advocate', product: 'Refer' } }
   ];
 
   var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>';

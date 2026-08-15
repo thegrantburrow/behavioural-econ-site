@@ -198,6 +198,51 @@ individually threaded into the matching panel(s), not just counted. Verified
 programmatically after editing (counting actual `data-stages`/`data-theme`
 attributes in the rendered HTML) rather than trusting the arithmetic by eye.
 
+## Third expansion: 42 → 43 — Symbolic Rewards
+
+One more, on request, specifically built around the Wikipedia "barnstar"
+field experiment plus a second corroborating study, per the same research
+discipline as everything else on the site:
+
+- **Primary study, full Experiment Teardown**: Restivo, M., &amp; van de
+  Rijt, A. (2012), "Experimental Study of Informal Rewards in Peer
+  Production," *PLOS ONE*, 7(3), e34358 — a randomised field experiment on
+  200 real Wikipedia editors (100/100 split), none previously awarded a
+  barnstar. Receiving one — a purely honorific badge, no monetary value —
+  raised edit volume 60% over the following 90 days, and made recipients
+  six times more likely to be awarded a further barnstar by someone else
+  (12/100 vs. 2/100). Both figures are exact and independently
+  corroborated across multiple sources, unlike most of the second-
+  expansion principles above, so this one got the full Teardown treatment
+  the others didn't.
+- **Also worth citing** (the "and others" the request asked for): Kosfeld,
+  M., &amp; Neckermann, S. (2011), "Getting More Work for Nothing? Symbolic
+  Awards and Worker Performance," *American Economic Journal:
+  Microeconomics*, 3(3), 86–99 — a field experiment with *paid* workers on
+  a real data-entry task, told in advance that top performers would get a
+  purely symbolic congratulatory card. Performance rose ~12%, corroborating
+  the same mechanism in a compensated workplace rather than a volunteer
+  community — deliberately a different population from the barnstar study,
+  not a repeat of it.
+
+**Deliberately distinguished from the existing Medium Maximization**, not
+folded into it, and cross-linked both directions so the difference is
+explicit wherever either principle appears: Medium Maximization is a token
+that *stands in* for a real reward and gets over-optimised for its own sake
+(the ice-cream/points study); Symbolic Rewards is a token with *no* exchange
+value at all that still motivates purely through recognition. Same
+"non-cash reward" family, different mechanism — same reasoning already
+applied when keeping Order Effect separate from Ordering Effects.
+
+Theme: Motivation &amp; Goals (6→7). Stages: retention (15→16), advocacy
+(5→6). Propagated everywhere 42 appeared, plus a real gap caught and fixed
+along the way: Mental Accounting's Teardown (added in the prior expansion)
+had never actually been added to the homepage's Experiment Teardowns
+report-card list or its proof-strip count — found by counting actual
+`.flow-tag` occurrences in the rendered HTML rather than trusting the
+number already on the card, which is exactly the kind of drift this
+verify-programmatically habit exists to catch.
+
 ## Illustration approach — lessons learned (important, read before redoing work)
 Several rounds of hand-coded SVG illustration were attempted and rejected:
 - Pure icon/diagram style: rejected as "not real illustration"
