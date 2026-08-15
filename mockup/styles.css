@@ -879,6 +879,30 @@ a.report-card:hover strong { color: var(--terracotta); }
   font-family: inherit;
 }
 
+/* ---------- salient question (the headline hook above a definition/body) ---------- */
+.salient-question {
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 0.92rem;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 4px 0 5px;
+}
+
+.salient-question mark {
+  background: rgba(217, 164, 65, 0.5);
+  color: inherit;
+  padding: 0 3px;
+  border-radius: 3px;
+  font-style: normal;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.salient-question.lg { font-size: clamp(1rem, 4vw, 1.2rem); margin: 8px 0 12px; max-width: 44ch; }
+
 .principle .definition {
   font-size: 0.85rem;
   color: rgba(30, 27, 22, 0.78);
