@@ -425,6 +425,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   justify-content: space-between;
   gap: 8px;
   width: 100%;
+  min-width: 0;
   font-family: inherit;
   font-size: 0.74rem;
   font-weight: 700;
