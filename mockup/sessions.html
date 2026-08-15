@@ -388,6 +388,236 @@
   </div>
 </article>
 
+<hr class="rule">
+
+<article class="session" id="mapping-outcome-logic">
+  <div class="wrap">
+    <span class="field-note-tag">A session recap, not a study</span>
+    <span class="case-tag">Field Session</span>
+    <h2>Finding the &ldquo;Phase 2&rdquo; every roadmap quietly skips</h2>
+    <p class="session-meta">Product, Design &amp; Digital teams &middot; a talk on outcome logic and experimentation</p>
+
+    <div class="view-toggle session-toggle" role="tablist" aria-label="Choose how to read this session">
+      <button type="button" class="view-btn active" data-view-btn="full" role="tab" aria-selected="true">Full write-up</button>
+      <button type="button" class="view-btn" data-view-btn="condensed" role="tab" aria-selected="false">Condensed</button>
+      <button type="button" class="view-btn" data-view-btn="map-it" role="tab" aria-selected="false">Map your own outcome logic</button>
+      <button type="button" class="view-btn" data-view-btn="ship-check" role="tab" aria-selected="false">Before you ship a metric</button>
+    </div>
+
+    <div class="session-panel" data-panel="full">
+      <p>I opened with South Park. The gnomes in the underpants-collecting episode have a business plan on a whiteboard: Phase 1, collect underpants. Phase 2, a question mark. Phase 3, profit. Pressed on Phase 2, they don't have an answer. I put that slide up first so the room could laugh before I told them it's also, more or less, our own roadmap slides.</p>
+
+      <div class="session-demo">
+        <div class="flow-diagram">
+          <span class="flow-tag">How the talk opened</span>
+          <div class="flow-start">
+            <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M9.2 9.5a2.8 2.8 0 1 1 3.9 2.6c-.9.5-1.1 1-1.1 2.1" stroke="var(--terracotta)"></path>
+              <circle cx="12" cy="17.3" r="0.9" fill="var(--terracotta)" stroke="none"></circle>
+            </svg>
+            <span class="flow-start-label">A room of product, design, and digital people, looking at gnomes</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step">
+            <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="20" x2="5" y2="12"></line>
+              <line x1="12" y1="20" x2="12" y2="7" stroke="var(--terracotta)"></line>
+              <line x1="19" y1="20" x2="19" y2="15"></line>
+              <line x1="3" y1="20" x2="21" y2="20"></line>
+            </svg>
+            <span class="flow-step-label">Most of our own initiative slides do the same thing: Customers &rarr; Initiative &rarr; ? &rarr; Profit.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step">
+            <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="20" x2="5" y2="15"></line>
+              <line x1="12" y1="20" x2="12" y2="10" stroke="var(--terracotta)"></line>
+              <line x1="19" y1="20" x2="19" y2="6"></line>
+              <line x1="3" y1="20" x2="21" y2="20"></line>
+            </svg>
+            <span class="flow-step-label">The &ldquo;?&rdquo; gets filled with whatever's easiest to point at: NPS, Engagement, &ldquo;Project X.&rdquo;</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-split"><span class="flow-split-badge">None of them are the actual outcome</span></div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <p class="flow-insight"><b>That gap has a name: the Phase 2 Problem.</b> Thomas Sowell subtitled a whole book on this &mdash; economics, he wrote, is &ldquo;thinking beyond stage one.&rdquo; The gnomes never think beyond stage one. Neither do most roadmap slides.</p>
+          <div class="also-note"><b>Why it landed:</b> Asked to defend their own Phase 2, out loud, in front of the room, most people got about one sentence in before they stalled &mdash; the same gap the gnomes have, just better dressed. See the full write-up: <a href="principles.html#illusion-of-explanatory-depth">Illusion of Explanatory Depth</a>.</div>
+        </div>
+      </div>
+
+      <div class="session-trio">
+        <h3>Three reasons the gap is dangerous</h3>
+        <p class="trio-sub">Not reasons to stop shipping &mdash; reasons to find out fast, at the cheapest link, instead of at the end of the whole chain.</p>
+        <div class="case-grid trio-grid">
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 6l6 7 3-3 7 8"></path>
+              <path d="M20 12v6h-6" stroke="var(--terracotta)"></path>
+            </svg>
+            <span class="case-tag">Kohavi et al., 2009</span>
+            <h4>Most ideas don't work</h4>
+            <div class="case-body">
+              <p>At Microsoft's own experimentation platform, only about a third of tested ideas improved the metric they were built to improve. Most ideas that feel obviously right, aren't.</p>
+            </div>
+          </div>
+
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2.5" y="8" width="16" height="8" rx="1.5"></rect>
+              <path d="M21 10.5v3"></path>
+              <rect x="4.5" y="10" width="4" height="4" fill="var(--terracotta)" stroke="none"></rect>
+            </svg>
+            <span class="case-tag">The Voltage Effect</span>
+            <h4>What works shrinks at scale</h4>
+            <div class="case-body">
+              <p>Across List's applied research, 50 to 90 percent of programs that showed real promise in a small pilot lose most of that effect once rolled out at scale.</p>
+            </div>
+          </div>
+
+          <div class="case-card trio-card">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="9" width="3" height="10" rx="0.6" transform="rotate(-8 4.5 14)"></rect>
+              <rect x="9" y="7" width="3" height="12" rx="0.6" transform="rotate(-4 10.5 13)"></rect>
+              <rect x="15" y="5" width="3" height="14" rx="0.6" fill="var(--terracotta)" stroke="var(--terracotta)" transform="rotate(10 16.5 12)"></rect>
+            </svg>
+            <span class="case-tag">Rube Goldberg</span>
+            <h4>More links, more that can break</h4>
+            <div class="case-body">
+              <p>Every extra step between an initiative and its outcome is one more place the chain can quietly snap &mdash; and most roadmaps have five or six links nobody's checked.</p>
+            </div>
+          </div>
+        </div>
+        <div class="also-note">See also: <a href="index.html#lab-vs-field">Lab vs. Field: why where you test it matters</a>, on this site's Reading the Research page.</div>
+      </div>
+
+      <h3>The example that landed hardest: &ldquo;just increase engagement&rdquo;</h3>
+      <p>I asked the room to map the outcome logic for a familiar one: a bank wants customers using the app more. The chain nearly writes itself: Customers &rarr; Engagement &rarr; Loyalty &rarr; Retention &rarr; Products per Customer &rarr; Profit. Simple. Or is it?</p>
+
+      <div class="study-card">
+        <div class="citation">Zhang, C. Y., Sussman, A. B., Wang-Ly, N., &amp; Lyu, J. K. (2022). &ldquo;How Consumers Budget.&rdquo; <a href="https://www.sciencedirect.com/science/article/abs/pii/S0167268122003493" target="_blank" rel="noopener">Journal of Economic Behavior and Organization, 204, 69&ndash;88</a></div>
+        <div class="journal">A nationally representative US survey (n=3,826), supplemented with real administrative account data (n=194,678) from a large Australian bank.</div>
+        <div class="excerpts">
+          <span class="lbl">Key findings</span>
+          <div class="excerpt quoted"><span class="tag">Verbatim (paper text)</span>&ldquo;We find that engagement is negatively correlated with financial wellbeing (r = -0.34) &hellip; engagement decreases with financial wellbeing.&rdquo;</div>
+          <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>Customers with the highest digital engagement &mdash; the most daily logins &mdash; had the lowest financial wellbeing scores in the sample: the opposite direction the naive &ldquo;engagement equals loyalty&rdquo; chain assumes.</div>
+        </div>
+        <div class="also-note"><b>Why it landed:</b> Several people in the room had shipped an &ldquo;increase engagement&rdquo; initiative at some point. Watching the metric they'd have celebrated turn out to correlate with financial stress, not loyalty, was the moment the talk stopped being theoretical.</div>
+      </div>
+
+      <blockquote class="session-quote">Everyone in the room could draw the arrow from Initiative to Profit. Almost nobody could defend it.</blockquote>
+
+      <p>What actually landed wasn't the Kohavi statistic or the Sowell quote &mdash; it was watching people try to map their own Phase 2, live, for something they'd actually shipped, and hit the exact same wall the gnomes hit. Nobody enjoys realising their own success metric was a proxy for something else. If I ran this again, I'd have people map their own initiative before I showed them the digital-engagement example, not after &mdash; the ones who mapped it after already knew the twist was coming.</p>
+
+      <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#illusion-of-explanatory-depth">Illusion of Explanatory Depth</a> &mdash; the full study-and-citation treatment is on the Principles page. This is what it looks like applied to a room mapping their own roadmaps instead of a zipper.</div>
+    </div>
+
+    <div class="session-panel" data-panel="condensed" hidden>
+      <p>Opened with South Park's gnomes: Phase 1, collect underpants. Phase 2, a question mark. Phase 3, profit. Pressed on Phase 2, they've got nothing. Neither do most roadmap slides, which quietly run Customers &rarr; Initiative &rarr; ? &rarr; Profit, with the &ldquo;?&rdquo; filled by NPS, Engagement, or &ldquo;Project X&rdquo; &mdash; none of which are the actual outcome. Thomas Sowell called this failing to think &ldquo;beyond stage one.&rdquo; It's the same gap, better dressed.</p>
+
+      <div class="case-grid trio-grid condensed-trio">
+        <div class="case-card trio-card">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6l6 7 3-3 7 8"></path>
+            <path d="M20 12v6h-6" stroke="var(--terracotta)"></path>
+          </svg>
+          <span class="case-tag">Kohavi et al.</span>
+          <h4>Most ideas don't work</h4>
+        </div>
+        <div class="case-card trio-card">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2.5" y="8" width="16" height="8" rx="1.5"></rect>
+            <path d="M21 10.5v3"></path>
+            <rect x="4.5" y="10" width="4" height="4" fill="var(--terracotta)" stroke="none"></rect>
+          </svg>
+          <span class="case-tag">Voltage Effect</span>
+          <h4>Shrinks at scale</h4>
+        </div>
+        <div class="case-card trio-card">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="9" width="3" height="10" rx="0.6" transform="rotate(-8 4.5 14)"></rect>
+            <rect x="9" y="7" width="3" height="12" rx="0.6" transform="rotate(-4 10.5 13)"></rect>
+            <rect x="15" y="5" width="3" height="14" rx="0.6" fill="var(--terracotta)" stroke="var(--terracotta)" transform="rotate(10 16.5 12)"></rect>
+          </svg>
+          <span class="case-tag">Rube Goldberg</span>
+          <h4>More can break</h4>
+        </div>
+      </div>
+
+      <p>The example that landed: &ldquo;just increase engagement.&rdquo; The obvious chain is Customers &rarr; Engagement &rarr; Loyalty &rarr; Retention &rarr; Profit. A real study on real bank data (Zhang, Sussman, Wang-Ly &amp; Lyu, 2022, <i>JEBO</i>) found engagement negatively correlated with financial wellbeing (r = -0.34) &mdash; the most-engaged customers were the least financially well, the opposite of what the naive chain assumes.</p>
+
+      <blockquote class="session-quote">Everyone in the room could draw the arrow from Initiative to Profit. Almost nobody could defend it.</blockquote>
+
+      <div class="also-note"><b>The mechanisms:</b> <a href="principles.html#illusion-of-explanatory-depth">Illusion of Explanatory Depth</a>. Full version has the diagrams, the citation, and the reflection.</div>
+    </div>
+
+    <div class="session-panel" data-panel="map-it" hidden>
+      <p>The exercise the room actually did, condensed to five steps. Worth doing on a whiteboard, not just in your head &mdash; writing it down is most of the value.</p>
+
+      <div class="session-demo">
+        <div class="flow-diagram">
+          <span class="flow-tag">Do this on your own roadmap</span>
+
+          <div class="flow-step numbered">
+            <span class="step-num">1</span>
+            <span class="flow-step-label"><b>Write down the initiative,</b> and the outcome metric leadership actually cares about &mdash; not the metric you're planning to report, the one that pays for the team.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">2</span>
+            <span class="flow-step-label"><b>Fill in every step between them, out loud.</b> Not &ldquo;then it converts&rdquo; &mdash; the actual mechanism, e.g. Trade-offs &rarr; Better decisions &rarr; Product fit &rarr; Retention.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">3</span>
+            <span class="flow-step-label"><b>Name a real metric for each step,</b> not a proxy. &ldquo;Engagement&rdquo; isn't one; &ldquo;closure rate %&rdquo; or &ldquo;incremental spend $&rdquo; is.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">4</span>
+            <span class="flow-step-label"><b>Ask what could break at each link.</b> This is the Rube Goldberg check &mdash; find the weakest join before you build anything on top of it.</span>
+          </div>
+          <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
+          <div class="flow-step numbered">
+            <span class="step-num">5</span>
+            <span class="flow-step-label"><b>Test the weakest link first,</b> not the whole chain at once. That's the one place a small pilot is worth running before scaling anything.</span>
+          </div>
+
+          <p class="flow-insight"><b>The exercise is the deliverable.</b> A mapped chain with one weak link you're about to test beats an unmapped chain with a confident number stapled to the end of it.</p>
+        </div>
+      </div>
+
+      <div class="also-note"><b>The mechanisms behind this:</b> <a href="principles.html#illusion-of-explanatory-depth">Illusion of Explanatory Depth</a> &mdash; the full study-and-citation write-up is on the Principles page.</div>
+    </div>
+
+    <div class="session-panel" data-panel="ship-check" hidden>
+      <p>Two different constraints from the first field session's in-app messages, both aimed at teams shipping metrics rather than consumers reading them: a name that survives a five-minute grilling, and a check quick enough to actually run before a ticket goes out.</p>
+
+      <div class="doc-mock">
+        <div class="doc-mock-head">
+          <svg class="doc-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="3" width="16" height="18" rx="1.5"></rect>
+            <line x1="7.5" y1="8" x2="16.5" y2="8"></line>
+            <line x1="7.5" y1="12" x2="16.5" y2="12" stroke="var(--terracotta)"></line>
+            <line x1="7.5" y1="16" x2="13" y2="16"></line>
+          </svg>
+          <span>Success-metric review</span>
+        </div>
+        <ul class="doc-mock-list">
+          <li><span class="doc-mock-check" aria-hidden="true">&check;</span>Named the actual outcome, not a proxy &mdash; no &ldquo;engagement,&rdquo; &ldquo;NPS,&rdquo; or &ldquo;Project X&rdquo; standing in for profit</li>
+          <li><span class="doc-mock-check" aria-hidden="true">&check;</span>Mapped every link between the initiative and that outcome, out loud</li>
+          <li><span class="doc-mock-check" aria-hidden="true">&check;</span>Named a real metric for each link, not a feeling</li>
+          <li><span class="doc-mock-check" aria-hidden="true">&check;</span>Written down what could break at the weakest link</li>
+        </ul>
+        <button type="button" class="app-cta">Ship it &mdash; the map, not just the metric</button>
+      </div>
+      <p class="app-mock-note">Four checks, not forty &mdash; a review step people will actually run has to survive being tired on a Friday.</p>
+
+      <div class="also-note"><b>The mechanisms behind this:</b> <a href="principles.html#illusion-of-explanatory-depth">Illusion of Explanatory Depth</a>, applied as a habit rather than a one-off talk.</div>
+    </div>
+  </div>
+</article>
+
 <footer>
   <div class="wrap">
     <div>&copy; 2026 Field Notes</div>
