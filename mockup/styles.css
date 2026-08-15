@@ -1427,7 +1427,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 @media (min-width: 640px) {
   .explore { padding: 72px 0; }
   .explore h2 { font-size: 1.7rem; margin-bottom: 28px; }
-  .explore-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .explore-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
 }
 
 .explore-card {
@@ -1577,6 +1577,39 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 @media (min-width: 640px) {
   .newsletter { padding: 68px 0; }
+}
+
+/* ---------- field sessions page ---------- */
+.session { padding: 8px 0 48px; scroll-margin-top: 64px; }
+.session .field-note-tag { margin-right: 8px; }
+.session > .wrap > .case-tag { display: inline-block; margin-bottom: 14px; }
+.session h2 { font-size: clamp(1.4rem, 6vw, 2rem); margin: 4px 0 8px; max-width: 24ch; }
+.session-meta { font-size: 0.85rem; color: var(--muted); margin: 0 0 20px; }
+.session > .wrap > p { font-size: 0.95rem; color: rgba(30, 27, 22, 0.85); max-width: 68ch; margin: 0 0 18px; }
+.session .case-grid { margin: 24px 0; }
+
+.session-quote {
+  margin: 28px 0;
+  padding: 18px 20px;
+  border-left: 4px solid var(--terracotta);
+  background: var(--card);
+  border-radius: 4px 12px 12px 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink);
+  max-width: 62ch;
+}
+
+.session .also-note { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.85rem; }
+
+@media (min-width: 640px) {
+  .session { padding: 16px 0 72px; }
+  .session-quote { padding: 22px 26px; font-size: 1.15rem; }
+}
+
+@media (min-width: 900px) {
+  .session .case-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* ---------- footer ---------- */
