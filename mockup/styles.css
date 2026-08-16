@@ -2108,6 +2108,24 @@ a.report-card:hover strong { color: var(--terracotta); }
   .rail-scroll { scroll-behavior: auto; }
 }
 
+/* ---------- session diagrams: positioning plot + trend chart ---------- */
+.be-chart-wrap, .trend-chart-wrap {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 16px 14px;
+  margin: 18px 0 24px;
+}
+.be-chart-svg, .trend-chart-svg { width: 100%; height: auto; display: block; }
+.be-chart-axis-label { font-size: 8.5px; fill: var(--muted); font-family: inherit; }
+.be-chart-point-label { font-size: 9px; fill: var(--ink); font-family: inherit; font-weight: 700; }
+.be-chart-point-sub { font-size: 7.6px; fill: var(--muted); font-family: inherit; }
+.be-chart-callout-text { font-size: 8px; fill: var(--ink); font-family: inherit; line-height: 1.4; }
+.be-chart-footnote { font-size: 7.6px; fill: var(--muted); font-family: inherit; font-style: italic; }
+.trend-chart-tag { font-size: 8.6px; fill: var(--muted); font-family: inherit; }
+.trend-chart-date { font-size: 7.6px; fill: var(--muted); font-family: inherit; }
+.trend-chart-badge-text { font-size: 8.6px; fill: var(--ink); font-family: inherit; font-weight: 700; }
+
 /* ---------- footer ---------- */
 footer { padding: 18px 0 max(18px, env(safe-area-inset-bottom)); font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--line); }
 footer .wrap { display: flex; flex-direction: column; gap: 12px; }
