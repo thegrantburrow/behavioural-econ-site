@@ -1652,9 +1652,32 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .session { padding: 8px 0 48px; scroll-margin-top: 64px; }
 .session .field-note-tag { margin-right: 8px; }
-.session > .wrap > .case-tag { display: inline-block; margin-bottom: 14px; }
-.session h2 { font-size: clamp(1.4rem, 6vw, 2rem); margin: 4px 0 8px; max-width: 24ch; }
+.session > .wrap > .case-tag {
+  display: inline-block;
+  margin-bottom: 14px;
+  background: none;
+  border: 1px solid var(--terracotta);
+  color: var(--terracotta);
+}
+.session h2 { font-size: clamp(1.4rem, 6vw, 2rem); font-weight: 400; margin: 4px 0 8px; max-width: 24ch; }
 .session-meta { font-size: 0.85rem; color: var(--muted); margin: 0 0 20px; }
+
+.session-headline { display: flex; align-items: flex-start; gap: 12px; }
+.session-headline-icon {
+  width: clamp(20px, 5vw, 26px);
+  height: clamp(20px, 5vw, 26px);
+  color: var(--terracotta);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.session-headline-text { flex: 1; min-width: 0; }
+
+.session .salient-question.lg {
+  display: inline-block;
+  border-bottom: 1.5px solid var(--teal);
+  padding-bottom: 6px;
+}
+.session .salient-question mark { background: rgba(217, 164, 65, 0.35); }
 .session .session-panel > p, .session .rail-content > p { font-size: 0.95rem; color: rgba(30, 27, 22, 0.85); max-width: 68ch; margin: 0 0 18px; }
 .session .case-grid { margin: 24px 0; }
 
