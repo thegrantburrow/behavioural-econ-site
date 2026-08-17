@@ -976,6 +976,37 @@ a.report-card:hover strong { color: var(--terracotta); }
   font-style: italic;
 }
 
+/* ---------- mechanism note: the single named psychological process most
+   likely driving the effect, surfaced as soon as a principle is opened —
+   one click, not two, since it's more load-bearing than any one subsection
+   of the full article below ---------- */
+.mechanism-note {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 12px;
+  padding: 9px 13px;
+  background: rgba(178, 71, 43, 0.06);
+  border: 1px solid rgba(178, 71, 43, 0.22);
+  border-radius: 8px;
+}
+
+.mechanism-note .mechanism-label {
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  color: var(--terracotta-dim);
+  flex-shrink: 0;
+}
+
+.mechanism-note .mechanism-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
 /* ---------- embedded article (case study) ---------- */
 .article {
   margin-top: 24px;
