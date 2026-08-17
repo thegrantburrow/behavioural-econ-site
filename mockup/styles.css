@@ -1955,8 +1955,14 @@ a.report-card:hover strong { color: var(--terracotta); }
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 20px 22px;
+  /* tighter on mobile — inside .rail-content, every horizontal pixel here
+     is coming straight out of the checklist text column (see
+     .doc-mock-list li below); widens back out once there's room to spare */
+  padding: 16px 14px;
   box-shadow: 0 8px 22px rgba(30, 27, 22, 0.1);
+}
+@media (min-width: 480px) {
+  .doc-mock { padding: 20px 22px; }
 }
 
 .doc-mock-head {
@@ -1973,21 +1979,33 @@ a.report-card:hover strong { color: var(--terracotta); }
 .doc-mock-icon { width: 22px; height: 22px; color: var(--ink); flex-shrink: 0; }
 
 .doc-mock-list { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.doc-mock-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.85rem; color: rgba(30, 27, 22, 0.85); line-height: 1.4; }
+.doc-mock-list li { display: flex; align-items: flex-start; gap: 7px; font-size: 0.85rem; color: rgba(30, 27, 22, 0.85); line-height: 1.4; }
+/* the tag ("Primary:" / "Guardrail:" / …) and its description are wrapped
+   in one <span> so they form a single flex item (any element child of a
+   flex container becomes its own flex item, so an unwrapped <b> sits
+   beside the following text in the row instead of above it) — the tag
+   sits on its own line via a <br> in the markup, and the description below
+   it gets the wrapper's full width instead of being squeezed by a label
+   eating part of the first line. */
+.doc-mock-list li > span:last-child { min-width: 0; }
 
 .doc-mock-check {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   margin-top: 1px;
   border-radius: 5px;
   background: var(--teal);
   color: var(--paper);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+@media (min-width: 480px) {
+  .doc-mock-list li { gap: 9px; }
+  .doc-mock-check { width: 18px; height: 18px; font-size: 0.7rem; }
 }
 
 .doc-mock + .app-mock-note { max-width: 460px; }
@@ -2096,8 +2114,12 @@ a.report-card:hover strong { color: var(--terracotta); }
 .rail-layout { margin: 22px 0 0; }
 .rail-scroll {
   display: grid;
-  grid-template-columns: 74px 1fr;
-  gap: 14px;
+  /* narrow on mobile — every pixel this column takes is a pixel the
+     checklist/prose column in .rail-content doesn't get, and on a narrow
+     phone that column was down to ~155px before this fix. Widens back out
+     once the viewport has room to spare (matches the padding/gap below). */
+  grid-template-columns: 56px 1fr;
+  gap: 10px;
   align-items: start;
   /* Tall enough that the box reads as "the page," not a small window onto
      it — 100dvh minus roughly the sticky site-nav's height, floored so it
@@ -2117,10 +2139,13 @@ a.report-card:hover strong { color: var(--terracotta); }
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  padding: 18px 16px 22px;
+  padding: 16px 12px 18px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--card);
+}
+@media (min-width: 480px) {
+  .rail-scroll { grid-template-columns: 74px 1fr; gap: 14px; padding: 18px 16px 22px; }
 }
 @media (min-width: 640px) {
   .rail-scroll { grid-template-columns: 128px 1fr; gap: 22px; padding: 22px 26px 26px; }
