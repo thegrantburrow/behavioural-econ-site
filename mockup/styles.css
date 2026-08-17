@@ -2107,6 +2107,14 @@ a.report-card:hover strong { color: var(--terracotta); }
   min-height: 460px;
   max-height: 880px;
   overflow-y: auto;
+  /* Without an explicit overflow-x, the CSS spec silently converts it to
+     auto too (the "visible becomes auto when the other axis isn't
+     visible" rule) — the box becomes horizontally scrollable even though
+     nothing here is meant to scroll sideways, and on touch that reads as
+     a left/right swipe nudging the whole rail. Lock both the paint and
+     the gesture to vertical only. */
+  overflow-x: hidden;
+  touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   padding: 18px 16px 22px;
