@@ -2047,25 +2047,32 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 /* ---------- section rail (wayfinding nav for long articles: Experiments
-   and Field Sessions' full write-ups) — one vertical dot-rail at every
-   width, living inside its own internally-scrolling frame (.rail-scroll).
-   Sticky only engages against a real scrolling ancestor, and the page
-   itself isn't reliably that ancestor: viewed through the Claude Artifact
-   preview, the outer viewer stretches the page to its full content height
-   and scrolls its own outer window instead, so a rail sticky to the
-   document never sees any scroll to react to and just sits inert. Giving
-   the rail its own overflow-y:auto box sidesteps that entirely — the nav
-   sticks to a container that is guaranteed to actually scroll, in the
-   preview and once deployed alike. */
+   and Field Sessions' full write-ups), living inside its own
+   internally-scrolling frame (.rail-scroll). Sticky only engages against
+   a real scrolling ancestor, and the page itself isn't reliably that
+   ancestor: viewed through the Claude Artifact preview, the outer viewer
+   stretches the page to its full content height and scrolls its own
+   outer window instead, so a rail sticky to the document never sees any
+   scroll to react to and just sits inert. Giving the rail its own
+   overflow-y:auto box sidesteps that entirely — the nav sticks to a
+   container that is guaranteed to actually scroll, in the preview and
+   once deployed alike.
+
+   Below 640px the rail is a horizontal chip strip pinned to the top of
+   the box, not a side column — a persistent vertical sidebar was eating
+   into the content column's width on exactly the screens that have the
+   least width to spare. The strip wraps to a second row rather than
+   scrolling sideways: a swipeable rail reads as "there's more, go find
+   it," which is the wrong invitation on a component whose whole job is
+   showing you everywhere you can go at a glance. At 640px and up, where
+   width stops being scarce, it reverts to the original vertical dot-rail
+   in its own column beside the content. */
 .rail-layout { margin: 22px 0 0; }
 .rail-scroll {
   display: grid;
-  /* narrow on mobile — every pixel this column takes is a pixel the
-     checklist/prose column in .rail-content doesn't get, and on a narrow
-     phone that column was down to ~155px before this fix. Widens back out
-     once the viewport has room to spare (matches the padding/gap below). */
-  grid-template-columns: 56px 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0;
   align-items: start;
   /* Tall enough that the box reads as "the page," not a small window onto
      it — 100dvh minus roughly the sticky site-nav's height, floored so it
@@ -2085,16 +2092,13 @@ a.report-card:hover strong { color: var(--terracotta); }
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  padding: 16px 12px 18px;
+  padding: 0 0 18px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--card);
 }
-@media (min-width: 480px) {
-  .rail-scroll { grid-template-columns: 74px 1fr; gap: 14px; padding: 18px 16px 22px; }
-}
 @media (min-width: 640px) {
-  .rail-scroll { grid-template-columns: 128px 1fr; gap: 22px; padding: 22px 26px 26px; }
+  .rail-scroll { grid-template-columns: 128px 1fr; grid-template-rows: none; gap: 22px; padding: 22px 26px 26px; }
 }
 @media (min-width: 900px) {
   .rail-scroll { grid-template-columns: 148px 1fr; gap: 32px; }
@@ -2102,22 +2106,49 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .rail-nav {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px 8px;
   position: sticky;
   top: 0;
-  padding-top: 2px;
+  z-index: 2;
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
 }
-.rail-content { min-width: 0; }
+@media (min-width: 640px) {
+  .rail-nav { flex-direction: column; flex-wrap: nowrap; gap: 0; padding-top: 2px; border-bottom: none; }
+}
+.rail-content { min-width: 0; padding: 14px 16px 0; }
+@media (min-width: 640px) {
+  .rail-content { padding: 0; }
+}
 
-.rail-step { display: flex; align-items: flex-start; gap: 7px; min-height: 34px; }
-.rail-dot-col { display: flex; flex-direction: column; align-items: center; }
-.rail-dot { width: 8px; height: 8px; margin-top: 4px; border-radius: 50%; background: var(--line); border: 1.5px solid var(--line); flex-shrink: 0; transition: background 0.2s ease, border-color 0.2s ease; }
-.rail-line { width: 2px; flex: 1; min-height: 12px; background: var(--line); transition: background 0.2s ease; }
-.rail-step:last-child .rail-line { display: none; }
+.rail-step {
+  display: flex; align-items: center; gap: 6px; flex: 0 0 auto; min-height: 32px;
+  padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+@media (min-width: 640px) {
+  .rail-step { flex: initial; align-items: flex-start; gap: 7px; min-height: 34px; padding: 0; border-radius: 0; border: none; background: none; }
+}
+.rail-dot-col { display: flex; flex-direction: row; align-items: center; }
+@media (min-width: 640px) {
+  .rail-dot-col { flex-direction: column; }
+}
+.rail-dot { width: 8px; height: 8px; margin-top: 0; border-radius: 50%; background: var(--line); border: 1.5px solid var(--line); flex-shrink: 0; transition: background 0.2s ease, border-color 0.2s ease; }
+@media (min-width: 640px) {
+  .rail-dot { margin-top: 4px; }
+}
+.rail-line { display: none; }
+@media (min-width: 640px) {
+  .rail-line { display: block; width: 2px; flex: 1; min-height: 12px; background: var(--line); transition: background 0.2s ease; }
+  .rail-step:last-child .rail-line { display: none; }
+}
 
 .rail-label {
   font-family: inherit;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   line-height: 1.25;
   color: var(--muted);
   background: none;
@@ -2125,19 +2156,24 @@ a.report-card:hover strong { color: var(--terracotta); }
   padding: 0;
   text-align: left;
   cursor: pointer;
+  white-space: nowrap;
   transition: color 0.2s ease, font-weight 0.2s ease;
 }
 @media (min-width: 640px) {
-  .rail-label { font-size: 0.75rem; }
+  .rail-label { font-size: 0.75rem; white-space: normal; }
 }
 .rail-label:hover { color: var(--terracotta); }
+.rail-step.active { border-color: var(--terracotta); background: rgba(178, 71, 43, 0.08); }
+@media (min-width: 640px) {
+  .rail-step.active { border-color: transparent; background: none; }
+}
 .rail-step.active .rail-dot { background: var(--terracotta); border-color: var(--terracotta); }
 .rail-step.active .rail-label { color: var(--terracotta); font-weight: 800; }
 .rail-step.done .rail-dot { background: var(--teal); border-color: var(--teal); }
 .rail-step.done .rail-line { background: var(--teal); }
 
 @media (prefers-reduced-motion: reduce) {
-  .rail-dot, .rail-line, .rail-label { transition: none; }
+  .rail-dot, .rail-line, .rail-label, .rail-step { transition: none; }
   .rail-scroll { scroll-behavior: auto; }
 }
 
