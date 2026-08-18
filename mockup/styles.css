@@ -138,16 +138,30 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .site-nav .links a:last-child { border-bottom: none; }
 .site-nav .links a:hover { color: var(--terracotta); }
 
+.site-nav .links a.nav-cta {
+  background: var(--terracotta);
+  color: var(--paper);
+  font-weight: 700;
+  border-radius: 8px;
+  text-align: center;
+  border-bottom: none;
+  margin-top: 6px;
+}
+
+.site-nav .links a.nav-cta:hover { background: var(--terracotta-dim); color: var(--paper); }
+
 @media (min-width: 640px) {
   .menu-toggle { display: none; }
   .site-nav .links {
     display: flex !important;
     flex-direction: row;
+    align-items: center;
     gap: 28px;
     padding: 0;
     border-top: none;
   }
   .site-nav .links a { padding: 0; border-bottom: none; font-size: 0.95rem; }
+  .site-nav .links a.nav-cta { padding: 8px 16px; margin-top: 0; font-size: 0.88rem; }
   .site-nav .logo { font-size: 1.05rem; }
 }
 
@@ -405,32 +419,23 @@ a:focus-visible, button:focus-visible, input:focus-visible {
    no swiping required. Equal-width grid columns (not flex-wrap, which
    sizes each chip to its own label and produces ragged, unaligned rows) */
 .toc-tabs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 22px;
-}
-
-@media (min-width: 560px) {
-  .toc-tabs { grid-template-columns: repeat(4, 1fr); }
-}
-
-@media (min-width: 900px) {
-  .toc-tabs { grid-template-columns: repeat(7, 1fr); }
 }
 
 .toc-tab {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 8px;
-  width: 100%;
-  min-width: 0;
+  flex: 0 0 auto;
   font-family: inherit;
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  padding: 9px 8px 9px 14px;
+  padding: 9px 14px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--card);
@@ -443,8 +448,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .toc-tab:hover { border-color: var(--terracotta); }
 
 .toc-tab-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 

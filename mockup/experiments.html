@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FBF9F4">
 <title>Digital &amp; Product Experiments — Field Notes</title>
+<meta name="description" content="Testable experiment blueprints for digital products — hypothesis, sample size, and how to run each one yourself.">
+<link rel="canonical" href="https://www.grantburrow.com/experiments.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Field Notes">
+<meta property="og:title" content="Digital &amp; Product Experiments — Field Notes">
+<meta property="og:description" content="Testable experiment blueprints for digital products — hypothesis, sample size, and how to run each one yourself.">
+<meta property="og:url" content="https://www.grantburrow.com/experiments.html">
+<meta property="og:image" content="https://www.grantburrow.com/images/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Digital &amp; Product Experiments — Field Notes">
+<meta name="twitter:description" content="Testable experiment blueprints for digital products — hypothesis, sample size, and how to run each one yourself.">
+<meta name="twitter:image" content="https://www.grantburrow.com/images/og-card.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,14 +31,12 @@
       </button>
     </div>
     <div class="links" id="navLinks">
-      <a href="index.html#about">About</a>
       <a href="principles.html">Principles</a>
       <a href="sessions.html">Field Sessions</a>
       <a href="experiments.html">Experiments</a>
-      <a href="index.html#explore">Explore</a>
-      <a href="index.html#reading-the-research">Reading the Research</a>
-      <a href="index.html#experiment-teardowns">Experiment Teardowns</a>
-      <a href="index.html#newsletter">Newsletter</a>
+      <a href="reading-the-research.html">Reading the Research</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#newsletter" class="nav-cta">Subscribe</a>
     </div>
   </div>
 </nav>
@@ -34,21 +45,26 @@
   <div class="wrap">
     <span class="label">Digital &amp; Product Experiments</span>
     <h1 class="principles-index-title">Experiments I'd run next</h1>
-    <p class="toc-intro">Not run yet — full blueprints. Every entry here starts from a mechanism already covered on this site, a real field session or a real cited study, and works out what it would take to actually test the next step: the theory, an assumed baseline, control vs. treatment, the sample size needed to trust the result, and the metrics that would prove it one way or the other. Filter by the kind of product you'd run it in.</p>
+    <p class="toc-intro">Not run yet — full blueprints. Every entry here starts from a mechanism already covered on this site, a real field session or a real cited study, and works out what it would take to actually test the next step: the theory, an assumed baseline, control vs. treatment, the sample size needed to trust the result, and the metrics that would prove it one way or the other. Search by name, or filter by the kind of product you'd run it in.</p>
 
+    <div class="principles-search">
+      <label for="experimentsSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search experiments</label>
+      <input type="search" id="experimentsSearch" placeholder="Search experiments by name or keyword&hellip;">
+    </div>
     <div class="toc-tabs" role="tablist" id="experimentsFilterTabs">
       <button type="button" class="toc-tab active" data-filter-target="all" role="tab" aria-selected="true"><span class="toc-tab-label">All</span><span class="toc-tab-count">5</span></button>
       <button type="button" class="toc-tab" data-filter-target="savings-deposits" role="tab" aria-selected="false"><span class="toc-tab-label">Savings &amp; Deposits</span><span class="toc-tab-count">1</span></button>
       <button type="button" class="toc-tab" data-filter-target="credit-lending" role="tab" aria-selected="false"><span class="toc-tab-label">Credit &amp; Lending</span><span class="toc-tab-count">3</span></button>
       <button type="button" class="toc-tab" data-filter-target="service-ops" role="tab" aria-selected="false"><span class="toc-tab-label">Service &amp; Support</span><span class="toc-tab-count">1</span></button>
     </div>
+    <p class="principles-empty" id="experimentsEmpty" hidden>No experiments match your search.</p>
 
-    <ul class="session-toc">
-      <li><a href="#named-pockets"><span class="session-toc-title">Does naming a savings pocket keep the money there?</span><span class="session-toc-meta">Savings &amp; Deposits &middot; builds on the Airds field session</span></a></li>
-      <li><a href="#product-comparison-tradeoff-transparency"><span class="session-toc-title">Does tradeoff transparency work between products, not just within one?</span><span class="session-toc-meta">Credit &amp; Lending &middot; builds on CBA's real tradeoff-transparency study</span></a></li>
-      <li><a href="#costly-specific-apology"><span class="session-toc-title">Does a costly, specific apology beat a generic one after a service failure?</span><span class="session-toc-meta">Service &amp; Support &middot; builds on List's Uber apology study</span></a></li>
-      <li><a href="#digital-home-loan-halo"><span class="session-toc-title">Does a great digital home loan lift home loan trust everywhere else, too?</span><span class="session-toc-meta">Credit &amp; Lending &middot; builds on the Halo Effect (Thorndike, 1920)</span></a></li>
-      <li><a href="#left-digit-home-loan-rate"><span class="session-toc-title">Does a home loan rate of 5.99% get remembered as a 5% loan, not almost 6%?</span><span class="session-toc-meta">Credit &amp; Lending &middot; builds on Left Digit Bias (Lacetera, Pope &amp; Sydnor, 2012)</span></a></li>
+    <ul class="session-toc" id="experimentsToc">
+      <li data-industries="savings-deposits"><a href="#named-pockets"><span class="session-toc-title">Does naming a savings pocket keep the money there?</span><span class="session-toc-meta">Savings &amp; Deposits &middot; builds on the Airds field session</span></a></li>
+      <li data-industries="credit-lending"><a href="#product-comparison-tradeoff-transparency"><span class="session-toc-title">Does tradeoff transparency work between products, not just within one?</span><span class="session-toc-meta">Credit &amp; Lending &middot; builds on CBA's real tradeoff-transparency study</span></a></li>
+      <li data-industries="service-ops"><a href="#costly-specific-apology"><span class="session-toc-title">Does a costly, specific apology beat a generic one after a service failure?</span><span class="session-toc-meta">Service &amp; Support &middot; builds on List's Uber apology study</span></a></li>
+      <li data-industries="credit-lending"><a href="#digital-home-loan-halo"><span class="session-toc-title">Does a great digital home loan lift home loan trust everywhere else, too?</span><span class="session-toc-meta">Credit &amp; Lending &middot; builds on the Halo Effect (Thorndike, 1920)</span></a></li>
+      <li data-industries="credit-lending"><a href="#left-digit-home-loan-rate"><span class="session-toc-title">Does a home loan rate of 5.99% get remembered as a 5% loan, not almost 6%?</span><span class="session-toc-meta">Credit &amp; Lending &middot; builds on Left Digit Bias (Lacetera, Pope &amp; Sydnor, 2012)</span></a></li>
     </ul>
   </div>
 </section>
@@ -793,9 +809,9 @@
       <li><a href="principles.html">Principles</a></li>
       <li><a href="sessions.html">Field Sessions</a></li>
       <li><a href="experiments.html">Experiments</a></li>
-      <li><a href="index.html#explore">Explore</a></li>
+      <li><a href="reading-the-research.html">Reading the Research</a></li>
       <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#newsletter">Newsletter</a></li>
+      <li><a href="index.html#newsletter">Subscribe</a></li>
     </ul>
   </div>
 </footer>

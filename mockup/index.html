@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FBF9F4">
 <title>Field Notes — a field guide to behavioural economics</title>
+<meta name="description" content="Field Notes is a field guide to applied behavioural economics — 53 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
+<link rel="canonical" href="https://www.grantburrow.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Field Notes">
+<meta property="og:title" content="Field Notes — a field guide to behavioural economics">
+<meta property="og:description" content="53 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
+<meta property="og:url" content="https://www.grantburrow.com/">
+<meta property="og:image" content="https://www.grantburrow.com/images/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Field Notes — a field guide to behavioural economics">
+<meta name="twitter:description" content="53 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
+<meta name="twitter:image" content="https://www.grantburrow.com/images/og-card.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,20 +25,18 @@
 <nav class="site-nav">
   <div class="wrap">
     <div class="bar">
-      <div class="logo">Field Notes</div>
+      <a class="logo" href="index.html">Field Notes</a>
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="links" id="navLinks">
-      <a href="#about">About</a>
       <a href="principles.html">Principles</a>
       <a href="sessions.html">Field Sessions</a>
       <a href="experiments.html">Experiments</a>
-      <a href="#explore">Explore</a>
-      <a href="#reading-the-research">Reading the Research</a>
-      <a href="#experiment-teardowns">Experiment Teardowns</a>
-      <a href="#newsletter">Newsletter</a>
+      <a href="reading-the-research.html">Reading the Research</a>
+      <a href="#about">About</a>
+      <a href="#newsletter" class="nav-cta">Subscribe</a>
     </div>
   </div>
 </nav>
@@ -155,7 +166,7 @@
   <div class="wrap">
     <span class="label">More ways in</span>
     <div class="reports-grid">
-      <a class="report-card accent-teal" href="#reading-the-research">
+      <a class="report-card accent-teal" href="reading-the-research.html">
         <span class="report-card-tag">Special Report</span>
         <strong>Reading the Research</strong>
         <span class="report-card-sub">How to evaluate a study: the replication crisis, why interventions backfire, lab vs. field evidence, and why stated intentions are unreliable.</span>
@@ -186,173 +197,6 @@
   </div>
 </section>
 
-<section class="report" id="reading-the-research">
-  <div class="wrap">
-    <span class="eyebrow">Special report</span>
-    <h2>How to actually read behavioural science</h2>
-    <p class="lede">Every principle on this site is backed by a citation &mdash; but a citation isn't a guarantee. Psychology and behavioural economics went through a real reckoning in the 2010s: some of the field's most famous, most-cited findings didn't hold up when other labs tried to reproduce them. That doesn't mean the field is broken; it means reading a study well takes more than trusting its headline finding. Two questions matter most: did this effect actually replicate under a fair, adequately powered test (<b>internal validity</b>), and does it hold up beyond the exact people, place, and context it was studied in (<b>external validity</b>)? This section walks through both, with real cases &mdash; including some famous names that don't hold up as well as they used to, and some well-intentioned interventions that made things measurably worse.</p>
-
-    <div class="report-section" id="replication-crisis">
-      <h3>The replication crisis</h3>
-      <p class="intro">The &ldquo;replication crisis&rdquo; refers to a period, especially in the 2010s, when researchers began systematically trying to reproduce classic findings &mdash; often with larger samples and pre-registered designs that couldn't be quietly adjusted after seeing the results &mdash; and found that a surprising number of famous effects shrank dramatically or vanished. It reshaped how good researchers, and good readers, evaluate a claim. Four real examples, and what each specifically teaches:</p>
-      <div class="case-grid">
-        <div class="case-card">
-          <span class="case-tag">Replication</span>
-          <h4>Power Posing</h4>
-          <p class="salient-question">Can standing like a superhero for <mark>two minutes</mark> really change your hormones?</p>
-          <div class="case-body">
-            <p>The original 2010 study, based on 42 participants, found that holding an expansive &ldquo;power pose&rdquo; for two minutes raised testosterone, lowered cortisol, and increased self-reported feelings of power &mdash; and it became one of the most famous findings in behavioural science, boosted by a TED talk viewed over 20 million times. A 2015 replication with a much larger, adequately powered sample (200 participants) reproduced the self-reported feeling of power, but found no effect on hormones or risk-taking behaviour at all.</p>
-            <p class="lesson"><b>What it teaches:</b> Statistical power matters as much as the finding itself. A small original sample can produce a result that looks clean and clear but is really just noise. One of the original co-authors, Dana Carney, has since said publicly she no longer believes the hormonal and behavioural effects are real.</p>
-          </div>
-          <div class="case-cite">Carney, D. R., Cuddy, A. J. C., &amp; Yap, A. J. (2010). &ldquo;Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance.&rdquo; <a href="https://journals.sagepub.com/doi/10.1177/0956797610383437" target="_blank" rel="noopener">Psychological Science, 21(10), 1363&ndash;1368</a> &mdash; replication: Ranehill, E., et al. (2015). <a href="https://journals.sagepub.com/doi/10.1177/0956797614553946" target="_blank" rel="noopener">Psychological Science, 26(5), 653&ndash;656</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Replication</span>
-          <h4>Ego Depletion</h4>
-          <p class="salient-question">Why did <mark>23 labs together</mark> find nothing, after decades of studies said willpower runs out?</p>
-          <div class="case-body">
-            <p>For nearly two decades, one of self-control research's central ideas was that willpower works like a muscle &mdash; using it on one task temporarily depletes a limited resource, making the next act of self-control harder. Dozens of studies and a supportive meta-analysis backed it. In 2016, 23 independent labs ran the same pre-registered protocol on a combined 2,141 participants &mdash; and found, combined across all labs, no meaningful ego-depletion effect at all.</p>
-            <p class="lesson"><b>What it teaches:</b> A large body of supporting literature isn't proof on its own. If smaller, underpowered studies pile up over years &mdash; helped by a &ldquo;file-drawer problem,&rdquo; where unpublished null results simply never get submitted &mdash; a real-looking scientific consensus can form around an effect that's much weaker than it appears, or isn't there. Pre-registration exists specifically to prevent this kind of drift.</p>
-          </div>
-          <div class="case-cite">Hagger, M. S., Chatzisarantis, N. L. D., et al. (2016). &ldquo;A Multilab Preregistered Replication of the Ego-Depletion Effect.&rdquo; <a href="https://pubmed.ncbi.nlm.nih.gov/27474142/" target="_blank" rel="noopener">Perspectives on Psychological Science, 11(4), 546&ndash;573</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Replication</span>
-          <h4>Facial Feedback Hypothesis</h4>
-          <p class="salient-question">Why did the pen-in-the-teeth effect vanish the moment anyone was <mark>watching on video</mark>?</p>
-          <div class="case-body">
-            <p>The original &ldquo;pen in the mouth&rdquo; study found people rated cartoons funnier when a pen held in their teeth forced their face into a smile, versus a pen held in their lips forcing a pout &mdash; a clean demonstration that an expression can shape the emotion it's usually thought to just express. A 2016 replication across 17 labs and over 2,000 participants, following a protocol vetted by the original author, found no effect at all.</p>
-            <p class="lesson"><b>What it teaches:</b> External validity can hinge on a procedural detail nobody thought to flag. One proposed explanation: the replication labs, unlike the original, recorded participants on video, and being watched appears to suppress the effect being measured. A failed replication doesn't always mean the original effect was fake &mdash; sometimes it means the effect has a boundary condition nobody had identified yet.</p>
-          </div>
-          <div class="case-cite">Strack, F., Martin, L. L., &amp; Stepper, S. (1988). <a href="https://doi.org/10.1037/0022-3514.54.5.768" target="_blank" rel="noopener">Journal of Personality and Social Psychology, 54(5), 768&ndash;777</a> &mdash; replication: Wagenmakers, E.-J., et al. (2016). <a href="https://journals.sagepub.com/doi/full/10.1177/1745691616674458" target="_blank" rel="noopener">Perspectives on Psychological Science, 11(6), 917&ndash;928</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Replication</span>
-          <h4>Behavioural Priming</h4>
-          <p class="salient-question">Why did people only &ldquo;walk slower&rdquo; after old-age words when the <mark>experimenter expected it</mark>?</p>
-          <div class="case-body">
-            <p>The original, hugely influential study found participants exposed to words associated with old age (&ldquo;Florida,&rdquo; &ldquo;wrinkle,&rdquo; &ldquo;bingo&rdquo;) walked measurably slower leaving the lab afterward. A 2012 replication using objective infrared timing, rather than a human experimenter with a stopwatch, found no priming effect in its first experiment. In a second experiment, the effect only appeared when the experimenters running the stopwatch themselves believed, in advance, that participants would walk slower.</p>
-            <p class="lesson"><b>What it teaches:</b> A textbook internal-validity failure &mdash; not a fake effect exactly, but a real effect coming from the wrong cause. If whoever measures the outcome knows or can guess the hypothesis and isn't blinded to it, their own expectations can leak into a subjective judgment like &ldquo;how slowly did that person seem to walk.&rdquo; Objective, blinded measurement is what internal validity is protecting.</p>
-          </div>
-          <div class="case-cite">Bargh, J. A., Chen, M., &amp; Burrows, L. (1996). <a href="https://doi.org/10.1037/0022-3514.71.2.230" target="_blank" rel="noopener">Journal of Personality and Social Psychology, 71(2), 230&ndash;244</a> &mdash; replication: Doyen, S., et al. (2012). &ldquo;Behavioral Priming: It's All in the Mind, but Whose Mind?&rdquo; <a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0029081" target="_blank" rel="noopener">PLOS ONE, 7(1), e29081</a></div>
-        </div>
-      </div>
-      <p class="intro" style="margin-top:20px">The throughline across all four: a single study, however clean it looks, is a data point, not a verdict. Before treating any single finding &mdash; including ones on this site &mdash; as settled, it's worth asking: was the sample large enough to detect a real effect reliably? Was the analysis locked in before the results came in, or could it have been adjusted after the fact? Has anyone else, in a different lab with different participants, gotten the same result? And does the population and setting it was tested in actually resemble the one you're trying to apply it to? None of that means dismissing behavioural science &mdash; it means reading it with the methodology in view, not just the headline.</p>
-    </div>
-
-    <div class="report-section" id="backfires">
-      <h3>When interventions backfire</h3>
-      <p class="intro">A finding replicating in a lab is still one step removed from an intervention working as intended once it's deployed. Even a genuinely real, well-replicated mechanism can produce the opposite of its intended effect once it's applied inside a messy, real-world system with its own incentives and substitutes. These five cases aren't failures of the underlying science &mdash; they're failures of assuming a mechanism will behave the same way outside the exact conditions it was tested in, which is exactly why interventions need to be piloted and measured, not just reasoned into existence.</p>
-      <div class="case-grid">
-        <div class="case-card">
-          <span class="case-tag">Backfire</span>
-          <h4>The Daycare Late Fee</h4>
-          <p class="salient-question">Why did adding a <mark>fine for lateness</mark> make parents show up later, not sooner?</p>
-          <div class="case-body">
-            <p>Ten Israeli daycare centres, frustrated by parents arriving late to collect their children, introduced a modest fine for lateness. Late pickups didn't fall &mdash; they roughly doubled, and stayed elevated even after the fine was later removed.</p>
-            <p class="lesson"><b>What it teaches:</b> A fine can &ldquo;crowd out&rdquo; an existing moral motivation and replace it with a transactional one. Before the fine, lateness felt like imposing on the teacher; once a price was attached, it became something parents could simply buy &mdash; and the guilt that had kept most parents on time disappeared even once the price itself went away.</p>
-          </div>
-          <div class="case-cite">Gneezy, U., &amp; Rustichini, A. (2000). &ldquo;A Fine Is a Price.&rdquo; <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/468061" target="_blank" rel="noopener">Journal of Legal Studies, 29(1), 1&ndash;17</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Backfire</span>
-          <h4>The Campus Bottled-Water Ban</h4>
-          <p class="salient-question">Why did <mark>banning bottled water</mark> increase the plastic shipped to campus?</p>
-          <div class="case-body">
-            <p>The University of Vermont banned the sale of bottled water on campus in 2013, intending to cut plastic waste and nudge people toward water fountains and reusable bottles. A study tracking beverage sales before and after found sugary-drink purchases rose substantially, and the total volume of plastic bottles shipped to campus &mdash; now mostly full of soda and juice instead of water &mdash; increased rather than fell.</p>
-            <p class="lesson"><b>What it teaches:</b> Removing one option in a choice set doesn't remove the underlying want &mdash; it reroutes it to whatever's next closest, which can be worse on exactly the dimension you were trying to improve. A policy aimed at one outcome needs to be measured against every outcome it could plausibly move, not just the one it was designed for.</p>
-          </div>
-          <div class="case-cite">Berman, E. R., &amp; Johnson, R. K. (2015). &ldquo;The Unintended Consequences of Changes in Beverage Options and the Removal of Bottled Water on a University Campus.&rdquo; <a href="https://doi.org/10.2105/AJPH.2015.302593" target="_blank" rel="noopener">American Journal of Public Health, 105(7), 1404&ndash;1408</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Backfire</span>
-          <h4>&ldquo;Scared Straight&rdquo; Programs</h4>
-          <p class="salient-question">Why did showing teenagers prison make them <mark>more</mark> likely to reoffend, not less?</p>
-          <div class="case-body">
-            <p>Modeled on an idea that seems obviously sound &mdash; show at-risk teenagers the harsh reality of prison to deter future crime &mdash; these programs remain popular and are still occasionally revived, including on reality TV. A systematic review of nine randomised and quasi-randomised trials found participants were, on average, more likely to reoffend afterward than a matched comparison group who received no intervention at all.</p>
-            <p class="lesson"><b>What it teaches:</b> Intuitive plausibility is not evidence. &ldquo;Scaring&rdquo; someone away from crime is a reasonable-sounding theory of behaviour change, but the randomised evidence points the other way. A program can keep being funded and re-run for decades on the strength of a plausible story alone, without ever being properly tested against a control group.</p>
-          </div>
-          <div class="case-cite">Petrosino, A., Turpin-Petrosino, C., &amp; Buehler, J. (2013). &ldquo;&lsquo;Scared Straight&rsquo; and Other Juvenile Awareness Programs for Preventing Juvenile Delinquency: A Systematic Review.&rdquo; <a href="https://onlinelibrary.wiley.com/doi/10.4073/csr.2013.5" target="_blank" rel="noopener">Campbell Systematic Reviews, 9(1)</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Backfire</span>
-          <h4>The Energy-Bill Boomerang</h4>
-          <p class="salient-question">Why did telling frugal households they used <mark>less</mark> energy make them use more?</p>
-          <div class="case-body">
-            <p>A field experiment sent households a letter comparing their energy use to their neighbours' average. Among households already using more than average, usage dropped &mdash; the intervention worked exactly as intended. But among households already using less than average, usage rose: apparently reassured that they had &ldquo;room&rdquo; to relax, they used more energy than before receiving any letter at all.</p>
-            <p class="lesson"><b>What it teaches:</b> The same real, well-replicated mechanism (descriptive social norms &mdash; see <a href="principles.html#social-norm">Social Norm</a>) can push a subgroup in exactly the wrong direction if an intervention isn't tested on the full range of people it will actually reach, not just the ones it's designed to help. The fix, found in the same research programme: adding an injunctive signal (a simple smiley or frowny face) eliminated the boomerang while keeping the reduction for high-usage households.</p>
-          </div>
-          <div class="case-cite">Schultz, P. W., Nolan, J. M., Cialdini, R. B., Goldstein, N. J., &amp; Griskevicius, V. (2007). &ldquo;The Constructive, Destructive, and Reconstructive Power of Social Norms.&rdquo; <a href="https://journals.sagepub.com/doi/10.1111/j.1467-9280.2007.01917.x" target="_blank" rel="noopener">Psychological Science, 18(5), 429&ndash;434</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Backfire</span>
-          <h4>The Hanoi Rat Bounty</h4>
-          <p class="salient-question">Why did paying for <mark>rat tails</mark> end up breeding more rats, not fewer?</p>
-          <div class="case-body">
-            <p>In 1902, French colonial administrators in Hanoi paid a bounty for every rat tail turned in, hoping to control a plague-linked rat population. Rat-catchers quickly began trapping rats, cutting off their tails, and releasing them back into the sewers to breed &mdash; and health inspectors soon found rat farms springing up specifically to supply tails for profit.</p>
-            <p class="lesson"><b>What it teaches:</b> This one is documented colonial-administrative history, reconstructed from municipal archives, not a designed experiment &mdash; worth flagging plainly, the same way this site flags any illustrative case that isn't a controlled study. Even so, it's a genuine, well-sourced example of a perverse incentive: rewarding a proxy for a problem (tails) rather than the actual outcome (fewer rats) let people optimise for the reward in a way that made the real problem worse.</p>
-          </div>
-          <div class="case-cite">Vann, M. G. (2003). &ldquo;Of Rats, Rice, and Race: The Great Hanoi Rat Massacre, an Episode in French Colonial History.&rdquo; <a href="https://muse.jhu.edu/article/42110" target="_blank" rel="noopener">French Colonial History, 4(1), 191&ndash;203</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Backfire</span>
-          <h4>The Charity Reminder Boomerang</h4>
-          <p class="salient-question">Why did a second reminder raise donations <mark>and</mark> drive donors away for good?</p>
-          <div class="case-body">
-            <p>A Danish charity sent reminder emails to roughly 17,000 past donors, and a subset also received a second reminder a week later. The extra reminder worked exactly as designed &mdash; one-time donations rose substantially. But donors who received it unsubscribed from future contact at a significantly higher rate, and a follow-up test found announcing monthly reminders (versus a single future one) drove even more people to opt out for good.</p>
-            <p class="lesson"><b>What it teaches:</b> A backfire doesn't always show up in the metric you're optimising. Judged purely on short-term donations, the reminder was an unambiguous win &mdash; the real cost only shows up in a different number, months later, once you count the donors who can never be reminded again. Measuring the metric you changed isn't the same as measuring everything you changed.</p>
-          </div>
-          <div class="case-cite">Damgaard, M. T., &amp; Gravert, C. (2018). &ldquo;The Hidden Costs of Nudging: Experimental Evidence from Reminders in Fundraising.&rdquo; <a href="https://doi.org/10.1016/j.jpubeco.2017.11.005" target="_blank" rel="noopener">Journal of Public Economics, 157, 15&ndash;26</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="report-section" id="lab-vs-field">
-      <h3>Lab vs. field: why where you test it matters</h3>
-      <p class="intro">A finding demonstrated in a controlled lab and the same finding holding up in a messy real market are not the same evidence, even when they're described with the same word: &ldquo;effect.&rdquo; Economist John List has spent much of his career specifically probing that gap &mdash; and the honest answer is that it's often larger than people assume.</p>
-      <div class="case-grid">
-        <div class="case-card">
-          <span class="case-tag">Validity</span>
-          <h4>Lab Generosity Doesn't Always Travel</h4>
-          <p class="salient-question">Why doesn't how you play a <mark>lab game</mark> predict how generous you actually are?</p>
-          <div class="case-body">
-            <p>Many well-known findings about generosity and fairness &mdash; how much people give in a dictator game, how they punish unfair offers &mdash; come from lab experiments with paid student volunteers who know they're being watched. List and co-author Steven Levitt reviewed the evidence and found these lab measures frequently fail to predict how the same people behave in comparable real-world situations, where anonymity, social context, and real stakes differ from the lab.</p>
-            <p class="lesson"><b>What it teaches:</b> A controlled setting buys precision, but it can quietly change the very behaviour being measured &mdash; being watched, knowing it's an experiment, and interacting with strangers you'll never see again are all real features of a lab that don't exist in the market the finding is meant to describe.</p>
-          </div>
-          <div class="case-cite">Levitt, S. D., &amp; List, J. A. (2007). &ldquo;What Do Laboratory Experiments Measuring Social Preferences Reveal About the Real World?&rdquo; <a href="https://www.aeaweb.org/articles?id=10.1257/jep.21.2.153" target="_blank" rel="noopener">Journal of Economic Perspectives, 21(2), 153&ndash;174</a></div>
-        </div>
-        <div class="case-card">
-          <span class="case-tag">Validity</span>
-          <h4>The Voltage Drop at Scale</h4>
-          <p class="salient-question">Why do pilots that work beautifully <mark>shrink</mark> the moment you roll them out for real?</p>
-          <div class="case-body">
-            <p>Across List's own applied research programme, a recurring pattern shows up: an intervention that produces a strong effect in a small pilot frequently produces a much smaller one &mdash; sometimes a fraction the size &mdash; once rolled out at real scale. He calls this the &ldquo;voltage drop.&rdquo; Worth flagging honestly: this specific framing comes from List's popular synthesis book rather than one single peer-reviewed paper, so treat it as an experienced practitioner's pattern-observation, not a controlled finding in its own right.</p>
-            <p class="lesson"><b>What it teaches:</b> A successful small pilot is genuinely useful evidence, but it isn't a scale-tested one. The population, the staff running it, and the novelty of a small trial can all inflate results in ways that don't survive contact with a full rollout &mdash; worth checking for, not assuming away.</p>
-          </div>
-          <div class="case-cite">List, J. A. (2022). <i>The Voltage Effect: How to Make Good Ideas Great and Great Ideas Scale.</i> Currency &mdash; drawing on List's broader field-experiment research programme, cited throughout in peer-reviewed form.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="report-section" id="cheap-talk">
-      <h3>Why asking people what they'll do is unreliable</h3>
-      <p class="intro">Surveys asking &ldquo;would you pay for this?&rdquo; or &ldquo;would you do this?&rdquo; are a normal, useful research tool &mdash; but they measure something different from real behaviour, and the gap between the two has its own name.</p>
-      <div class="case-grid">
-        <div class="case-card">
-          <span class="case-tag">Validity</span>
-          <h4>Cheap Talk &amp; Hypothetical Bias</h4>
-          <p class="salient-question">Why do people say they'd pay more than they actually do, even when <mark>warned</mark> about it?</p>
-          <div class="case-body">
-            <p>When there's no real cost to answering however makes you look good, people reliably state a higher willingness to pay in hypothetical surveys than they actually pay when real money is on the line &mdash; a well-documented gap known as hypothetical bias. Attempts to fix it by simply warning respondents about the bias beforehand (&ldquo;cheap talk&rdquo; scripts) have generally proven weak or unreliable at closing the gap.</p>
-            <p class="lesson"><b>What it teaches:</b> A stated intention is not a prediction of behaviour, even from an honest, well-meaning respondent &mdash; it's an answer to a different, lower-stakes question. Wherever possible, real behaviour (an actual purchase, an actual signed commitment) is a stronger form of evidence than a stated one, and this site tries to flag the difference rather than blur it.</p>
-          </div>
-          <div class="case-cite">Harrison, G. W., &amp; Rutstr&ouml;m, E. E. (2008). &ldquo;Experimental Evidence on the Existence of Hypothetical Bias in Value Elicitation Methods,&rdquo; in <i>Handbook of Experimental Economics Results</i>, Vol. 1. Elsevier.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="field-note" id="ethics-of-not-experimenting">
   <div class="wrap">
     <span class="field-note-tag">A field note, not a study</span>
@@ -370,21 +214,21 @@
   <div class="wrap">
     <h2>More to explore</h2>
     <div class="explore-grid">
+      <a class="explore-card" href="principles.html">
+        <h3>Principles</h3>
+        <p>53 cited principles, each broken down to the real study behind it &mdash; searchable and filterable.</p>
+      </a>
       <a class="explore-card" href="sessions.html">
         <h3>Field Sessions</h3>
         <p>Live talks and workshops where this gets put in front of a real room, and what actually happened.</p>
       </a>
-      <a class="explore-card" href="#">
-        <h3>Case Studies</h3>
-        <p>Deep dives on real examples, with the research behind why they work.</p>
+      <a class="explore-card" href="experiments.html">
+        <h3>Experiments</h3>
+        <p>Testable blueprints &mdash; hypothesis, sample size, and how to run each one yourself.</p>
       </a>
-      <a class="explore-card" href="#">
-        <h3>Articles</h3>
-        <p>Shorter reads on ideas, terms, and mechanisms worth knowing.</p>
-      </a>
-      <a class="explore-card" href="#">
-        <h3>Insights</h3>
-        <p>Quick observations spotted in the wild, as they're found.</p>
+      <a class="explore-card" href="reading-the-research.html">
+        <h3>Reading the Research</h3>
+        <p>How to evaluate a study: replication, backfires, lab vs. field, and unreliable stated intentions.</p>
       </a>
     </div>
   </div>
@@ -450,9 +294,9 @@
       <li><a href="principles.html">Principles</a></li>
       <li><a href="sessions.html">Field Sessions</a></li>
       <li><a href="experiments.html">Experiments</a></li>
-      <li><a href="#explore">Explore</a></li>
+      <li><a href="reading-the-research.html">Reading the Research</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#newsletter">Newsletter</a></li>
+      <li><a href="#newsletter">Subscribe</a></li>
     </ul>
   </div>
 </footer>

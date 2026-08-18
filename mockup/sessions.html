@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FBF9F4">
 <title>Field Sessions — Field Notes</title>
+<meta name="description" content="Real talks and workshops where behavioural economics gets put in front of a room, written up warts and all — including what didn't land.">
+<link rel="canonical" href="https://www.grantburrow.com/sessions.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Field Notes">
+<meta property="og:title" content="Field Sessions — Field Notes">
+<meta property="og:description" content="Real talks and workshops where behavioural economics gets put in front of a room, written up warts and all — including what didn't land.">
+<meta property="og:url" content="https://www.grantburrow.com/sessions.html">
+<meta property="og:image" content="https://www.grantburrow.com/images/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Field Sessions — Field Notes">
+<meta name="twitter:description" content="Real talks and workshops where behavioural economics gets put in front of a room, written up warts and all — including what didn't land.">
+<meta name="twitter:image" content="https://www.grantburrow.com/images/og-card.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,14 +31,12 @@
       </button>
     </div>
     <div class="links" id="navLinks">
-      <a href="index.html#about">About</a>
       <a href="principles.html">Principles</a>
       <a href="sessions.html">Field Sessions</a>
       <a href="experiments.html">Experiments</a>
-      <a href="index.html#explore">Explore</a>
-      <a href="index.html#reading-the-research">Reading the Research</a>
-      <a href="index.html#experiment-teardowns">Experiment Teardowns</a>
-      <a href="index.html#newsletter">Newsletter</a>
+      <a href="reading-the-research.html">Reading the Research</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#newsletter" class="nav-cta">Subscribe</a>
     </div>
   </div>
 </nav>
@@ -34,16 +45,28 @@
   <div class="wrap">
     <span class="label">Field Sessions</span>
     <h1 class="principles-index-title">Where this gets tested in front of a real room</h1>
-    <p class="toc-intro">Not written from a desk. These are talks and workshops where the mechanisms on this site got put in front of actual people &mdash; and I found out, in real time, what actually lands.</p>
-    <ul class="session-toc">
-      <li><a href="#airds-high-money-talk"><span class="session-toc-title">Teaching Year 8/9 students the maths their brains skip</span><span class="session-toc-meta">Airds High School &middot; Year 8/9</span></a></li>
-      <li><a href="#mapping-outcome-logic"><span class="session-toc-title">Finding the &ldquo;Phase 2&rdquo; every roadmap quietly skips</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
-      <li><a href="#safe-to-spend-backfire"><span class="session-toc-title">Why telling customers what's &ldquo;safe to spend&rdquo; can make them spend more</span><span class="session-toc-meta">Digital, Design &amp; Product teams</span></a></li>
-      <li><a href="#voltage-effect-scaling"><span class="session-toc-title">Why your best pilot is the one most likely to lose its voltage</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
-      <li><a href="#dentist-visit"><span class="session-toc-title">What my dentist got right, without ever hearing the term &ldquo;behavioural economics&rdquo;</span><span class="session-toc-meta">A routine check-up &middot; real-time field notes</span></a></li>
-      <li><a href="#defining-behavioural-economics"><span class="session-toc-title">Where Behavioural Economics Actually Sits</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
-      <li><a href="#watching-the-metric-lies"><span class="session-toc-title">The Metric That Lied To The Whole Room</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
-      <li><a href="#agile-australia-10x-product"><span class="session-toc-title">Why $350,000 suddenly looks cheap</span><span class="session-toc-meta">Agile Australia 2023 &middot; 200+ product &amp; agile leaders</span></a></li>
+    <p class="toc-intro">Not written from a desk. These are talks and workshops where the mechanisms on this site got put in front of actual people &mdash; and I found out, in real time, what actually lands. Search by name, or filter by the kind of room it happened in.</p>
+    <div class="principles-search">
+      <label for="sessionsSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search field sessions</label>
+      <input type="search" id="sessionsSearch" placeholder="Search sessions by name or keyword&hellip;">
+    </div>
+    <div class="toc-tabs" role="tablist" id="sessionsFilterTabs">
+      <button type="button" class="toc-tab active" data-filter-target="all" role="tab" aria-selected="true"><span class="toc-tab-label">All</span><span class="toc-tab-count">8</span></button>
+      <button type="button" class="toc-tab" data-filter-target="team" role="tab" aria-selected="false"><span class="toc-tab-label">Team Workshops</span><span class="toc-tab-count">5</span></button>
+      <button type="button" class="toc-tab" data-filter-target="conference" role="tab" aria-selected="false"><span class="toc-tab-label">Conference Talks</span><span class="toc-tab-count">1</span></button>
+      <button type="button" class="toc-tab" data-filter-target="education" role="tab" aria-selected="false"><span class="toc-tab-label">Education</span><span class="toc-tab-count">1</span></button>
+      <button type="button" class="toc-tab" data-filter-target="solo" role="tab" aria-selected="false"><span class="toc-tab-label">Solo Field Notes</span><span class="toc-tab-count">1</span></button>
+    </div>
+    <p class="principles-empty" id="sessionsEmpty" hidden>No sessions match your search.</p>
+    <ul class="session-toc" id="sessionsToc">
+      <li data-audience="education"><a href="#airds-high-money-talk"><span class="session-toc-title">Teaching Year 8/9 students the maths their brains skip</span><span class="session-toc-meta">Airds High School &middot; Year 8/9</span></a></li>
+      <li data-audience="team"><a href="#mapping-outcome-logic"><span class="session-toc-title">Finding the &ldquo;Phase 2&rdquo; every roadmap quietly skips</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
+      <li data-audience="team"><a href="#safe-to-spend-backfire"><span class="session-toc-title">Why telling customers what's &ldquo;safe to spend&rdquo; can make them spend more</span><span class="session-toc-meta">Digital, Design &amp; Product teams</span></a></li>
+      <li data-audience="team"><a href="#voltage-effect-scaling"><span class="session-toc-title">Why your best pilot is the one most likely to lose its voltage</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
+      <li data-audience="solo"><a href="#dentist-visit"><span class="session-toc-title">What my dentist got right, without ever hearing the term &ldquo;behavioural economics&rdquo;</span><span class="session-toc-meta">A routine check-up &middot; real-time field notes</span></a></li>
+      <li data-audience="team"><a href="#defining-behavioural-economics"><span class="session-toc-title">Where Behavioural Economics Actually Sits</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
+      <li data-audience="team"><a href="#watching-the-metric-lies"><span class="session-toc-title">The Metric That Lied To The Whole Room</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
+      <li data-audience="conference"><a href="#agile-australia-10x-product"><span class="session-toc-title">Why $350,000 suddenly looks cheap</span><span class="session-toc-meta">Agile Australia 2023 &middot; 200+ product &amp; agile leaders</span></a></li>
     </ul>
 
     <span class="label session-upcoming-label">Coming soon &mdash; not yet written up</span>
@@ -56,7 +79,7 @@
 
 <hr class="rule">
 
-<article class="session" id="airds-high-money-talk">
+<article class="session" id="airds-high-money-talk" data-audience="education">
   <div class="wrap">
     <span class="field-note-tag">A session recap, not a study</span>
     <span class="case-tag">Field Session</span>
@@ -434,7 +457,7 @@
 
 <hr class="rule">
 
-<article class="session" id="mapping-outcome-logic">
+<article class="session" id="mapping-outcome-logic" data-audience="team">
   <div class="wrap">
     <span class="field-note-tag">A session recap, not a study</span>
     <span class="case-tag">Field Session</span>
@@ -691,7 +714,7 @@
 
 <hr class="rule">
 
-<article class="session" id="safe-to-spend-backfire">
+<article class="session" id="safe-to-spend-backfire" data-audience="team">
   <div class="wrap">
     <span class="field-note-tag">A session recap, not a study</span>
     <span class="case-tag">Field Session</span>
@@ -950,7 +973,7 @@
   </div>
 </article>
 
-<article class="session" id="voltage-effect-scaling">
+<article class="session" id="voltage-effect-scaling" data-audience="team">
   <div class="wrap">
     <span class="field-note-tag">A session recap, not a study</span>
     <span class="case-tag">Field Session</span>
@@ -1254,7 +1277,7 @@
   </div>
 </article>
 
-<article class="session" id="dentist-visit">
+<article class="session" id="dentist-visit" data-audience="solo">
   <div class="wrap">
     <span class="field-note-tag">A session recap, not a study</span>
     <span class="case-tag">Field Session</span>
@@ -1602,7 +1625,7 @@
 
 <hr class="rule">
 
-<article class="session" id="defining-behavioural-economics">
+<article class="session" id="defining-behavioural-economics" data-audience="team">
   <div class="wrap">
     <span class="field-note-tag">A session recap, not a study</span>
     <span class="case-tag">Field Session</span>
@@ -1836,7 +1859,7 @@
 
 <hr class="rule">
 
-<article class="session" id="watching-the-metric-lies">
+<article class="session" id="watching-the-metric-lies" data-audience="team">
   <div class="wrap">
     <span class="field-note-tag">A session recap, not a study</span>
     <span class="case-tag">Field Session</span>
@@ -2085,7 +2108,7 @@
 
 <hr class="rule">
 
-<article class="session" id="agile-australia-10x-product">
+<article class="session" id="agile-australia-10x-product" data-audience="conference">
   <div class="wrap">
     <span class="field-note-tag">A session recap, not a study</span>
     <span class="case-tag">Field Session</span>
@@ -2376,9 +2399,9 @@
       <li><a href="principles.html">Principles</a></li>
       <li><a href="sessions.html">Field Sessions</a></li>
       <li><a href="experiments.html">Experiments</a></li>
-      <li><a href="index.html#explore">Explore</a></li>
+      <li><a href="reading-the-research.html">Reading the Research</a></li>
       <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#newsletter">Newsletter</a></li>
+      <li><a href="index.html#newsletter">Subscribe</a></li>
     </ul>
   </div>
 </footer>

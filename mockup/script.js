@@ -219,33 +219,118 @@
 })();
 
 (function () {
-  // Digital & Product Experiments page: category chips filter the list of
-  // experiment articles by product area. An experiment can carry more than
-  // one area (space-separated in data-industries), so this is an "any
-  // match" filter, not the exact-match single-category filter the
-  // Principles page uses. No-ops on any page without this markup.
+  // Digital & Product Experiments page: a search box and category chips
+  // both filter the same TOC list and the full article below it, the same
+  // combined-filter model the Principles page uses. An experiment can
+  // carry more than one area (space-separated in data-industries), so the
+  // category match is "any match", not Principles' exact-match single
+  // category. No-ops on any page without this markup.
+  var searchInput = document.getElementById('experimentsSearch');
   var tabs = document.querySelectorAll('#experimentsFilterTabs .toc-tab');
   var cards = document.querySelectorAll('article.experiment');
+  var tocItems = document.querySelectorAll('#experimentsToc > li');
+  var emptyMsg = document.getElementById('experimentsEmpty');
   if (!tabs.length || !cards.length) return;
 
-  function applyFilter(target) {
-    cards.forEach(function (card) {
+  var activeCategory = 'all';
+
+  function cardText(card) {
+    if (card.dataset.searchText) return card.dataset.searchText;
+    var title = card.querySelector('h2');
+    var hook = card.querySelector('.salient-question');
+    var meta = card.querySelector('.session-meta');
+    var text = ((title ? title.textContent : '') + ' ' + (hook ? hook.textContent : '') + ' ' + (meta ? meta.textContent : '')).toLowerCase();
+    card.dataset.searchText = text;
+    return text;
+  }
+
+  function applyFilter() {
+    var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    var visibleCount = 0;
+    cards.forEach(function (card, i) {
       var areas = (card.getAttribute('data-industries') || '').split(/\s+/);
-      card.hidden = target !== 'all' && areas.indexOf(target) === -1;
+      var matchesCategory = activeCategory === 'all' || areas.indexOf(activeCategory) !== -1;
+      var matchesSearch = query === '' || cardText(card).indexOf(query) !== -1;
+      var visible = matchesCategory && matchesSearch;
+      card.hidden = !visible;
+      if (tocItems[i]) tocItems[i].hidden = !visible;
+      if (visible) visibleCount++;
     });
+    if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
   }
 
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
-      var target = tab.getAttribute('data-filter-target');
+      activeCategory = tab.getAttribute('data-filter-target');
       tabs.forEach(function (t) {
         var active = t === tab;
         t.classList.toggle('active', active);
         t.setAttribute('aria-selected', active ? 'true' : 'false');
       });
-      applyFilter(target);
+      applyFilter();
     });
   });
+
+  if (searchInput) searchInput.addEventListener('input', applyFilter);
+})();
+
+(function () {
+  // Field Sessions page: same combined search + single-category filter
+  // model as Principles and Experiments, applied to the TOC list and the
+  // full session articles below it. Sessions are heavy, so an <hr> often
+  // separates two of them — hide the one that immediately follows a
+  // hidden article so filtering doesn't leave a stray rule floating
+  // between two other visible sessions. No-ops on any page without this
+  // markup (the "Coming soon" upcoming list is left untouched — it's not
+  // real content to search or filter).
+  var searchInput = document.getElementById('sessionsSearch');
+  var tabs = document.querySelectorAll('#sessionsFilterTabs .toc-tab');
+  var articles = document.querySelectorAll('article.session');
+  var tocItems = document.querySelectorAll('#sessionsToc > li');
+  var emptyMsg = document.getElementById('sessionsEmpty');
+  if (!searchInput || !tabs.length || !articles.length) return;
+
+  var activeAudience = 'all';
+
+  function articleText(article) {
+    if (article.dataset.searchText) return article.dataset.searchText;
+    var title = article.querySelector('h2, .session-headline h2, .session-headline');
+    var hook = article.querySelector('.salient-question');
+    var meta = article.querySelector('.session-meta');
+    var text = ((title ? title.textContent : '') + ' ' + (hook ? hook.textContent : '') + ' ' + (meta ? meta.textContent : '')).toLowerCase();
+    article.dataset.searchText = text;
+    return text;
+  }
+
+  function applyFilter() {
+    var query = searchInput.value.trim().toLowerCase();
+    var visibleCount = 0;
+    articles.forEach(function (article, i) {
+      var matchesAudience = activeAudience === 'all' || article.getAttribute('data-audience') === activeAudience;
+      var matchesSearch = query === '' || articleText(article).indexOf(query) !== -1;
+      var visible = matchesAudience && matchesSearch;
+      article.hidden = !visible;
+      var rule = article.nextElementSibling;
+      if (rule && rule.tagName === 'HR') rule.hidden = !visible;
+      if (tocItems[i]) tocItems[i].hidden = !visible;
+      if (visible) visibleCount++;
+    });
+    if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activeAudience = tab.getAttribute('data-filter-target');
+      tabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      applyFilter();
+    });
+  });
+
+  searchInput.addEventListener('input', applyFilter);
 })();
 
 (function () {
