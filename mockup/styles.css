@@ -1556,40 +1556,8 @@ a.report-card:hover strong { color: var(--terracotta); }
   color: var(--ink);
 }
 
-.newsletter-inline-form { display: flex; flex-direction: column; gap: 8px; }
-
-.newsletter-inline-form input {
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--ink);
-  font-size: 0.9rem;
-  font-family: inherit;
-  min-height: 44px;
-}
-
-.newsletter-inline-form input::placeholder { color: var(--muted); }
-
-.newsletter-inline-form button {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: none;
-  background: var(--ink);
-  color: var(--paper);
-  font-weight: 700;
-  font-size: 0.88rem;
-  cursor: pointer;
-  min-height: 44px;
-  transition: background 0.15s ease;
-}
-
-.newsletter-inline-form button:hover { background: var(--terracotta); }
-
 @media (min-width: 640px) {
   .newsletter-inline-row { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 24px; }
-  .newsletter-inline-form { flex-direction: row; flex-shrink: 0; margin-top: 2px; }
-  .newsletter-inline-form input { width: 220px; }
 }
 
 /* ---------- newsletter ---------- */
@@ -1597,41 +1565,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 .newsletter .wrap { max-width: 540px; text-align: center; }
 .newsletter h2 { font-size: clamp(1.3rem, 6vw, 2rem); }
 .newsletter p { color: rgba(251, 249, 244, 0.68); margin: 8px 0 18px; font-size: 0.9rem; }
-
-.newsletter-form { display: flex; flex-direction: column; gap: 10px; max-width: 380px; margin: 0 auto; }
-
-.newsletter-form input {
-  padding: 13px 16px;
-  border-radius: 8px;
-  border: 1px solid rgba(251, 249, 244, 0.25);
-  background: rgba(251, 249, 244, 0.06);
-  color: var(--paper);
-  font-size: 1rem;
-  font-family: inherit;
-  min-height: 44px;
-}
-
-.newsletter-form input::placeholder { color: rgba(251, 249, 244, 0.45); }
-
-.newsletter-form button {
-  background: var(--terracotta);
-  color: var(--paper);
-  border: none;
-  padding: 13px 22px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: 600;
-  font-family: inherit;
-  min-height: 44px;
-}
-
-.newsletter-form button:hover { background: var(--terracotta-dim); }
 .newsletter .fine { font-size: 0.76rem; color: rgba(251, 249, 244, 0.5); margin: 14px 0 0; }
-
-@media (min-width: 480px) {
-  .newsletter-form { flex-direction: row; }
-}
 
 @media (min-width: 640px) {
   .newsletter { padding: 68px 0; }
