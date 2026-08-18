@@ -138,6 +138,15 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .site-nav .links a:last-child { border-bottom: none; }
 .site-nav .links a:hover { color: var(--terracotta); }
 
+.nav-desc {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.nav-cta .nav-desc { color: rgba(251, 249, 244, 0.75); }
+
 .site-nav .links a.nav-cta {
   background: var(--terracotta);
   color: var(--paper);
@@ -163,6 +172,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .site-nav .links a { padding: 0; border-bottom: none; font-size: 0.95rem; }
   .site-nav .links a.nav-cta { padding: 8px 16px; margin-top: 0; font-size: 0.88rem; }
   .site-nav .logo { font-size: 1.05rem; }
+  .nav-desc { display: none; }
 }
 
 /* ---------- hero ---------- */
@@ -415,9 +425,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   margin: 0 0 16px;
 }
 
-/* category grid — every chip is the same width and fully visible at once,
-   no swiping required. Equal-width grid columns (not flex-wrap, which
-   sizes each chip to its own label and produces ragged, unaligned rows) */
+/* category filter row — wraps to each chip's own label width so long
+   category names never truncate, rather than a fixed equal-width grid */
 .toc-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -441,7 +450,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   background: var(--card);
   color: var(--ink);
   cursor: pointer;
-  min-height: 38px;
+  min-height: 44px;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
@@ -871,7 +880,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   -webkit-text-stroke: 1.2px rgba(30, 27, 22, 0.22);
 }
 
-.principle-icon { width: 22px; height: 22px; color: var(--ink); flex-shrink: 0; }
+.principle-icon { width: 28px; height: 28px; color: var(--ink); flex-shrink: 0; stroke-width: 1.4; }
 
 .principle-summary-text { flex: 1; min-width: 0; }
 .principle h3 { font-size: clamp(1.05rem, 3.6vw, 1.3rem); margin: 0; transition: color 0.15s ease; }
@@ -931,7 +940,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 .principle-body .article { margin-top: 22px; }
 
 @media (min-width: 760px) {
-  .principle-icon { width: 26px; height: 26px; }
+  .principle-icon { width: 30px; height: 30px; }
   .principle .definition { font-size: 0.9rem; }
   .principle-body { max-width: 620px; }
 }
