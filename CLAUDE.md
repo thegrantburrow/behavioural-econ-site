@@ -15,6 +15,15 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
   improvising structure: `behavioural-principle-article`, `field-session`,
   `experiment-blueprint`, `design-options-review`.
 
+## Standing policy: light/dark toggle on every HTML artifact
+
+Any standalone HTML artifact built for this project (options-review pages,
+research galleries, mockups) must include a visible light/dark mode toggle
+control the user can click — not just automatic `prefers-color-scheme`
+detection. Stamp `data-theme="light"` / `data-theme="dark"` on the root
+element from the toggle, per the dark-mode token pattern already used across
+these artifacts.
+
 ## Standing policy: no watermarked images, ever
 
 Every image that goes into this site — now, and in every future session —
