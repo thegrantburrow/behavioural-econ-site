@@ -52,10 +52,11 @@
       <input type="search" id="experimentsSearch" placeholder="Search experiments by name or keyword&hellip;">
     </div>
     <div class="toc-tabs" role="tablist" id="experimentsFilterTabs">
-      <button type="button" class="toc-tab active" data-filter-target="all" role="tab" aria-selected="true"><span class="toc-tab-label">All</span><span class="toc-tab-count">5</span></button>
+      <button type="button" class="toc-tab active" data-filter-target="all" role="tab" aria-selected="true"><span class="toc-tab-label">All</span><span class="toc-tab-count">6</span></button>
       <button type="button" class="toc-tab" data-filter-target="savings-deposits" role="tab" aria-selected="false"><span class="toc-tab-label">Savings &amp; Deposits</span><span class="toc-tab-count">1</span></button>
       <button type="button" class="toc-tab" data-filter-target="credit-lending" role="tab" aria-selected="false"><span class="toc-tab-label">Credit &amp; Lending</span><span class="toc-tab-count">3</span></button>
       <button type="button" class="toc-tab" data-filter-target="service-ops" role="tab" aria-selected="false"><span class="toc-tab-label">Service &amp; Support</span><span class="toc-tab-count">1</span></button>
+      <button type="button" class="toc-tab" data-filter-target="fees-pricing" role="tab" aria-selected="false"><span class="toc-tab-label">Fees &amp; Pricing</span><span class="toc-tab-count">1</span></button>
     </div>
     <p class="principles-empty" id="experimentsEmpty" hidden>No experiments match your search.</p>
 
@@ -65,6 +66,7 @@
       <li data-industries="service-ops"><a href="#costly-specific-apology"><span class="session-toc-title">Does a costly, specific apology beat a generic one after a service failure?</span><span class="session-toc-meta">Service &amp; Support &middot; builds on List's Uber apology study</span></a></li>
       <li data-industries="credit-lending"><a href="#digital-home-loan-halo"><span class="session-toc-title">Does a great digital home loan lift home loan trust everywhere else, too?</span><span class="session-toc-meta">Credit &amp; Lending &middot; builds on the Halo Effect (Thorndike, 1920)</span></a></li>
       <li data-industries="credit-lending"><a href="#left-digit-home-loan-rate"><span class="session-toc-title">Does a home loan rate of 5.99% get remembered as a 5% loan, not almost 6%?</span><span class="session-toc-meta">Credit &amp; Lending &middot; builds on Left Digit Bias (Lacetera, Pope &amp; Sydnor, 2012)</span></a></li>
+      <li data-industries="fees-pricing"><a href="#fee-change-fairness-explanation"><span class="session-toc-title">Does explaining why a fee went up change whether customers think it's fair?</span><span class="session-toc-meta">Fees &amp; Pricing &middot; builds on Perceived Fairness (Kahneman, Knetsch &amp; Thaler, 1986)</span></a></li>
     </ul>
   </div>
 </section>
@@ -796,6 +798,138 @@
         </div>
 
         <div class="also-note"><b>The mechanism behind this:</b> <a href="principles.html#left-digit-bias">Left Digit Bias</a> &mdash; Lacetera, Pope &amp; Sydnor (2012) and Thomas &amp; Morwitz (2005), full study and citations on the Principles page.</div>
+      </div>
+    </div>
+    </div>
+  </div>
+</article>
+
+<hr class="rule">
+
+<article class="experiment" id="fee-change-fairness-explanation" data-industries="fees-pricing">
+  <div class="wrap">
+    <span class="field-note-tag">Experiment blueprint</span>
+    <span class="case-tag">Digital &amp; Product Experiment</span>
+    <div class="exp-tags">
+      <span class="exp-tag industry">Retail Banking &middot; Fees &amp; Pricing</span>
+      <span class="exp-tag applies">Also applies to: insurance, telecom, subscription and utility pricing &mdash; any recurring price a real business has to raise</span>
+      <span class="exp-tag status">Not yet run</span>
+    </div>
+    <h2>Does explaining why a fee went up change whether customers think it's fair?</h2>
+    <p class="salient-question lg">Kahneman, Knetsch and Thaler proved this with a <mark>hypothetical snow shovel</mark>. Does it hold for a <mark>real bank fee notice</mark>?</p>
+    <p class="session-meta">Builds on <a href="principles.html#perceived-fairness">Perceived Fairness</a> &middot; Kahneman, Knetsch &amp; Thaler (1986), <i>American Economic Review</i></p>
+
+    <div class="rail-layout" data-rail-root>
+      <div class="rail-scroll">
+      <nav class="rail-nav" aria-label="Section navigation">
+        <div class="rail-step"><div class="rail-dot-col"><span class="rail-dot"></span><span class="rail-line"></span></div><button type="button" class="rail-label">Theory</button></div>
+        <div class="rail-step"><div class="rail-dot-col"><span class="rail-dot"></span><span class="rail-line"></span></div><button type="button" class="rail-label">Hypothesis</button></div>
+        <div class="rail-step"><div class="rail-dot-col"><span class="rail-dot"></span><span class="rail-line"></span></div><button type="button" class="rail-label">Baseline</button></div>
+        <div class="rail-step"><div class="rail-dot-col"><span class="rail-dot"></span><span class="rail-line"></span></div><button type="button" class="rail-label">Ethics</button></div>
+        <div class="rail-step"><div class="rail-dot-col"><span class="rail-dot"></span><span class="rail-line"></span></div><button type="button" class="rail-label">Design</button></div>
+        <div class="rail-step"><div class="rail-dot-col"><span class="rail-dot"></span><span class="rail-line"></span></div><button type="button" class="rail-label">Sample size</button></div>
+        <div class="rail-step"><div class="rail-dot-col"><span class="rail-dot"></span></div><button type="button" class="rail-label">Outcomes</button></div>
+      </nav>
+      <div class="rail-content">
+
+        <div class="article-block" data-rail-section data-rail-label="Theory">
+          <span class="k">Theory</span>
+          <p><b>The study.</b> Kahneman, Knetsch and Thaler's finding, in one sentence: an identical price increase is judged fair when it's framed as protecting the seller's existing profit from a real cost increase, and unfair when it looks like exploiting a shift in demand or bargaining power &mdash; the number itself doesn't decide the verdict, the story behind it does. Their evidence is a telephone survey of Toronto and Vancouver residents judging realistic vignettes, including a hardware store that raised snow-shovel prices the morning after a storm (rated unfair by roughly 82% of respondents) and a landlord charging existing versus new tenants differently for the same unit.</p>
+          <p><b>The gap.</b> Those vignettes measured stated opinions about a hypothetical price change, not real behaviour in response to a real one &mdash; and none of them tested a financial-services fee or rate notice specifically, where the cost being passed on (funding costs, compliance costs) is far less visible to a customer than a snowstorm is.</p>
+          <p><b>The prediction.</b> If the same dual-entitlement logic holds here, a bank that names the real cost driver behind a fee or rate increase should see the change land as fairer &mdash; and, unlike KKT's survey, this experiment can check whether that shows up in real behaviour, not just a nicer opinion: fewer support contacts, fewer customers leaving.</p>
+        </div>
+
+        <div class="article-block" data-rail-section data-rail-label="Hypothesis">
+          <span class="k">Hypothesis</span>
+          <p>Customers who receive a fee or interest-rate increase notice that names a real, verifiable cost driver will be less likely to contact support to question or dispute the change, and more likely to rate it as fair, than customers who receive an otherwise identical notice stating only the new number &mdash; even though the actual new fee or rate is unchanged between the two groups.</p>
+        </div>
+
+        <div class="article-block" data-rail-section data-rail-label="Baseline">
+          <span class="k">Assumed baseline</span>
+          <p><b>Illustrative, not real/disclosed data.</b> Assume 18% of customers who receive a bare fee-increase notice &mdash; new amount only, no explanation &mdash; contact support to question or dispute the change within 30 days.</p>
+        </div>
+
+        <div class="article-block" data-rail-section data-rail-label="Ethics">
+          <span class="k">Ethical guardrail</span>
+          <p><b>The guardrail.</b> This mechanism only works honestly when the disclosed cost driver is real and verifiable &mdash; a genuine rise in funding costs, compliance costs, or similar, that the bank could substantiate if asked. Citing a vague or invented cost story to manufacture a feeling of fairness would be deceptive framing, not disclosure, and is explicitly out of scope for this experiment.</p>
+          <p><b>What's being tested.</b> Only whether naming a true cost driver changes how a genuine, already-decided fee change lands &mdash; not whether that framing can be used to justify an increase that wouldn't otherwise be defensible on its own. See <a href="index.html#ethics-of-not-experimenting">Ethics of Not Experimenting</a> for why measuring this honestly matters more than assuming good framing is harmless.</p>
+        </div>
+
+        <div data-rail-section data-rail-label="Design">
+          <h3>Control vs. treatment</h3>
+          <p>The new fee and its effective date are identical in both arms. Only the presence of a real, named cost driver changes.</p>
+          <div class="app-mock-grid">
+            <div class="app-mock-col">
+              <span class="app-mock-label">Control &middot; number only</span>
+              <div class="app-mock-phone">
+                <div class="app-mock-screen">
+                  <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 4.5c-3 0-5 2.2-5 5.3v3.4l-1.6 2.4h13.2L17 13.2V9.8c0-3.1-2-5.3-5-5.3z"></path>
+                    <path d="M10 18.2a2.2 2.2 0 0 0 4 0"></path>
+                  </svg>
+                  <h4>Your account fee is changing</h4>
+                  <p>From 1 October, your monthly account fee will be $12, up from $8.</p>
+                  <button type="button" class="app-cta">See your new fee details</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="app-mock-col">
+              <span class="app-mock-label">Treatment &middot; number + real reason</span>
+              <div class="app-mock-phone">
+                <div class="app-mock-screen">
+                  <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 4.5c-3 0-5 2.2-5 5.3v3.4l-1.6 2.4h13.2L17 13.2V9.8c0-3.1-2-5.3-5-5.3z" stroke="var(--terracotta)"></path>
+                    <path d="M10 18.2a2.2 2.2 0 0 0 4 0" stroke="var(--terracotta)"></path>
+                    <circle cx="18.3" cy="6.3" r="3.4" fill="var(--terracotta)" stroke="none"></circle>
+                    <line x1="18.3" y1="5.1" x2="18.3" y2="5.3" stroke="var(--paper)" stroke-width="1.4"></line>
+                    <line x1="18.3" y1="6.6" x2="18.3" y2="7.9" stroke="var(--paper)" stroke-width="1.4"></line>
+                  </svg>
+                  <h4>Your account fee is changing</h4>
+                  <p>From 1 October, your monthly account fee will be $12, up from $8.</p>
+                  <div class="app-mock-callout"><b>Why this is changing:</b> our cost of providing fee-free access across the shared ATM network has risen. This new fee reflects that increase &mdash; nothing else about your account is changing.</div>
+                  <button type="button" class="app-cta">See your new fee details</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="app-mock-note">Same new fee, same effective date &mdash; the only difference is whether a real, named cost sits behind the number or not.</p>
+        </div>
+
+        <div class="power-calc" data-rail-section data-rail-label="Sample size">
+          <span class="label">Sample size to actually trust this</span>
+          <div class="power-calc-grid">
+            <div class="power-stat"><span class="stat-lbl">Baseline</span><span class="stat-val">18%<small>contacted support about the change</small></span></div>
+            <div class="power-stat accent"><span class="stat-lbl">Target</span><span class="stat-val">13%<small>&minus;5pp, ~28% relative</small></span></div>
+            <div class="power-stat"><span class="stat-lbl">Significance</span><span class="stat-val">&alpha; = 0.05<small>two-sided</small></span></div>
+            <div class="power-stat"><span class="stat-lbl">Power</span><span class="stat-val">80%<small>1&minus;&beta;</small></span></div>
+            <div class="power-stat accent"><span class="stat-lbl">Sample per arm</span><span class="stat-val">820<small>customers receiving the notice</small></span></div>
+            <div class="power-stat"><span class="stat-lbl">Total sample</span><span class="stat-val">1,640<small>2 arms</small></span></div>
+            <div class="power-stat"><span class="stat-lbl">Assumed volume</span><span class="stat-val">300/wk<small>customers receiving a fee or rate-change notice</small></span></div>
+            <div class="power-stat accent"><span class="stat-lbl">Est. run time</span><span class="stat-val">~6 wks<small>incl. buffer</small></span></div>
+          </div>
+          <p class="power-calc-note">Two-proportion test, equal allocation: n = (z&alpha;/2 + z&beta;)&sup2; &times; [p&#8321;(1&minus;p&#8321;) + p&#8322;(1&minus;p&#8322;)] / (p&#8321;&minus;p&#8322;)&sup2;.</p>
+        </div>
+
+        <div class="doc-mock" data-rail-section data-rail-label="Outcomes">
+          <div class="doc-mock-head">
+            <svg class="doc-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="3" width="16" height="18" rx="1.5"></rect>
+              <line x1="7.5" y1="8" x2="16.5" y2="8"></line>
+              <line x1="7.5" y1="12" x2="16.5" y2="12" stroke="var(--terracotta)"></line>
+              <line x1="7.5" y1="16" x2="13" y2="16"></line>
+            </svg>
+            <span>Outcome variables</span>
+          </div>
+          <ul class="doc-mock-list">
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Primary:</b><br>% of affected customers who contact support to question or dispute the fee change within 30 days of the notice</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Secondary:</b><br>a one-question follow-up survey to a subsample, asking how fair the change felt (1&ndash;5) &mdash; checking whether the perception itself shifts, not just the support-contact behaviour</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Secondary:</b><br>60-day account or product retention rate among affected customers, versus a matched unaffected group</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>rate of complaints escalated to a formal dispute or ombudsman referral &mdash; naming a reason must not itself invite more scrutiny than a bare notice would have</span></li>
+          </ul>
+        </div>
+
+        <div class="also-note"><b>The mechanism behind this:</b> <a href="principles.html#perceived-fairness">Perceived Fairness (Dual Entitlement)</a> &mdash; Kahneman, Knetsch &amp; Thaler (1986), full study and citations on the Principles page.</div>
       </div>
     </div>
     </div>
