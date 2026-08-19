@@ -42,3 +42,34 @@ committed to `mockup/images/` or embedded anywhere on the site.
 - As of 2026-08-16, every image already in `mockup/images/` was checked and
   is clean (5 Airds High School field-session photos). Nothing currently on
   the live site needs remediation.
+
+## Standing policy: no em dashes in site prose, ever
+
+Never write an em dash (—, `&mdash;`, `&#8212;`, or a double hyphen used as
+one) into any prose on the site: principle articles, field sessions,
+experiment blueprints, captions, diagram labels, nav copy, meta
+descriptions, everything a reader sees as a sentence. Write the sentence a
+person would actually write instead. There is always a real option, chosen
+for what the sentence is actually doing, not applied as a single blind
+find-and-replace:
+
+- Two independent clauses where the second is a pivot or reveal: a period,
+  making two sentences.
+- A clause introducing a list, an explanation, or a definition: a colon.
+- A trailing appositive, or a clause before a coordinating conjunction
+  (and/but/or/so): a comma.
+- A parenthetical aside set off on both sides (`X — aside — Y`): a comma on
+  both sides, or parentheses if the aside is a genuine side note.
+
+This was a real defect, not a style nitpick: on 2026-08-19 the owner flagged
+an em-dash-heavy passage as reading poorly, and a full audit found roughly
+2,000 em dashes across every page on the site (index, principles, sessions,
+experiments, reading-the-research), all rewritten with real, sentence-aware
+punctuation rather than a mechanical substitution. Two things are not
+prose and stay as em dashes: `&mdash;` used as a UI placeholder in an empty
+data-table cell (an explicit "no value here" convention, e.g. `<td
+class="pct a">&mdash;</td>`), and a `<span class="dash">&mdash;</span>`
+flow-diagram connector glyph. Everything else a reader reads as a sentence
+gets real punctuation. Before publishing any new page or artifact for this
+site, grep it for `&mdash;`, `&#8212;`, and the em dash character itself and
+fix anything that isn't one of those two UI exceptions.
