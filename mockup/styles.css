@@ -215,6 +215,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   to { stroke-dashoffset: 0; }
 }
 
+.hero-logo {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  margin: 0 0 22px;
+  animation: heroFadeUp 0.6s ease-out both;
+}
+
+@media (min-width: 640px) {
+  .hero-logo { max-width: 420px; }
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
