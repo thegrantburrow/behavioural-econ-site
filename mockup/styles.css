@@ -937,7 +937,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .principle-body { margin: 4px 0 24px; max-width: 480px; }
 .principle-body .illustration { margin: 0 auto; }
-.principle-body .article { margin-top: 22px; }
+.principle-body .principle-continuation { margin: 0 auto; }
 
 @media (min-width: 760px) {
   .principle-icon { width: 30px; height: 30px; }
@@ -998,20 +998,39 @@ a.report-card:hover strong { color: var(--terracotta); }
   font-style: italic;
 }
 
-/* ---------- mechanism note: the single named psychological process most
-   likely driving the effect, surfaced as soon as a principle is opened —
-   one click, not two, since it's more load-bearing than any one subsection
-   of the full article below ---------- */
+/* ---------- continuation card: the diagram, the "Likely mechanism" note,
+   and the article teaser used to render as three separate boxes with
+   three separate visual treatments, and the CTA at the end read as a
+   disconnected grey button. They're one continuous card now: the
+   illustration keeps its own colour identity and squares off its bottom
+   corners, and this card picks up exactly where it left off, all the way
+   down to a real (if quiet) pill button instead of plain text or a stark
+   tag. See design-options-review round 2, "Option 1A: Soft-Tint Pill". */
+.illustration { border-radius: 14px 14px 0 0; }
+
+.principle-continuation {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  padding: 0 16px 4px;
+}
+@media (min-width: 760px) {
+  .principle-continuation { padding: 0 20px 6px; }
+}
+
+/* the single named psychological process most likely driving the effect,
+   surfaced as soon as a principle is opened — one click, not two, since
+   it's more load-bearing than any one subsection of the full article
+   below. No longer its own floating card: a hairline divider is the only
+   thing separating it from the diagram above and the teaser below. */
 .mechanism-note {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: 4px 8px;
-  margin-top: 12px;
-  padding: 9px 13px;
-  background: rgba(178, 71, 43, 0.06);
-  border: 1px solid rgba(178, 71, 43, 0.22);
-  border-radius: 8px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
 }
 
 .mechanism-note .mechanism-label {
@@ -1030,11 +1049,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 /* ---------- embedded article (case study) ---------- */
-.article {
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px dashed var(--line);
-}
+.article { margin: 0; padding: 0; border-top: none; }
 
 .article summary {
   cursor: pointer;
@@ -1045,38 +1060,20 @@ a.report-card:hover strong { color: var(--terracotta); }
 .article summary::-webkit-details-marker { display: none; }
 .article summary::marker { content: ""; }
 
-.article-tag {
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 3px 9px;
-  border-radius: 999px;
-  background: var(--line);
-  color: var(--muted);
-  flex-shrink: 0;
-}
+.article-hook { padding: 14px 0 12px; }
 
-/* the whole closed-state preview (fading text + CTA row) reads as one
-   clickable card, same visual language as .study-card, so it's obviously
-   an invitation to read on rather than two loosely-related pieces */
-.article-hook {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 16px 18px;
-  transition: border-color 0.15s ease;
-}
-.article summary:hover .article-hook { border-color: var(--terracotta); }
-.article summary:hover .summary-row { color: var(--terracotta); }
-
-/* teaser: 4-line gradient-fade preview of the article's opening line, always
-   visible (lives inside <summary>, so it survives the closed state) */
+/* teaser: a real, multi-line stretch of the article's actual opening
+   paragraph (not a 3-4 line clip that cuts off mid-sentence), fading
+   out gradually into the CTA below rather than a hard edge — the fade
+   itself is the hint that there's more, so the button doesn't have to
+   announce it alone. Lives inside <summary>, so it survives the closed
+   state. */
 .teaser-fade {
   position: relative;
-  max-height: 6.4em;
+  max-height: 9.2em;
   max-width: 62ch;
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 .teaser-fade::after {
   content: '';
@@ -1084,8 +1081,8 @@ a.report-card:hover strong { color: var(--terracotta); }
   left: 0;
   right: 0;
   bottom: 0;
-  height: 3em;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--card) 80%);
+  height: 2.6em;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--card) 78%);
 }
 .teaser-text {
   font-size: 0.83rem;
@@ -1095,28 +1092,37 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 .teaser-text b { color: var(--ink); }
 
-.summary-row {
-  display: flex;
+/* the CTA: a real, tappable pill button, quiet enough not to compete
+   with the diagram above it — not plain text (too easy to miss as
+   clickable) and not the old stark grey tag pill (read as a disconnected
+   UI control). It's a <span> rather than a <button>: the actual click
+   target is the native <summary> the whole hook lives inside, so a
+   second interactive element here would be redundant. Stays visible
+   once the article is open, doubling as the "collapse" control (chevron
+   rotates to point down). */
+.cta-wrap { text-align: center; padding-top: 2px; }
+.cta-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.88rem;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(178, 71, 43, 0.09);
+  color: var(--terracotta);
+  font-size: 0.86rem;
   font-weight: 700;
-  color: var(--ink);
-  min-height: 40px;
-  padding-top: 12px;
-  border-top: 1px dashed var(--line);
+  transition: background 0.15s ease;
 }
+.article summary:hover .cta-pill { background: rgba(178, 71, 43, 0.16); }
 
-.summary-row .chev {
-  margin-left: auto;
+.cta-pill .chev {
   color: var(--terracotta);
   transition: transform 0.2s ease;
   font-size: 1.1rem;
 }
-
-.article[open] .summary-row .chev { transform: rotate(90deg); }
+.article[open] .cta-pill .chev { transform: rotate(90deg); }
 .article[open] .teaser-fade { display: none; }
-.article[open] .summary-row { padding-top: 0; border-top: none; }
+.article[open] .article-hook { padding-bottom: 14px; }
 
 .article-body { margin-top: 18px; max-width: 62ch; }
 
