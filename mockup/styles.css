@@ -948,18 +948,36 @@ a.report-card:hover strong { color: var(--terracotta); }
 .illustration {
   position: relative;
   border-radius: 14px;
-  aspect-ratio: 16 / 9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* Each mechanism-diagram SVG below has its own viewBox, sized to
+     whatever height its actual title/row/caption content needs (a
+     short two-line title needs less canvas than a wrapped three-line
+     one) — there is no single fixed aspect ratio that fits all 56 of
+     them any more, so this box doesn't declare one. The SVG carries
+     width:100% and no explicit height (see the rule below), which
+     means the browser sizes it from its own viewBox aspect ratio, the
+     same way an <img> auto-sizes from its intrinsic dimensions — the
+     box simply wraps snugly around whatever height that produces, so
+     there is no way for a diagram's content to render smaller than the
+     available width lets it, on any screen. (Earlier versions of this
+     rule tried to keep a fixed aspect-ratio in step with the
+     diagrams' shape by hand; that's the class of bug being avoided
+     here — see the git history on this rule for the two times it went
+     wrong: a 16:9 box under 4:3 diagrams, then a 4:3 box under
+     variable-height ones, both silently shrinking every label.) */
   text-align: center;
   padding: 16px;
   color: rgba(251, 249, 244, 0.95);
   font-size: 0.82rem;
 }
 
+.illustration svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 @media (min-width: 760px) {
-  .illustration { aspect-ratio: 4 / 3; padding: 20px; font-size: 0.85rem; }
+  .illustration { padding: 20px; font-size: 0.85rem; }
 }
 
 .illustration::before {
@@ -972,14 +990,6 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 .illustration span { position: relative; max-width: 22ch; }
-
-.illustration-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.illustration-pair .illustration { aspect-ratio: 4 / 3; }
-
-@media (min-width: 760px) {
-  .illustration-pair { gap: 10px; }
-  .illustration-pair .illustration { aspect-ratio: 1 / 1; }
-}
 
 .caption {
   margin-top: 8px;
