@@ -14,6 +14,12 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
 - Skills exist for the site's recurring content types — use them instead of
   improvising structure: `behavioural-principle-article`, `field-session`,
   `experiment-blueprint`, `design-options-review`.
+- The site runs on more than a dozen distinct icon/illustration systems, not
+  one — see `VISUAL-SYSTEMS.md` before building or reusing any icon,
+  diagram, or mark, on the site or in an off-site artifact that's meant to
+  represent the site's look. Confirm which system actually applies before
+  writing SVG; don't default to whichever reference file is closest at
+  hand.
 
 ## Standing policy: light/dark toggle on every HTML artifact
 
