@@ -1537,6 +1537,57 @@ a.report-card:hover strong { color: var(--terracotta); }
   .report-section { margin-top: 56px; padding-top: 48px; }
 }
 
+/* ---------- evidence-strength ladder (evidence-strength.html) ---------- */
+.evidence-ladder {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 22px 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  margin-bottom: 18px;
+}
+
+.evidence-ladder .rung { padding: 18px 0; }
+.evidence-ladder .rung + .rung { border-top: 1px dashed var(--line); }
+
+.evidence-ladder .rung-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.evidence-ladder .rung-head-left { display: flex; align-items: center; gap: 10px; }
+.evidence-ladder .rung-icon { width: 30px; height: 30px; flex: none; color: var(--ink); }
+.evidence-ladder .rung-name { font-family: Georgia, serif; font-weight: 700; font-size: 1.02rem; }
+
+.evidence-ladder .rung-strength {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.evidence-ladder .rung-bar-track {
+  background: rgba(30, 27, 22, 0.08);
+  border-radius: 999px;
+  height: 10px;
+  margin: 0 0 12px;
+  overflow: hidden;
+}
+
+.evidence-ladder .rung-bar { height: 100%; border-radius: 999px; }
+.evidence-ladder .rung.tier-1 .rung-bar { background: var(--terracotta); width: 96%; }
+.evidence-ladder .rung.tier-2 .rung-bar { background: var(--mustard); width: 72%; }
+.evidence-ladder .rung.tier-3 .rung-bar { background: var(--teal); width: 46%; }
+.evidence-ladder .rung.tier-4 .rung-bar { background: rgba(30, 27, 22, 0.35); width: 20%; }
+
+.evidence-ladder .rung-claim { font-size: 0.9rem; margin: 0 0 8px; color: rgba(30, 27, 22, 0.88); }
+.evidence-ladder .rung-examples { font-size: 0.78rem; color: var(--muted); font-style: italic; margin: 0; }
+
 /* ---------- field note (stance piece, not a study) ---------- */
 .field-note { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
 
