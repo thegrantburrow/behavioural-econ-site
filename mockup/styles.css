@@ -8,6 +8,7 @@
   --card: #FFFFFF;
   --line: rgba(30, 27, 22, 0.12);
   --muted: rgba(30, 27, 22, 0.6);
+  --nav-menu-bg: #F0DDD2;
 }
 
 * { box-sizing: border-box; }
@@ -134,8 +135,17 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: none;
   flex-direction: column;
   gap: 2px;
-  padding: 4px 0 16px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: calc(100dvh - 100%);
+  overflow-y: auto;
+  margin: 0;
+  padding: 4px 20px 20px;
+  background: var(--nav-menu-bg, var(--paper));
   border-top: 1px solid var(--line);
+  box-shadow: 0 14px 28px rgba(30, 27, 22, 0.14);
 }
 
 .site-nav .links.open { display: flex; }
@@ -178,8 +188,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     flex-direction: row;
     align-items: center;
     gap: 28px;
+    position: static;
+    max-height: none;
+    overflow: visible;
     padding: 0;
+    background: none;
     border-top: none;
+    box-shadow: none;
   }
   .site-nav .links a { padding: 0; border-bottom: none; font-size: 0.95rem; }
   .site-nav .links a.nav-cta { padding: 8px 16px; margin-top: 0; font-size: 0.88rem; }
