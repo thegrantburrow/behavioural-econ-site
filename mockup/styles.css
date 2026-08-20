@@ -96,6 +96,18 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   color: inherit;
 }
 
+.site-nav.no-logo .bar { justify-content: flex-end; }
+
+.site-nav .logo-img-wrap { display: block; line-height: 0; }
+.site-nav .logo-img { height: 24px; width: auto; display: block; }
+
+.site-nav .links-logo {
+  display: block;
+  height: 22px;
+  width: auto;
+  margin: 2px 0 12px;
+}
+
 .menu-toggle {
   display: flex;
   flex-direction: column;
@@ -172,6 +184,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .site-nav .links a { padding: 0; border-bottom: none; font-size: 0.95rem; }
   .site-nav .links a.nav-cta { padding: 8px 16px; margin-top: 0; font-size: 0.88rem; }
   .site-nav .logo { font-size: 1.05rem; }
+  .site-nav .logo-img { height: 27px; }
+  .site-nav .links-logo { display: none; }
   .nav-desc { display: none; }
 }
 
