@@ -2047,26 +2047,33 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 /* ---------- section rail (wayfinding nav for long articles: Experiments
-   and Field Sessions' full write-ups), living inside its own
-   internally-scrolling frame (.rail-scroll). Sticky only engages against
-   a real scrolling ancestor, and the page itself isn't reliably that
-   ancestor: viewed through the Claude Artifact preview, the outer viewer
-   stretches the page to its full content height and scrolls its own
-   outer window instead, so a rail sticky to the document never sees any
-   scroll to react to and just sits inert. Giving the rail its own
-   overflow-y:auto box sidesteps that entirely — the nav sticks to a
-   container that is guaranteed to actually scroll, in the preview and
-   once deployed alike.
+   and Field Sessions' full write-ups).
+
+   At 640px and up the rail is a vertical dot-column beside the content,
+   living inside its own internally-scrolling frame (.rail-scroll).
+   Sticky only engages against a real scrolling ancestor, and the page
+   itself isn't reliably that ancestor: viewed through the Claude
+   Artifact preview, the outer viewer stretches the page to its full
+   content height and scrolls its own outer window instead, so a rail
+   sticky to the document never sees any scroll to react to and just
+   sits inert. Giving the rail its own overflow-y:auto box sidesteps
+   that entirely — the nav sticks to a container that is guaranteed to
+   actually scroll, in the preview and once deployed alike.
 
    Below 640px the rail is a horizontal chip strip pinned to the top of
-   the box, not a side column — a persistent vertical sidebar was eating
-   into the content column's width on exactly the screens that have the
-   least width to spare. The strip wraps to a second row rather than
-   scrolling sideways: a swipeable rail reads as "there's more, go find
-   it," which is the wrong invitation on a component whose whole job is
-   showing you everywhere you can go at a glance. At 640px and up, where
-   width stops being scarce, it reverts to the original vertical dot-rail
-   in its own column beside the content. */
+   the content instead of a side column — a persistent vertical sidebar
+   was eating into the content column's width on exactly the screens
+   that have the least width to spare. Real mobile use surfaced a second
+   problem with reusing the same internal-scroll-box trick here: on a
+   phone the box is nearly the full screen height, so a touch-scroll
+   gesture starting almost anywhere gets captured by the box's own
+   scrollport instead of the page — the whole page never moves, only the
+   content trapped inside the box does. Mobile therefore skips the box
+   entirely and lets .rail-scroll sit in normal document flow, so any
+   touch-scroll simply scrolls the real page, the way a reader expects.
+   The Artifact-preview problem this box existed to dodge doesn't apply
+   on mobile screens anyway (that preview issue is a desktop authoring
+   concern), so there's no real scroll-reliability to trade away. */
 .rail-layout { margin: 22px 0 0; }
 .rail-scroll {
   display: grid;
@@ -2074,31 +2081,33 @@ a.report-card:hover strong { color: var(--terracotta); }
   grid-template-rows: auto 1fr;
   gap: 0;
   align-items: start;
-  /* Tall enough that the box reads as "the page," not a small window onto
-     it — 100dvh minus roughly the sticky site-nav's height, floored so it
-     never gets cramped on a short screen and capped so it doesn't turn
-     into an oversized void on a tall desktop monitor. */
-  height: calc(100dvh - 96px);
-  min-height: 460px;
-  max-height: 880px;
-  overflow-y: auto;
-  /* Without an explicit overflow-x, the CSS spec silently converts it to
-     auto too (the "visible becomes auto when the other axis isn't
-     visible" rule) — the box becomes horizontally scrollable even though
-     nothing here is meant to scroll sideways, and on touch that reads as
-     a left/right swipe nudging the whole rail. Lock both the paint and
-     the gesture to vertical only. */
-  overflow-x: hidden;
-  touch-action: pan-y;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
   padding: 0 0 18px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--card);
 }
 @media (min-width: 640px) {
-  .rail-scroll { grid-template-columns: 128px 1fr; grid-template-rows: none; gap: 22px; padding: 22px 26px 26px; }
+  .rail-scroll {
+    grid-template-columns: 128px 1fr; grid-template-rows: none; gap: 22px; padding: 22px 26px 26px;
+    /* Tall enough that the box reads as "the page," not a small window
+       onto it — 100dvh minus roughly the sticky site-nav's height,
+       floored so it never gets cramped on a short screen and capped so
+       it doesn't turn into an oversized void on a tall desktop monitor. */
+    height: calc(100dvh - 96px);
+    min-height: 460px;
+    max-height: 880px;
+    overflow-y: auto;
+    /* Without an explicit overflow-x, the CSS spec silently converts it
+       to auto too (the "visible becomes auto when the other axis isn't
+       visible" rule) — the box becomes horizontally scrollable even
+       though nothing here is meant to scroll sideways, and on touch
+       that reads as a left/right swipe nudging the whole rail. Lock
+       both the paint and the gesture to vertical only. */
+    overflow-x: hidden;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
 }
 @media (min-width: 900px) {
   .rail-scroll { grid-template-columns: 148px 1fr; gap: 32px; }
@@ -2110,14 +2119,21 @@ a.report-card:hover strong { color: var(--terracotta); }
   flex-wrap: wrap;
   gap: 6px 8px;
   position: sticky;
-  top: 0;
+  /* Below 640px .rail-scroll is normal document flow (see above), so
+     this sticks against the real page instead of an internal box — top
+     has to clear the site's own sticky header (~96px, matching the
+     .rail-scroll height calc above) or the two overlap and this strip
+     ends up hidden underneath it. */
+  top: 96px;
   z-index: 2;
   padding: 12px 12px 10px;
   border-bottom: 1px solid var(--line);
   background: var(--card);
 }
 @media (min-width: 640px) {
-  .rail-nav { flex-direction: column; flex-wrap: nowrap; gap: 0; padding-top: 2px; border-bottom: none; }
+  /* Back inside .rail-scroll's own internal scrollport here, so top:0
+     is relative to that box, not the page. */
+  .rail-nav { flex-direction: column; flex-wrap: nowrap; gap: 0; padding-top: 2px; border-bottom: none; top: 0; }
 }
 .rail-content { min-width: 0; padding: 14px 16px 0; }
 @media (min-width: 640px) {

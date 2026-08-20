@@ -374,17 +374,40 @@
     }
 
     var current = 0;
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          var i = sections.indexOf(entry.target);
-          if (i !== -1) current = i;
-        }
-      });
-      setActive(current);
-    }, { root: scrollBox, rootMargin: '0px 0px -55% 0px', threshold: 0 });
+    // Below 640px .rail-scroll is normal document flow (not its own
+    // scrollport, see the CSS), so the root-margin trick needs the real
+    // viewport as root there — using scrollBox as root would size the
+    // "root intersection rectangle" to the whole ~multi-thousand-pixel
+    // content block instead of one screen's worth, so the -55% margin
+    // no longer trims it down to a screen-sized band and several
+    // sections report intersecting at once on load. At 640px+ the box is
+    // still a real internally-scrolling frame, so it stays the root.
+    var mq = window.matchMedia('(min-width: 640px)');
+    var observer;
+
+    function makeObserver() {
+      return new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var i = sections.indexOf(entry.target);
+            if (i !== -1) current = i;
+          }
+        });
+        setActive(current);
+      }, { root: mq.matches ? scrollBox : null, rootMargin: '0px 0px -55% 0px', threshold: 0 });
+    }
+
+    observer = makeObserver();
     sections.forEach(function (s) { observer.observe(s); });
     setActive(0);
+
+    // Rebuild with the correct root if the viewport crosses the 640px
+    // breakpoint (window resize, tablet rotation) while the page is open.
+    mq.addEventListener('change', function () {
+      observer.disconnect();
+      observer = makeObserver();
+      sections.forEach(function (s) { observer.observe(s); });
+    });
 
     railSteps.forEach(function (step, i) {
       step.addEventListener('click', function () {
