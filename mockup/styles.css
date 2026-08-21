@@ -144,14 +144,16 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   gap: 2px;
   position: absolute;
   top: 100%;
-  left: 0;
+  left: auto;
   right: 0;
+  width: min(75%, 320px);
   max-height: calc(100dvh - 100%);
   overflow-y: auto;
   margin: 0;
   padding: 4px 20px 20px;
   background: var(--nav-menu-bg, var(--paper));
   border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
   box-shadow: 0 14px 28px rgba(30, 27, 22, 0.14);
 }
 
@@ -200,13 +202,50 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .site-nav .links a.nav-cta:hover { background: var(--terracotta-dim); color: var(--paper); }
 
+/* ---------- nav expandable sub-list: reveals related essays under a single
+   nav item on click, instead of adding a new top-level item or a new page.
+   Closed by default on every load; state doesn't persist across navigation. ---------- */
+.nav-item-expandable {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--line);
+}
+.nav-item-expandable > a { border-bottom: none; flex: 1; }
+
+.nav-expand-toggle {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  background: none;
+  border: none;
+  padding: 8px;
+  margin: -8px -4px 0 0;
+  color: var(--muted);
+  cursor: pointer;
+}
+.nav-expand-toggle svg { width: 16px; height: 16px; display: block; transition: transform 0.15s ease; }
+.nav-expand-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.nav-sublist { display: none; flex-direction: column; gap: 10px; padding: 0 4px 14px 29px; }
+.nav-sublist.show { display: flex; }
+.site-nav .links .nav-sublist a {
+  display: block; text-decoration: none; color: var(--ink); font-size: 0.88rem; font-weight: 600;
+  padding: 0; border-bottom: none;
+}
+.site-nav .links .nav-sublist a .nav-desc { display: block; margin-top: 1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-expand-toggle svg { transition: none; }
+}
+
 @media (min-width: 640px) {
   .menu-toggle { display: none; }
   .site-nav .links {
     display: flex !important;
     flex-direction: row;
     align-items: center;
-    gap: 28px;
+    gap: 22px;
     position: static;
     max-height: none;
     overflow: visible;
@@ -215,13 +254,35 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     border-top: none;
     box-shadow: none;
   }
-  .site-nav .links a { padding: 0; border-bottom: none; font-size: 0.95rem; }
+  .site-nav .links a { padding: 0; border-bottom: none; font-size: 0.95rem; white-space: nowrap; flex-shrink: 0; }
   .site-nav .links a svg { display: none; }
   .site-nav .links a.nav-cta { padding: 8px 16px; margin-top: 0; font-size: 0.88rem; }
   .site-nav .logo { font-size: 1.05rem; }
   .site-nav .logo-img { height: 27px; }
   .site-nav .links-logo { display: none; }
   .nav-desc { display: none; }
+
+  .nav-item-expandable { flex-direction: row; align-items: center; border-bottom: none; gap: 2px; flex-shrink: 0; }
+  .nav-item-expandable > a { flex: 0 0 auto; white-space: nowrap; }
+  .nav-expand-toggle { position: static; padding: 2px; margin: 0; flex-shrink: 0; }
+  .nav-sublist {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(30, 27, 22, 0.14);
+    padding: 10px;
+    width: 260px;
+    gap: 2px;
+  }
+  .nav-sublist.show { display: flex; }
+  .site-nav .links .nav-sublist a { padding: 8px; border-radius: 6px; }
+  .site-nav .links .nav-sublist a:hover { background: rgba(178, 71, 43, 0.07); color: var(--ink); }
+  .site-nav .links .nav-sublist a .nav-desc { display: block; font-size: 0.76rem; }
 }
 
 /* ---------- hero ---------- */

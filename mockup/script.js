@@ -15,6 +15,28 @@
 })();
 
 (function () {
+  // Nav expandable sub-list: a small toggle reveals related essays under a
+  // single nav item (dropdown on desktop, inline expansion on mobile),
+  // instead of a new top-level item. Closed by default on every load.
+  var toggle = document.querySelector('.nav-expand-toggle');
+  var sublist = document.querySelector('.nav-sublist');
+  if (!toggle || !sublist) return;
+
+  toggle.addEventListener('click', function (e) {
+    e.preventDefault();
+    var showing = sublist.classList.toggle('show');
+    toggle.setAttribute('aria-expanded', showing ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!toggle.contains(e.target) && !sublist.contains(e.target)) {
+      sublist.classList.remove('show');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+})();
+
+(function () {
   // Homepage persona picker: clicking a tile reveals 2 real example cards
   // for that role, so "this applies to you" is shown, not just claimed.
   // Single-select: clicking the active tile again collapses the panel.
