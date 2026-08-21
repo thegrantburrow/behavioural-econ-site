@@ -2340,22 +2340,32 @@ a.report-card:hover strong { color: var(--terracotta); }
   flex-direction: row;
   flex-wrap: wrap;
   gap: 6px 8px;
-  position: sticky;
-  /* Below 640px .rail-scroll is normal document flow (see above), so
-     this sticks against the real page instead of an internal box — top
-     has to clear the site's own sticky header (~96px, matching the
-     .rail-scroll height calc above) or the two overlap and this strip
-     ends up hidden underneath it. */
-  top: 96px;
-  z-index: 2;
+  /* NOT sticky below 640px, on purpose (regression fixed here after it
+     shipped once): .rail-scroll is normal document flow on mobile (see
+     above), which means a sticky rail-nav has no bounded ancestor to
+     "let go" of. It stayed pinned at top:96px for the entire length of
+     the section, permanently overlapping the article's own body copy
+     scrolling underneath its opaque background, one line clipped, then
+     the next, for as long as the reader kept scrolling. Real-device
+     screenshots caught this reading as body text randomly truncating
+     mid-sentence right at the strip's top and bottom edges. Position:
+     sticky only overlays correctly when it can become un-stuck once its
+     bounded container ends; without that container here, plain static
+     flow (the strip appears once, then scrolls away like normal
+     content) is the only mobile fix that doesn't reintroduce the
+     touch-scroll-capture bug .rail-scroll's box was already removed to
+     fix (see the comment above). */
   padding: 12px 12px 10px;
   border-bottom: 1px solid var(--line);
   background: var(--card);
 }
 @media (min-width: 640px) {
   /* Back inside .rail-scroll's own internal scrollport here, so top:0
-     is relative to that box, not the page. */
-  .rail-nav { flex-direction: column; flex-wrap: nowrap; gap: 0; padding-top: 2px; border-bottom: none; top: 0; }
+     is relative to that bounded box, not the unbounded page — sticky is
+     safe here because the box's own height (see .rail-scroll above) is
+     what lets the nav "run out" of room to stay stuck against, instead
+     of trailing the reader indefinitely. */
+  .rail-nav { flex-direction: column; flex-wrap: nowrap; gap: 0; padding-top: 2px; border-bottom: none; position: sticky; top: 0; z-index: 2; }
 }
 .rail-content { min-width: 0; padding: 14px 16px 0; }
 @media (min-width: 640px) {
