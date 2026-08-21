@@ -107,6 +107,13 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   height: 22px;
   width: auto;
   margin: 2px 0 12px;
+  /* .links is a column flex container with no align-items set, so its
+     default (stretch) forces this image's width to fill the full menu
+     width while height stays pinned at 22px, distorting the wordmark
+     into a badly horizontally-stretched, blurred double-vision look.
+     align-self opts this one flex child out of stretch so width:auto
+     actually resolves from the image's own aspect ratio. */
+  align-self: flex-start;
 }
 
 .menu-toggle {
