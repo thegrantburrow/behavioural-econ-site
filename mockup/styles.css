@@ -373,6 +373,57 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   }
 }
 
+/* ---------- persona picker: self-select a role right under the hero,
+   revealing 2 real example cards for that role so "this applies to you"
+   is shown, not just claimed. Single-select: clicking the active tile
+   again collapses the panel, so the section stays compact by default. ---------- */
+.persona-picker { padding: 6px 0 26px; }
+.persona-picker-label {
+  text-align: center; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em;
+  font-weight: 800; color: var(--muted); margin: 0 0 14px;
+}
+.persona-tiles {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; max-width: 620px; margin: 0 auto;
+}
+.persona-tile {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;
+  padding: 12px 8px; border-radius: 10px; border: 1px solid var(--line); background: var(--card);
+  font-family: inherit; color: var(--ink); cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease;
+}
+.persona-tile:hover { border-color: var(--terracotta); }
+.persona-tile[aria-pressed="true"] { border-color: var(--teal); background: rgba(43, 102, 96, 0.07); }
+.persona-tile svg { width: 22px; height: 22px; color: var(--ink); flex-shrink: 0; }
+.persona-tile-name { font-size: 0.78rem; font-weight: 700; }
+
+.persona-panel { max-width: 620px; margin: 16px auto 0; scroll-margin-top: 76px; }
+.persona-panel[hidden] { display: none; }
+.persona-panel-headline {
+  text-align: center; font-family: Georgia, "Times New Roman", serif; font-size: 1.05rem;
+  margin: 0 0 14px; color: var(--ink);
+}
+.persona-panel-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.persona-example-card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+}
+.persona-example-card .ex-tag {
+  display: inline-block; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800;
+  padding: 2px 8px; border-radius: 999px; background: var(--mustard); color: var(--ink); margin-bottom: 7px;
+}
+.persona-example-card h4 { font-family: Georgia, "Times New Roman", serif; font-size: 0.92rem; margin: 0 0 5px; }
+.persona-example-card p { font-size: 0.8rem; color: var(--muted); margin: 0 0 6px; }
+.persona-example-card .why-line { font-size: 0.76rem; color: var(--teal); font-weight: 700; margin: 0 0 6px; }
+.persona-example-card a.read-link { font-size: 0.74rem; color: var(--terracotta); text-decoration: underline; font-weight: 700; }
+.persona-panel-more { text-align: center; margin-top: 12px; }
+.persona-panel-more a { font-size: 0.8rem; font-weight: 700; color: var(--terracotta); text-decoration: underline; }
+
+@media (min-width: 500px) {
+  .persona-panel-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 640px) {
+  .persona-tiles { grid-template-columns: repeat(5, 1fr); }
+}
+
 /* ---------- about ---------- */
 .about { padding: 22px 0 24px; scroll-margin-top: 64px; }
 
