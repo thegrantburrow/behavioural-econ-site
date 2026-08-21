@@ -104,9 +104,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .site-nav .links-logo {
   display: block;
-  height: 22px;
+  height: 34px;
   width: auto;
-  margin: 2px 0 12px;
+  margin: 4px 0 14px;
   /* .links is a column flex container with no align-items set, so its
      default (stretch) forces this image's width to fill the full menu
      width while height stays pinned at 22px, distorting the wordmark
