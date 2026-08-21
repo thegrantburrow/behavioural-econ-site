@@ -1539,11 +1539,12 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 /* ---------- evidence-strength ladder (evidence-strength.html) ---------- */
 .evidence-ladder {
-  background: var(--paper);
+  background: var(--card);
   color: var(--ink);
+  border: 1px solid var(--line);
   border-radius: 14px;
   padding: 22px 20px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   margin-bottom: 18px;
 }
 
@@ -1587,6 +1588,54 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .evidence-ladder .rung-claim { font-size: 0.9rem; margin: 0 0 8px; color: rgba(30, 27, 22, 0.88); }
 .evidence-ladder .rung-examples { font-size: 0.78rem; color: var(--muted); font-style: italic; margin: 0; }
+
+/* ---------- report-light: a quieter alternative to the site's default
+   solid-teal .report band, used on the 3 special-report pages that sit
+   outside the site's regular content types (evidence-strength,
+   policy-based-evidence, dont-say-the-e-word). Left as a modifier class
+   rather than changed on .report itself, since every other .report section
+   site-wide (reading-the-research, experiments) keeps the original teal. A
+   plain color swap to a paper-toned background would blend straight into
+   the page around it, so this pairs the lighter fill with a terracotta
+   top/bottom rule that still reads as "a distinct zone" without a full
+   dark color block. ---------- */
+.report.report-light {
+  background: var(--nav-menu-bg);
+  color: var(--ink);
+  border-top: 5px solid var(--terracotta);
+  border-bottom: 5px solid var(--terracotta);
+}
+.report.report-light .report-section { border-top-color: rgba(30, 27, 22, 0.14); }
+.report.report-light .report-section h3 { color: var(--ink); }
+.report.report-light .report-section .intro { color: rgba(30, 27, 22, 0.78); }
+
+/* ---------- story stack: a chunked, icon-led "story so far" that sits in
+   the hero band before the full report, on the same 3 pages as
+   .report-light above. Icons follow the site's small-icon convention
+   (24-36px, ink stroke, one terracotta/mustard/teal accent), chained the
+   way sessions.html's live-demo flow diagram chains steps, adapted into a
+   short summary rather than a full teardown. ---------- */
+.story-stack-label {
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800;
+  color: var(--muted); margin: 26px 0 10px;
+}
+.story-stack {
+  display: flex; flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+.story-stack-item { display: flex; gap: 14px; padding: 16px 18px; align-items: flex-start; }
+.story-stack-item + .story-stack-item { border-top: 1px dashed var(--line); }
+.story-stack-icon { width: 32px; height: 32px; flex: none; color: var(--ink); margin-top: 2px; }
+.story-stack-item h4 { font-family: Georgia, serif; font-size: 0.96rem; margin: 0 0 4px; color: var(--ink); }
+.story-stack-item p { font-size: 0.83rem; color: var(--muted); margin: 0; line-height: 1.5; }
+
+@media (min-width: 640px) {
+  .story-stack-item { padding: 18px 22px; }
+}
 
 /* ---------- field note (stance piece, not a study) ---------- */
 .field-note { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
