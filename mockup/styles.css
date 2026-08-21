@@ -1589,6 +1589,57 @@ a.report-card:hover strong { color: var(--terracotta); }
 .evidence-ladder .rung-claim { font-size: 0.9rem; margin: 0 0 8px; color: rgba(30, 27, 22, 0.88); }
 .evidence-ladder .rung-examples { font-size: 0.78rem; color: var(--muted); font-style: italic; margin: 0; }
 
+/* ---------- strength spectrum: a horizontal at-a-glance strip that sits
+   above the vertical evidence-ladder cards, using the same 4 tier colors so
+   the two visuals read as one system rather than two competing ones. ---------- */
+.strength-spectrum { margin: 4px 0 24px; }
+.spectrum-endpoints { display: flex; justify-content: space-between; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
+.spectrum-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+.spectrum-seg { height: 12px; border-radius: 999px; }
+.spectrum-seg.tier-4 { background: rgba(30, 27, 22, 0.25); }
+.spectrum-seg.tier-3 { background: var(--teal); }
+.spectrum-seg.tier-2 { background: var(--mustard); }
+.spectrum-seg.tier-1 { background: var(--terracotta); }
+.spectrum-labels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 8px; }
+.spectrum-label { text-align: center; font-size: 0.72rem; }
+.spectrum-label b { display: block; font-family: Georgia, serif; font-size: 0.78rem; margin-bottom: 2px; }
+.spectrum-label span { color: var(--muted); font-size: 0.68rem; }
+
+/* ---------- rung subtypes: 2-3 real named variants nested under each rung
+   of the evidence ladder, so "natural experiment" etc. isn't left as one
+   flat category. ---------- */
+.rung-subtypes { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.subtype b { display: block; font-size: 0.8rem; margin-bottom: 2px; color: var(--ink); }
+.subtype span { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+
+@media (min-width: 640px) {
+  .rung-subtypes.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .rung-subtypes.cols-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- hallmarks: short phrase-pattern callouts, and the four-question
+   checklist that closes the evidence-ladder section. ---------- */
+.hallmark-list { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 640px) { .hallmark-list { grid-template-columns: 1fr 1fr; } }
+.hallmark-item { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.hallmark-item .phrase { font-family: Georgia, serif; font-style: italic; font-size: 0.92rem; color: var(--ink); margin: 0 0 6px; }
+.hallmark-item .note { font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.45; }
+
+.questions-callout {
+  background: var(--card);
+  border-left: 5px solid var(--terracotta);
+  border-radius: 4px 12px 12px 4px;
+  padding: 20px 22px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin-top: 6px;
+}
+.questions-callout h4 { font-family: Georgia, serif; font-size: 1.02rem; margin: 0 0 14px; }
+.questions-callout ol { margin: 0; padding-left: 20px; }
+.questions-callout li { margin-bottom: 12px; font-size: 0.88rem; }
+.questions-callout li:last-child { margin-bottom: 0; }
+.questions-callout li b { display: block; font-family: Georgia, serif; font-style: italic; color: var(--ink); margin-bottom: 3px; }
+.questions-callout li span { color: var(--muted); font-size: 0.83rem; line-height: 1.5; }
+
 /* ---------- report-light: a quieter alternative to the site's default
    solid-teal .report band, used on the 3 special-report pages that sit
    outside the site's regular content types (evidence-strength,

@@ -76,6 +76,23 @@
     <div class="report-section" id="the-ladder">
       <h3>The evidence ladder: four ways to test whether X caused Y</h3>
       <p class="intro">All four of these get described, casually, as &ldquo;evidence that it worked.&rdquo; They are not the same evidence. Read from the top: each rung down removes one more safeguard against a confound quietly doing the work you're crediting to X.</p>
+
+      <div class="strength-spectrum" role="img" aria-label="A horizontal strength spectrum running from raw correlation, weakest, through matched observational comparison and natural experiment, to randomized controlled trial, strongest.">
+        <div class="spectrum-endpoints"><span>Weakest</span><span>Strongest</span></div>
+        <div class="spectrum-track">
+          <div class="spectrum-seg tier-4"></div>
+          <div class="spectrum-seg tier-3"></div>
+          <div class="spectrum-seg tier-2"></div>
+          <div class="spectrum-seg tier-1"></div>
+        </div>
+        <div class="spectrum-labels">
+          <div class="spectrum-label"><b>Correlation</b><span>Take skeptically</span></div>
+          <div class="spectrum-label"><b>Matched comparison</b><span>Worth a look</span></div>
+          <div class="spectrum-label"><b>Natural experiment</b><span>Good evidence</span></div>
+          <div class="spectrum-label"><b>Randomized trial</b><span>Trust it</span></div>
+        </div>
+      </div>
+
       <div class="evidence-ladder">
 
         <div class="rung tier-1">
@@ -95,6 +112,11 @@
           <div class="rung-bar-track"><div class="rung-bar"></div></div>
           <p class="rung-claim">People (or accounts, or stores) are randomly split into treatment and control, so only the intervention differs between the two groups, on average, including on things nobody thought to measure.</p>
           <p class="rung-examples">Feature A/B tests &middot; marketing lift tests &middot; a randomized pilot of a new loan-approval rule</p>
+          <div class="rung-subtypes cols-3">
+            <div class="subtype"><b>Individual RCT</b><span>Each person or account is randomized on their own, the classic feature A/B test.</span></div>
+            <div class="subtype"><b>Cluster RCT</b><span>Whole stores, branches, or regions are randomized together, used when a treatment can't be applied to one person at a time.</span></div>
+            <div class="subtype"><b>Stepped-wedge rollout</b><span>Everyone eventually gets the treatment; only the order of rollout is randomized.</span></div>
+          </div>
         </div>
 
         <div class="rung tier-2">
@@ -114,6 +136,11 @@
           <div class="rung-bar-track"><div class="rung-bar"></div></div>
           <p class="rung-claim">A real-world rule, cutoff, or accident of timing splits people as if at random, without anyone designing an experiment: regression discontinuity at an eligibility threshold, difference-in-differences around a policy change, an instrument that shifts exposure for reasons unrelated to the outcome.</p>
           <p class="rung-examples">A price change rolled out region by region &middot; a credit-limit rule that only applies above a score cutoff &middot; a platform outage that hits some users and not others</p>
+          <div class="rung-subtypes cols-3">
+            <div class="subtype"><b>Regression discontinuity</b><span>Compares people just above and just below a real cutoff, a credit score threshold, an age limit, who are otherwise near-identical.</span></div>
+            <div class="subtype"><b>Difference-in-differences</b><span>Compares the change over time in a group affected by a policy against the change in a similar, unaffected group.</span></div>
+            <div class="subtype"><b>Instrumental variable</b><span>Uses a third factor that shifts exposure to the treatment for reasons unrelated to the outcome, to isolate its effect.</span></div>
+          </div>
         </div>
 
         <div class="rung tier-3">
@@ -133,6 +160,10 @@
           <div class="rung-bar-track"><div class="rung-bar"></div></div>
           <p class="rung-claim">Treated and untreated groups are matched or statistically adjusted to look similar on the traits you thought to record. Nobody was randomly assigned to anything, so any trait you didn't think to record can still be doing the real work.</p>
           <p class="rung-examples">A credit scorecard trained on approved applicants, matched to similar-looking rejected ones &middot; a marketing report comparing &ldquo;similar&rdquo; cohorts before and after a campaign</p>
+          <div class="rung-subtypes cols-2">
+            <div class="subtype"><b>Propensity score matching</b><span>Statistically pairs treated and untreated units that look alike on measured characteristics.</span></div>
+            <div class="subtype"><b>Regression with controls</b><span>Adjusts for known confounders inside a single statistical model, rather than physically matching pairs.</span></div>
+          </div>
         </div>
 
         <div class="rung tier-4">
@@ -149,10 +180,47 @@
           <div class="rung-bar-track"><div class="rung-bar"></div></div>
           <p class="rung-claim">Two things moved together in the data. Which one, if either, caused the other, and whether a third thing caused both, is still completely unknown.</p>
           <p class="rung-examples">Power users click feature X more often &middot; most dashboard &ldquo;insights&rdquo; &middot; most growth-hack case studies posted online</p>
+          <div class="rung-subtypes cols-2">
+            <div class="subtype"><b>Bivariate correlation</b><span>Two variables measured and compared, with no other factors accounted for.</span></div>
+            <div class="subtype"><b>Anecdote or single case</b><span>One example treated as if it were representative of a general pattern.</span></div>
+          </div>
         </div>
 
       </div>
       <p class="intro" style="margin-top:4px">Moving up a rung doesn't mean the lower rungs are worthless. A correlation is a reasonable place to start looking. It's a bad place to stop, especially right before a budget decision.</p>
+    </div>
+
+    <div class="report-section" id="reading-the-claim">
+      <h3>Hallmarks: what a lower rung sounds like when it's dressed up as a higher one</h3>
+      <p class="intro">None of the phrases below are lies. They're just quieter about which rung they're actually standing on than the sentence around them implies.</p>
+      <div class="hallmark-list">
+        <div class="hallmark-item">
+          <p class="phrase">&ldquo;Users who did X converted Y% more.&rdquo;</p>
+          <p class="note">A correlation, stated with no comparison group and no mention of who chose to do X in the first place.</p>
+        </div>
+        <div class="hallmark-item">
+          <p class="phrase">&ldquo;We saw a lift after launching X.&rdquo;</p>
+          <p class="note">A before-and-after on one group, with nothing else that changed over the same period ruled out.</p>
+        </div>
+        <div class="hallmark-item">
+          <p class="phrase">&ldquo;Our top performers all do X.&rdquo;</p>
+          <p class="note">Survivorship bias: the people who tried X and failed usually aren't in the sample being described.</p>
+        </div>
+        <div class="hallmark-item">
+          <p class="phrase">&ldquo;The data suggests a strong link.&rdquo;</p>
+          <p class="note">Correlational language, carrying unearned causal confidence by the time it reaches a decision-maker.</p>
+        </div>
+      </div>
+
+      <div class="questions-callout" style="margin-top:22px">
+        <h4>Four questions that do most of the work</h4>
+        <ol>
+          <li><b>Compared to what?</b><span>Is there an actual comparison group, or just a before-and-after on the same people?</span></li>
+          <li><b>Who's missing, and why?</b><span>Could selection into or out of the sample, who clicked, who was approved, who's still in business, be driving the result?</span></li>
+          <li><b>Is this the headline result, or a secondary point being promoted?</b><span>A true statement pulled from deep in a report can still misrepresent what the study actually found first.</span></li>
+          <li><b>Would this survive real scale, with ordinary staff and the full population?</b><span>A result from a small, favourably-run pilot answers a narrower question than the one usually being asked of it.</span></li>
+        </ol>
+      </div>
     </div>
 
     <div class="report-section" id="other-fields">
