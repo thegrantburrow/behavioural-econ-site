@@ -227,7 +227,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .nav-expand-toggle svg { width: 16px; height: 16px; display: block; transition: transform 0.15s ease; }
 .nav-expand-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 
-.nav-sublist { display: none; grid-template-columns: 1fr 1fr; gap: 6px 12px; padding: 2px 4px 14px 29px; }
+.nav-sublist { display: none; grid-template-columns: 1fr; gap: 8px; padding: 2px 4px 14px 29px; }
 .nav-sublist.show { display: grid; }
 .site-nav .links .nav-sublist a {
   display: block; text-decoration: none; color: var(--muted); font-size: 0.78rem; font-weight: 500;
