@@ -100,7 +100,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .site-nav.no-logo .bar { justify-content: flex-end; }
 
 .site-nav .logo-img-wrap { display: block; line-height: 0; }
-.site-nav .logo-img { height: 24px; width: auto; display: block; }
+.site-nav .logo-img { height: 48px; width: auto; display: block; }
 
 .site-nav .links-logo {
   display: block;
@@ -258,7 +258,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .site-nav .links a svg { display: none; }
   .site-nav .links a.nav-cta { padding: 8px 16px; margin-top: 0; font-size: 0.88rem; }
   .site-nav .logo { font-size: 1.05rem; }
-  .site-nav .logo-img { height: 27px; }
+  .site-nav .logo-img { height: 54px; }
   .site-nav .links-logo { display: none; }
   .nav-desc { display: none; }
 
