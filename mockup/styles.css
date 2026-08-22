@@ -347,15 +347,15 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--terracotta-dim);
-  background: rgba(74, 107, 138, 0.1);
+  color: var(--ink);
+  background: linear-gradient(90deg, rgba(74, 107, 138, 0.16), rgba(184, 167, 110, 0.22), rgba(168, 90, 69, 0.16));
   border-radius: 999px;
   padding: 7px 14px 7px 11px;
   margin-bottom: 18px;
   animation: heroFadeUp 0.6s ease-out both;
 }
 
-.eyebrow-icon { width: 14px; height: 14px; color: var(--terracotta); flex-shrink: 0; }
+.eyebrow-icon { width: 14px; height: 14px; color: var(--terracotta-dim); flex-shrink: 0; }
 
 .hero h1 {
   font-size: clamp(1.9rem, 8vw, 3.6rem);
@@ -377,6 +377,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: inline-block;
   color: var(--ink);
   animation: wordColorShift 0.5s ease-out 0.95s forwards;
+}
+
+.grad-word .accent-word {
+  animation: none;
+  background: linear-gradient(90deg, var(--terracotta), color-mix(in srgb, var(--mustard) 65%, var(--ink)) 55%, var(--teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .accent-underline {
@@ -456,6 +464,15 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .persona-tile[aria-pressed="true"] { border-color: var(--teal); background: rgba(168, 90, 69, 0.07); }
 .persona-tile svg { width: 22px; height: 22px; color: var(--ink); flex-shrink: 0; }
 .persona-tile-name { font-size: 0.78rem; font-weight: 700; }
+
+.tile-icon-chip {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+}
+.tile-icon-chip svg { width: 20px; height: 20px; color: var(--ink); }
+.tile-icon-chip.chip-a { background: rgba(74, 107, 138, 0.14); }
+.tile-icon-chip.chip-b { background: rgba(184, 167, 110, 0.28); }
+.tile-icon-chip.chip-c { background: rgba(168, 90, 69, 0.14); }
 
 .persona-panel { max-width: 620px; margin: 16px auto 0; scroll-margin-top: 76px; }
 .persona-panel[hidden] { display: none; }
