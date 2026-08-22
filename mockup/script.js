@@ -15,24 +15,38 @@
 })();
 
 (function () {
-  // Nav expandable sub-list: a small toggle reveals related essays under a
-  // single nav item (dropdown on desktop, inline expansion on mobile),
-  // instead of a new top-level item. Closed by default on every load.
-  var toggle = document.querySelector('.nav-expand-toggle');
-  var sublist = document.querySelector('.nav-sublist');
-  if (!toggle || !sublist) return;
+  // Nav expandable sub-lists: a small toggle reveals related links under a
+  // nav item (dropdown on desktop, inline expansion on mobile), instead of
+  // a new top-level item. Closed by default on every load. Multiple pairs
+  // are supported (Principles, Field Sessions, Experiments, Reading the
+  // Research each carry their own toggle + sublist).
+  var pairs = Array.prototype.map.call(document.querySelectorAll('.nav-item-expandable'), function (item) {
+    return { toggle: item.querySelector('.nav-expand-toggle'), sublist: item.querySelector('.nav-sublist') };
+  }).filter(function (p) { return p.toggle && p.sublist; });
+  if (!pairs.length) return;
 
-  toggle.addEventListener('click', function (e) {
-    e.preventDefault();
-    var showing = sublist.classList.toggle('show');
-    toggle.setAttribute('aria-expanded', showing ? 'true' : 'false');
+  function closeAll(except) {
+    pairs.forEach(function (p) {
+      if (p === except) return;
+      p.sublist.classList.remove('show');
+      p.toggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  pairs.forEach(function (pair) {
+    pair.toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      var showing = pair.sublist.classList.toggle('show');
+      pair.toggle.setAttribute('aria-expanded', showing ? 'true' : 'false');
+      if (showing) closeAll(pair);
+    });
   });
 
   document.addEventListener('click', function (e) {
-    if (!toggle.contains(e.target) && !sublist.contains(e.target)) {
-      sublist.classList.remove('show');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
+    var clickedInsideAny = pairs.some(function (p) {
+      return p.toggle.contains(e.target) || p.sublist.contains(e.target);
+    });
+    if (!clickedInsideAny) closeAll();
   });
 })();
 
@@ -246,6 +260,13 @@
   var urlQuery = new URLSearchParams(window.location.search).get('q');
   if (urlQuery) applyQuery(urlQuery);
 
+  var urlCategory = new URLSearchParams(window.location.search).get('category');
+  if (urlCategory) {
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlCategory) t.click();
+    });
+  }
+
   // Exposed so a combined single-page preview can re-run this without a
   // real page load; unused by the real two-file site.
   window.__applySearchQuery = applyQuery;
@@ -446,6 +467,13 @@
   });
 
   if (searchInput) searchInput.addEventListener('input', applyFilter);
+
+  var urlCategory = new URLSearchParams(window.location.search).get('category');
+  if (urlCategory) {
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlCategory) t.click();
+    });
+  }
 })();
 
 (function () {
@@ -505,6 +533,13 @@
   });
 
   searchInput.addEventListener('input', applyFilter);
+
+  var urlAudience = new URLSearchParams(window.location.search).get('category');
+  if (urlAudience) {
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlAudience) t.click();
+    });
+  }
 })();
 
 (function () {
