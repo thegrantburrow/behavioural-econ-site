@@ -1,14 +1,14 @@
 :root {
-  --ink: #1E1B16;
-  --terracotta: #B2472B;
-  --terracotta-dim: #9c3c24;
-  --mustard: #D9A441;
-  --teal: #2B6660;
-  --paper: #FBF9F4;
+  --ink: #2A303B;
+  --terracotta: #4A6B8A;
+  --terracotta-dim: #3D5A75;
+  --mustard: #B8A76E;
+  --teal: #A85A45;
+  --paper: #F3F1EA;
   --card: #FFFFFF;
-  --line: rgba(30, 27, 22, 0.12);
-  --muted: rgba(30, 27, 22, 0.6);
-  --nav-menu-bg: #F1EAE0;
+  --line: rgba(42, 48, 59, 0.12);
+  --muted: rgba(42, 48, 59, 0.6);
+  --nav-menu-bg: #E9E6DC;
 }
 
 * { box-sizing: border-box; }
@@ -75,7 +75,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(251, 249, 244, 0.94);
+  background: rgba(243, 241, 234, 0.94);
   backdrop-filter: blur(6px);
   padding-top: env(safe-area-inset-top);
 }
@@ -154,7 +154,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   background: var(--nav-menu-bg, var(--paper));
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
-  box-shadow: 0 14px 28px rgba(30, 27, 22, 0.14);
+  box-shadow: 0 14px 28px rgba(42, 48, 59, 0.14);
 }
 
 .site-nav .links.open { display: flex; }
@@ -188,7 +188,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   color: var(--muted);
   margin-top: 2px;
 }
-.nav-cta .nav-desc { color: rgba(251, 249, 244, 0.75); }
+.nav-cta .nav-desc { color: rgba(243, 241, 234, 0.75); }
 
 .site-nav .links a.nav-cta {
   background: var(--terracotta);
@@ -274,7 +274,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(30, 27, 22, 0.14);
+    box-shadow: 0 14px 28px rgba(42, 48, 59, 0.14);
     padding: 12px 14px;
     width: 340px;
     grid-template-columns: 1fr 1fr;
@@ -537,7 +537,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .proof-item p {
   margin: 0;
-  color: rgba(251, 249, 244, 0.78);
+  color: rgba(243, 241, 234, 0.78);
   font-size: 0.9rem;
   line-height: 1.4;
 }
@@ -553,7 +553,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     align-items: flex-start;
     gap: 6px;
     padding: 0 24px;
-    border-left: 1px solid rgba(251, 249, 244, 0.14);
+    border-left: 1px solid rgba(243, 241, 234, 0.14);
   }
   .proof-item:first-child { padding-left: 0; border-left: none; }
   .proof-num { font-size: 2.4rem; }
@@ -654,7 +654,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .toc-tab.active .toc-tab-count {
-  background: rgba(251, 249, 244, 0.2);
+  background: rgba(243, 241, 234, 0.2);
   color: var(--paper);
 }
 
@@ -1052,7 +1052,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   font-size: clamp(1.2rem, 4vw, 1.8rem);
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1.2px rgba(30, 27, 22, 0.22);
+  -webkit-text-stroke: 1.2px rgba(42, 48, 59, 0.22);
 }
 
 .principle-icon { width: 28px; height: 28px; color: var(--ink); flex-shrink: 0; stroke-width: 1.4; }
@@ -1092,7 +1092,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .principle .definition {
   font-size: 0.85rem;
-  color: rgba(30, 27, 22, 0.78);
+  color: rgba(42, 48, 59, 0.78);
   max-width: 60ch;
   margin: 4px 0 0;
   display: -webkit-box;
@@ -1141,7 +1141,7 @@ a.report-card:hover strong { color: var(--terracotta); }
      variable-height ones, both silently shrinking every label.) */
   text-align: center;
   padding: 16px;
-  color: rgba(251, 249, 244, 0.95);
+  color: rgba(243, 241, 234, 0.95);
   font-size: 0.82rem;
 }
 
@@ -1159,7 +1159,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   content: "";
   position: absolute;
   inset: 8px;
-  border: 1px dashed rgba(251, 249, 244, 0.4);
+  border: 1px dashed rgba(243, 241, 234, 0.4);
   border-radius: 8px;
   pointer-events: none;
 }
@@ -1262,7 +1262,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 .teaser-text {
   font-size: 0.83rem;
   line-height: 1.55;
-  color: rgba(30, 27, 22, 0.78);
+  color: rgba(42, 48, 59, 0.78);
   margin: 0;
 }
 .teaser-text b { color: var(--ink); }
@@ -1314,7 +1314,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   margin-bottom: 5px;
 }
 
-.article-block p { margin: 0; font-size: 0.92rem; color: rgba(30, 27, 22, 0.85); }
+.article-block p { margin: 0; font-size: 0.92rem; color: rgba(42, 48, 59, 0.85); }
 
 .study-card {
   margin-top: 20px;
@@ -1359,7 +1359,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   display: flex;
   justify-content: center;
   margin: 6px 0;
-  color: rgba(30, 27, 22, 0.3);
+  color: rgba(42, 48, 59, 0.3);
 }
 .flow-arrow-down svg { width: 16px; height: 16px; }
 
@@ -1429,7 +1429,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 .flow-step:last-child { margin-bottom: 0; }
 .flow-step-icon { width: 16px; height: 16px; color: var(--ink); flex-shrink: 0; margin-top: 1px; }
-.flow-step-label { font-size: 0.72rem; color: rgba(30, 27, 22, 0.88); line-height: 1.3; }
+.flow-step-label { font-size: 0.72rem; color: rgba(42, 48, 59, 0.88); line-height: 1.3; }
 
 .flow-step.step-rows-wrap { align-items: flex-start; }
 .flow-step.step-rows-wrap .flow-step-icon { margin-top: 3px; }
@@ -1440,7 +1440,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   column-gap: 5px;
   row-gap: 7px;
   font-size: 0.66rem;
-  color: rgba(30, 27, 22, 0.88);
+  color: rgba(42, 48, 59, 0.88);
   min-width: 0;
   flex: 1;
 }
@@ -1510,7 +1510,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   margin: 14px 0 0;
   padding-top: 12px;
   border-top: 1px dashed var(--line);
-  color: rgba(30, 27, 22, 0.85);
+  color: rgba(42, 48, 59, 0.85);
 }
 .flow-insight b { color: var(--terracotta); }
 
@@ -1608,13 +1608,13 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 .report h2 { font-size: clamp(1.5rem, 7vw, 2.3rem); margin: 0 0 14px; max-width: 20ch; color: var(--paper); }
-.report .lede { font-size: 0.97rem; color: rgba(251, 249, 244, 0.82); max-width: 62ch; margin: 0 0 30px; }
+.report .lede { font-size: 0.97rem; color: rgba(243, 241, 234, 0.82); max-width: 62ch; margin: 0 0 30px; }
 .report .lede b { color: var(--mustard); }
 
-.report-section { margin-top: 40px; scroll-margin-top: 64px; padding-top: 32px; border-top: 2px solid rgba(251, 249, 244, 0.22); }
+.report-section { margin-top: 40px; scroll-margin-top: 64px; padding-top: 32px; border-top: 2px solid rgba(243, 241, 234, 0.22); }
 .report-section:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
 .report-section h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--paper); }
-.report-section .intro { font-size: 0.92rem; color: rgba(251, 249, 244, 0.78); max-width: 64ch; margin: 0 0 18px; }
+.report-section .intro { font-size: 0.92rem; color: rgba(243, 241, 234, 0.78); max-width: 64ch; margin: 0 0 18px; }
 
 .case-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
@@ -1642,7 +1642,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 .case-card h4 { font-size: 1rem; margin-bottom: 6px; }
-.case-card .case-body p { margin: 0 0 8px; font-size: 0.87rem; color: rgba(30, 27, 22, 0.85); }
+.case-card .case-body p { margin: 0 0 8px; font-size: 0.87rem; color: rgba(42, 48, 59, 0.85); }
 .case-card .case-body p.lesson { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); margin-bottom: 0; }
 .case-card .lesson b { color: var(--terracotta); }
 .case-card .case-cite { font-size: 0.76rem; color: var(--muted); margin-top: 10px; }
@@ -1693,7 +1693,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 .evidence-ladder .rung-bar-track {
-  background: rgba(30, 27, 22, 0.08);
+  background: rgba(42, 48, 59, 0.08);
   border-radius: 999px;
   height: 10px;
   margin: 0 0 12px;
@@ -1704,9 +1704,9 @@ a.report-card:hover strong { color: var(--terracotta); }
 .evidence-ladder .rung.tier-1 .rung-bar { background: var(--terracotta); width: 96%; }
 .evidence-ladder .rung.tier-2 .rung-bar { background: var(--mustard); width: 72%; }
 .evidence-ladder .rung.tier-3 .rung-bar { background: var(--teal); width: 46%; }
-.evidence-ladder .rung.tier-4 .rung-bar { background: rgba(30, 27, 22, 0.35); width: 20%; }
+.evidence-ladder .rung.tier-4 .rung-bar { background: rgba(42, 48, 59, 0.35); width: 20%; }
 
-.evidence-ladder .rung-claim { font-size: 0.9rem; margin: 0 0 8px; color: rgba(30, 27, 22, 0.88); }
+.evidence-ladder .rung-claim { font-size: 0.9rem; margin: 0 0 8px; color: rgba(42, 48, 59, 0.88); }
 .evidence-ladder .rung-examples { font-size: 0.78rem; color: var(--muted); font-style: italic; margin: 0; }
 
 /* ---------- strength spectrum: a horizontal at-a-glance strip that sits
@@ -1716,7 +1716,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 .spectrum-endpoints { display: flex; justify-content: space-between; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
 .spectrum-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
 .spectrum-seg { height: 12px; border-radius: 999px; }
-.spectrum-seg.tier-4 { background: rgba(30, 27, 22, 0.25); }
+.spectrum-seg.tier-4 { background: rgba(42, 48, 59, 0.25); }
 .spectrum-seg.tier-3 { background: var(--teal); }
 .spectrum-seg.tier-2 { background: var(--mustard); }
 .spectrum-seg.tier-1 { background: var(--terracotta); }
@@ -1776,9 +1776,9 @@ a.report-card:hover strong { color: var(--terracotta); }
   border-top: 5px solid var(--terracotta);
   border-bottom: 5px solid var(--terracotta);
 }
-.report.report-light .report-section { border-top-color: rgba(30, 27, 22, 0.14); }
+.report.report-light .report-section { border-top-color: rgba(42, 48, 59, 0.14); }
 .report.report-light .report-section h3 { color: var(--ink); }
-.report.report-light .report-section .intro { color: rgba(30, 27, 22, 0.78); }
+.report.report-light .report-section .intro { color: rgba(42, 48, 59, 0.78); }
 
 /* ---------- story stack: a chunked, icon-led "story so far" that sits in
    the hero band before the full report, on the same 3 pages as
@@ -1820,7 +1820,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 }
 
 .field-note h3 { font-family: Georgia, serif; font-size: 1.2rem; margin: 0 0 14px; max-width: 30ch; }
-.field-note p { font-size: 0.92rem; color: rgba(30, 27, 22, 0.85); max-width: 62ch; margin: 0 0 12px; }
+.field-note p { font-size: 0.92rem; color: rgba(42, 48, 59, 0.85); max-width: 62ch; margin: 0 0 12px; }
 .field-note .stance-note { font-style: italic; color: var(--muted); font-size: 0.85rem; }
 
 @media (min-width: 640px) {
@@ -1936,13 +1936,13 @@ a.report-card:hover strong { color: var(--terracotta); }
 .newsletter { background: var(--ink); color: var(--paper); padding: 36px 0; }
 .newsletter .wrap { max-width: 540px; text-align: center; }
 .newsletter h2 { font-size: clamp(1.3rem, 6vw, 2rem); }
-.newsletter p { color: rgba(251, 249, 244, 0.68); margin: 8px 0 18px; font-size: 0.9rem; }
-.newsletter .fine { font-size: 0.76rem; color: rgba(251, 249, 244, 0.5); margin: 14px 0 0; }
+.newsletter p { color: rgba(243, 241, 234, 0.68); margin: 8px 0 18px; font-size: 0.9rem; }
+.newsletter .fine { font-size: 0.76rem; color: rgba(243, 241, 234, 0.5); margin: 14px 0 0; }
 
 .newsletter-form { display: flex; flex-direction: column; gap: 10px; max-width: 360px; margin: 0 auto; }
 .newsletter-form input {
   font-family: inherit; font-size: 0.95rem; padding: 12px 16px; border-radius: 8px;
-  border: 1px solid rgba(251, 249, 244, 0.25); background: var(--paper); color: var(--ink);
+  border: 1px solid rgba(243, 241, 234, 0.25); background: var(--paper); color: var(--ink);
 }
 .newsletter-form button {
   font-family: inherit; font-size: 0.95rem; font-weight: 700; padding: 12px 16px; border-radius: 8px;
@@ -2034,7 +2034,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   padding-bottom: 6px;
 }
 .session .salient-question mark { background: rgba(217, 164, 65, 0.35); }
-.session .session-panel > p, .session .rail-content > p { font-size: 0.95rem; color: rgba(30, 27, 22, 0.85); max-width: 68ch; margin: 0 0 18px; }
+.session .session-panel > p, .session .rail-content > p { font-size: 0.95rem; color: rgba(42, 48, 59, 0.85); max-width: 68ch; margin: 0 0 18px; }
 .session .case-grid { margin: 24px 0; }
 
 .session-quote {
@@ -2185,7 +2185,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   border-radius: 28px;
   overflow: hidden;
   background: var(--card);
-  box-shadow: 0 12px 30px rgba(30, 27, 22, 0.18);
+  box-shadow: 0 12px 30px rgba(42, 48, 59, 0.18);
 }
 
 .app-mock-screen { padding: 22px 18px 20px; text-align: left; }
@@ -2214,7 +2214,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   border-radius: 4px 8px 8px 4px;
   font-size: 0.76rem;
   line-height: 1.4;
-  color: rgba(30, 27, 22, 0.82);
+  color: rgba(42, 48, 59, 0.82);
 }
 .app-mock-callout b { color: var(--ink); }
 
@@ -2253,7 +2253,7 @@ a.report-card:hover strong { color: var(--terracotta); }
   border-radius: 12px;
   background: var(--card);
   border: 1px solid var(--line);
-  box-shadow: 0 4px 14px rgba(30, 27, 22, 0.1);
+  box-shadow: 0 4px 14px rgba(42, 48, 59, 0.1);
 }
 
 .app-mock-banner-icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--ink); }
@@ -2284,7 +2284,7 @@ a.report-card:hover strong { color: var(--terracotta); }
      is coming straight out of the checklist text column (see
      .doc-mock-list li below); widens back out once there's room to spare */
   padding: 16px 14px;
-  box-shadow: 0 8px 22px rgba(30, 27, 22, 0.1);
+  box-shadow: 0 8px 22px rgba(42, 48, 59, 0.1);
 }
 @media (min-width: 480px) {
   .doc-mock { padding: 20px 22px; }
@@ -2304,7 +2304,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 .doc-mock-icon { width: 22px; height: 22px; color: var(--ink); flex-shrink: 0; }
 
 .doc-mock-list { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.doc-mock-list li { display: flex; align-items: flex-start; gap: 7px; font-size: 0.85rem; color: rgba(30, 27, 22, 0.85); line-height: 1.4; }
+.doc-mock-list li { display: flex; align-items: flex-start; gap: 7px; font-size: 0.85rem; color: rgba(42, 48, 59, 0.85); line-height: 1.4; }
 /* the tag ("Primary:" / "Guardrail:" / …) and its description are wrapped
    in one <span> so they form a single flex item (any element child of a
    flex container becomes its own flex item, so an unwrapped <b> sits
@@ -2342,7 +2342,7 @@ a.report-card:hover strong { color: var(--terracotta); }
 .experiment h2 { font-size: clamp(1.4rem, 6vw, 2rem); margin: 4px 0 8px; max-width: 26ch; }
 .experiment .also-note { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.85rem; }
 .experiment h3 { font-size: 1.05rem; margin: 30px 0 4px; }
-.experiment > .wrap > p.exp-lede { font-size: 0.95rem; color: rgba(30, 27, 22, 0.85); max-width: 68ch; margin: 0 0 6px; }
+.experiment > .wrap > p.exp-lede { font-size: 0.95rem; color: rgba(42, 48, 59, 0.85); max-width: 68ch; margin: 0 0 6px; }
 
 .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 12px; }
 
