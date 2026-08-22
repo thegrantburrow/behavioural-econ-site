@@ -1017,6 +1017,88 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .stage-view-close:hover { text-decoration: underline; }
 
+/* ---------- landing hub (nav-entry layer: intro, category tiles, full index) ---------- */
+.landing-hub { padding: 32px 0 30px; border-bottom: 1px solid var(--line); scroll-margin-top: 64px; }
+
+.landing-hub-intro {
+  font-size: 0.98rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 8px 0 22px;
+  max-width: 62ch;
+}
+
+.landing-hub .view-toggle { margin-bottom: 18px; }
+
+.hub-panel[hidden] { display: none; }
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.cat-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 16px 14px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.cat-tile:hover, .cat-tile:focus-visible { border-color: var(--terracotta); }
+
+.cat-icon { width: 22px; height: 22px; color: var(--ink); }
+
+.cat-name { font-size: 0.9rem; font-weight: 700; line-height: 1.25; }
+
+.cat-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--line);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.hub-anchor-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px 24px;
+}
+
+.hub-anchor-grid.cols-1 { grid-template-columns: 1fr; }
+
+@media (max-width: 640px) {
+  .hub-anchor-grid { grid-template-columns: 1fr; }
+}
+
+.hub-anchor-link {
+  font-size: 0.88rem;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--line);
+  display: inline-block;
+  padding-bottom: 1px;
+}
+
+.hub-anchor-link:hover { border-bottom-color: var(--terracotta); color: var(--terracotta); }
+
 /* ---------- principles archive page (search + filter + full list) ---------- */
 .principles-index { padding: 28px 0 40px; scroll-margin-top: 64px; }
 

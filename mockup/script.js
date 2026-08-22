@@ -627,6 +627,40 @@
 })();
 
 (function () {
+  // Landing hub (nav-entry intro layer on Principles/Field Sessions/
+  // Experiments): a view-toggle switches between category tiles and a flat
+  // all-items index, reusing the existing .view-btn look. A category tile
+  // doesn't duplicate any filter logic itself: it just activates the real
+  // toc-tab for that category (already wired to filter the full list
+  // further down the page) and scrolls there, so the hub and the archive
+  // below it never fall out of sync with each other.
+  document.querySelectorAll('.landing-hub').forEach(function (hub) {
+    hub.querySelectorAll('.view-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var view = btn.getAttribute('data-hub-view');
+        hub.querySelectorAll('.view-btn').forEach(function (b) {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        });
+        hub.querySelectorAll('.hub-panel').forEach(function (p) {
+          p.hidden = p.getAttribute('data-hub-panel') !== view;
+        });
+      });
+    });
+
+    hub.querySelectorAll('.cat-tile').forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        var category = tile.getAttribute('data-hub-category');
+        var tab = document.querySelector('#top .toc-tabs .toc-tab[data-filter-target="' + category + '"]');
+        if (tab) tab.click();
+        var archive = document.getElementById('top');
+        if (archive) archive.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
+})();
+
+(function () {
   // Field Session pages: each session's toggle switches between full
   // alternate renderings of that same session (full write-up / condensed /
   // applied variants), not two small lists — so this reuses the
