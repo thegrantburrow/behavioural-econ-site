@@ -64,7 +64,7 @@
         }
       ],
       moreHref: 'principles.html',
-      moreLabel: 'See all 57 principles'
+      moreLabel: 'See all 59 principles'
     },
     'large-business': {
       headline: 'Built for a large organization like yours.',
@@ -130,7 +130,7 @@
       moreLabel: 'Read the full field guide'
     },
     marketer: {
-      headline: 'The 57 principles behind what people actually notice.',
+      headline: 'The 59 principles behind what people actually notice.',
       cards: [
         {
           tag: 'Principle',
@@ -148,7 +148,7 @@
         }
       ],
       moreHref: 'principles.html',
-      moreLabel: 'See all 57 principles'
+      moreLabel: 'See all 59 principles'
     }
   };
 
