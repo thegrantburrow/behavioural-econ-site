@@ -1406,7 +1406,7 @@
       <span class="exp-tag status">Not yet run</span>
     </div>
     <h2>Does showing progress through a home loan appointment booking increase completion?</h2>
-    <p class="salient-question lg">A pre-filled loyalty card sped people up with the <mark>identical distance left to go</mark>. Does simply showing someone how far through a home loan appointment they are do the same?</p>
+    <p class="salient-question lg">A pre-filled loyalty card sped people up with the <mark>identical distance left to go</mark>. Does simply showing progress do that, or does how the remaining steps are chunked matter just as much?</p>
     <p class="session-meta">Builds on <a href="principles.html#goal-gradient">Goal Gradient Effect</a> &middot; Kivetz, Urminsky &amp; Zheng (2006), <i>Journal of Marketing Research</i></p>
 
     <div class="rail-layout" data-rail-root>
@@ -1426,12 +1426,12 @@
           <span class="k">Theory</span>
           <p><b>The study.</b> Kivetz, Urminsky and Zheng found effort and motivation increase the closer someone perceives themselves to be to a finish line, and that perceived proximity alone, not real distance, drives it: a 12-stamp card with 2 stamps already filled in accelerated purchasing identically to a genuinely shorter 10-stamp card, even though both needed exactly 10 more purchases. The principle's own &ldquo;where it can help&rdquo; case is a genuine progress bar showing someone how close they actually are to finishing a form.</p>
           <p><b>The gap.</b> That's a proposed use, not a tested one, and a home loan appointment booking flow is exactly the kind of long, multi-step form (contact details, loan and property details, a preferred meeting type, a time slot) where abandonment is common and a completion cue has never been isolated as the only variable.</p>
-          <p><b>This experiment.</b> It tests whether adding a real, accurate step-count and progress bar to that flow, with nothing else about the form changed, increases how many people who start it finish it.</p>
+          <p><b>This experiment.</b> It tests two different applications of that mechanism on the same flow: showing an honest step count at the flow's natural, coarse chunking, and re-chunking the identical real work into more, still-genuine steps so a customer sits further through the count at the same real point, the exact lever the original study's 12-stamp card used against a 10-stamp one.</p>
         </div>
 
         <div class="article-block" data-rail-section data-rail-label="Hypothesis">
           <span class="k">Hypothesis</span>
-          <p>Visitors shown a real step-progress indicator (a &ldquo;Step X of 4&rdquo; label plus a filling bar) throughout a home loan appointment booking flow complete and confirm a booking at a higher rate than visitors shown the identical flow with no progress indicator, even though the number of steps, the fields required, and the appointment options are unchanged.</p>
+          <p>Visitors shown a real step-progress indicator, at either chunking, complete and confirm a booking at a higher rate than visitors shown the identical flow with no progress indicator, even though the fields required and the appointment options offered are unchanged in every arm. Because perceived proximity, not real distance, is what the study's own mechanism turns on, splitting the same real work into more granular genuine steps, so a customer sits further through the count at an identical real point, produces a larger lift than showing an honest step count at the flow's natural, coarser chunking.</p>
         </div>
 
         <div class="article-block" data-rail-section data-rail-label="Baseline">
@@ -1441,14 +1441,15 @@
 
         <div class="article-block" data-rail-section data-rail-label="Ethics">
           <span class="k">Ethical guardrail</span>
-          <p><b>The guardrail.</b> The step count and progress bar have to reflect the real number of steps and real position in the flow at every screen, never compressed or re-ordered to make the remaining effort look smaller than it is. The total step count should be visible from the very first screen, not revealed one step at a time, so no one commits to step one without knowing there are three more behind it.</p>
+          <p><b>The guardrail.</b> The step count and progress bar have to reflect the real number of steps and real position in the flow at every screen, never compressed or re-ordered to make the remaining effort look smaller than it is. The total step count should be visible from the very first screen, not revealed one step at a time, so no one commits to step one without knowing there are three, or five, more behind it.</p>
+          <p><b>Re-chunking has a real/fake line.</b> Splitting a step into finer sub-steps is only legitimate when each resulting step is still genuinely distinct, required content, contact details and identity verification are two real things, not one field split in half to manufacture an extra step. No step shown, at either chunking, may be fabricated, reordered to hide what's left, or padded purely to inflate the count.</p>
           <p><b>What's being tested.</b> Whether an honest completion cue helps people follow through on a booking they already want to make, not whether the count can be tuned to disguise how long the form actually takes. See <a href="index.html#ethics-of-not-experimenting">Ethics of Not Experimenting</a>.</p>
         </div>
 
         <div data-rail-section data-rail-label="Design">
-          <h3>Control vs. treatment</h3>
-          <p>Both arms are visitors starting a home loan appointment booking flow, randomly assigned at the first screen. Every field, every step's content, and the appointment options offered are identical; only whether progress is shown differs. Shown here: step 2 of 4, loan and property details, generic and unbranded.</p>
-          <div class="app-mock-grid">
+          <h3>Control vs. two treatments</h3>
+          <p>All three arms are visitors starting a home loan appointment booking flow, randomly assigned at the first screen. Every field and every appointment option offered is identical across all three; only how, or whether, progress is shown differs. Control and Treatment A are shown at the flow's natural step 2 of 4; Treatment B shows the same real work re-chunked into 6 genuine steps, generic and unbranded.</p>
+          <div class="app-mock-grid cols-3">
             <div class="app-mock-col">
               <span class="app-mock-label">Control &middot; no progress shown</span>
               <div class="app-mock-phone">
@@ -1467,7 +1468,7 @@
             </div>
 
             <div class="app-mock-col">
-              <span class="app-mock-label">Treatment &middot; step progress shown</span>
+              <span class="app-mock-label">Treatment A &middot; honest step count</span>
               <div class="app-mock-phone">
                 <div class="app-mock-screen">
                   <div class="app-mock-progress">
@@ -1480,23 +1481,39 @@
                 </div>
               </div>
             </div>
+
+            <div class="app-mock-col">
+              <span class="app-mock-label">Treatment B &middot; re-chunked, 6 steps</span>
+              <div class="app-mock-phone">
+                <div class="app-mock-screen">
+                  <div class="app-mock-progress">
+                    <div class="app-mock-progress-label"><span>Step 4 of 6</span><span>About 2 min left</span></div>
+                    <div class="app-mock-progress-track"><div class="app-mock-progress-fill" style="width:67%"></div></div>
+                  </div>
+                  <h4>Loan amount &amp; purpose</h4>
+                  <p>Deposit amount and the purpose of the loan. Property details are already confirmed.</p>
+                  <button type="button" class="app-cta">Continue</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="app-mock-note">Same 4 steps, same fields, same meeting options. Only whether a step count and progress bar are shown differs between arms.</p>
+          <p class="app-mock-note">All three arms require the exact same real information: contact details, identity verification, property value, deposit amount, loan purpose, meeting preference, and a chosen time. Only whether progress is shown, and how finely the same steps are chunked, differs.</p>
+          <p><b>Why Treatment B looks different.</b> It doesn't change how much work is left, real or perceived honestly, it changes how many genuine pieces that work is split into. &ldquo;Loan &amp; property details&rdquo; becomes its own property step and its own loan-amount step; no field is added, removed, or hidden. A customer who has done the identical real work now sits at step 4 of 6 instead of step 2 of 4. That's the exact lever the original study used: the same 10 purchases left to go read as 0% done on a blank 10-stamp card, or already under way on a 12-stamp card with 2 stamps pre-filled, identical real distance, different perceived proximity.</p>
         </div>
 
         <div class="power-calc" data-rail-section data-rail-label="Sample size">
           <span class="label">Sample size to actually trust this</span>
           <div class="power-calc-grid">
             <div class="power-stat"><span class="stat-lbl">Baseline</span><span class="stat-val">34%<small>completed booking, control</small></span></div>
-            <div class="power-stat accent"><span class="stat-lbl">Target</span><span class="stat-val">42%<small>+8pp assumed lift, treatment</small></span></div>
+            <div class="power-stat accent"><span class="stat-lbl">Target</span><span class="stat-val">42%<small>+8pp, the smaller effect (Treatment A)</small></span></div>
             <div class="power-stat"><span class="stat-lbl">Significance</span><span class="stat-val">&alpha; = 0.05<small>two-sided</small></span></div>
             <div class="power-stat"><span class="stat-lbl">Power</span><span class="stat-val">80%<small>1&minus;&beta;</small></span></div>
             <div class="power-stat accent"><span class="stat-lbl">Sample per arm</span><span class="stat-val">574<small>visitors starting the flow</small></span></div>
-            <div class="power-stat"><span class="stat-lbl">Total sample</span><span class="stat-val">1,148<small>2 arms</small></span></div>
-            <div class="power-stat"><span class="stat-lbl">Assumed volume</span><span class="stat-val">700/wk<small>visitors entering the flow</small></span></div>
+            <div class="power-stat"><span class="stat-lbl">Total sample</span><span class="stat-val">1,722<small>3 arms</small></span></div>
+            <div class="power-stat"><span class="stat-lbl">Assumed volume</span><span class="stat-val">900/wk<small>visitors entering the flow</small></span></div>
             <div class="power-stat accent"><span class="stat-lbl">Est. run time</span><span class="stat-val">~3 wks<small>incl. buffer</small></span></div>
           </div>
-          <p class="power-calc-note">Two-proportion test, equal allocation: n = (z&alpha;/2 + z&beta;)&sup2; &times; [p&#8321;(1&minus;p&#8321;) + p&#8322;(1&minus;p&#8322;)] / (p&#8321;&minus;p&#8322;)&sup2;.</p>
+          <p class="power-calc-note">Two-proportion test, equal allocation: n = (z&alpha;/2 + z&beta;)&sup2; &times; [p&#8321;(1&minus;p&#8321;) + p&#8322;(1&minus;p&#8322;)] / (p&#8321;&minus;p&#8322;)&sup2;. Sized against Treatment A's smaller expected effect, so Treatment B, assumed to reach 48% (+14pp) if the re-chunking mechanism holds, is over-powered by comparison.</p>
         </div>
 
         <div class="doc-mock" data-rail-section data-rail-label="Outcomes">
@@ -1510,11 +1527,12 @@
             <span>Outcome variables</span>
           </div>
           <ul class="doc-mock-list">
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Primary:</b><br>% of visitors who start the flow and complete all 4 steps to confirm an appointment, treatment versus control</span></li>
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Secondary:</b><br>step-by-step drop-off, whether the lift is concentrated near the end (the goal-gradient signature) or spread evenly across all 4 steps</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Primary:</b><br>% of visitors who start the flow and confirm an appointment, each treatment versus control</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Secondary:</b><br>the difference between Treatment A and Treatment B specifically, isolating whether re-chunking the same real work into more granular steps adds anything beyond simply showing an honest count at the flow's natural chunking</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Secondary:</b><br>step-by-step drop-off in each arm, whether the lift is concentrated near the end (the goal-gradient signature) or spread evenly across the flow</span></li>
             <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Secondary:</b><br>median time to complete the flow, whether visible progress also speeds people up, not just raises who finishes</span></li>
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>show-up rate for the booked appointment itself must not fall in the treatment arm, a rushed booking made just to finish a bar is worse than no booking at all</span></li>
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>rate of visitors who abandon after seeing the total step count on screen one must not spike, confirming upfront honesty about the length doesn't itself deter people</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>show-up rate for the booked appointment itself must not fall in either treatment arm, a rushed booking made just to finish a bar is worse than no booking at all</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>rate of visitors who abandon after seeing the total step count on screen one must not spike in either treatment, confirming upfront honesty about the length, 4 steps or 6, doesn't itself deter people</span></li>
           </ul>
         </div>
 
@@ -1526,9 +1544,6 @@
 </article>
 
 <footer>
-
-
-
   <div class="wrap">
     <div>&copy; 2026 What Works &amp; Why</div>
     <ul>
