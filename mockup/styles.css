@@ -404,6 +404,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   animation: drawPath 0.55s ease-out 0.55s forwards;
 }
 
+.story-scribble-strip.above-subline { position: relative; margin: 20px 0 26px; height: 62px; width: 252px; max-width: 100%; }
+.scribble-connector { position: absolute; top: -18px; left: -4px; width: 260px; }
+.scribble-icons { position: absolute; top: 8px; left: 0; width: 252px; display: flex; justify-content: space-between; }
+.story-icon-wrap { display: flex; background: var(--paper); border-radius: 50%; padding: 2px; }
+.story-caption { font-size: 0.82rem; color: var(--muted); margin: 4px 0 0; }
+
 .hero .subline {
   position: relative;
   font-size: clamp(0.98rem, 3.6vw, 1.15rem);
