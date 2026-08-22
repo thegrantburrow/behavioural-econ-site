@@ -684,3 +684,211 @@
     });
   });
 })();
+
+(function () {
+  // Apply It (apply.html): an adaptive Q&A that walks a visitor from either
+  // a principle or a real problem through to a copyable starter brief.
+  // Cause categories reuse the site's own 6 principle categories rather
+  // than a separate framework, so "principles that might explain this" is a
+  // real filter over the 60 on the site, not an invented taxonomy. No-ops
+  // on any page without this markup, and on any page missing the data file.
+  var toolRoot = document.getElementById('tool');
+  if (!toolRoot || typeof APPLY_PRINCIPLES === 'undefined') return;
+
+  var dotsEl = document.getElementById('applyDots');
+  var cards = {};
+  toolRoot.querySelectorAll('.apply-card').forEach(function (c) { cards[c.getAttribute('data-q')] = c; });
+
+  var STEP_ORDER = ['door'];
+  var history = [];
+  var currentQ = 'door';
+  var selectedCauses = [];
+  var selectedPrinciples = [];
+  var selectedPrincipleId = null;
+
+  function renderDots() {
+    dotsEl.innerHTML = '';
+    var idx = STEP_ORDER.indexOf(currentQ);
+    STEP_ORDER.forEach(function (id, i) {
+      var d = document.createElement('div');
+      d.className = 'apply-qdot' + (i === idx ? ' active' : (i < idx ? ' done' : ''));
+      dotsEl.appendChild(d);
+    });
+  }
+
+  function show(qid) {
+    if (qid === 'door') STEP_ORDER = ['door'];
+    Object.keys(cards).forEach(function (k) { cards[k].hidden = (k !== qid); });
+    currentQ = qid;
+    renderDots();
+  }
+
+  function goNext(qid) { history.push(currentQ); show(qid); }
+  function goBack() { if (history.length) show(history.pop()); }
+
+  toolRoot.querySelectorAll('[data-back]').forEach(function (b) { b.addEventListener('click', goBack); });
+
+  toolRoot.querySelectorAll('[data-door]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      selectedCauses = [];
+      selectedPrinciples = [];
+      selectedPrincipleId = null;
+      if (b.getAttribute('data-door') === 'problem') {
+        STEP_ORDER = ['door', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'brief'];
+        renderCauseChips();
+        goNext('p1');
+      } else {
+        STEP_ORDER = ['door', 'c1', 'c2', 'c3', 'brief'];
+        renderAllPrincipleChips('');
+        goNext('c1');
+      }
+    });
+  });
+
+  function renderCauseChips() {
+    var wrap = document.getElementById('causeChips');
+    wrap.innerHTML = '';
+    APPLY_CATEGORIES.forEach(function (cat) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'apply-chip';
+      chip.innerHTML = '<span class="dot"></span>' + cat.label + ': ' + cat.cause;
+      chip.addEventListener('click', function () {
+        chip.classList.toggle('selected');
+        var idx = selectedCauses.indexOf(cat.id);
+        if (chip.classList.contains('selected') && idx === -1) selectedCauses.push(cat.id);
+        if (!chip.classList.contains('selected') && idx !== -1) selectedCauses.splice(idx, 1);
+        document.getElementById('p2Next').disabled = selectedCauses.length === 0;
+      });
+      wrap.appendChild(chip);
+    });
+  }
+
+  document.querySelector('[data-next="p4"]').addEventListener('click', function () {
+    var wrap = document.getElementById('principleChips');
+    wrap.innerHTML = '';
+    selectedPrinciples = [];
+    document.getElementById('p4Next').disabled = true;
+    var matches = APPLY_PRINCIPLES.filter(function (p) { return selectedCauses.indexOf(p.cat) !== -1; });
+    var catLabels = selectedCauses.map(function (id) {
+      var match = APPLY_CATEGORIES.filter(function (x) { return x.id === id; })[0];
+      return match ? match.label : id;
+    }).join(', ');
+    document.getElementById('p4Hint').textContent = 'Matched from: ' + catLabels + '.';
+    matches.slice(0, 12).forEach(function (p) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'apply-chip';
+      chip.innerHTML = '<span class="dot"></span>' + p.title;
+      chip.addEventListener('click', function () {
+        chip.classList.toggle('selected');
+        var idx = selectedPrinciples.indexOf(p.id);
+        if (chip.classList.contains('selected') && idx === -1) selectedPrinciples.push(p.id);
+        if (!chip.classList.contains('selected') && idx !== -1) selectedPrinciples.splice(idx, 1);
+        document.getElementById('p4Next').disabled = selectedPrinciples.length === 0;
+      });
+      wrap.appendChild(chip);
+    });
+  });
+
+  function renderAllPrincipleChips(query) {
+    var wrap = document.getElementById('allPrincipleChips');
+    wrap.innerHTML = '';
+    var q = query.trim().toLowerCase();
+    var list = APPLY_PRINCIPLES.filter(function (p) { return !q || p.title.toLowerCase().indexOf(q) !== -1; });
+    list.forEach(function (p) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'apply-chip' + (p.id === selectedPrincipleId ? ' selected' : '');
+      chip.innerHTML = '<span class="dot"></span>' + p.title;
+      chip.addEventListener('click', function () {
+        selectedPrincipleId = p.id;
+        renderAllPrincipleChips(document.getElementById('principleSearch').value);
+        document.getElementById('c1Next').disabled = false;
+      });
+      wrap.appendChild(chip);
+    });
+  }
+  document.getElementById('principleSearch').addEventListener('input', function () {
+    renderAllPrincipleChips(this.value);
+  });
+
+  document.querySelector('[data-next="c2"]').addEventListener('click', function () {
+    var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === selectedPrincipleId; })[0];
+    document.getElementById('c2Title').textContent = 'Applying ' + (p ? p.title : 'this principle');
+  });
+
+  toolRoot.querySelectorAll('[data-next]').forEach(function (btn) {
+    if (btn.id === 'buildBriefP' || btn.id === 'buildBriefC') return;
+    btn.addEventListener('click', function () { goNext(btn.getAttribute('data-next')); });
+  });
+
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  function principleLinksHtml(ids) {
+    return ids.map(function (id) {
+      var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === id; })[0];
+      return p ? '<a href="principles.html#' + p.id + '">' + p.title + '</a>' : '';
+    }).join(', ');
+  }
+
+  function buildBrief() {
+    var isProblem = STEP_ORDER.indexOf('p1') !== -1;
+    var rows = [];
+    if (isProblem) {
+      rows.push(['Problem', esc(val('probStatement')) || '—']);
+      rows.push(['Principles', principleLinksHtml(selectedPrinciples) || '—']);
+      rows.push(['Target behaviour', esc(val('targetBehaviour')) || '—']);
+      rows.push(['Proposed change', esc(val('proposedChange')) || '—']);
+      rows.push(['Control', esc(val('controlDesc')) || '—']);
+      rows.push(['Treatment', esc(val('treatmentDesc')) || '—']);
+      rows.push(['Primary metric', esc(val('metricDesc')) || '—']);
+    } else {
+      var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === selectedPrincipleId; })[0];
+      rows.push(['Principle', p ? '<a href="principles.html#' + p.id + '">' + p.title + '</a>' : '—']);
+      rows.push(['The moment', esc(val('ctxMoment')) || '—']);
+      rows.push(['Currently', esc(val('ctxCurrent')) || '—']);
+      rows.push(['Hypothesis', esc(val('ctxChange')) || '—']);
+      rows.push(['Control', esc(val('controlDescC')) || '—']);
+      rows.push(['Treatment', esc(val('treatmentDescC')) || '—']);
+      rows.push(['Primary metric', esc(val('metricDescC')) || '—']);
+    }
+    rows.push(['Next', 'Launch, measure, and iterate on what you learn.']);
+
+    var out = document.getElementById('briefOutput');
+    var html = '<h4>Starter brief</h4>';
+    rows.forEach(function (r) {
+      html += '<div class="apply-brief-row"><b>' + r[0] + '</b><span>' + r[1] + '</span></div>';
+    });
+    html += '<div class="apply-brief-foot"><button type="button" class="apply-btn" id="copyBriefBtn">Copy brief</button><a class="apply-btn primary" href="experiments.html">See the full experiment-blueprint format &rarr;</a></div>';
+    out.innerHTML = html;
+
+    document.getElementById('copyBriefBtn').addEventListener('click', function () {
+      var text = rows.map(function (r) { return r[0] + ': ' + r[1].replace(/<[^>]+>/g, ''); }).join('\n');
+      var btn = this;
+      function done() {
+        btn.textContent = 'Copied ✓';
+        setTimeout(function () { btn.textContent = 'Copy brief'; }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopyApply(text, done); });
+      } else {
+        fallbackCopyApply(text, done);
+      }
+    });
+  }
+
+  function fallbackCopyApply(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    cb();
+  }
+
+  document.getElementById('buildBriefP').addEventListener('click', function () { buildBrief(); goNext('brief'); });
+  document.getElementById('buildBriefC').addEventListener('click', function () { buildBrief(); goNext('brief'); });
+
+  show('door');
+})();
