@@ -2240,6 +2240,11 @@ a.report-card:hover strong { color: var(--terracotta); }
 
 .app-chip.selected { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
+.app-mock-progress { margin: 0 0 14px; }
+.app-mock-progress-label { display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.app-mock-progress-track { height: 6px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+.app-mock-progress-fill { height: 100%; background: var(--terracotta); border-radius: 999px; }
+
 .app-mock-callout {
   margin: 6px 0 14px;
   padding: 9px 11px;
