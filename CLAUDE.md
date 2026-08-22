@@ -13,7 +13,7 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
   body — no monospace.
 - Skills exist for the site's recurring content types — use them instead of
   improvising structure: `behavioural-principle-article`, `field-session`,
-  `experiment-blueprint`, `design-options-review`.
+  `experiment-blueprint`, `design-options-review`, `authentic-voice`.
 - The site runs on more than a dozen distinct icon/illustration systems, not
   one — see `VISUAL-SYSTEMS.md` before building or reusing any icon,
   diagram, or mark, on the site or in an off-site artifact that's meant to
@@ -79,3 +79,16 @@ flow-diagram connector glyph. Everything else a reader reads as a sentence
 gets real punctuation. Before publishing any new page or artifact for this
 site, grep it for `&mdash;`, `&#8212;`, and the em dash character itself and
 fix anything that isn't one of those two UI exceptions.
+
+## Standing policy: no AI writing tics, ever
+
+On 2026-08-22 the owner flagged a sentence in a freshly written experiment
+blueprint ("That's a proposed use, not a tested one") as reading like AI,
+not like him. He was right: the negation added no information, only false
+weight. See the `authentic-voice` skill for the full research (ten
+documented hallmarks of AI-generated prose, not just this one), the exact
+site audit that followed (102 raw hits reviewed one by one, most kept
+because the distinction was load-bearing, five fixed because it wasn't),
+and the four-question test to run before calling any sentence finished.
+Load that skill before finishing any new prose on this site, the same way
+`behavioural-principle-article` gets loaded before a new principle.
