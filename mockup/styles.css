@@ -1003,14 +1003,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .hub-anchor-link.has-icon { display: inline-flex; align-items: center; gap: 8px; }
 .hub-anchor-icon {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--ink);
 }
-.hub-anchor-icon svg { width: 15px; height: 15px; }
+.hub-anchor-icon svg { width: 19px; height: 19px; }
 
 /* ---------- principles archive page (search + filter + full list) ---------- */
 .principles-index { padding: 28px 0 40px; scroll-margin-top: 64px; }
@@ -2015,16 +2015,16 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .session-toc a.has-icon { flex-direction: row; align-items: center; gap: 12px; }
 .session-toc-icon {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 9px;
   background: var(--paper-alt, rgba(30, 27, 22, 0.05));
   color: var(--ink);
 }
-.session-toc-icon svg { width: 19px; height: 19px; }
+.session-toc-icon svg { width: 26px; height: 26px; }
 .session-toc-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 
 @media (min-width: 640px) {
