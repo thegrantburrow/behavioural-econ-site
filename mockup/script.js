@@ -892,3 +892,32 @@
 
   show('door');
 })();
+
+(function () {
+  // Homepage illustrated-beats teasers (Principles / Special Reports /
+  // Experiment Teardowns): on mobile each .beats-row is a horizontally
+  // scroll-snapping carousel, so the dots below it track which card is
+  // actually centred, the same way a native swipe carousel would. Desktop
+  // switches to a static 3-up grid via CSS alone, no JS involvement, so
+  // this observer is harmless there (dots are hidden by the same media
+  // query). No-op on any page without this markup.
+  document.querySelectorAll('.beats-teaser').forEach(function (teaser) {
+    var row = teaser.querySelector('[data-carousel]');
+    var dots = teaser.querySelectorAll('.beats-dot');
+    if (!row || !dots.length) return;
+    var cards = row.querySelectorAll('.beats-card');
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.intersectionRatio > 0.6) {
+          var i = Array.prototype.indexOf.call(cards, entry.target);
+          if (i !== -1) {
+            dots.forEach(function (d, di) { d.classList.toggle('active', di === i); });
+          }
+        }
+      });
+    }, { root: row, threshold: [0, 0.6, 1] });
+
+    cards.forEach(function (c) { observer.observe(c); });
+  });
+})();

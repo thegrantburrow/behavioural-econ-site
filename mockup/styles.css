@@ -539,60 +539,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   margin: 16px 0 0;
 }
 
-/* ---------- proof strip: the one confident bold-colour block on the
-   page (per brief: "bold colour used in confident blocks, not just
-   accents") — three honest, checkable facts, not vanity metrics ---------- */
-.proof-strip { background: var(--ink); padding: 26px 0; }
-
-.proof-strip .wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.proof-item {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-}
-
-.proof-num {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1;
-  flex-shrink: 0;
-  min-width: 1.6ch;
-}
-
-.proof-item:nth-child(1) .proof-num { color: var(--terracotta); }
-.proof-item:nth-child(2) .proof-num { color: var(--mustard); }
-.proof-item:nth-child(3) .proof-num { color: var(--terracotta); }
-
-.proof-item p {
-  margin: 0;
-  color: rgba(243, 241, 234, 0.78);
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.proof-item p b { color: var(--paper); font-weight: 700; }
-
-@media (min-width: 640px) {
-  .proof-strip { padding: 34px 0; }
-  .proof-strip .wrap { flex-direction: row; gap: 0; }
-  .proof-item {
-    flex: 1;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 0 24px;
-    border-left: 1px solid rgba(243, 241, 234, 0.14);
-  }
-  .proof-item:first-child { padding-left: 0; border-left: none; }
-  .proof-num { font-size: 2.4rem; }
-}
-
 .credentials {
   display: flex;
   flex-direction: column;
@@ -858,58 +804,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .featured-cta { flex-direction: row; align-items: center; justify-content: space-between; }
   .principles-search-cta { max-width: 340px; }
 }
-
-/* ---------- reports row (Reading the Research / Ethics of Not
-   Experimenting / Experiment Teardowns) — same card template, small
-   accent-colour top border only, so the set reads as one designed system
-   instead of three different full-colour blocks ---------- */
-.reports-row { padding: 22px 0 28px; scroll-margin-top: 64px; }
-
-.reports-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-@media (min-width: 760px) {
-  .reports-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-}
-
-.report-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--accent, var(--terracotta));
-  border-radius: 14px;
-  padding: 18px 20px;
-  text-decoration: none;
-  color: var(--ink);
-  transition: border-color 0.15s ease;
-}
-
-a.report-card:hover { border-color: var(--line); }
-a.report-card:hover strong { color: var(--terracotta); }
-
-.report-card.accent-teal { --accent: var(--teal); }
-.report-card.accent-mustard { --accent: var(--mustard); }
-.report-card.accent-terracotta { --accent: var(--terracotta); }
-
-.report-card-tag {
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 800;
-  color: var(--muted);
-}
-
-.report-card strong { font-size: 1.05rem; transition: color 0.15s ease; }
-.report-card-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
-
-.report-card-links { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 6px; font-size: 0.8rem; }
-.report-card-links a { color: var(--terracotta); text-decoration: underline; }
 
 /* ---------- stage view (curated landing from the homepage journey selector) ---------- */
 .stage-view {
@@ -2720,6 +2614,73 @@ a.report-card:hover strong { color: var(--terracotta); }
 .trend-chart-tag { font-size: 8.6px; fill: var(--muted); font-family: inherit; }
 .trend-chart-date { font-size: 7.6px; fill: var(--muted); font-family: inherit; }
 .trend-chart-badge-text { font-size: 8.6px; fill: var(--ink); font-family: inherit; font-weight: 700; }
+
+/* ---------- illustrated beats (homepage narrative teaser: principles / reports / experiments) ---------- */
+.beats-teaser { padding: 30px 0; }
+
+.beats-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 16px;
+}
+
+.beats-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -20px;
+  padding: 0 20px 4px;
+}
+
+.beats-card {
+  flex: 0 0 82%;
+  scroll-snap-align: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.beats-icon { display: block; width: 30px; height: 30px; color: var(--ink); margin-bottom: 10px; }
+
+.beats-card h3 { font-family: Georgia, serif; font-size: 1rem; margin: 0 0 5px; }
+.beats-card p { margin: 0; font-size: 0.86rem; color: var(--muted); line-height: 1.45; }
+
+.beats-dots { display: flex; justify-content: center; gap: 5px; margin: 10px 0 0; }
+.beats-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background 0.15s ease, width 0.15s ease; }
+.beats-dot.active { background: var(--terracotta); width: 16px; border-radius: 3px; }
+
+.beats-close { text-align: center; padding-top: 16px; }
+.beats-close p { font-family: Georgia, serif; font-size: 1.05rem; font-weight: 700; margin: 0 0 12px; }
+.beats-cta {
+  display: inline-block;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--paper);
+  background: var(--terracotta);
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  min-height: 44px;
+  line-height: 24px;
+}
+
+@media (min-width: 640px) {
+  .beats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+  }
+  .beats-card { border-top: 3px solid var(--teal); }
+  .beats-dots { display: none; }
+}
 
 /* ---------- apply-it page (adaptive principle/problem to experiment tool) ---------- */
 .apply-tool { padding: 8px 0 48px; }
