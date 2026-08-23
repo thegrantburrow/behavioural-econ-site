@@ -62,7 +62,9 @@ var APPLY_PRINCIPLES = [
   {id:"smart-defaults", title:"Smart Defaults", cat:"choice", blurb:"A default set for someone's own future benefit, timed so that accepting it costs nothing anyone can actually feel today."},
   {id:"precommitment-devices", title:"Precommitment Devices", cat:"choice", blurb:"A voluntary constraint someone places on their own future choices today, so a future self with less willpower can't undo it."},
   {id:"crossmodal-correspondence", title:"Crossmodal Correspondence", cat:"judgment", blurb:"The brain treats taste as one blended sense, so an unrelated touch or colour cue gets folded straight into how something is judged to taste."},
-  {id:"meaningless-differentiation", title:"Meaningless Differentiation", cat:"judgment", blurb:"A visible, specific-sounding detail can be read as proof of a real, unstated benefit, even when the detail itself changes nothing."}
+  {id:"meaningless-differentiation", title:"Meaningless Differentiation", cat:"judgment", blurb:"A visible, specific-sounding detail can be read as proof of a real, unstated benefit, even when the detail itself changes nothing."},
+  {id:"licensing-effect", title:"Licensing Effect", cat:"judgment", blurb:"Completing one virtuous or responsible act gives people a felt permission to indulge right afterward, even when the two choices are unrelated."},
+  {id:"present-bias", title:"Present Bias", cat:"choice", blurb:"People weigh a reward available right now far more heavily than the identical reward available later, so an advance choice and an in-the-moment choice can flatly contradict each other."}
 ];
 
 // Plain, observable business symptoms, grouped by where in the journey
