@@ -26,7 +26,15 @@ The winning direction merged three reviewed options into one: sequential mechani
 
 ## The icon (system #18 in `VISUAL-SYSTEMS.md`)
 
-Every entry gets one hero icon, `.sb-hero-icon`, roughly double the scale of the site's small eyebrow-tag icons (system #1). It must depict the *literal* real object, a jean leg with a visible selvedge cuff for denim, a portafilter for an espresso machine, a ballot for political messaging, never a generic category stand-in (no generic "shirt" icon for a specific denim weave, the same literal-object discipline `principle-mechanism-diagram` already enforces on illustrations). 24x24 viewBox, stroke-width 1.7, ink plus exactly one terracotta accent, consistent with the rest of the site's line-icon language, just bigger. Before drawing one, look at what's actually distinctive about the object, not what's easiest to draw.
+Every entry gets one hero icon, `.sb-hero-icon`, roughly 3.5-4x the scale of the site's small eyebrow-tag icons (system #1), revised up from an original ~2x after the owner's direct feedback on the first shipped icon: "3-4 times bigger and have finer details combined with the thicker outline... use all of the site palette colours." The same drawing repeats at the small `.beats-icon` scale in that entry's homepage teaser card, unchanged, just sized down.
+
+It must depict the *literal* real object, a jean leg with a visible selvedge cuff for denim, a portafilter for an espresso machine, a ballot for political messaging, never a generic category stand-in (no generic "shirt" icon for a specific denim weave, the same literal-object discipline `principle-mechanism-diagram` already enforces on illustrations).
+
+**At this larger masthead scale, a bare silhouette reads as empty.** Add 2-4 small, authentic surface details specific to the real object, the things it actually has, not decoration invented to fill space: a stitched pocket and its rivets for denim, a pressure gauge or steam-wand for an espresso machine, a perforation line for a ballot. Each detail should use a different site palette color doing real work, not one flat accent: terracotta for a structural edge or seam (the selvedge stripe itself), mustard for a stitch line or secondary edge, teal for small hardware (a rivet, a fastener). Ink stays the main outline, but stroke-width goes up too (1.7-1.8 instead of the standard 1.6) so the mark reads as bold at this size, not thin and lost. 24x24 viewBox still, just richer inside it.
+
+Because the icon is bigger, `.sb-head` stacks the icon above the title on narrow viewports and only sits side by side with it from 600px up (see the CSS), so the enlarged mark never squeezes the heading into an awkward column on mobile.
+
+Before drawing one, look at what's actually distinctive about the object, not what's easiest to draw. Prototype it standalone at the real display size (Playwright screenshot, not a thumbnail glance) before wiring it into the page, the same discipline `principle-mechanism-diagram` requires for illustrations, since detail that looks fine at 24px can still read as clutter or as an unrelated shape once scaled up (a first pass at this size accidentally read as a two-legged figure with a head before the waistband tab and hem ticks were cut).
 
 ## Categories: two axes, both shown, both browsable
 
