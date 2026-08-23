@@ -635,6 +635,11 @@
   // further down the page) and scrolls there, so the hub and the archive
   // below it never fall out of sync with each other.
   document.querySelectorAll('.landing-hub').forEach(function (hub) {
+    // The Science Behind page merges this hub with its search/filter
+    // section into one block (too few entries yet to justify two separate
+    // category browsers) and wires its own cat-tile clicks below instead.
+    if (hub.querySelector('.sb-domain-btn')) return;
+
     hub.querySelectorAll('.view-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var view = btn.getAttribute('data-hub-view');
@@ -919,7 +924,7 @@
   // orthogonal taxonomies at once (see the science-behind-article skill).
   // No-ops on any page without this markup.
   var searchInput = document.getElementById('sbSearch');
-  var domainTabs = document.querySelectorAll('#sbDomainTabs .toc-tab');
+  var domainTabs = document.querySelectorAll('.sb-domain-btn');
   var signalTabs = document.querySelectorAll('#sbSignalTabs .toc-tab');
   var cards = document.querySelectorAll('article.sb-entry');
   var tocItems = document.querySelectorAll('#sbToc > li');
@@ -959,7 +964,7 @@
       domainTabs.forEach(function (t) {
         var active = t === tab;
         t.classList.toggle('active', active);
-        t.setAttribute('aria-selected', active ? 'true' : 'false');
+        t.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
       applyFilter();
     });

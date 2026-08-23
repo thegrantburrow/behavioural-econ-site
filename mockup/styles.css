@@ -961,6 +961,16 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .cat-tile:hover, .cat-tile:focus-visible { border-color: var(--terracotta); }
 
+.cat-tile.active { border-color: var(--terracotta); background: rgba(178, 71, 43, 0.06); }
+
+/* fixed column count for a merged hub + index (see science-behind-article
+   skill): a small, known number of tiles that should stay one tidy row at
+   every width, not stretch across the standard 3-up desktop grid and leave
+   an empty track when there are only 1 or 2 of them */
+.cat-grid.cols-2 { grid-template-columns: repeat(2, 1fr); max-width: 460px; }
+
+.sb-domain-row { margin: 0 0 10px; }
+
 .cat-icon { width: 22px; height: 22px; color: var(--ink); }
 
 .cat-name { font-size: 0.9rem; font-weight: 700; line-height: 1.25; }
