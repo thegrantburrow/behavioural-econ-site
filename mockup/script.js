@@ -688,9 +688,11 @@
 (function () {
   // Apply It (apply.html): an adaptive Q&A that walks a visitor from either
   // a principle or a real problem through to a copyable starter brief.
-  // Cause categories reuse the site's own 6 principle categories rather
-  // than a separate framework, so "principles that might explain this" is a
-  // real filter over the 60 on the site, not an invented taxonomy. No-ops
+  // The diagnosis step (p2) shows plain, observable symptoms grouped by
+  // journey stage, never a behavioural-science category name: each symptom
+  // maps by hand to the 1-3 specific principles that actually explain it
+  // (APPLY_SYMPTOMS in apply-data.js), so "principles that might explain
+  // this" is a curated, accurate filter, not a lazy category match. No-ops
   // on any page without this markup, and on any page missing the data file.
   var toolRoot = document.getElementById('tool');
   if (!toolRoot || typeof APPLY_PRINCIPLES === 'undefined') return;
@@ -702,7 +704,7 @@
   var STEP_ORDER = ['door'];
   var history = [];
   var currentQ = 'door';
-  var selectedCauses = [];
+  var selectedSymptoms = [];
   var selectedPrinciples = [];
   var selectedPrincipleId = null;
 
@@ -730,12 +732,12 @@
 
   toolRoot.querySelectorAll('[data-door]').forEach(function (b) {
     b.addEventListener('click', function () {
-      selectedCauses = [];
+      selectedSymptoms = [];
       selectedPrinciples = [];
       selectedPrincipleId = null;
       if (b.getAttribute('data-door') === 'problem') {
         STEP_ORDER = ['door', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'brief'];
-        renderCauseChips();
+        renderSymptomChecklist();
         goNext('p1');
       } else {
         STEP_ORDER = ['door', 'c1', 'c2', 'c3', 'brief'];
@@ -745,22 +747,31 @@
     });
   });
 
-  function renderCauseChips() {
-    var wrap = document.getElementById('causeChips');
+  function renderSymptomChecklist() {
+    var wrap = document.getElementById('symptomChecklist');
     wrap.innerHTML = '';
-    APPLY_CATEGORIES.forEach(function (cat) {
-      var chip = document.createElement('button');
-      chip.type = 'button';
-      chip.className = 'apply-chip';
-      chip.innerHTML = '<span class="dot"></span>' + cat.label + ': ' + cat.cause;
-      chip.addEventListener('click', function () {
-        chip.classList.toggle('selected');
-        var idx = selectedCauses.indexOf(cat.id);
-        if (chip.classList.contains('selected') && idx === -1) selectedCauses.push(cat.id);
-        if (!chip.classList.contains('selected') && idx !== -1) selectedCauses.splice(idx, 1);
-        document.getElementById('p2Next').disabled = selectedCauses.length === 0;
+    APPLY_SYMPTOMS.forEach(function (group) {
+      var groupEl = document.createElement('div');
+      groupEl.className = 'apply-checklist-group';
+      var lbl = document.createElement('span');
+      lbl.className = 'apply-checklist-lbl';
+      lbl.textContent = group.group;
+      groupEl.appendChild(lbl);
+      group.items.forEach(function (item) {
+        var row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'apply-check-item';
+        row.innerHTML = '<span class="box"></span><span>' + item.text + '</span>';
+        row.addEventListener('click', function () {
+          row.classList.toggle('selected');
+          var idx = selectedSymptoms.indexOf(item.id);
+          if (row.classList.contains('selected') && idx === -1) selectedSymptoms.push(item.id);
+          if (!row.classList.contains('selected') && idx !== -1) selectedSymptoms.splice(idx, 1);
+          document.getElementById('p2Next').disabled = selectedSymptoms.length === 0;
+        });
+        groupEl.appendChild(row);
       });
-      wrap.appendChild(chip);
+      wrap.appendChild(groupEl);
     });
   }
 
@@ -769,13 +780,20 @@
     wrap.innerHTML = '';
     selectedPrinciples = [];
     document.getElementById('p4Next').disabled = true;
-    var matches = APPLY_PRINCIPLES.filter(function (p) { return selectedCauses.indexOf(p.cat) !== -1; });
-    var catLabels = selectedCauses.map(function (id) {
-      var match = APPLY_CATEGORIES.filter(function (x) { return x.id === id; })[0];
-      return match ? match.label : id;
-    }).join(', ');
-    document.getElementById('p4Hint').textContent = 'Matched from: ' + catLabels + '.';
-    matches.slice(0, 12).forEach(function (p) {
+    var matchIds = [];
+    APPLY_SYMPTOMS.forEach(function (group) {
+      group.items.forEach(function (item) {
+        if (selectedSymptoms.indexOf(item.id) === -1) return;
+        item.principles.forEach(function (pid) {
+          if (matchIds.indexOf(pid) === -1) matchIds.push(pid);
+        });
+      });
+    });
+    var matches = matchIds.map(function (pid) {
+      return APPLY_PRINCIPLES.filter(function (p) { return p.id === pid; })[0];
+    }).filter(Boolean);
+    document.getElementById('p4Hint').textContent = 'Matched from what you picked, not a whole category.';
+    matches.forEach(function (p) {
       var chip = document.createElement('button');
       chip.type = 'button';
       chip.className = 'apply-chip';

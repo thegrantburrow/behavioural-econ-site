@@ -58,14 +58,33 @@ var APPLY_PRINCIPLES = [
   {id:"law-of-round-numbers", title:"Law of Round Numbers", cat:"motivation", blurb:"A round number acts as an unusually strong reference point that quietly changes effort, timing, or choices to land on one."},
   {id:"payment-transparency", title:"Payment Transparency", cat:"pricing", blurb:"A payment's felt cost depends less on the price than on whether paying it makes you rehearse the amount and whether the money leaves immediately."},
   {id:"credit-card-premium", title:"The Credit Card Premium", cat:"pricing", blurb:"People are reliably willing to pay more for the identical item once they're told they'll pay by credit card instead of cash."},
-  {id:"pseudo-set-framing", title:"Pseudo-Set Framing", cat:"motivation", blurb:"People push to complete any group framed as a whole, even when the grouping is arbitrary and carries no reward for finishing."}
+  {id:"pseudo-set-framing", title:"Pseudo-Set Framing", cat:"motivation", blurb:"People push to complete any group framed as a whole, even when the grouping is arbitrary and carries no reward for finishing."},
+  {id:"smart-defaults", title:"Smart Defaults", cat:"choice", blurb:"A default set for someone's own future benefit, timed so that accepting it costs nothing anyone can actually feel today."},
+  {id:"precommitment-devices", title:"Precommitment Devices", cat:"choice", blurb:"A voluntary constraint someone places on their own future choices today, so a future self with less willpower can't undo it."},
+  {id:"crossmodal-correspondence", title:"Crossmodal Correspondence", cat:"judgment", blurb:"The brain treats taste as one blended sense, so an unrelated touch or colour cue gets folded straight into how something is judged to taste."},
+  {id:"meaningless-differentiation", title:"Meaningless Differentiation", cat:"judgment", blurb:"A visible, specific-sounding detail can be read as proof of a real, unstated benefit, even when the detail itself changes nothing."}
 ];
 
-var APPLY_CATEGORIES = [
-  {id:"judgment", label:"Judgment & Memory", cause:"People are misjudging something, a number, a fact, or their own likely behaviour."},
-  {id:"choice", label:"Choice Architecture", cause:"The options themselves are confusing, too many, or badly ordered."},
-  {id:"pricing", label:"Pricing & Value", cause:"The price or value doesn't feel right."},
-  {id:"social", label:"Social Influence", cause:"There's no social signal telling them what's normal."},
-  {id:"motivation", label:"Motivation & Goals", cause:"There's nothing pulling them toward finishing."},
-  {id:"friction", label:"Friction & Transparency", cause:"It's just too much effort, or something important is hidden."}
+// Plain, observable business symptoms, grouped by where in the journey
+// they show up. Each symptom maps to a small, hand-picked set of specific
+// principles that actually explain it, never a whole category. No
+// behavioural-science term appears anywhere in this data: the diagnosis
+// step only ever shows what a business owner would already say out loud.
+var APPLY_SYMPTOMS = [
+  {group: "Getting them to start", items: [
+    {id: "no-click", text: "People see the offer, but don't click through.", principles: ["salience", "framing-effect", "signpost-effect"]},
+    {id: "early-abandon", text: "They start filling something out, then abandon almost immediately.", principles: ["sludge", "choice-overload"]}
+  ]},
+  {group: "Getting them through", items: [
+    {id: "price-screen", text: "They abandon right at the price or payment screen.", principles: ["price-transparency", "pain-of-paying", "payment-transparency"]},
+    {id: "one-step-stall", text: "They stall at one specific step, then give up.", principles: ["sludge", "choice-overload"]}
+  ]},
+  {group: "Getting them to choose well", items: [
+    {id: "picks-cheapest", text: "They pick the cheapest option even when it's clearly not the best value.", principles: ["decoy", "anchoring"]},
+    {id: "sticks-preselected", text: "They stick with whatever's pre-selected, rarely changing it.", principles: ["default-effect"]}
+  ]},
+  {group: "Getting them to come back", items: [
+    {id: "one-and-done", text: "They complete it once, then don't return.", principles: ["goal-gradient", "pseudo-set-framing"]},
+    {id: "cancels-soon", text: "They cancel or downgrade shortly after signing up.", principles: ["smart-defaults", "precommitment-devices"]}
+  ]}
 ];
