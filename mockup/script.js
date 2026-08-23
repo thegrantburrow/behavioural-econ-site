@@ -293,8 +293,8 @@
   var STAGES = [
     { id: 'awareness', count: 6, marketing: 'Awareness', product: 'Acquisition', short: { marketing: 'Awareness', product: 'Acquire' } },
     { id: 'consideration', count: 15, marketing: 'Consideration', product: 'Activation', short: { marketing: 'Compare', product: 'Activate' } },
-    { id: 'conversion', count: 17, marketing: 'Conversion', product: 'Conversion', short: { marketing: 'Convert', product: 'Convert' } },
-    { id: 'retention', count: 17, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
+    { id: 'conversion', count: 18, marketing: 'Conversion', product: 'Conversion', short: { marketing: 'Convert', product: 'Convert' } },
+    { id: 'retention', count: 18, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
     { id: 'advocacy', count: 6, marketing: 'Advocacy', product: 'Referral', short: { marketing: 'Advocate', product: 'Refer' } }
   ];
 
