@@ -2629,31 +2629,24 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .beats-row {
   display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  margin: 0 -20px;
-  padding: 0 20px 4px;
+  flex-direction: column;
 }
 
 .beats-card {
-  flex: 0 0 82%;
-  scroll-snap-align: center;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
 }
+.beats-card:first-child { border-top: none; }
 
-.beats-icon { display: block; width: 30px; height: 30px; color: var(--ink); margin-bottom: 10px; }
+.beats-icon { display: block; flex: 0 0 auto; width: 26px; height: 26px; color: var(--ink); margin-top: 1px; }
 
-.beats-card h3 { font-family: Georgia, serif; font-size: 1rem; margin: 0 0 5px; }
-.beats-card p { margin: 0; font-size: 0.86rem; color: var(--muted); line-height: 1.45; }
-
-.beats-dots { display: flex; justify-content: center; gap: 5px; margin: 10px 0 0; }
-.beats-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background 0.15s ease, width 0.15s ease; }
-.beats-dot.active { background: var(--terracotta); width: 16px; border-radius: 3px; }
+.beats-card-text h3 { font-family: Georgia, serif; font-size: 0.9rem; margin: 0 0 2px; }
+.beats-card-text p { margin: 0; font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
 
 .beats-close { text-align: center; padding-top: 16px; }
 .beats-close p { font-family: Georgia, serif; font-size: 1.05rem; font-weight: 700; margin: 0 0 12px; }
@@ -2671,22 +2664,27 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 @media (min-width: 640px) {
-  .beats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    overflow: visible;
-    margin: 0;
-    padding: 0;
+  .beats-row { flex-direction: row; gap: 18px; }
+  .beats-card {
+    flex: 1;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
   }
-  .beats-card { border-top: 3px solid var(--teal); }
-  .beats-dots { display: none; }
+  .beats-icon { width: 34px; height: 34px; margin-top: 0; margin-bottom: 10px; }
+  .beats-card-text h3 { font-size: 1rem; margin-bottom: 5px; }
+  .beats-card-text p { font-size: 0.86rem; line-height: 1.45; }
 }
 
 /* single-entry variant of the beats-teaser: used while a new teaser section
    only has one real item to show (see The Science Behind, launched with a
-   single entry). Swaps the 3-up carousel/grid for one wider feature card
-   rather than force-filling empty grid slots or inventing placeholder
-   content; convert back to .beats-row once a second real entry exists. */
+   single entry). Swaps the divided list / row of cards for one wider
+   feature card rather than force-filling empty slots or inventing
+   placeholder content; convert back to .beats-row once a second real
+   entry exists. */
 .beats-feature {
   display: flex;
   align-items: flex-start;
