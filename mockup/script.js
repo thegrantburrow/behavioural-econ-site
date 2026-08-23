@@ -921,3 +921,79 @@
     cards.forEach(function (c) { observer.observe(c); });
   });
 })();
+
+(function () {
+  // The Science Behind page: two independent filter axes (domain, signal
+  // type) plus search, all combined with AND logic against the same
+  // article list and TOC. Distinct from every other page's single-category
+  // filter model because this content type is deliberately tagged on two
+  // orthogonal taxonomies at once (see the science-behind-article skill).
+  // No-ops on any page without this markup.
+  var searchInput = document.getElementById('sbSearch');
+  var domainTabs = document.querySelectorAll('#sbDomainTabs .toc-tab');
+  var signalTabs = document.querySelectorAll('#sbSignalTabs .toc-tab');
+  var cards = document.querySelectorAll('article.sb-entry');
+  var tocItems = document.querySelectorAll('#sbToc > li');
+  var emptyMsg = document.getElementById('sbEmpty');
+  if (!domainTabs.length || !cards.length) return;
+
+  var activeDomain = 'all';
+  var activeSignal = 'all';
+
+  function cardText(card) {
+    if (card.dataset.searchText) return card.dataset.searchText;
+    var title = card.querySelector('h2');
+    var lead = card.querySelector('.sb-lead');
+    var text = ((title ? title.textContent : '') + ' ' + (lead ? lead.textContent : '')).toLowerCase();
+    card.dataset.searchText = text;
+    return text;
+  }
+
+  function applyFilter() {
+    var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    var visibleCount = 0;
+    cards.forEach(function (card, i) {
+      var matchesDomain = activeDomain === 'all' || card.getAttribute('data-domain') === activeDomain;
+      var matchesSignal = activeSignal === 'all' || card.getAttribute('data-signal') === activeSignal;
+      var matchesSearch = query === '' || cardText(card).indexOf(query) !== -1;
+      var visible = matchesDomain && matchesSignal && matchesSearch;
+      card.hidden = !visible;
+      if (tocItems[i]) tocItems[i].hidden = !visible;
+      if (visible) visibleCount++;
+    });
+    if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+  }
+
+  domainTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activeDomain = tab.getAttribute('data-filter-target');
+      domainTabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      applyFilter();
+    });
+  });
+
+  signalTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activeSignal = tab.getAttribute('data-filter-target');
+      signalTabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      applyFilter();
+    });
+  });
+
+  if (searchInput) searchInput.addEventListener('input', applyFilter);
+
+  var urlCategory = new URLSearchParams(window.location.search).get('category');
+  if (urlCategory) {
+    domainTabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlCategory) t.click();
+    });
+  }
+})();

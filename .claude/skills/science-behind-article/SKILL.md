@@ -1,0 +1,45 @@
+---
+name: science-behind-article
+description: Use whenever the user asks to write, add, or expand an entry for the site's "The Science Behind" page (science-behind.html), a piece decoding which real behavioural-economics mechanisms are baked into a real product, craft, or tactic (selvedge denim, an espresso machine, a campaign slogan). Trigger on phrasing like "write a Science Behind piece on X", "decode X", "add an entry for the science behind page", or any request to reverse-engineer a real object or practice into the principles that explain why it feels the way it does. Distinct from behavioural-principle-article (mechanism-first, one academic study) and experiment-blueprint (a testable future blueprint): this content type is object-first, starting from a real thing people already own or encounter, not a study or a hypothesis.
+---
+
+# Science Behind Article
+
+## Why this exists
+
+"The Science Behind" was approved 2026-08-23 after a 4-decision options review (structure, categories, nav, homepage placement). The owner's own instruction on picking the winning structure: "Use this as the base but enrich with option b and c which add value. But don't overwhelm. Be elegant... You'll need to codify as a skill so you can produce these as a standard for each new entry." This file is that codification. Every future entry should read like it came from the same hand as the first one, not like each was designed from scratch.
+
+## What this content type is, and isn't
+
+It starts from a real, recognisable object or practice, not a study. The mechanisms cited are the site's own Principles, linked back to their full citation and study-card on `principles.html`, never re-argued from scratch here. This piece's job is to connect a real thing to mechanisms the site has already earned the right to cite, not to introduce new academic claims. If a genuinely new mechanism is needed and it isn't on the Principles page yet, write that principle first (`behavioural-principle-article` skill), then write the Science Behind entry that cites it.
+
+## The structure, in this order
+
+The winning direction merged three reviewed options into one: sequential mechanism prose (readable, does the actual explaining), a quick-scan chip strip (lets a skimmer get the gist in five seconds), and a closing real-vs-perceived split (the site's honesty instinct, made explicit). Every entry gets all three, in this order, and nothing else layered on top, that combination was explicitly chosen over piling on more structure ("don't overwhelm, be elegant").
+
+1. **Header.** A large hero icon (system #18, see below) beside the entry's title. Title is a question, matching the site's `salient-question` convention elsewhere: name the surprising thing, not the product category ("Why does raw selvedge denim feel like better quality than jeans that actually fit?" not "About Selvedge Denim"). One `.sb-lead` sentence under the title stating the object plainly.
+2. **Chip strip** (`.sb-chips`). One `.sb-chip` per mechanism used in this entry, 3-4 typical, each linking straight to that principle's anchor on `principles.html`. This is the five-second version of the whole piece; a reader should be able to stop here and already have the gist.
+3. **Mechanism walkthrough** (`.sb-block`, one per mechanism, same order as the chip strip). Each block names the mechanism, explains the plain mechanism (not a repeat of the principle's own copy, write it fresh for this specific object), and points at the literal, physical detail of the real thing that triggers it. This is the actual explaining; the chips are a index into it, not a substitute for it.
+4. **Real vs. Perceived split** (`.sb-split`, two columns). Left column: what's genuinely, physically true about the object, verifiable, would still be true with all the marketing stripped away. Right column: the psychological framing layered on top, each item linked to its mechanism. This is the capstone, not a repeat of section 3, keep each line to a single clause.
+5. **Sources.** A `.sb-sources` block. Every mechanism cited already has its full citation on the Principles page, don't re-cite it here, just confirm the link target is correct. Any claim about the *object itself* (a production process, a material fact, a piece of industry history) that isn't common knowledge needs its own real source, a real article or industry reference, not a fabricated one. If a fact can't be verified, say so or cut it, the same rule the whole site already runs on.
+6. **Real examples** (`.sb-brands` block). Real, currently operating brands or products, with real links to their actual sites, spanning a real price range where price is relevant. Never invent a brand, a price, or a URL. WebSearch to confirm a brand's site is real and current before linking it; if a specific price can't be confirmed with confidence, describe a range sourced from more than one real listing rather than pinning a single number that might already be stale. These are illustrative real examples, not endorsements or affiliate placements, no tracking parameters, no sponsored framing.
+
+## The icon (system #18 in `VISUAL-SYSTEMS.md`)
+
+Every entry gets one hero icon, `.sb-hero-icon`, roughly double the scale of the site's small eyebrow-tag icons (system #1). It must depict the *literal* real object, a jean leg with a visible selvedge cuff for denim, a portafilter for an espresso machine, a ballot for political messaging, never a generic category stand-in (no generic "shirt" icon for a specific denim weave, the same literal-object discipline `principle-mechanism-diagram` already enforces on illustrations). 24x24 viewBox, stroke-width 1.7, ink plus exactly one terracotta accent, consistent with the rest of the site's line-icon language, just bigger. Before drawing one, look at what's actually distinctive about the object, not what's easiest to draw.
+
+## Categories: two axes, both shown, both browsable
+
+The review explicitly asked to combine the domain taxonomy and the signal-type taxonomy rather than pick one, "keep distinct for easy navigation and categorisation as we scale and to show where it fits in each piece." Every entry carries both:
+
+- **Domain** (`data-domain`): the primary navigation axis, using the same landing-hub category-tile pattern (system #17) as Principles/Sessions/Experiments. Current domains: `craft-materials` (Craft & Materials), `food-drink` (Food & Drink), `tech-product` (Tech & Product Design), `politics-messaging` (Politics & Public Messaging), `everyday-retail` (Everyday Retail). Add a new domain only when an entry genuinely doesn't fit an existing one, don't split an existing domain just to keep counts even.
+- **Signal type** (`data-signal`): a secondary `.toc-tabs` filter row beneath the domain tiles, cutting across domains. Current signals: `looks-handmade` (What Looks Handmade), `feels-premium` (What Feels Premium), `sounds-true` (What Sounds True), `feels-personal` (What Feels Personal).
+
+Both tags render as visible chips on the entry itself (`.sb-tag.domain` and `.sb-tag.signal`), not just in the filter UI, so a reader landing on one entry can see where it sits on both axes without going back to the hub.
+
+## Voice and rigor, same as everywhere else on the site
+
+- **No em dashes**, anywhere. See `CLAUDE.md`'s standing policy, real punctuation only.
+- **Run the `authentic-voice` four-question test** before calling any entry finished, the contrastive "X, not Y" tic is exactly as easy to fall into here as anywhere else on the site.
+- **Never fabricate a URL.** A brand link, a source link, an icon reference, every one has to be a real, verifiable address. If a fact can't be verified, disclose that rather than guessing.
+- **The tone stays descriptive, not preachy.** This is decoding, not shaming a product or its buyers for responding to real psychology. The `behavioural-principle-article` skill's rule (teach recognition, don't hand out a manipulation playbook) applies here too, especially in the real-vs-perceived split: the perceived column names a real mechanism, it doesn't imply the buyer was foolish for responding to it.
