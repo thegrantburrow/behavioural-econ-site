@@ -54,6 +54,15 @@ For every "X, not Y" (or "It's not X, it's Y," or "isn't a Y, it's a Z") constru
 
 Run the same four-question test against hallmarks 2 through 10 above when reviewing a full piece, not just #1. A rule-of-three that's actually three things is fine; a rule-of-three imposed on two things and a stretch isn't. A transition word is fine once; three in a row reads like an outline.
 
+## The 2026-08-23 catch: CV and evidence-table content has its own tells
+
+This skill was written against flowing editorial prose (principle articles, field sessions). Applying it to a bulleted CV-style evidence table for Grant's UTS Recognition of Prior Learning application, on his direct instruction to "ensure written as me not AI," surfaced two real failure modes the original ten don't name directly, both confirmed by grep against the actual file, not guessed at:
+
+11. **Verbatim phrase reuse across entries.** The same descriptive phrase copy-pasted into two different bullet points ("anchoring, salience, default effects" used identically for two different employers; "structurally different" used twice to describe two different things). In flowing prose this reads as repetition; in a table where a reader compares rows side by side, it reads as templated filler dressed up as two separate observations. Fix: say the same underlying fact in a different way each time, or cut the repeat and let the first instance stand.
+12. **Mechanical uniform bullet architecture.** Every bullet following the identical shape (`<b>Title, Company</b> (dates): verb-led clause`) is the bulleted-list version of hallmark #7's uniform sentence rhythm, and just as mechanical: a reader's eye slides over it as a template rather than reading each line as its own claim. Fix: vary which part of the bullet leads. Some open with the role, some with the outcome, some with the fact itself; the dates and title can trail in a clause instead of always fronting the sentence.
+
+Hallmark #8 (superficial analysis dressed as depth) also has a sharper version in this context: **confidently describing what a role "must have involved" when the only real source is a bare job title and date range.** A CV bullet inferring specific responsibilities from a title alone, with no supporting detail in the actual source document, reads as embellishment even when every individual word is plausible. Fix: state the verifiable fact (title, dates, tenure) plainly, and only add interpretive claims about what the role actually entailed when the source material (a description, a stated achievement, a number) actually supports it.
+
 ## Before calling anything finished
 
 Read the piece once, specifically hunting for these ten patterns, the way the owner's own global standing policy already asks for a "genuine last read-through from the reader's seat" before calling a document done. This is that read-through, scoped to sentence-level construction rather than document-level scaffolding. Run it on every new principle article, field session, experiment blueprint, and special report as a default step in finishing the piece.
