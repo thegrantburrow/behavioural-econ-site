@@ -1884,40 +1884,16 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   .story-stack-item { padding: 18px 22px; }
 }
 
-/* ---------- field note (stance piece, not a study) ---------- */
-.field-note { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 136px; }
-
-/* Narrower and framed as a quiet card, rather than just a narrower text
-   column: on the homepage this section sits between two full-width card
-   grids, and a left-flush paragraph inside the full 1080px column left
-   roughly half the desktop viewport empty on the right, reading as an
-   unfinished layout rather than a deliberate quiet beat. Text inside
-   stays left-aligned; only the card itself is centered. */
-@media (min-width: 900px) {
-  .field-note .wrap {
-    max-width: 620px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-    padding: 36px 44px;
-  }
-}
-
+/* ---------- field note tag: a generic small pill reused as the eyebrow
+   tag on experiment blueprints ("Experiment blueprint") and field
+   sessions ("A session recap, not a study"). Not tied to any one
+   section wrapper. ---------- */
 .field-note-tag {
   display: inline-block;
   font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800;
   padding: 3px 9px; border-radius: 999px;
   background: var(--line); color: var(--muted);
   margin-bottom: 14px;
-}
-
-.field-note h3 { font-family: Georgia, serif; font-size: 1.2rem; margin: 0 0 14px; max-width: 30ch; }
-.field-note p { font-size: 0.92rem; color: rgba(42, 48, 59, 0.85); max-width: 62ch; margin: 0 0 12px; }
-.field-note .stance-note { font-style: italic; color: var(--muted); font-size: 0.85rem; }
-
-@media (min-width: 640px) {
-  .field-note { padding: 52px 0; }
 }
 
 /* ---------- explore hub: the single consolidated destination grid that
