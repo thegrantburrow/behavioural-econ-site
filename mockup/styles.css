@@ -331,7 +331,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   width: 100%;
   max-width: 340px;
   height: auto;
-  margin: 0 0 22px;
+  margin: 0 0 12px;
   animation: heroFadeUp 0.6s ease-out both;
 }
 
@@ -343,19 +343,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--ink);
-  background: linear-gradient(90deg, rgba(74, 107, 138, 0.16), rgba(184, 167, 110, 0.22), rgba(168, 90, 69, 0.16));
+  color: var(--muted);
+  background: none;
   border-radius: 999px;
-  padding: 7px 14px 7px 11px;
+  padding: 0;
   margin-bottom: 18px;
   animation: heroFadeUp 0.6s ease-out both;
 }
 
-.eyebrow-icon { width: 14px; height: 14px; color: var(--terracotta-dim); flex-shrink: 0; }
+.eyebrow-icon { width: 12px; height: 12px; color: var(--muted); flex-shrink: 0; opacity: 0.8; }
 
 .eyebrow-byline-group {
   white-space: nowrap;
