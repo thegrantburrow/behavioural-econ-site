@@ -497,6 +497,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .tile-icon-chip.chip-a { background: rgba(196, 62, 31, 0.14); }
 .tile-icon-chip.chip-b { background: rgba(224, 169, 58, 0.28); }
 .tile-icon-chip.chip-c { background: rgba(31, 122, 108, 0.14); }
+.tile-icon-chip.chip-d { background: rgba(27, 30, 36, 0.1); }
 .tile-icon-chip.chip-square { border-radius: 12px; }
 
 @media (min-width: 640px) {
