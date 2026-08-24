@@ -1912,36 +1912,46 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .field-note { padding: 52px 0; }
 }
 
-/* ---------- explore ---------- */
-.explore { padding: 28px 0; border-top: 1px solid var(--line); }
-.explore h2 { font-size: 1.25rem; margin-bottom: 14px; }
+/* ---------- explore hub: the single consolidated destination grid that
+   replaced four separate teaser sections (Science Behind, Reports,
+   Experiments, and the old "More to explore"). Icon chips reuse
+   .tile-icon-chip from the persona picker verbatim, so this doesn't
+   introduce a new icon treatment alongside the site's existing ones. ---------- */
+.explore-hub { padding: 28px 0; border-top: 1px solid var(--line); }
+.explore-hub-title { font-family: Georgia, serif; font-size: 1.25rem; margin: 0 0 6px; }
+.explore-hub-sub { font-size: 0.85rem; color: var(--muted); margin: 0 0 16px; max-width: 52ch; }
 
-.explore-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.explore-hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-@media (min-width: 640px) {
-  .explore { padding: 72px 0; }
-  .explore h2 { font-size: 1.7rem; margin-bottom: 28px; }
-  .explore-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
-}
-
-.explore-card {
+.explore-hub-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 14px 16px;
+  padding: 18px 8px 16px;
   text-decoration: none;
   color: var(--ink);
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 }
+.explore-hub-card:hover { border-color: var(--terracotta); }
 
-.explore-card:hover { border-color: var(--terracotta); }
-.explore-card h3 { font-size: 1rem; margin-bottom: 3px; }
-.explore-card p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+.explore-hub-text { display: flex; flex-direction: column; gap: 2px; }
+.explore-hub-name { font-family: Georgia, serif; font-weight: 700; font-size: 0.86rem; line-height: 1.25; }
+.explore-hub-count { font-size: 0.72rem; color: var(--muted); }
 
 @media (min-width: 640px) {
-  .explore-card { padding: 20px; }
-  .explore-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
-  .explore-card p { font-size: 0.88rem; }
+  .explore-hub { padding: 56px 0; border-top: none; }
+  .explore-hub-title { font-size: 1.7rem; margin-bottom: 8px; }
+  .explore-hub-sub { font-size: 0.95rem; margin-bottom: 28px; }
+  .explore-hub-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .explore-hub-card { flex-direction: row; text-align: left; align-items: center; gap: 14px; padding: 20px 18px; border-radius: 14px; }
+  .explore-hub-card:hover { box-shadow: 0 10px 24px rgba(0, 0, 0, 0.07); transform: translateY(-2px); }
+  .explore-hub-card .tile-icon-chip { flex-shrink: 0; }
+  .explore-hub-name { font-size: 0.98rem; }
 }
 
 /* ---------- inline newsletter (compact, sits right after the hero so
