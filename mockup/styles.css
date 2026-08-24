@@ -486,7 +486,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .tile-icon-chip.chip-b { background: rgba(184, 167, 110, 0.28); }
 .tile-icon-chip.chip-c { background: rgba(168, 90, 69, 0.14); }
 
-.persona-panel { max-width: 620px; margin: 16px auto 0; scroll-margin-top: 76px; }
+.persona-panel { max-width: 620px; margin: 16px auto 0; scroll-margin-top: 136px; }
 .persona-panel[hidden] { display: none; }
 .persona-panel-headline {
   text-align: center; font-family: Georgia, "Times New Roman", serif; font-size: 1.05rem;
@@ -516,7 +516,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- about ---------- */
-.about { padding: 22px 0 24px; scroll-margin-top: 64px; }
+.about { padding: 22px 0 24px; scroll-margin-top: 136px; }
 
 .about .lede {
   font-size: clamp(1rem, 3.6vw, 1.15rem);
@@ -646,7 +646,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- journey selector (homepage curated entry point) ---------- */
-.journey { padding: 22px 0 28px; scroll-margin-top: 64px; }
+.journey { padding: 22px 0 28px; scroll-margin-top: 136px; }
 
 .journey-inner {
   max-width: 480px;
@@ -816,7 +816,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .stage-view {
   padding: 28px 0 32px;
   border-bottom: 1px solid var(--line);
-  scroll-margin-top: 64px;
+  scroll-margin-top: 136px;
 }
 
 .stage-view .toc-intro { margin: 0 0 20px; }
@@ -919,7 +919,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .stage-view-close:hover { text-decoration: underline; }
 
 /* ---------- landing hub (nav-entry layer: intro, category tiles, full index) ---------- */
-.landing-hub { padding: 32px 0 30px; border-bottom: 1px solid var(--line); scroll-margin-top: 64px; }
+.landing-hub { padding: 32px 0 30px; border-bottom: 1px solid var(--line); scroll-margin-top: 136px; }
 
 .landing-hub-intro {
   font-size: 0.98rem;
@@ -1023,7 +1023,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .hub-anchor-icon svg { width: 19px; height: 19px; }
 
 /* ---------- principles archive page (search + filter + full list) ---------- */
-.principles-index { padding: 28px 0 40px; scroll-margin-top: 64px; }
+.principles-index { padding: 28px 0 40px; scroll-margin-top: 136px; }
 
 .principles-index-title {
   font-family: Georgia, "Times New Roman", serif;
@@ -1057,7 +1057,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* ---------- principle sections ---------- */
 .principle {
   padding: 4px 0;
-  scroll-margin-top: 64px;
+  scroll-margin-top: 136px;
   border-top: 1px solid var(--line);
 }
 
@@ -1630,7 +1630,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* ---------- special report ---------- */
 .report {
   padding: 40px 0 44px;
-  scroll-margin-top: 64px;
+  scroll-margin-top: 136px;
   background: var(--teal);
   color: var(--paper);
 }
@@ -1650,7 +1650,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .report .lede { font-size: 0.97rem; color: rgba(243, 241, 234, 0.82); max-width: 62ch; margin: 0 0 30px; }
 .report .lede b { color: var(--mustard); }
 
-.report-section { margin-top: 40px; scroll-margin-top: 64px; padding-top: 32px; border-top: 2px solid rgba(243, 241, 234, 0.22); }
+.report-section { margin-top: 40px; scroll-margin-top: 136px; padding-top: 32px; border-top: 2px solid rgba(243, 241, 234, 0.22); }
 .report-section:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
 .report-section h3 { font-size: 1.3rem; margin-bottom: 10px; color: var(--paper); }
 .report-section .intro { font-size: 0.92rem; color: rgba(243, 241, 234, 0.78); max-width: 64ch; margin: 0 0 18px; }
@@ -1848,7 +1848,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* ---------- field note (stance piece, not a study) ---------- */
-.field-note { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+.field-note { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 136px; }
 
 .field-note-tag {
   display: inline-block;
@@ -2063,7 +2063,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .session-toc-upcoming li { flex: 1 1 260px; }
 }
 
-.session { padding: 8px 0 48px; scroll-margin-top: 64px; }
+.session { padding: 8px 0 48px; scroll-margin-top: 136px; }
 .session .field-note-tag { margin-right: 8px; }
 .session > .wrap > .case-tag {
   display: inline-block;
@@ -2398,7 +2398,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .doc-mock + .app-mock-note { max-width: 460px; }
 
 /* ---------- digital & product experiments page ---------- */
-.experiment { padding: 8px 0 48px; scroll-margin-top: 64px; border-top: 1px solid var(--line); }
+.experiment { padding: 8px 0 48px; scroll-margin-top: 136px; border-top: 1px solid var(--line); }
 .experiment .field-note-tag { margin-right: 8px; }
 .experiment > .wrap > .case-tag { display: inline-block; margin-bottom: 14px; }
 .experiment h2 { font-size: clamp(1.4rem, 6vw, 2rem); margin: 4px 0 8px; max-width: 26ch; }

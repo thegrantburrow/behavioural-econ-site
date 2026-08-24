@@ -405,7 +405,14 @@
     if (details && !details.open) details.open = true;
     target.scrollIntoView();
   }
-  openTargetPrinciple(window.location.hash);
+  // Two rAFs, not one: the initial call can otherwise fire before layout has
+  // settled (web fonts, the just-opened details' own content), landing the
+  // scroll short and leaving the target's heading partially hidden behind
+  // the sticky nav. hashchange navigation (already post-load) doesn't need
+  // this and calls the function directly.
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { openTargetPrinciple(window.location.hash); });
+  });
   window.addEventListener('hashchange', function () { openTargetPrinciple(window.location.hash); });
 
   // Exposed so a combined single-page preview can re-run this without a
