@@ -44,7 +44,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 .wrap {
-  max-width: 1080px;
+  max-width: 756px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -539,7 +539,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 /* ---------- about ---------- */
 .about { padding: 22px 0 24px; scroll-margin-top: 136px; }
 
-/* A left-flush bio inside the full 1080px .wrap left roughly half the
+/* A left-flush bio inside the full-width .wrap left roughly half the
    desktop viewport empty on the right. Framed as a quiet card, narrower
    and centered, rather than just narrowing the text column, so the
    extra space around it reads as a deliberate module, not leftover
@@ -589,7 +589,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 .credential-item .icon { width: 22px; height: 22px; flex-shrink: 0; color: var(--ink); }
 
 @media (min-width: 640px) {
-  .about { padding: 48px 0 56px; }
+  .about { padding: 32px 0 40px; }
   .credentials { flex-direction: row; flex-wrap: wrap; gap: 28px; margin-top: 28px; }
 }
 
@@ -610,6 +610,15 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   color: var(--muted);
   max-width: 46ch;
   margin: 0 0 16px;
+}
+
+@media (min-width: 760px) {
+  /* 46ch left most of the (now-narrower) desktop .wrap empty on the
+     right of every page's opening paragraph, the same "half-screen
+     paragraph" pattern already fixed once for the homepage's About/
+     field-note sections. Widening the measure here fixes it at the
+     one shared class instead of per page. */
+  .toc-intro { max-width: 68ch; font-size: 0.92rem; }
 }
 
 /* category filter row — a single scrollable line on every viewport (the
@@ -1199,6 +1208,14 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 .illustration {
   position: relative;
   border-radius: 14px;
+  /* Own intrinsic cap, not just reliance on a narrow ancestor: on
+     principles.html this sits inside .principle-body (480/620px), which
+     kept it in check, but science-behind.html's .sb-block has no such
+     cap, so width:100% on the svg below stretched it to the full .wrap
+     column, ~850px tall on a 756px desktop wrap. Capping it here fixes
+     it at the component itself, not per-page. */
+  max-width: 480px;
+  margin: 0 auto;
   /* Each mechanism-diagram SVG below has its own viewBox, sized to
      whatever height its actual title/row/caption content needs (a
      short two-line title needs less canvas than a wrapped three-line
@@ -1228,7 +1245,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 }
 
 @media (min-width: 760px) {
-  .illustration { padding: 20px; font-size: 0.85rem; }
+  .illustration { padding: 20px; font-size: 0.85rem; max-width: 560px; }
 }
 
 .illustration::before {
@@ -1729,8 +1746,8 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 }
 
 @media (min-width: 640px) {
-  .report { padding: 80px 0 88px; }
-  .report-section { margin-top: 56px; padding-top: 48px; }
+  .report { padding: 52px 0 60px; }
+  .report-section { margin-top: 40px; padding-top: 32px; }
 }
 
 /* ---------- evidence-strength ladder (evidence-strength.html) ---------- */
@@ -1928,7 +1945,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 .explore-hub-count { font-size: 0.72rem; color: var(--muted); }
 
 @media (min-width: 640px) {
-  .explore-hub { padding: 56px 0; border-top: none; }
+  .explore-hub { padding: 40px 0; border-top: none; }
   .explore-hub-title { font-size: 1.7rem; margin-bottom: 8px; }
   .explore-hub-sub { font-size: 0.95rem; margin-bottom: 28px; }
   .explore-hub-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -2035,7 +2052,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 }
 
 @media (min-width: 640px) {
-  .newsletter { padding: 68px 0; }
+  .newsletter { padding: 48px 0; }
 }
 
 /* ---------- field sessions page ---------- */
