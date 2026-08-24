@@ -531,10 +531,20 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* ---------- about ---------- */
 .about { padding: 22px 0 24px; scroll-margin-top: 136px; }
 
-/* Same re-centering as .field-note: a left-flush bio inside the full
-   1080px .wrap left roughly half the desktop viewport empty on the right. */
+/* A left-flush bio inside the full 1080px .wrap left roughly half the
+   desktop viewport empty on the right. Framed as a quiet card, narrower
+   and centered, rather than just narrowing the text column, so the
+   extra space around it reads as a deliberate module, not leftover
+   layout. Text inside stays left-aligned; only the card is centered. */
 @media (min-width: 900px) {
-  .about .wrap { max-width: 700px; }
+  .about .wrap {
+    max-width: 620px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    padding: 40px 44px;
+  }
 }
 
 .about .lede {
@@ -1869,13 +1879,21 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* ---------- field note (stance piece, not a study) ---------- */
 .field-note { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 136px; }
 
-/* Narrower + re-centered than the default 1080px .wrap: on the homepage
-   this section sits between two full-width card grids, and a left-flush
-   paragraph inside the full 1080px column left roughly half the desktop
-   viewport empty on the right, reading as an unfinished layout rather
-   than a deliberate quiet beat. */
+/* Narrower and framed as a quiet card, rather than just a narrower text
+   column: on the homepage this section sits between two full-width card
+   grids, and a left-flush paragraph inside the full 1080px column left
+   roughly half the desktop viewport empty on the right, reading as an
+   unfinished layout rather than a deliberate quiet beat. Text inside
+   stays left-aligned; only the card itself is centered. */
 @media (min-width: 900px) {
-  .field-note .wrap { max-width: 700px; }
+  .field-note .wrap {
+    max-width: 620px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    padding: 36px 44px;
+  }
 }
 
 .field-note-tag {
