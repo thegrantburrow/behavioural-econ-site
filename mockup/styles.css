@@ -424,6 +424,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .proof-row { display: flex; gap: 18px; margin: 0; flex-wrap: wrap; }
 .proof-item { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
 .proof-item svg { color: var(--ink); }
+
+/* Above 900px the hero's left-flush logo/headline/tagline left roughly
+   half the viewport empty on the right, with no visual counterweight.
+   Centering the whole block turns that into even, deliberate margin on
+   both sides instead of one-sided dead space. Left-aligned below 900px
+   is unaffected. */
+@media (min-width: 900px) {
+  .hero .wrap { text-align: center; }
+  .hero-logo { margin-left: auto; margin-right: auto; }
+  .hero h1 { margin-left: auto; margin-right: auto; }
+  .proof-row { justify-content: center; }
+}
+
 .proof-item b {
   font-size: 0.68rem;
   font-weight: 700;
@@ -517,6 +530,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 /* ---------- about ---------- */
 .about { padding: 22px 0 24px; scroll-margin-top: 136px; }
+
+/* Same re-centering as .field-note: a left-flush bio inside the full
+   1080px .wrap left roughly half the desktop viewport empty on the right. */
+@media (min-width: 900px) {
+  .about .wrap { max-width: 700px; }
+}
 
 .about .lede {
   font-size: clamp(1rem, 3.6vw, 1.15rem);
@@ -1850,6 +1869,15 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 /* ---------- field note (stance piece, not a study) ---------- */
 .field-note { padding: 26px 0; border-top: 1px solid var(--line); scroll-margin-top: 136px; }
 
+/* Narrower + re-centered than the default 1080px .wrap: on the homepage
+   this section sits between two full-width card grids, and a left-flush
+   paragraph inside the full 1080px column left roughly half the desktop
+   viewport empty on the right, reading as an unfinished layout rather
+   than a deliberate quiet beat. */
+@media (min-width: 900px) {
+  .field-note .wrap { max-width: 700px; }
+}
+
 .field-note-tag {
   display: inline-block;
   font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800;
@@ -2725,30 +2753,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .beats-card-text h3 { font-size: 1rem; margin-bottom: 5px; }
   .beats-card-text p { font-size: 0.86rem; line-height: 1.45; }
 }
-
-/* single-entry variant of the beats-teaser: used while a new teaser section
-   only has one real item to show (see The Science Behind, launched with a
-   single entry). Swaps the divided list / row of cards for one wider
-   feature card rather than force-filling empty slots or inventing
-   placeholder content; convert back to .beats-row once a second real
-   entry exists. */
-.beats-feature {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--teal);
-  border-radius: 12px;
-  padding: 20px;
-  text-decoration: none;
-  color: inherit;
-  max-width: 640px;
-  margin: 0 auto;
-}
-.beats-feature .beats-icon { flex: 0 0 auto; margin-bottom: 0; width: 34px; height: 34px; }
-.beats-feature h3 { font-family: Georgia, serif; font-size: 1.08rem; margin: 0 0 6px; }
-.beats-feature p { margin: 0; font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
 
 /* ---------- apply-it page (adaptive principle/problem to experiment tool) ---------- */
 .apply-tool { padding: 8px 0 48px; }
