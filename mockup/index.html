@@ -13,7 +13,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F3F1EA">
+<meta name="theme-color" content="#F5F6F5">
 <title>What Works &amp; Why: real examples, real research</title>
 <meta name="description" content="What Works &amp; Why is a guide to applied behavioural economics: 69 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
 <link rel="canonical" href="https://www.grantburrow.com/">
@@ -136,7 +136,15 @@
     </span>
     <h1 class="hero-h1 grad-word">You're already doing <span class="accent-word">behavioural
       <svg class="accent-underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M4,10 C40,5 90,14 130,8 C160,4 180,13 196,7" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" pathLength="1"></path>
+        <defs>
+          <linearGradient id="heroUnderlineGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="var(--ink)"></stop>
+            <stop offset="32%" stop-color="var(--terracotta)"></stop>
+            <stop offset="64%" stop-color="var(--mustard)"></stop>
+            <stop offset="100%" stop-color="var(--teal)"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M4,10 C40,5 90,14 130,8 C160,4 180,13 196,7" fill="none" stroke="url(#heroUnderlineGradient)" stroke-width="4" stroke-linecap="round" pathLength="1"></path>
       </svg>
     </span> economics.</h1>
     <p class="hero-tagline">Probably without knowing it. And probably doing it badly.</p>
