@@ -58,32 +58,68 @@
   // doesn't have this markup (i.e. the homepage).
   var searchInput = document.getElementById('principlesSearch');
   var tabs = document.querySelectorAll('#principlesFilterTabs .toc-tab');
-  var rows = document.querySelectorAll('.principles-list > section.principle');
+  var list = document.getElementById('principlesList');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('section.principle'));
   var emptyMsg = document.getElementById('principlesEmpty');
   if (!searchInput || !tabs.length || !rows.length) return;
 
+  // Canonical (numbered) order, captured once, so clearing the search box
+  // or ties in relevance always fall back to this instead of whatever
+  // order the last search happened to leave things in.
+  rows.forEach(function (row, i) { row.dataset.origOrder = i; });
+
   var activeCategory = 'all';
 
-  function rowText(row) {
-    if (row.dataset.searchText) return row.dataset.searchText;
-    var title = row.querySelector('h3');
-    var def = row.querySelector('.definition');
-    var text = ((title ? title.textContent : '') + ' ' + (def ? def.textContent : '')).toLowerCase();
-    row.dataset.searchText = text;
-    return text;
+  function rowParts(row) {
+    if (row.dataset.title === undefined) {
+      var title = row.querySelector('h3');
+      var def = row.querySelector('.definition');
+      row.dataset.title = (title ? title.textContent : '').trim().toLowerCase();
+      row.dataset.def = (def ? def.textContent : '').trim().toLowerCase();
+    }
+    return { title: row.dataset.title, def: row.dataset.def };
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  // Lower score = more relevant. A match on the principle's own name always
+  // outranks a match merely mentioned somewhere in its body text, so
+  // searching "claw" surfaces Clawback first instead of buried under every
+  // other principle whose full definition happens to contain that
+  // substring somewhere. This is what makes the list feel predictive as
+  // it's typed, rather than just a fixed-order show/hide filter.
+  function relevanceScore(row, query) {
+    if (!query) return 0;
+    var parts = rowParts(row);
+    if (parts.title === query) return 0;
+    if (parts.title.indexOf(query) === 0) return 1;
+    if (new RegExp('\\b' + escapeRegExp(query)).test(parts.title)) return 2;
+    if (parts.title.indexOf(query) !== -1) return 3;
+    if (parts.def.indexOf(query) !== -1) return 4;
+    return 5;
   }
 
   function applyFilter() {
     var query = searchInput.value.trim().toLowerCase();
     var visibleCount = 0;
     rows.forEach(function (row) {
+      var parts = rowParts(row);
       var matchesCategory = activeCategory === 'all' || row.getAttribute('data-theme') === activeCategory;
-      var matchesSearch = query === '' || rowText(row).indexOf(query) !== -1;
+      var matchesSearch = query === '' || parts.title.indexOf(query) !== -1 || parts.def.indexOf(query) !== -1;
       var visible = matchesCategory && matchesSearch;
       row.hidden = !visible;
       if (visible) visibleCount++;
     });
     if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+
+    if (list) {
+      rows.slice().sort(function (a, b) {
+        var scoreDiff = relevanceScore(a, query) - relevanceScore(b, query);
+        return scoreDiff !== 0 ? scoreDiff : Number(a.dataset.origOrder) - Number(b.dataset.origOrder);
+      }).forEach(function (row) { list.appendChild(row); });
+    }
   }
 
   tabs.forEach(function (tab) {
