@@ -473,8 +473,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
    inline, so "this applies to you" gets a real page, not two cards. ---------- */
 .persona-picker { padding: 6px 0 26px; }
 .persona-picker-label {
-  text-align: center; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em;
-  font-weight: 800; color: var(--muted); margin: 0 0 14px;
+  text-align: center; font-weight: 800; letter-spacing: -0.01em; color: var(--ink);
+  font-size: clamp(1.3rem, 4vw, 1.7rem); line-height: 1.2; margin: 0 0 18px;
 }
 .persona-tiles {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; max-width: 620px; margin: 0 auto;
@@ -498,6 +498,16 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .tile-icon-chip.chip-c { background: rgba(31, 122, 108, 0.14); }
 .tile-icon-chip.chip-d { background: rgba(27, 30, 36, 0.1); }
 .tile-icon-chip.chip-square { border-radius: 12px; }
+
+/* Persona picker's own icons: reviewed and approved at 68px/no background,
+   50% larger than the shared .tile-icon-chip default and with colour coming
+   only from the icon's own multi-accent detailing, not a tinted backdrop.
+   Scoped to .persona-tile so the shared chip-a/b/c/d system used elsewhere
+   (explore-hub cards, landing-hub category tiles) is untouched. */
+.persona-tile .tile-icon-chip.chip-square {
+  width: 68px; height: 68px; background: none;
+}
+.persona-tile .tile-icon-chip svg { width: 34px; height: 34px; }
 
 @media (min-width: 640px) {
   .persona-tiles { grid-template-columns: repeat(5, 1fr); }
