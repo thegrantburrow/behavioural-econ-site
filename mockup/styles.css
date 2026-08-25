@@ -3028,11 +3028,16 @@ footer a:hover { color: var(--terracotta); }
 }
 .sb-chip:hover { border-color: var(--terracotta); color: var(--terracotta); }
 
-.sb-block { margin: 0 0 22px; }
+.sb-block { margin: 0 0 22px; display: flow-root; }
 .sb-block .k { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--terracotta); margin-bottom: 6px; }
 .sb-block p { font-size: 0.94rem; line-height: 1.62; margin: 0; max-width: 68ch; }
 .sb-block a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
 .sb-block a:hover { text-decoration-color: var(--terracotta); }
+
+.sb-screenshot { float: right; margin: 0 0 12px 20px; max-width: 200px; text-align: center; }
+.sb-screenshot img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 6px 18px rgba(27, 30, 36, 0.12); }
+.sb-screenshot span { display: block; font-size: 0.72rem; color: var(--muted); font-style: italic; margin-top: 8px; line-height: 1.4; }
+@media (max-width: 560px) { .sb-screenshot { float: none; margin: 14px auto; max-width: 240px; } }
 
 .sb-split { margin: 28px 0 26px; }
 .sb-split-label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800; color: var(--muted); margin-bottom: 10px; }
