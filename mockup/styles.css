@@ -421,6 +421,20 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   animation: heroFadeUp 0.6s ease-out 1.15s both;
 }
 
+.hero-report-link {
+  margin: -8px 0 20px;
+  animation: heroFadeUp 0.6s ease-out 1.25s both;
+}
+.hero-report-link a {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(30, 27, 22, 0.3);
+}
+.hero-report-link a:hover { color: var(--terracotta); text-decoration-color: var(--terracotta); }
+
 .proof-row { display: flex; gap: 18px; margin: 0; flex-wrap: wrap; justify-content: center; }
 .proof-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
 .proof-item svg { color: var(--ink); }
@@ -455,7 +469,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .eyebrow, .hero h1, .hero-tagline, .accent-word {
+  .eyebrow, .hero h1, .hero-tagline, .hero-report-link, .accent-word {
     animation: none;
     opacity: 1;
     transform: none;
