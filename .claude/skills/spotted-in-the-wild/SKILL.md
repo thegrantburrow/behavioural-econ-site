@@ -1,0 +1,36 @@
+---
+name: spotted-in-the-wild
+description: Use whenever the user uploads a real screenshot (an app, a checkout flow, a notification, a website) and wants it integrated into a principle article, special report, or Science Behind entry as a live, real-world example of the mechanism, distinct from the article's own academic citation. Trigger on phrasing like "integrate this screenshot into the [X] article", "highlight the key part of this screenshot", "this is a real example for [principle]", or any request to turn an uploaded UI screenshot into a captioned, annotated piece of evidence inside existing site content. Distinct from field-session (the site owner's own photos of their own talks, personal work) and principle-mechanism-diagram (a hand-drawn SVG illustrating the cited academic study, not a real screenshot): this content type is a real third-party screenshot the user found "in the wild," used to show the mechanism actually deployed, not to prove it worked.
+
+---
+
+# Spotted in the Wild
+
+## Why this exists
+
+Founded 2026-08-26 on a direct request: a screenshot of GoDaddy's domain checkout, showing a "CHOSEN BY OVER 225,000 CUSTOMERS EACH MONTH" badge on an upsell, to be worked into the Social Proof principle article as a real, current example of the mechanism in the wild. The user's own framing: "This will become a skill we develop for each screenshot for behavioural articles uploaded and special reports etc." Every future screenshot should go through the same crop → locate → highlight-review → integrate pipeline, not a one-off process invented per image.
+
+## What this content type is, and isn't
+
+It's a **real, third-party UI screenshot** offered as a live instance of a mechanism already established by the article's own academic citation. It is not the evidence itself, the cited study (Salganik et al. for Social Proof, or whichever paper the target article already cites) is what proves the mechanism is real; the screenshot only shows a real company deploying it today. Never let a screenshot's caption imply it demonstrates the effect worked, a vendor's own "225,000 customers" badge is an unverified marketing claim, not a controlled measurement, and the honesty standard this site holds academic citations to (verified vs. paraphrased, sample size, method) applies here too: **a screenshot proves a tactic is in use, never that the tactic caused anything.** This is also distinct from `field-session` (personal photos of the owner's own talks and work) and `principle-mechanism-diagram` (an invented SVG diagram illustrating the cited study's own finding, not a real product).
+
+## The pipeline, in order
+
+1. **Crop to the relevant UI only.** Remove browser chrome, unrelated buttons, and other checkout/payment widgets (Klarna, PayPal, nav bars) that aren't part of the point being made, unless the surrounding context is itself load-bearing (e.g. showing a checkout flow's overall pressure requires keeping the checkout button visible). Check the result for any watermark or platform overlay per `CLAUDE.md`'s standing no-watermark policy, the same check that applies to any other image before it reaches `mockup/images/`.
+2. **Locate the exact claim by pixel boundary, not by eye.** Before drawing any highlight, find the real pixel bounding box of the specific text or number being cited by scanning actual RGB values for the color transition between the claim's background (a badge, a highlighted row) and the surrounding page background, not by eyeballing coordinates off a scaled-down preview. A screenshot rendered to the model is not pixel-accurate to its saved file dimensions; sample real pixel colors in the actual saved file (Python + Pillow, scanning rows/columns for a color transition) to get an exact box, then pad it by roughly 8-10px for the highlight.
+3. **Build five highlight-style options and let the user pick.** Default set, proven on the first real case, reuse these five unless the specific screenshot calls for something else:
+   - **Clean outline** — a rounded-rect stroke around the claim, in the site's terracotta.
+   - **Highlighter marker** — a semi-transparent mustard rectangle behind the text, mimicking a real highlighter pass.
+   - **Spotlight, dim the rest** — everything outside the claim dimmed (ink at roughly 70-75% opacity), the claim itself left at full brightness with a thin outline. The most dramatic option; best when the claim is the entire reason the screenshot is being shown.
+   - **Hand-drawn circle** — 2-3 slightly offset overlapping ellipses in terracotta, faking a sketchy hand annotation rather than a clean UI callout.
+   - **Arrow + caption chip** — a small pill restating the number/claim in the site's own type, with an arrow pointing at the real text. Only works if there's genuine empty space near the claim to place the chip without covering other text; check this before committing to the layout, the first pass of this option covered the bullet list underneath and had to be repositioned into empty space beside the price column instead.
+   Render all five as real images (not descriptions) inside this project's standard `oscarfinch-feedback-html` options-review template (binary toggle + comment per option, one copy-feedback button), per this project's own standing policy that any "options in HTML" request uses that template automatically.
+4. **Wait for the pick**, then finalize only that one image. Save it to `mockup/images/` with a descriptive filename following the site's existing convention (`source-context-slug.jpg` or `.png`, lowercase, hyphenated, e.g. `godaddy-domain-protection-social-proof.png`), not a generic name.
+5. **Integrate as a new "Spotted in the wild" block** inside the target article's `article-body`, positioned after the existing `.article-block`s (psychology / errors / help) and before the `.study-card`, so the reader meets the mechanism explanation and the real citation first, then sees it deployed live, then reaches the academic proof. Caption format, every time: what the real product/company is, the exact quoted claim, the date captured, and one honest sentence flagging that the number is the vendor's own unverified claim, not an independently measured result. Never omit that last sentence, it's the load-bearing honesty check for this whole content type.
+
+## Voice and rigor, same as everywhere else on the site
+
+- **Never let the caption blur "a real company uses this tactic" into "this tactic worked here."** The cited academic study is the site's evidence; the screenshot is an example of deployment, always phrased that way.
+- **No em dashes.** See `CLAUDE.md`'s standing policy.
+- **No watermarks.** Check every screenshot before it reaches `mockup/images/`, the same standing policy that applies to every other image on the site.
+- **Identify the named company if it isn't a household name**, per the identification rule already established in `science-behind-article`. A brand like GoDaddy is recognisable enough to skip this; a smaller or less familiar one needs a one-clause identification before the caption uses its name again.
