@@ -1526,6 +1526,49 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   padding: 14px 16px;
 }
 
+/* ---------- "Spotted in the wild" real-screenshot evidence block ---------- */
+.spotted-wild {
+  margin-top: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.spotted-wild .lbl {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--terracotta);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.spotted-wild .spotted-intro { margin: 0 0 14px; font-size: 0.92rem; color: rgba(27, 30, 36, 0.85); }
+.spotted-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 640px) {
+  .spotted-grid { grid-template-columns: 1fr; }
+}
+.spotted-item img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.spotted-caption { margin: 8px 0 0; font-size: 0.82rem; line-height: 1.5; color: var(--muted); }
+.spotted-caption b { color: var(--ink); }
+.spotted-disclosure {
+  margin: 16px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
 /* ---------- study flow diagram (how the study was actually run) ---------- */
 .flow-diagram {
   margin-top: 14px;
