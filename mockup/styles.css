@@ -2053,6 +2053,46 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   .story-stack-item { padding: 18px 22px; }
 }
 
+/* ---------- field map: the classical economics / psychology / behavioural
+   economics / behavioural science / UX & product design relationship
+   diagram on nobody-owns-a-bias.html. Harmonised with sessions.html's own
+   "Where Behavioural Economics Actually Sits" chart: classical economics
+   and psychology are drawn as two neutral endpoints of one axis, with
+   behavioural economics (terracotta) sitting between them, exactly like
+   that chart's own colour coding. Below that axis, a vertical trunk shows
+   the separate, sequential applied chain: behavioural economics feeds
+   behavioural science (mustard), which feeds UX & product design (teal).
+   This is two different relationships (a trade-off axis, then a one-way
+   chain), not five equal peers, so it deliberately isn't drawn as a single
+   flat row. ---------- */
+.field-map { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px 20px; margin: 24px 0 4px; }
+.field-map-axis-label { text-align: center; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.field-map-axis { display: flex; flex-direction: column; gap: 14px; padding-bottom: 14px; border-bottom: 1px dashed var(--line); }
+@media (min-width: 560px) { .field-map-axis { flex-direction: row; align-items: flex-start; gap: 4px; } }
+.field-map-node { flex: 1; text-align: center; padding: 6px 4px; border-top: 1px dashed var(--line); }
+.field-map-axis .field-map-node:first-child { border-top: none; }
+@media (min-width: 560px) {
+  .field-map-node { border-top: none; border-left: 1px dashed var(--line); }
+  .field-map-node:first-child { border-left: none; }
+  .field-map-node.order-1 { order: 1; }
+  .field-map-node.order-2 { order: 2; }
+  .field-map-node.order-3 { order: 3; }
+}
+.field-map-node .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-bottom: 6px; }
+.field-map-node h4 { font-family: Georgia, serif; font-size: 0.92rem; margin: 0 0 3px; }
+.field-map-node p { font-size: 0.78rem; color: var(--muted); margin: 0; line-height: 1.4; }
+.field-map-node.accent h4 { color: var(--terracotta); }
+.field-map-trunk-wrap { display: flex; flex-direction: column; align-items: center; }
+.field-map-trunk { width: 1px; height: 22px; background: var(--line); }
+.field-map-chain { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.field-map-chain-node { text-align: center; padding: 4px 12px; max-width: 320px; }
+.field-map-chain-node .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-bottom: 6px; }
+.field-map-chain-node h4 { font-family: Georgia, serif; font-size: 0.92rem; margin: 0 0 3px; }
+.field-map-chain-node h4.mustard { color: var(--mustard); }
+.field-map-chain-node h4.teal { color: var(--teal); }
+.field-map-chain-node p { font-size: 0.78rem; color: var(--muted); margin: 0; line-height: 1.4; }
+.field-map-note { text-align: center; font-family: Georgia, serif; font-style: italic; font-size: 0.85rem; color: var(--ink); margin: 16px 0 0; border-top: 1px dashed var(--line); padding-top: 12px; }
+
 /* ---------- field note tag: a generic small pill reused as the eyebrow
    tag on experiment blueprints ("Experiment blueprint") and field
    sessions ("A session recap, not a study"). Not tied to any one
