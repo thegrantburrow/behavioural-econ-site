@@ -110,7 +110,32 @@
    *                     navigates to item.url if present.
    *   emptyMessage   — string shown when there are zero matches. Omit to
    *                     just close the dropdown on zero matches instead.
-   *   classNames     — { list, item, active, empty } CSS class overrides.
+   *   classNames     — { list, item, active, empty, group } CSS class
+   *                     overrides.
+   *   groupBy        — field name (string) or function(item) -> key.
+   *                     When set, results render as labeled groups (e.g.
+   *                     one dataset spanning several content types on a
+   *                     site, grouped the way the site's own nav already
+   *                     categorizes them) instead of one flat list.
+   *                     Group headers are `role="presentation"`, not
+   *                     selectable, and never count toward a result total.
+   *                     Ranking still runs globally first, so the best
+   *                     match within each group still sorts first inside
+   *                     that group. Only applies to the local `data` path,
+   *                     not `search`, same as `relevanceScore`.
+   *   groupOrder     — array of group keys in the order they should
+   *                     display. Any group present in the data but absent
+   *                     from this list is appended after, in the order it
+   *                     was first encountered. Omit to use first-seen
+   *                     order entirely.
+   *   groupLabel     — function(key) -> string shown in the group header.
+   *                     Default: String(key) unchanged.
+   *   maxResultsPerGroup — cap on rows shown per group. Default 4.
+   *                     `maxResults` still applies as an overall cap
+   *                     across every group combined; when `groupBy` is
+   *                     set and `maxResults` isn't explicitly passed, it
+   *                     defaults to unlimited so a real per-group cap
+   *                     isn't silently cut in half by a low overall one.
    */
   function init(options) {
     if (!options || !options.input) {
@@ -122,7 +147,11 @@
     var data = options.data || [];
     var searchFn = options.search || null;
     var fields = merge({ primary: 'title', secondary: 'description' }, options.fields);
-    var maxResults = options.maxResults || 7;
+    var groupBy = options.groupBy || null;
+    var groupOrder = options.groupOrder || null;
+    var groupLabel = options.groupLabel || function (key) { return String(key); };
+    var maxResultsPerGroup = options.maxResultsPerGroup || 4;
+    var maxResults = options.maxResults || (groupBy ? Infinity : 7);
     var minChars = options.minChars || 1;
     var getScore = options.relevanceScore || defaultRelevanceScore;
     var emptyMessage = options.emptyMessage != null ? options.emptyMessage : null;
@@ -130,7 +159,8 @@
       list: 'ps-suggestions',
       item: 'ps-suggestion',
       active: 'active',
-      empty: 'ps-suggestion ps-suggestion-empty'
+      empty: 'ps-suggestion ps-suggestion-empty',
+      group: 'ps-group-label'
     }, options.classNames);
 
     var onSelect = options.onSelect || function (item) {
@@ -191,7 +221,7 @@
       }
     }
 
-    function render(query, items) {
+    function render(query, items, groupBreaks) {
       currentMatches = items;
       if (!items.length) {
         if (emptyMessage) {
@@ -204,10 +234,15 @@
         }
         return;
       }
-      list.innerHTML = items.map(function (item, i) {
-        return '<li class="' + classNames.item + '" id="' + uid + '-opt' + i + '" role="option" data-idx="' + i + '">' +
+      var html = '';
+      items.forEach(function (item, i) {
+        if (groupBreaks && groupBreaks.hasOwnProperty(i)) {
+          html += '<li class="' + classNames.group + '" role="presentation">' + escapeHtml(groupBreaks[i]) + '</li>';
+        }
+        html += '<li class="' + classNames.item + '" id="' + uid + '-opt' + i + '" role="option" data-idx="' + i + '">' +
           formatLabel(item, query) + '</li>';
-      }).join('');
+      });
+      list.innerHTML = html;
       list.hidden = false;
       input.setAttribute('aria-expanded', 'true');
       setActive(-1);
@@ -217,10 +252,33 @@
       var scored = data
         .map(function (item) { return { item: item, score: getScore(item, query, fields) }; })
         .filter(function (s) { return s.score < 5; })
-        .sort(function (a, b) { return a.score - b.score; })
-        .slice(0, maxResults)
-        .map(function (s) { return s.item; });
-      render(query, scored);
+        .sort(function (a, b) { return a.score - b.score; });
+
+      if (!groupBy) {
+        render(query, scored.slice(0, maxResults).map(function (s) { return s.item; }));
+        return;
+      }
+
+      var groups = {};
+      var firstSeen = [];
+      scored.forEach(function (s) {
+        var key = typeof groupBy === 'function' ? groupBy(s.item) : s.item[groupBy];
+        if (!groups[key]) { groups[key] = []; firstSeen.push(key); }
+        if (groups[key].length < maxResultsPerGroup) groups[key].push(s.item);
+      });
+
+      var orderedKeys = (groupOrder || []).filter(function (k) { return groups[k] && groups[k].length; });
+      firstSeen.forEach(function (k) { if (orderedKeys.indexOf(k) === -1) orderedKeys.push(k); });
+
+      var flat = [];
+      var breaks = {};
+      orderedKeys.forEach(function (k) {
+        breaks[flat.length] = groupLabel(k);
+        flat = flat.concat(groups[k]);
+      });
+
+      if (flat.length > maxResults) flat = flat.slice(0, maxResults);
+      render(query, flat, breaks);
     }
 
     function handleInput() {

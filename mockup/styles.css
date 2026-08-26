@@ -914,6 +914,16 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   padding: 0 1px;
 }
 
+.search-suggestion-group {
+  padding: 10px 12px 4px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.search-suggestion-group:first-child { padding-top: 4px; }
+
 .principles-search-cta input {
   flex: 1;
   min-width: 0;

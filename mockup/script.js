@@ -54,15 +54,14 @@
   // Every predictive search box on the site (the homepage's inline search,
   // its standalone search band, and the nav-bar search available on every
   // page) wired through the same portable ranked-suggestions component
-  // (predictive-search.js) against APPLY_PRINCIPLES (loaded via
-  // apply-data.js), the same real id/title list the Apply-It tool already
-  // keeps in sync with principles.html, rather than a duplicated list of
-  // titles per instance. No-ops per box on any page missing its markup.
-  if (typeof PredictiveSearch === 'undefined' || typeof APPLY_PRINCIPLES === 'undefined') return;
+  // (predictive-search.js) against SEARCH_INDEX (loaded via
+  // search-index.js), which covers every real content type on the site,
+  // not just principles, and groups results under the same category
+  // labels the site's own nav menu already uses. No-ops per box on any
+  // page missing its markup.
+  if (typeof PredictiveSearch === 'undefined' || typeof SEARCH_INDEX === 'undefined') return;
 
-  function goToPrinciple(item) {
-    window.location.href = 'principles.html#' + item.id;
-  }
+  var CATEGORY_ORDER = ['Principles', 'The Science Behind', 'Field Sessions', 'Experiments', 'Reading the Research', 'Apply It'];
 
   [
     { input: 'homeSearch', list: 'homeSearchSuggestions' },
@@ -75,10 +74,12 @@
     PredictiveSearch.init({
       input: input,
       list: list,
-      data: APPLY_PRINCIPLES,
+      data: SEARCH_INDEX,
       fields: { primary: 'title', secondary: 'blurb' },
-      classNames: { list: 'search-suggestions', item: 'search-suggestion', active: 'active' },
-      onSelect: goToPrinciple
+      groupBy: 'category',
+      groupOrder: CATEGORY_ORDER,
+      maxResultsPerGroup: 3,
+      classNames: { list: 'search-suggestions', item: 'search-suggestion', active: 'active', group: 'search-suggestion-group' }
     });
   });
 })();
