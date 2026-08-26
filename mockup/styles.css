@@ -1516,6 +1516,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 }
 
 .article-block p { margin: 0; font-size: 0.92rem; color: rgba(27, 30, 36, 0.85); }
+.article-block p + p { margin-top: 12px; }
 
 .study-card {
   margin-top: 20px;
@@ -3168,6 +3169,7 @@ footer a:hover { color: var(--terracotta); }
 .sb-block { margin: 0 0 22px; display: flow-root; }
 .sb-block .k { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--terracotta); margin-bottom: 6px; }
 .sb-block p { font-size: 0.94rem; line-height: 1.62; margin: 0; max-width: 68ch; }
+.sb-block p + p { margin-top: 12px; }
 .sb-block a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 2px; }
 .sb-block a:hover { text-decoration-color: var(--terracotta); }
 

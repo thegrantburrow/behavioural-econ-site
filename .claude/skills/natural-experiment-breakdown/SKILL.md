@@ -61,6 +61,12 @@ Per `science-behind-article`'s identical rule: `.landing-hub-title` reads as a s
 
 "Natural Experiments" shipped with its own full top-level nav item (icon, `nav-desc`, footer link) across every page on the site, mirroring exactly how "Science Behind" itself was rolled out with a full nav item from its first entry rather than starting nested under an existing section and being promoted later. When adding the section for the first time, use a Python script for the multi-file mechanical edit (as this session did for both the nav-rollout and the "Reading the Research" count-sync), and disambiguate the anchor string carefully: a short anchor like `<a href="apply.html">` can match both the real nav-bar instance and an identical-looking footer link, requiring a longer, SVG-content-inclusive anchor to target only the intended instance.
 
+## Chunk any `.sb-block` paragraph over ~110-120 words, and check the CSS spacing when you do
+
+The flagship entry shipped with two `.sb-block` paragraphs (137 and 141 words, one flowing paragraph each) that read as dense, undifferentiated text on a real phone screenshot, the same defect `behavioural-principle-article` had to fix across 18 of its own `.article-block` paragraphs after direct user feedback ("I keep having to tell you about needing to chunk and format so it's not just stabs of text"). Before finishing any `.sb-block`, count words in its paragraph; past ~110-120 words or five sentences, split at the natural idea boundary (the method explained, then its implication; one piece of supporting evidence, then a second) into a second `<p>`.
+
+`.sb-block p { margin: 0; }` in `styles.css` means two sibling `<p>` tags in one block render with no vertical gap unless a sibling-selector rule adds it back, same underlying bug `.article-block` had. `styles.css` now carries `.sb-block p + p { margin-top: 12px; }`, added specifically for this content type; confirm it's still there before shipping a new multi-paragraph block, don't assume the default component spacing already handles it.
+
 ## Voice and rigor, same as everywhere else on the site
 
 - **No em dashes**, anywhere. See `CLAUDE.md`'s standing policy.
