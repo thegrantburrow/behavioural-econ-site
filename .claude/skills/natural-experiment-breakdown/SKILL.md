@@ -67,6 +67,8 @@ The flagship entry shipped with two `.sb-block` paragraphs (137 and 141 words, o
 
 `.sb-block p { margin: 0; }` in `styles.css` means two sibling `<p>` tags in one block render with no vertical gap unless a sibling-selector rule adds it back, same underlying bug `.article-block` had. `styles.css` now carries `.sb-block p + p { margin-top: 12px; }`, added specifically for this content type; confirm it's still there before shipping a new multi-paragraph block, don't assume the default component spacing already handles it.
 
+**Splitting is not enough on its own.** The flagship entry's `.sb-block` paragraphs were split correctly and still needed a second pass once the sibling special report (`proximity-gets-mistaken-for-merit.html`, built the same session) drew this exact feedback: "Same chunking. You're not solving. Just slab of text. Highlight key small parts with bold." Every `.sb-block` paragraph, split or not, needs 1-2 short `<b>`-wrapped phrases bolding the actual finding, the number, or the method's punchline, mid-sentence, not a lead-in label. Check both the word count and the presence of inline bold before calling any block finished. When adding bold to already-published prose, script the replacement and diff the plain text (tags stripped) before and after to confirm nothing was dropped or reworded, not just visually re-check it.
+
 ## Voice and rigor, same as everywhere else on the site
 
 - **No em dashes**, anywhere. See `CLAUDE.md`'s standing policy.
