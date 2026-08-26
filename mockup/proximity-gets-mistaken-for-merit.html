@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN9X80R7HE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KN9X80R7HE');
+  </script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F5F6F5">
+<title>Proximity Gets Mistaken for Merit | What Works &amp; Why</title>
+<meta name="description" content="A 1946 MIT housing lottery and a 2022 machine-learning study of the MLB draft, seventy years apart, found the identical bias: living close to a decision-maker predicts the outcome, even when it has nothing to do with merit.">
+<link rel="canonical" href="https://www.grantburrow.com/proximity-gets-mistaken-for-merit.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="What Works &amp; Why">
+<meta property="og:title" content="Proximity Gets Mistaken for Merit | What Works &amp; Why">
+<meta property="og:description" content="A 1946 MIT housing lottery and a 2022 machine-learning study of the MLB draft, seventy years apart, found the identical bias: living close to a decision-maker predicts the outcome, even when it has nothing to do with merit.">
+<meta property="og:url" content="https://www.grantburrow.com/proximity-gets-mistaken-for-merit.html">
+<meta property="og:image" content="https://www.grantburrow.com/images/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Proximity Gets Mistaken for Merit | What Works &amp; Why">
+<meta name="twitter:description" content="A 1946 MIT housing lottery and a 2022 machine-learning study of the MLB draft, seventy years apart, found the identical bias: living close to a decision-maker predicts the outcome, even when it has nothing to do with merit.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo logo-img-wrap" href="index.html" aria-label="What Works &amp; Why, home"><img class="logo-img" src="images/logo-lockup.png" alt="What Works &amp; Why"></a>
+      <div class="bar-actions">
+        <button class="nav-search-toggle" id="navSearchToggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="navSearchPanel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.3" y2="16.3"></line></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="links" id="navLinks">
+      <img class="links-logo" src="images/logo-lockup.png" alt="What Works &amp; Why">
+      <div class="nav-item-expandable">
+        <a href="principles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="1.5"></rect><line x1="8" y1="7.5" x2="16" y2="7.5"></line><line x1="8" y1="11.5" x2="16" y2="11.5"></line><line x1="8" y1="15.5" x2="13" y2="15.5" stroke="var(--mustard)"></line></svg><span class="link-text">Principles<span class="nav-desc">72 cited principles, searchable and filterable</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 6 principle categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="principles.html?category=judgment">Judgment &amp; Memory</a>
+          <a href="principles.html?category=choice">Choice Architecture</a>
+          <a href="principles.html?category=pricing">Pricing &amp; Value</a>
+          <a href="principles.html?category=social">Social Influence</a>
+          <a href="principles.html?category=motivation">Motivation &amp; Goals</a>
+          <a href="principles.html?category=general">General Principles</a>
+        </div>
+      </div>
+      <a href="science-behind.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg><span class="link-text">The Science Behind<span class="nav-desc">Everyday objects, decoded</span></span></a>
+      <div class="nav-item-expandable">
+        <a href="sessions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V6a2 2 0 0 1 2-2h11.5v15.5H6a2 2 0 0 0-2 2z"></path><line x1="4" y1="19.5" x2="17.5" y2="19.5"></line><line x1="8" y1="7.5" x2="14" y2="7.5" stroke="var(--mustard)"></line></svg><span class="link-text">Field Sessions<span class="nav-desc">Real signage, shopfronts, and screens, photographed</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 2 session types">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="sessions.html?category=field">Field Sessions</a>
+          <a href="sessions.html?category=solo">Solo Field Notes</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3h5v6.2l4.7 8.4a1.6 1.6 0 0 1-1.4 2.4H6.2a1.6 1.6 0 0 1-1.4-2.4l4.7-8.4V3z"></path><line x1="8.7" y1="3" x2="15.3" y2="3"></line><circle cx="12" cy="16" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Experiments<span class="nav-desc">Testable blueprints you could run yourself</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 experiment categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="experiments.html?category=savings-deposits">Savings &amp; Deposits</a>
+          <a href="experiments.html?category=credit-lending">Credit &amp; Lending</a>
+          <a href="experiments.html?category=service-ops">Service &amp; Support</a>
+          <a href="experiments.html?category=fees-pricing">Fees &amp; Pricing</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="reading-the-research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"></circle><line x1="14.8" y1="14.8" x2="20" y2="20" stroke="var(--mustard)"></line></svg><span class="link-text">Reading the Research<span class="nav-desc">How to evaluate a study properly</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 13 related essays">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="evidence-strength.html">How Strong Is That Evidence?<span class="nav-desc">A field guide to causal claims</span></a>
+          <a href="policy-based-evidence.html">Policy-Based Evidence, Not Evidence-Based Policy<span class="nav-desc">Why pilots don't survive scale</span></a>
+          <a href="dont-say-the-e-word.html">Don't Say the E-Word<span class="nav-desc">Why &ldquo;experiment&rdquo; spooks teams</span></a>
+          <a href="how-you-pay-changes-what-you-spend.html">How You Pay Changes What You Spend<span class="nav-desc">Cash, debit, and credit aren't equivalent</span></a>
+          <a href="small-sample-big-claim.html">The Test Was Real. The Conclusion Wasn't.<span class="nav-desc">Thirteen experiments that misled without lying</span></a>
+          <a href="savings-lottery.html">The Lottery You Can't Lose<span class="nav-desc">Why a no-loss lottery moves real savings</span></a>
+          <a href="nobody-owns-a-bias.html">Behavioural Economics vs. Behavioural Science vs. Psychology vs. UX<span class="nav-desc">Nobody owns a bias</span></a>
+          <a href="six-moves-behind-every-pricing-page.html">Six Moves Behind Every Pricing Page<span class="nav-desc">The same six mechanisms, on repeat</span></a>
+          <a href="not-testing-is-still-a-bet.html">Not Testing Is Still a Bet<span class="nav-desc">Why pre-vs-post isn't measurement</span></a>
+          <a href="every-default-decides-who-pays.html">Every Default Decides Who Pays for Doing Nothing<span class="nav-desc">Opt-in, opt-out, forced choice, and what's newer</span></a>
+          <a href="the-fine-print-nobody-reads.html">The Fine Print Nobody Reads<span class="nav-desc">Why disclosure fails, and what actually works</span></a>
+          <a href="you-are-already-doing-behavioural-economics.html">You're Already Doing Behavioural Economics<span class="nav-desc">Eight mechanisms already running on your pages</span></a>
+          <a href="proximity-gets-mistaken-for-merit.html">Proximity Gets Mistaken for Merit<span class="nav-desc">A housing lottery and an MLB draft, seventy years apart</span></a>
+        </div>
+      </div>
+      <a href="natural-experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v7"></path><path d="M12 10 L6 20"></path><path d="M12 10 L18 20"></path><circle cx="12" cy="3" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Natural Experiments<span class="nav-desc">How to prove a cause without an RCT</span></span></a>
+      <a href="apply.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.2"></circle><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"></circle><path d="M12 2.5v3M21.5 12h-3" stroke="var(--terracotta)"></path></svg><span class="link-text">Apply It<span class="nav-desc">Turn a principle or a problem into an experiment</span></span></a>
+      <a href="index.html#about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="11" x2="12" y2="16"></line><circle cx="12" cy="7.5" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">About<span class="nav-desc">Who's behind this, and why</span></span></a>
+      <a href="index.html#newsletter" class="nav-cta">Subscribe<span class="nav-desc">One real study per email, no schedule</span></a>
+    </div>
+  </div>
+  <div class="nav-search-panel" id="navSearchPanel" hidden>
+    <div class="wrap">
+      <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
+        <label for="navSearchInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
+        <input type="search" id="navSearchInput" name="q" placeholder="Search 72 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="navSearchSuggestions" aria-haspopup="listbox">
+        <button type="submit">Search</button>
+        <ul class="search-suggestions" id="navSearchSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<section class="principles-index" id="top">
+  <div class="wrap">
+    <span class="label">Special Report</span>
+    <h1 class="principles-index-title">Proximity Gets Mistaken for Merit</h1>
+    <p class="toc-intro">In 1946, a university let a lottery decide which married student veterans lived next to which. In 2022, a machine-learning study went looking for the same pattern inside a Major League Baseball draft, seventy-six years and an entirely different institution later. Both found it: how close two people happen to live to each other predicts who gets chosen, who gets trusted, and who gets called a good fit, on top of and separate from anything about the person actually being any better.</p>
+    <p class="toc-intro">The baseball case is the harder one to prove. A university can randomly assign apartments and watch what happens next. Nobody can randomly assign where a scouting director lives, or force a draft to happen twice, once with the real geography and once without it. The 2022 study had to make its case a different way, using a real prospect's own statistics and scouting grades to build a stand-in for the random assignment a housing study gets for free. That method, proving a cause when nobody can flip a coin, is common enough across real research that this site now has an entire section built around it: <a href="natural-experiments.html">Natural Experiments</a>.</p>
+    <p class="toc-intro">What follows is both studies read together: the lottery that proved the mechanism, the draft that found it operating on stakes nobody intended, and four questions worth asking of any outcome that gets called merit-based.</p>
+
+    <p class="story-stack-label">The story in four parts</p>
+    <div class="story-stack">
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="9" height="14" rx="1"></rect><rect x="15" y="10" width="9" height="14" rx="1" fill="#E0A93A" stroke="none"></rect><path d="M8.5 4l2.5 4M19.5 4l-2.5 4" stroke="#B2472B"></path></svg>
+        <div><h4>A lottery decided who'd become friends, before anyone met</h4><p>MIT assigned married student veterans to apartment units essentially at random in 1946, then asked each couple to name their closest friends in the complex.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="14" r="4"></circle><circle cx="20" cy="14" r="4" stroke="#B2472B"></circle><path d="M12 14h4" stroke-dasharray="1.5 1.5"></path></svg>
+        <div><h4>Distance beat everything else researchers measured</h4><p>Neighbors nineteen feet apart named each other a close friend four times as often as neighbors eighty-nine feet apart on the same hallway, with nothing else about them different.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="11" r="6"></circle><path d="M8.5 8.5c2 3 8 3 10 0M8.5 13.5c2 -3 8 -3 10 0" stroke-width="1.1"></path><path d="M14 20v4M10 24h8" stroke="#B2472B"></path></svg>
+        <div><h4>Seventy years later, a draft nobody could randomize showed the same pattern</h4><p>A 2022 study used machine learning to hold a prospect's real skill constant, and still found scouts favoring the ones who lived nearby.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5l9 16H5z"></path><line x1="14" y1="12" x2="14" y2="17" stroke="#B2472B"></line><circle cx="14" cy="20" r="1" fill="#B2472B" stroke="none"></circle></svg>
+        <div><h4>The closeness bought worse players, not better ones</h4><p>Prospects who benefited from living near their scouting director were 38% less likely to ever appear in a single major-league game.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="report report-light" id="proximity-report">
+  <div class="wrap">
+
+    <div class="report-section" id="the-lottery">
+      <h3>A lottery decided who'd become friends, before anyone met</h3>
+      <p class="intro">Leon Festinger, Stanley Schachter and Kurt Back wanted to understand what actually causes friendship, and they found a rare, genuine natural laboratory to test it in. MIT had just built two new apartment complexes, Westgate and Westgate West, to house married student veterans arriving on the GI Bill after World War II. Units were assigned to incoming families essentially at random, before anyone had met a future neighbor or seen a floor plan. Months later, the researchers asked each couple to name their three closest friends within the complex.</p>
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="case-tag">1946, MIT</span>
+          <h4>Westgate West</h4>
+          <p class="salient-question">Why did living <mark>nineteen feet</mark> from someone predict friendship better than anything about who they actually were?</p>
+          <div class="case-body">
+            <p>Because assignment to a unit was effectively a coin flip, any friendship pattern that emerged couldn't be explained by people choosing to live near others they already liked. Whatever caused the pattern had to be built into the building itself.</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">The numbers</span>
+          <h4>Distance did almost all the work</h4>
+          <div class="case-body">
+            <p>41% of next-door neighbors, roughly 19 feet apart, named each other a close friend, against 22% of residents two doors down and just 10% of residents at opposite ends of the same hallway, roughly 89 feet away. About 65% of every close friendship named was with someone in the same building, despite equal opportunity to meet people in the complex's other buildings.</p>
+          </div>
+        </div>
+      </div>
+      <p class="intro" style="margin-top:18px">A further detail sharpens the mechanism. Residents whose door sat next to a shared stairwell or mailbox, a spot everyone in the building had to pass, were named as a friend more often than their straight-line distance from others would predict. Raw distance wasn't really the variable. How often two people's actual daily paths crossed was, what Festinger and his co-authors called <b>functional distance</b>. Two neighbors don't need to like each other first. They just need to keep running into each other, and the familiarity that builds from those small, unplanned, repeated contacts starts to feel like it was earned through genuine compatibility, not manufactured by a floor plan neither of them chose.</p>
+      <div class="case-cite">Festinger, L., Schachter, S., &amp; Back, K. (1950). <i>Social Pressures in Informal Groups: A Study of Human Factors in Housing.</i> <a href="https://archive.org/details/socialpressuresi00fest" target="_blank" rel="noopener">Harper &amp; Brothers</a>. The original 1950 monograph isn't available as searchable full text on this site's network, so the figures above are paraphrased from the book's long-standing, widely-replicated numbers as reported across independent academic summaries, not quoted verbatim from the original page.</div>
+    </div>
+
+    <div class="report-section" id="a-draft-cant-run-a-lottery">
+      <h3>A draft can't run a lottery on where a scout lives</h3>
+      <p class="intro">Westgate's evidence is clean specifically because MIT did the one thing no company or league ever does on purpose: it randomized who ended up physically close to whom. That's what makes the finding trustworthy, and it's exactly what a modern institution like Major League Baseball can never offer a researcher. Nobody is going to reshuffle where scouting directors live and re-run the draft to see what changes.</p>
+      <p class="intro">A 2022 study asked whether the same mechanism, familiarity from repeated exposure standing in for a real judgment of merit, was operating inside the MLB draft anyway. Each team's scouting director evaluates thousands of prospects against a shared pool of statistics, scouting reports and game film, a process built to reward talent regardless of geography. Proving that geography was quietly influencing it required a substitute for random assignment: the researchers used machine learning to build a flexible prediction of each prospect's real, draft-worthy skill from everything else on record about him, then checked whether living closer to a team's scouting director still predicted getting picked once that skill estimate was held constant. Read the full breakdown of how that substitute works, and what it can and can't prove, in <a href="natural-experiments.html#mlb-draft-propinquity">Natural Experiments</a>.</p>
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="case-tag">2000&ndash;2019 MLB Draft</span>
+          <h4>Roughly 30,000 players, drafted from a pool of over a million</h4>
+          <p class="salient-question">A player is <mark>7.1% more likely</mark> to be drafted for every 1,000km closer he lives to a team's scouting director.</p>
+          <div class="case-body">
+            <p>A separate, smaller effect, about 4.9% more likely per 1,000km closer to the team's home city, held alongside it. Both effects survived holding the machine-learning skill estimate constant, and both were strongest in the draft's later rounds, exactly where a scouting director has the most personal discretion and the least outside scrutiny.</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">The cost</span>
+          <h4>Closeness bought worse players, not better ones</h4>
+          <div class="case-body">
+            <p>Players drafted with a proximity advantage were 38% less likely to ever appear in a single MLB game than a similarly-drafted player without it, and appeared in roughly 25 fewer games on average. The bias didn't just reshuffle who got picked when. It measurably lowered the quality of who got picked at all.</p>
+          </div>
+        </div>
+      </div>
+      <div class="case-cite">Ahmadi, M., Durst, N., Lachman, J., List, J. A., List, M., List, N., &amp; Vayalinkal, A. (2022). &ldquo;Nothing Propinks Like Propinquity: Using Machine Learning to Estimate the Effects of Spatial Proximity in the Major League Baseball Draft.&rdquo; <a href="https://www.nber.org/papers/w30786" target="_blank" rel="noopener">NBER Working Paper No. 30786</a>. Still a working paper rather than a peer-reviewed publication at time of writing. The paper itself sat behind this site's network restrictions, so every number above is paraphrased from its own public summary, not quoted from the full text.</div>
+    </div>
+
+    <div class="report-section" id="the-shared-mechanism">
+      <h3>The mechanism didn't change. The stakes did</h3>
+      <p class="intro">Nobody in the MIT housing complex was doing anything wrong by befriending a next-door neighbor. Nobody in a scouting department is deciding, on purpose, to favor a prospect because he grew up nearby. Both studies point at the same underlying process: repeated, incidental contact builds familiarity, and familiarity gets read as trust, or fit, or knowing someone, well before anyone consciously weighs it as a factor. On a hallway, that mechanism produces friendship. Inside a draft, it produces a real player picked over a better one, on stakes a friendship never carries: a roster spot, a signing bonus, a career.</p>
+      <p class="intro">The site's own write-up of this mechanism, <a href="principles.html#propinquity-effect">Propinquity Effect</a>, covers the psychology in full, including where the same lever helps rather than hurts: a new hire seated near the colleagues they'll actually need, or a mentorship program that deliberately builds the same repeated contact a shared mailbox creates by accident.</p>
+    </div>
+
+    <div class="report-section" id="how-to-check-a-merit-claim">
+      <h3>Four questions worth asking of any outcome called merit-based</h3>
+      <div class="questions-callout">
+        <ol>
+          <li><b>Did the decision-maker have any incidental, repeated contact with the person before the decision?</b><span>A shared hometown, a shared conference circuit, or even a shared commute route is enough exposure for functional distance to start doing its work.</span></li>
+          <li><b>Is the advantage strongest in the parts of the process with the least oversight?</b><span>Both studies found the bias concentrated exactly where a single evaluator has the most personal discretion and the least outside review, the draft's later rounds, a hallway's own residents rather than the wider complex.</span></li>
+          <li><b>Did the person who benefited from proximity actually perform better afterward, or just get chosen more often?</b><span>The draft study could check this directly, and found the opposite: proximity-advantaged picks were less likely to ever play, not more.</span></li>
+          <li><b>If you swapped the decision-maker's address, would the ranking change?</b><span>If a plausible answer is yes, geography is doing work a merit-based process isn't supposed to assign to it.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="report-section" id="proximity-report-related">
+      <h3>Continue reading</h3>
+      <p class="intro">The principle and the causal-inference breakdown behind this piece, each with its own full citation and methodology critique.</p>
+      <div class="method-grid">
+        <div class="method-col strength">
+          <span class="lbl">Propinquity Effect</span>
+          <a href="principles.html#propinquity-effect">Propinquity Effect: why nearness gets mistaken for trust</a>
+        </div>
+        <div class="method-col weakness">
+          <span class="lbl">Natural Experiments</span>
+          <a href="natural-experiments.html#mlb-draft-propinquity">How the draft study proves its case without a real coin flip</a>
+        </div>
+      </div>
+      <div class="method-grid" style="margin-top:14px">
+        <div class="method-col strength">
+          <span class="lbl">Related report</span>
+          <a href="evidence-strength.html">How Strong Is That Evidence? A field guide to causal claims</a>
+        </div>
+        <div class="method-col weakness">
+          <span class="lbl">Related principle</span>
+          <a href="principles.html#halo-effect">Halo Effect: one strong impression standing in for a judgment never actually made</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; 2026 What Works &amp; Why</div>
+    <ul>
+      <li><a href="principles.html">Principles</a></li>
+      <li><a href="science-behind.html">The Science Behind</a></li>
+      <li><a href="sessions.html">Field Sessions</a></li>
+      <li><a href="experiments.html">Experiments</a></li>
+      <li><a href="reading-the-research.html">Reading the Research</a></li>
+      <li><a href="natural-experiments.html">Natural Experiments</a></li>
+      <li><a href="apply.html">Apply It</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#newsletter">Subscribe</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="apply-data.js"></script>
+<script src="search-index.js"></script>
+<script src="predictive-search.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
