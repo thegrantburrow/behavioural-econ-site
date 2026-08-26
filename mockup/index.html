@@ -271,10 +271,11 @@
       <div class="stage-row" id="stageRow"></div>
     </div>
     <div class="featured-cta">
-      <form class="principles-search-cta" action="principles.html" method="get">
+      <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
         <label for="homeSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
-        <input type="search" id="homeSearch" name="q" placeholder="Search 71 principles&hellip;">
+        <input type="search" id="homeSearch" name="q" placeholder="Search 71 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="homeSearchSuggestions" aria-haspopup="listbox">
         <button type="submit">Search</button>
+        <ul class="search-suggestions" id="homeSearchSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
       </form>
       <a class="featured-browse-all" href="principles.html">Browse all 71 principles &rarr;</a>
     </div>
@@ -350,6 +351,7 @@
   </div>
 </footer>
 
+<script src="apply-data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

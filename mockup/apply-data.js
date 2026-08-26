@@ -64,7 +64,12 @@ var APPLY_PRINCIPLES = [
   {id:"crossmodal-correspondence", title:"Crossmodal Correspondence", cat:"judgment", blurb:"The brain treats taste as one blended sense, so an unrelated touch or colour cue gets folded straight into how something is judged to taste."},
   {id:"meaningless-differentiation", title:"Meaningless Differentiation", cat:"judgment", blurb:"A visible, specific-sounding detail can be read as proof of a real, unstated benefit, even when the detail itself changes nothing."},
   {id:"licensing-effect", title:"Licensing Effect", cat:"judgment", blurb:"Completing one virtuous or responsible act gives people a felt permission to indulge right afterward, even when the two choices are unrelated."},
-  {id:"present-bias", title:"Present Bias", cat:"choice", blurb:"People weigh a reward available right now far more heavily than the identical reward available later, so an advance choice and an in-the-moment choice can flatly contradict each other."}
+  {id:"present-bias", title:"Present Bias", cat:"choice", blurb:"People weigh a reward available right now far more heavily than the identical reward available later, so an advance choice and an in-the-moment choice can flatly contradict each other."},
+  {id:"sunk-cost-fallacy", title:"Sunk Cost Fallacy", cat:"pricing", blurb:"Money, time, or effort already sunk into something keeps pulling people toward continuing it, even once continuing is the worse choice going forward."},
+  {id:"temporal-reframing", title:"Temporal Reframing", cat:"pricing", blurb:"Restating a cost as a small recurring amount instead of one aggregate total changes what it gets compared against, and makes the identical spend feel easier to say yes to."},
+  {id:"bundling", title:"Bundling", cat:"pricing", blurb:"The identical dollar saving carries more weight in how good a deal feels when it's stated directly on a combined bundle price than when the same amount is spread across separate item-level discounts."},
+  {id:"clawback", title:"Clawback (Loss-Framed Incentives)", cat:"motivation", blurb:"The identical reward moves people more when it's framed as something already theirs and at risk of being taken back than when the same reward is framed as something still to be earned."},
+  {id:"disclosure-backfire", title:"Disclosure Backfire (Sunlight That Doesn't Disinfect)", cat:"friction", blurb:"Disclosing a conflict of interest is meant to let the person receiving advice discount it appropriately. It can instead free the person giving the advice to lean into their bias further."}
 ];
 
 // Plain, observable business symptoms, grouped by where in the journey
