@@ -61,6 +61,10 @@ var SEARCH_INDEX = (typeof APPLY_PRINCIPLES !== 'undefined' ? APPLY_PRINCIPLES.m
   { title: 'Every default decides who pays for doing nothing', category: 'Reading the Research', url: 'every-default-decides-who-pays.html', blurb: 'Opt-in, opt-out, forced choice, timed defaults, and personalized defaults aren\'t one lever. A researched spectrum of all five, with the real studies, the numbers, and the one famous result that didn\'t survive a better test.' },
   { title: 'The fine print nobody reads.', category: 'Reading the Research', url: 'the-fine-print-nobody-reads.html', blurb: 'Standard disclosures get read by almost nobody, and when they are read, disclosing a conflict of interest can make the advice behind it worse, not better.' },
   { title: "You're already doing behavioural economics.", category: 'Reading the Research', url: 'you-are-already-doing-behavioural-economics.html', blurb: 'Every pricing page and product screen already makes choice-architecture decisions. Eight already-cited mechanisms, from anchoring to bundling.' },
+  { title: 'Proximity gets mistaken for merit', category: 'Reading the Research', url: 'proximity-gets-mistaken-for-merit.html', blurb: 'A 1946 MIT housing lottery and a 2022 machine-learning study of the MLB draft, seventy years apart, found the identical bias: living close to a decision-maker predicts the outcome, even when it has nothing to do with merit.' },
+
+  // ---------- Natural Experiments ----------
+  { title: 'How do you prove distance biased 30,000 draft picks when nobody can randomly assign where a scout lives?', category: 'Natural Experiments', url: 'natural-experiments.html#mlb-draft-propinquity', blurb: 'A 2022 study used machine learning to control for skill in the MLB draft, then measured whether living closer to a scouting director still predicted getting picked.' },
 
   // ---------- Apply It ----------
   { title: 'Apply It', category: 'Apply It', url: 'apply.html', blurb: 'Turn a principle or a problem into an experiment. Answer a few questions about what\'s going wrong and get matched to the specific principles that explain it.' }

@@ -69,7 +69,8 @@ var APPLY_PRINCIPLES = [
   {id:"temporal-reframing", title:"Temporal Reframing", cat:"pricing", blurb:"Restating a cost as a small recurring amount instead of one aggregate total changes what it gets compared against, and makes the identical spend feel easier to say yes to."},
   {id:"bundling", title:"Bundling", cat:"pricing", blurb:"The identical dollar saving carries more weight in how good a deal feels when it's stated directly on a combined bundle price than when the same amount is spread across separate item-level discounts."},
   {id:"clawback", title:"Clawback (Loss-Framed Incentives)", cat:"motivation", blurb:"The identical reward moves people more when it's framed as something already theirs and at risk of being taken back than when the same reward is framed as something still to be earned."},
-  {id:"disclosure-backfire", title:"Disclosure Backfire (Sunlight That Doesn't Disinfect)", cat:"friction", blurb:"Disclosing a conflict of interest is meant to let the person receiving advice discount it appropriately. It can instead free the person giving the advice to lean into their bias further."}
+  {id:"disclosure-backfire", title:"Disclosure Backfire (Sunlight That Doesn't Disinfect)", cat:"friction", blurb:"Disclosing a conflict of interest is meant to let the person receiving advice discount it appropriately. It can instead free the person giving the advice to lean into their bias further."},
+  {id:"propinquity-effect", title:"Propinquity Effect", cat:"social", blurb:"People who cross paths often, simply because they live or work near each other, become more familiar with each other than they would otherwise, and that familiarity gets read as trust or fit, even in a decision meant to be judged on merit alone."}
 ];
 
 // Plain, observable business symptoms, grouped by where in the journey

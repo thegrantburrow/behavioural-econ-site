@@ -61,7 +61,7 @@
   // page missing its markup.
   if (typeof PredictiveSearch === 'undefined' || typeof SEARCH_INDEX === 'undefined') return;
 
-  var CATEGORY_ORDER = ['Principles', 'The Science Behind', 'Field Sessions', 'Experiments', 'Reading the Research', 'Apply It'];
+  var CATEGORY_ORDER = ['Principles', 'The Science Behind', 'Field Sessions', 'Experiments', 'Reading the Research', 'Natural Experiments', 'Apply It'];
 
   [
     { input: 'homeSearch', list: 'homeSearchSuggestions' },
@@ -242,10 +242,10 @@
   };
 
   var STAGES = [
-    { id: 'awareness', count: 6, marketing: 'Awareness', product: 'Acquisition', short: { marketing: 'Awareness', product: 'Acquire' } },
-    { id: 'consideration', count: 15, marketing: 'Consideration', product: 'Activation', short: { marketing: 'Compare', product: 'Activate' } },
-    { id: 'conversion', count: 18, marketing: 'Conversion', product: 'Conversion', short: { marketing: 'Convert', product: 'Convert' } },
-    { id: 'retention', count: 20, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
+    { id: 'awareness', count: 10, marketing: 'Awareness', product: 'Acquisition', short: { marketing: 'Awareness', product: 'Acquire' } },
+    { id: 'consideration', count: 24, marketing: 'Consideration', product: 'Activation', short: { marketing: 'Compare', product: 'Activate' } },
+    { id: 'conversion', count: 32, marketing: 'Conversion', product: 'Conversion', short: { marketing: 'Convert', product: 'Convert' } },
+    { id: 'retention', count: 28, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
     { id: 'advocacy', count: 6, marketing: 'Advocacy', product: 'Referral', short: { marketing: 'Advocate', product: 'Refer' } }
   ];
 
