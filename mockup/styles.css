@@ -2454,6 +2454,29 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   box-shadow: 0 12px 30px rgba(27, 30, 36, 0.18);
 }
 
+.app-mock-print {
+  max-width: 260px;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-left: 10px solid var(--ink);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--card);
+  box-shadow: 0 12px 30px rgba(27, 30, 36, 0.18);
+}
+.app-mock-print-tag {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin-top: 2px;
+}
+
 .app-mock-screen { padding: 22px 18px 20px; text-align: left; }
 .app-mock-icon { width: 30px; height: 30px; margin-bottom: 12px; }
 .app-mock-screen h4 { font-size: 1.02rem; margin: 0 0 8px; }
