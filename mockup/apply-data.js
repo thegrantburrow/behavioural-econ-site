@@ -70,7 +70,8 @@ var APPLY_PRINCIPLES = [
   {id:"bundling", title:"Bundling", cat:"pricing", blurb:"The identical dollar saving carries more weight in how good a deal feels when it's stated directly on a combined bundle price than when the same amount is spread across separate item-level discounts."},
   {id:"clawback", title:"Clawback (Loss-Framed Incentives)", cat:"motivation", blurb:"The identical reward moves people more when it's framed as something already theirs and at risk of being taken back than when the same reward is framed as something still to be earned."},
   {id:"disclosure-backfire", title:"Disclosure Backfire (Sunlight That Doesn't Disinfect)", cat:"friction", blurb:"Disclosing a conflict of interest is meant to let the person receiving advice discount it appropriately. It can instead free the person giving the advice to lean into their bias further."},
-  {id:"propinquity-effect", title:"Propinquity Effect", cat:"social", blurb:"People who cross paths often, simply because they live or work near each other, become more familiar with each other than they would otherwise, and that familiarity gets read as trust or fit, even in a decision meant to be judged on merit alone."}
+  {id:"propinquity-effect", title:"Propinquity Effect", cat:"social", blurb:"People who cross paths often, simply because they live or work near each other, become more familiar with each other than they would otherwise, and that familiarity gets read as trust or fit, even in a decision meant to be judged on merit alone."},
+  {id:"availability-heuristic", title:"Availability Heuristic", cat:"judgment", blurb:"When something is easy to picture or recall, a recent headline, a vivid story, a memory of your own, it feels more common and more likely than it actually is, simply because it comes to mind so easily."}
 ];
 
 // Plain, observable business symptoms, grouped by where in the journey
