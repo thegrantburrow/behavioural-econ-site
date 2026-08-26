@@ -45,9 +45,14 @@
   <div class="wrap">
     <div class="bar">
       <a class="logo logo-img-wrap" href="index.html" aria-label="What Works &amp; Why, home"><img class="logo-img" src="images/logo-lockup.png" alt="What Works &amp; Why"></a>
-      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="bar-actions">
+        <button class="nav-search-toggle" id="navSearchToggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="navSearchPanel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.3" y2="16.3"></line></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
     <div class="links" id="navLinks">
       <img class="links-logo" src="images/logo-lockup.png" alt="What Works &amp; Why">
@@ -126,6 +131,16 @@
       <a href="index.html#newsletter" class="nav-cta">Subscribe<span class="nav-desc">One real study per email, no schedule</span></a>
     </div>
   </div>
+  <div class="nav-search-panel" id="navSearchPanel" hidden>
+    <div class="wrap">
+      <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
+        <label for="navSearchInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
+        <input type="search" id="navSearchInput" name="q" placeholder="Search 71 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="navSearchSuggestions" aria-haspopup="listbox">
+        <button type="submit">Search</button>
+        <ul class="search-suggestions" id="navSearchSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
+      </form>
+    </div>
+  </div>
 </nav>
 
 <section class="persona-page-hero">
@@ -194,6 +209,8 @@
   </div>
 </footer>
 
+<script src="apply-data.js"></script>
+<script src="predictive-search.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

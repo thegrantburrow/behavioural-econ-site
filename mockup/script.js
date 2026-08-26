@@ -51,121 +51,68 @@
 })();
 
 (function () {
-  // Homepage search box: a live, ranked suggestions dropdown appears as the
-  // customer types (Google-style predictive search), instead of only
-  // acting after a full form submit to principles.html. Reuses
-  // APPLY_PRINCIPLES (loaded via apply-data.js) as its data source, the
-  // same real id/title list the Apply-It tool already keeps in sync with
-  // principles.html, rather than a third duplicated list of titles.
-  var input = document.getElementById('homeSearch');
-  var list = document.getElementById('homeSearchSuggestions');
-  if (!input || !list || typeof APPLY_PRINCIPLES === 'undefined') return;
+  // Every predictive search box on the site (the homepage's inline search,
+  // its standalone search band, and the nav-bar search available on every
+  // page) wired through the same portable ranked-suggestions component
+  // (predictive-search.js) against APPLY_PRINCIPLES (loaded via
+  // apply-data.js), the same real id/title list the Apply-It tool already
+  // keeps in sync with principles.html, rather than a duplicated list of
+  // titles per instance. No-ops per box on any page missing its markup.
+  if (typeof PredictiveSearch === 'undefined' || typeof APPLY_PRINCIPLES === 'undefined') return;
 
-  var activeIndex = -1;
-  var currentMatches = [];
-
-  function escapeRegExp(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  function goToPrinciple(item) {
+    window.location.href = 'principles.html#' + item.id;
   }
 
-  function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  [
+    { input: 'homeSearch', list: 'homeSearchSuggestions' },
+    { input: 'searchBandInput', list: 'searchBandSuggestions' },
+    { input: 'navSearchInput', list: 'navSearchSuggestions' }
+  ].forEach(function (box) {
+    var input = document.getElementById(box.input);
+    var list = document.getElementById(box.list);
+    if (!input || !list) return;
+    PredictiveSearch.init({
+      input: input,
+      list: list,
+      data: APPLY_PRINCIPLES,
+      fields: { primary: 'title', secondary: 'blurb' },
+      classNames: { list: 'search-suggestions', item: 'search-suggestion', active: 'active' },
+      onSelect: goToPrinciple
     });
-  }
-
-  function highlight(title, query) {
-    if (!query) return escapeHtml(title);
-    var idx = title.toLowerCase().indexOf(query);
-    if (idx === -1) return escapeHtml(title);
-    return escapeHtml(title.slice(0, idx)) + '<mark>' + escapeHtml(title.slice(idx, idx + query.length)) + '</mark>' + escapeHtml(title.slice(idx + query.length));
-  }
-
-  // Same relevance ordering the Principles page's own search uses: a match
-  // on the principle's own name always outranks one merely mentioned in
-  // its blurb, so typing a principle's name surfaces it first, not buried
-  // under whichever other principles happen to reference that word too.
-  function relevanceScore(p, query) {
-    var title = p.title.toLowerCase();
-    if (title === query) return 0;
-    if (title.indexOf(query) === 0) return 1;
-    if (new RegExp('\\b' + escapeRegExp(query)).test(title)) return 2;
-    if (title.indexOf(query) !== -1) return 3;
-    if (p.blurb && p.blurb.toLowerCase().indexOf(query) !== -1) return 4;
-    return 5;
-  }
-
-  function closeList() {
-    list.hidden = true;
-    list.innerHTML = '';
-    input.setAttribute('aria-expanded', 'false');
-    input.removeAttribute('aria-activedescendant');
-    activeIndex = -1;
-    currentMatches = [];
-  }
-
-  function setActive(i) {
-    var options = list.querySelectorAll('.search-suggestion');
-    options.forEach(function (opt, idx) {
-      var isActive = idx === i;
-      opt.classList.toggle('active', isActive);
-      if (isActive) input.setAttribute('aria-activedescendant', opt.id);
-    });
-    activeIndex = i;
-  }
-
-  function renderList(query) {
-    var matches = APPLY_PRINCIPLES
-      .map(function (p) { return { p: p, score: relevanceScore(p, query) }; })
-      .filter(function (m) { return m.score < 5; })
-      .sort(function (a, b) { return a.score - b.score; })
-      .slice(0, 7)
-      .map(function (m) { return m.p; });
-
-    if (!matches.length) { closeList(); return; }
-
-    currentMatches = matches;
-    list.innerHTML = matches.map(function (p, i) {
-      return '<li class="search-suggestion" id="homeSearchOpt' + i + '" role="option" data-id="' + p.id + '">' + highlight(p.title, query) + '</li>';
-    }).join('');
-    list.hidden = false;
-    input.setAttribute('aria-expanded', 'true');
-    activeIndex = -1;
-  }
-
-  function goTo(id) {
-    window.location.href = 'principles.html#' + id;
-  }
-
-  input.addEventListener('input', function () {
-    var query = input.value.trim().toLowerCase();
-    if (!query) { closeList(); return; }
-    renderList(query);
   });
+})();
 
-  input.addEventListener('keydown', function (e) {
-    if (list.hidden || !currentMatches.length) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActive((activeIndex + 1) % currentMatches.length);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActive((activeIndex - 1 + currentMatches.length) % currentMatches.length);
-    } else if (e.key === 'Enter' && activeIndex !== -1) {
-      e.preventDefault();
-      goTo(currentMatches[activeIndex].id);
-    } else if (e.key === 'Escape') {
-      closeList();
-    }
-  });
+(function () {
+  // Nav-bar search icon: a click-to-open panel available on every page
+  // (the nav is the one element that's actually site-wide), independent
+  // of the predictive-search dropdown's own open/close state above.
+  var toggle = document.getElementById('navSearchToggle');
+  var panel = document.getElementById('navSearchPanel');
+  if (!toggle || !panel) return;
+  var input = document.getElementById('navSearchInput');
 
-  list.addEventListener('click', function (e) {
-    var opt = e.target.closest('.search-suggestion');
-    if (opt) goTo(opt.getAttribute('data-id'));
+  function open() {
+    panel.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    if (input) input.focus();
+  }
+
+  function close() {
+    panel.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', function () {
+    if (panel.hidden) open(); else close();
   });
 
   document.addEventListener('click', function (e) {
-    if (!input.contains(e.target) && !list.contains(e.target)) closeList();
+    if (!panel.hidden && !panel.contains(e.target) && !toggle.contains(e.target)) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) close();
   });
 })();
 

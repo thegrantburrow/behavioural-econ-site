@@ -99,6 +99,39 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .site-nav.no-logo .bar { justify-content: flex-end; }
 
+.bar-actions { display: flex; align-items: center; gap: 2px; }
+
+.nav-search-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: -8px 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--ink);
+  cursor: pointer;
+}
+.nav-search-toggle:hover { background: rgba(27, 30, 36, 0.06); }
+.nav-search-toggle svg { width: 19px; height: 19px; display: block; }
+.nav-search-toggle[aria-expanded="true"] { background: rgba(196, 62, 31, 0.08); color: var(--terracotta); }
+
+.nav-search-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 14px 28px rgba(27, 30, 36, 0.14);
+  padding: 14px 0;
+  z-index: 15;
+}
+.nav-search-panel[hidden] { display: none; }
+
 .site-nav .logo-img-wrap { display: block; line-height: 0; }
 .site-nav .logo-img { height: 48px; width: auto; display: block; }
 
@@ -2783,6 +2816,36 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 .trend-chart-tag { font-size: 8.6px; fill: var(--muted); font-family: inherit; }
 .trend-chart-date { font-size: 7.6px; fill: var(--muted); font-family: inherit; }
 .trend-chart-badge-text { font-size: 8.6px; fill: var(--ink); font-family: inherit; font-weight: 700; }
+
+/* ---------- homepage search band: a standalone search moment right after
+   the hero, for a visitor who already knows what they want and scrolled
+   past the pitch. Kept alongside the hero-adjacent nav search and the
+   .journey section's own inline search, not a replacement for either. ---------- */
+.search-band {
+  padding: 22px 0;
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.search-band-label {
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 3px;
+}
+.search-band-sub {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+.search-band .principles-search-cta { max-width: 420px; margin: 0 auto; }
+
+@media (min-width: 640px) {
+  .search-band { padding: 34px 0; }
+  .search-band-label { font-size: 1.3rem; }
+  .search-band-sub { font-size: 0.92rem; }
+}
 
 /* ---------- illustrated beats (homepage narrative teaser: principles / reports / experiments) ---------- */
 .beats-teaser { padding: 30px 0; }
