@@ -1982,6 +1982,56 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   .rung-subtypes.cols-2 { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ---------- source fidelity ranking: a ranked list of named studies (not
+   methodology tiers), borrowing the evidence-ladder's bar-track visual
+   convention (a filled horizontal bar signalling relative strength) applied
+   per named source instead of per category. ---------- */
+.source-fidelity {
+  background: var(--card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin: 20px 0;
+}
+.source-fidelity .fid-row { padding: 16px 0; display: flex; gap: 14px; align-items: flex-start; }
+.source-fidelity .fid-row + .fid-row { border-top: 1px dashed var(--line); }
+.source-fidelity .fid-rank {
+  flex: none;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-family: Georgia, serif; font-weight: 700; font-size: 0.92rem;
+  color: var(--terracotta);
+}
+.source-fidelity .fid-body { flex: 1; min-width: 0; }
+.source-fidelity .fid-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 10px; margin-bottom: 6px; }
+.source-fidelity .fid-name { font-family: Georgia, serif; font-weight: 700; font-size: 0.98rem; }
+.source-fidelity .fid-tag {
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 800;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.source-fidelity .fid-bar-track {
+  background: rgba(27, 30, 36, 0.08);
+  border-radius: 999px;
+  height: 8px;
+  margin: 0 0 10px;
+  overflow: hidden;
+}
+.source-fidelity .fid-bar { height: 100%; border-radius: 999px; background: var(--terracotta); }
+.source-fidelity .fid-why { font-size: 0.88rem; margin: 0; color: rgba(27, 30, 36, 0.88); line-height: 1.5; }
+
+@media (min-width: 640px) {
+  .source-fidelity .fid-rank { width: 34px; height: 34px; font-size: 1rem; }
+}
+
 /* ---------- hallmarks: short phrase-pattern callouts, and the four-question
    checklist that closes the evidence-ladder section. ---------- */
 .hallmark-list { display: grid; grid-template-columns: 1fr; gap: 10px; }

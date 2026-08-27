@@ -197,6 +197,10 @@
     <div class="report-section" id="the-device-reversal">
       <h3>The same design choice flips outcomes depending on the screen it's shown on</h3>
       <p class="intro">Even a well-shaped indicator assumes the underlying structure, one screen per step against one long page, behaves the same wherever it's shown. <b>It doesn't.</b></p>
+      <p>The comparison itself isn't new. In 2001, Mick Couper and colleagues ran the first version of it on 1,602 University of Michigan students, randomly shown a set of related survey questions either together on one screen or split one-per-screen.</p>
+      <div class="case-cite">Couper, M. P., Traugott, M. W., &amp; Lamias, M. J. (2001). &ldquo;Web Survey Design and Administration.&rdquo; <a href="https://doi.org/10.1086/322199" target="_blank" rel="noopener">Public Opinion Quarterly, 65(2), 230&ndash;253</a></div>
+      <p>Putting items on the same screen raised the correlation between their answers, <b>a sign of correlated measurement error</b>, one answer visibly bleeding into the next rather than each item getting judged on its own. That particular difference fell short of statistical significance on its own. Either way, it's a data-quality problem, not a completion-rate one, and it's the reason paging exists as a design option at all, before anyone asks whether it also finishes more forms.</p>
+      <p class="intro">Five years later, the same research group tested completion itself.</p>
       <div class="study-card">
         <div class="citation">Peytchev, A., Couper, M. P., McCabe, S. E., &amp; Crawford, S. D. (2006). &ldquo;Web Survey Design: Paging versus Scrolling.&rdquo; <a href="https://doi.org/10.1093/poq/nfl028" target="_blank" rel="noopener">Public Opinion Quarterly, 70(4), 596&ndash;607</a></div>
         <div class="journal">A real University of Michigan student survey, randomly assigned to a single long scrolling page or the identical questions split across multiple pages, completed on a desktop computer.</div>
@@ -222,6 +226,63 @@
       <p class="intro">Put together, three separate bodies of evidence point the same direction from three different angles: <b>the lever behind chunking is real, but its shape and its screen both decide whether it fires or backfires.</b></p>
       <p>A chunked flow can still hand someone a real, honest milestone worth showing. The goal-gradient mechanism above is genuine, and the principle's own experiment tests exactly that on a real lending form (see Continue reading, below). What the evidence rules out is treating &ldquo;break it into steps&rdquo; or &ldquo;add a bar&rdquo; as a default that travels unchanged from a desktop checkout to a phone screen, or assuming any progress bar beats none.</p>
       <p>Three things worth actually testing on a specific flow, not assuming: whether the step count shown is <b>real milestones or padding invented to manufacture more steps</b>; whether a progress indicator's early pace looks like it's accelerating or crawling; and whether a mobile version of the same flow performs better as one continuous page than as the desktop's multi-step design, ported over unchanged.</p>
+    </div>
+
+    <div class="report-section" id="data-sources-methodology">
+      <h3>Where this evidence came from, and how it was weighted</h3>
+      <p class="intro">That three-item checklist assumes the underlying evidence was weighed honestly, not just piled up as six citations that happen to agree. <b>They don't all carry equal weight.</b> This site's network restrictions blocked a direct fetch of every paper's full text, so every finding above is paraphrased from published abstracts and independent academic summaries, cross-checked across multiple listings before being cited, never quoted verbatim.</p>
+      <p>Sources were found by searching specifically for peer-reviewed research on <b>progress-indicator design and paging-versus-scrolling form structure</b>, the two mechanisms this report is actually about, not general UX commentary. Four questions decided how much weight a source carries below: did it measure <b>real behaviour, not a stated preference</b>; were people <b>randomly assigned</b> to the conditions compared; does the result come from <b>one study or an aggregation across many</b>; and did it happen in a real field setting or only an online panel.</p>
+      <div class="source-fidelity">
+        <div class="fid-row">
+          <span class="fid-rank">1</span>
+          <div class="fid-body">
+            <div class="fid-head"><span class="fid-name">Villar, Callegaro &amp; Yang (2013)</span><span class="fid-tag">Meta-analysis</span></div>
+            <div class="fid-bar-track"><div class="fid-bar" style="width:95%"></div></div>
+            <p class="fid-why">Aggregates 32 real, randomized experiments across many independent samples, the closest thing here to an average effect rather than one study's idiosyncrasy.</p>
+          </div>
+        </div>
+        <div class="fid-row">
+          <span class="fid-rank">2</span>
+          <div class="fid-body">
+            <div class="fid-head"><span class="fid-name">Kivetz, Urminsky &amp; Zheng (2006)</span><span class="fid-tag">Field study</span></div>
+            <div class="fid-bar-track"><div class="fid-bar" style="width:83%"></div></div>
+            <p class="fid-why">Real purchase records from 948 actual caf&eacute; customers over time, not a stated preference or a one-off lab task.</p>
+          </div>
+        </div>
+        <div class="fid-row">
+          <span class="fid-rank">3</span>
+          <div class="fid-body">
+            <div class="fid-head"><span class="fid-name">Mavletova &amp; Couper (2014)</span><span class="fid-tag">Randomized experiment</span></div>
+            <div class="fid-bar-track"><div class="fid-bar" style="width:72%"></div></div>
+            <p class="fid-why">The comparison this report leans on hardest: randomly assigned, real completion behaviour, measured on an actual phone.</p>
+          </div>
+        </div>
+        <div class="fid-row">
+          <span class="fid-rank">4</span>
+          <div class="fid-body">
+            <div class="fid-head"><span class="fid-name">Peytchev, Couper, McCabe &amp; Crawford (2006)</span><span class="fid-tag">Randomized experiment</span></div>
+            <div class="fid-bar-track"><div class="fid-bar" style="width:61%"></div></div>
+            <p class="fid-why">The same comparison's direct desktop counterpart, from the same research group, on a real completed survey.</p>
+          </div>
+        </div>
+        <div class="fid-row">
+          <span class="fid-rank">5</span>
+          <div class="fid-body">
+            <div class="fid-head"><span class="fid-name">Conrad, Couper, Tourangeau &amp; Peytchev (2010)</span><span class="fid-tag">Randomized experiment</span></div>
+            <div class="fid-bar-track"><div class="fid-bar" style="width:50%"></div></div>
+            <p class="fid-why">Real completion behaviour, randomly assigned, though the manipulated variable, a bar's apparent pace, is a more constructed stimulus than a page's own structure.</p>
+          </div>
+        </div>
+        <div class="fid-row">
+          <span class="fid-rank">6</span>
+          <div class="fid-body">
+            <div class="fid-head"><span class="fid-name">Couper, Traugott &amp; Lamias (2001)</span><span class="fid-tag">Randomized experiment</span></div>
+            <div class="fid-bar-track"><div class="fid-bar" style="width:39%"></div></div>
+            <p class="fid-why">The original version of this comparison, on one university's student sample, later superseded by its own 2006 follow-up above.</p>
+          </div>
+        </div>
+      </div>
+      <div class="also-note"><b>What this ranking isn't:</b> a claim that the lower-ranked sources are wrong. Every one of the six was randomized and measured real behaviour. The order reflects how far a single result should generalise beyond its own sample, not whether any individual study is trustworthy on its own terms.</div>
     </div>
 
     <div class="report-section" id="how-to-spot-it">
