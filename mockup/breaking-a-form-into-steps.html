@@ -202,6 +202,7 @@
       <h3>Progressive Load: the same form on one continuous page</h3>
       <p class="intro">Progress Flow isn't the only real pattern here. <b>Progressive Load keeps every field on one page</b> and lets someone scroll through the whole thing, rather than moving between separate screens. Nothing above the fold disappears, and there's no gate between one part of the form and the next.</p>
       <p>The academic literature below calls this &ldquo;scrolling&rdquo; against Progress Flow's &ldquo;paging.&rdquo; This report uses <b>Progress Flow and Progressive Load</b> throughout, because that's what each pattern actually looks like on a real product, not because the underlying papers used different words.</p>
+      <p>Two other terms sound like this report's but describe something different. <b>Progressive disclosure</b> hides fields until an earlier answer makes them relevant, all on the same page, a related idea but a distinct mechanism from either pattern here. <b>Progressive loading</b> is unrelated entirely: a page-performance technique using skeleton screens and content that appears in batches. It decides how fast a page feels like it's loading, not how a form is structured. Neither one is what this report means by Progressive Load.</p>
       <p class="intro">The evidence for why Progressive Load performs the way it does is thinner than Progress Flow's. <b>None of the six sources in this report measured a psychological mechanism for it</b>, they measured completion and drop-off directly, not what was happening in someone's head while they scrolled.</p>
       <p>The likeliest explanation is the absence of something, not the presence of it: every screen change in Progress Flow is a natural pause where someone can decide whether to keep going, and Progressive Load never creates that pause. A more speculative account borrows from <a href="principles.html#sunk-cost-fallacy">Sunk Cost Fallacy</a>: effort already visible on the same screen may keep feeling worth finishing in a way that effort sitting on a page already left behind doesn't. <b>Neither explanation was tested by the studies below.</b> They're readings of a real result, not confirmed mechanisms, and the nuance section further down comes back to exactly this gap.</p>
     </div>
@@ -232,6 +233,37 @@
         </div>
       </div>
       <p><b>The identical design choice that made no measurable difference on a desktop underperformed as Progress Flow on a phone.</b> Progressive Load wasn't neutral there. It won.</p>
+    </div>
+
+    <div class="report-section" id="task-length-not-just-device">
+      <h3>The phone reversal happened on a 268-question survey, not a six-field signup form</h3>
+      <p class="intro">Mavletova and Couper's phone result is real, and it's the strongest single finding in this report. <b>It was also measured on one of the longest, most demanding forms a person can face.</b> Whether the same reversal shows up on something much shorter is a separate question this report hasn't answered yet.</p>
+      <p>A smaller, more recent study points at an answer. The study tested a real incident-reporting app on people's own phones. Once the form itself was short, <b>tab-based navigation and continuous scrolling produced no measurable difference</b> in completion time, usability, or overall experience.</p>
+      <div class="study-card">
+        <div class="citation">Einfeldt, L., &amp; Degbelo, A. (2021). &ldquo;User Interface Factors of Mobile UX: A Study with an Incident Reporting Application.&rdquo; <a href="https://www.scitepress.org/Papers/2021/103253/103253.pdf" target="_blank" rel="noopener">HUCAPP 2021 (VISIGRAPP)</a></div>
+        <div class="journal">A real mobile app, tested with people using it on their own phones.</div>
+        <div class="excerpts">
+          <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>For a short form, tab-based navigation and continuous scrolling produced no significant difference in task time, usability, or overall experience.</div>
+        </div>
+      </div>
+      <p class="intro">Length cuts the other way on longer forms. A 24-person study of long forms on real phones found the opposite of the result above. <b>People using one continuous scrolling page rated it worse for keeping track of where they were and how much was left.</b> People using tabs, menus, or collapsible sections for the identical content rated it better.</p>
+      <div class="case-cite">Harms, J., Kratky, M., Wimmer, C., Kappel, K., &amp; Grechenig, T. (2015). &ldquo;Navigation in Long Forms on Smartphones: Scrolling Worse than Tabs, Menus, and Collapsible Fieldsets.&rdquo; <a href="https://inria.hal.science/hal-01609423/document" target="_blank" rel="noopener">INTERACT 2015</a></div>
+      <p>Part of why: on a phone, <b>the on-screen keyboard alone can cover close to half the visible screen in portrait orientation, and 70 to 80 percent in landscape</b>. Losing your place while scrolling matters more when there's this little screen left to hold your place in.</p>
+      <div class="case-cite">Baymard Institute. &ldquo;6 Mobile Checkout Usability Considerations.&rdquo; <a href="https://baymard.com/blog/mobile-checkout" target="_blank" rel="noopener">baymard.com</a></div>
+      <p class="intro">A second variable matters as much as length: <b>how unfamiliar the task is</b>, not the device it's completed on.</p>
+      <p>Nielsen Norman Group's own guidance recommends a step-by-step wizard specifically for <b>infrequent, unfamiliar processes</b>. It trades away a user's freedom to jump around in exchange for guidance through territory they don't already know, a tradeoff that runs the other way for a task people already know well.</p>
+      <div class="case-cite">Nielsen Norman Group. &ldquo;Wizards: Definition and Design Recommendations.&rdquo; <a href="https://www.nngroup.com/articles/wizards/" target="_blank" rel="noopener">nngroup.com</a></div>
+      <p>A real hospital's patient-referral form tested that tradeoff directly. <b>Nurses who already used the form as part of their job rated a single continuous page 76 out of 100 on the standard usability scale, against 67 for the identical form split across multiple pages.</b></p>
+      <div class="study-card">
+        <div class="citation">Iftikhar, A., Bond, R., McGilligan, V., et al. (2021). &ldquo;Comparing Single-Page, Multipage, and Conversational Digital Forms in Health Care: Usability Study.&rdquo; <a href="https://doi.org/10.2196/25787" target="_blank" rel="noopener">JMIR Human Factors, 8(2), e25787</a></div>
+        <div class="journal">A real cardiology department's patient-referral form, tested with 20 cardiac and research nurses who complete this exact form as part of their job.</div>
+        <div class="excerpts">
+          <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>The single continuous-page form scored a System Usability Scale average of 76, against 67 for the identical form split across multiple pages.</div>
+        </div>
+      </div>
+      <p>A separate, much smaller study points the same direction, cautiously. <b>Seven people each tried a wizard and a functionally identical single-page &ldquo;progressive form.&rdquo;</b> Everyone completed both, performance was about the same either way, and five of the seven said they preferred the single page. Seven people proves very little on its own (see <a href="small-sample-big-claim.html">Small Sample, Big Claim</a>). But it lands in the same direction as the hospital study above: <b>people who already know what they're doing tend to want the overview, not the guardrails.</b></p>
+      <div class="case-cite">Cauffman, S. (2020). &ldquo;Comparing web forms: A progressive form vs. a wizard.&rdquo; <a href="https://medium.com/patternfly/comparing-web-forms-a-progressive-form-vs-a-wizard-110eefc584e7" target="_blank" rel="noopener">PatternFly, Red Hat UX Research</a></div>
+      <div class="also-note"><b>None of this overturns Mavletova and Couper's phone result above.</b> It narrows what that result is actually evidence for: a long, unfamiliar form, not every form that happens to load on a small screen.</div>
     </div>
 
     <div class="report-section" id="what-to-actually-test">
