@@ -44,11 +44,11 @@ sticky positioning here even though a "sticky feedback panel" sounds appealing.
 
 ## Design tokens (reuse exactly — don't invent new ones per artifact)
 
-`--paper` (#FBF9F4), `--paper-alt` (#F1EEE6), `--panel` (#FFFFFF), `--line`
-(rgba(30,27,22,0.12)), `--ink` (#1E1B16), `--ink-soft` (rgba(30,27,22,0.6)), `--accent`
-(terracotta #B2472B), `--accent-ink`, `--accent2` (teal #2B6660), `--accent2-ink`, `--good`
-(=accent2/teal), `--needs` (=accent/terracotta), `--shadow`. These are the real site
-tokens from `mockup/styles.css`, not invented values — if the site's palette changes,
+`--paper` (#F5F6F5), `--paper-alt` (#EBECEC), `--panel` (#FFFFFF), `--line`
+(rgba(27,30,36,0.12)), `--ink` (#1B1E24), `--ink-soft` (rgba(27,30,36,0.6)), `--accent`
+(terracotta #C43E1F), `--accent-ink`, `--accent2` (teal #1F7A6C), `--accent2-ink`, `--good`
+(=accent2/teal), `--needs` (=accent/terracotta), `--shadow`. These are meant to be the real
+site tokens from `mockup/styles.css`, not invented values — if the site's palette changes,
 update this template to match. Georgia/serif for headings, system sans for body, exactly
 like the real site. Light values and dark values both defined via `@media
 (prefers-color-scheme: dark)` *and* mirrored in `:root[data-theme="dark"]` /
@@ -57,6 +57,18 @@ both directions. Note: the real site itself doesn't have a shipped dark mode yet
 separate open item) — the dark values here are this template's own invention, kept
 consistent with the site's hues, not pulled from an existing site dark theme.
 
+**Check these values against `mockup/styles.css` before every use, don't trust this
+paragraph on faith.** Caught 2026-08-27: this file's `--terracotta`/`--teal`/`--mustard`/
+`--ink`/`--paper` values had drifted from the site's real, live tokens (production is
+`--ink: #1B1E24`, `--terracotta: #C43E1F`, `--mustard: #E0A93A`, `--teal: #1F7A6C`,
+`--paper: #F5F6F5`, none of which match the values documented above or in the top-level
+`CLAUDE.md`). A review artifact built from this file's stale values still functions and
+still looks close to on-brand, which is exactly why the drift went unnoticed: nothing
+breaks, the colours are just quietly a shade off from what actually ships. Before building
+any review artifact, grep `mockup/styles.css` for the live `--ink`/`--terracotta`/
+`--mustard`/`--teal`/`--paper` values and use those, not the ones written above, and flag
+it if they've moved again since this note was written.
+
 ## What varies per request
 
 Everything else: the number of cards, whether each has a `.preview` mockup or is
@@ -64,3 +76,51 @@ text-only, the tag/category label, the heading and description copy. Match the c
 what's actually being decided — don't pad with filler cards to hit a round number, and
 don't omit the `.preview` on something inherently visual (a UI mockup, a copy variant
 shown in its real placement) just to save time.
+
+## A side-by-side comparison mockup has to stay side by side at every width
+
+**What happened.** A `.preview` comparing two phone mockups (Progress Flow vs Progressive
+Load, for `breaking-a-form-into-steps.html`) used `flex-wrap: wrap` and fixed pixel
+widths, which read fine on a desktop preview but would stack vertically on a real phone
+screen, defeating the entire point of a side-by-side comparison exactly where mobile
+readers would see it. The owner's catch: "These need to be side by side and optimised for
+mobile."
+
+**The fix, in practice.** For any `.preview` whose whole point is a direct comparison
+(two mockups, two states, before/after), set `flex-wrap: nowrap` on the row and size every
+inner dimension with `clamp()` (padding, font-size, field heights, gaps) instead of fixed
+px values or a breakpoint that stacks the columns. Verify with an actual Playwright
+screenshot at 390px width, not just a description, and check
+`document.documentElement.scrollWidth > document.documentElement.clientWidth` comes back
+`false`. A comparison that stacks on the exact width most viewers will actually use has
+failed at its one job, no matter how good it looks in a desktop preview.
+
+## A mockup needs to say what happens next, not just show one static state
+
+**What happened.** The same Progress Flow vs Progressive Load preview showed each pattern
+frozen at one moment (a filled-in progress bar, a stack of fields) with no indication of
+what tapping Continue or scrolling actually does. The owner's catch: "should be
+self-contained and self-explanatory." A static screenshot of a UI pattern doesn't explain
+the pattern; the pattern *is* the transition.
+
+**The fix, in practice.** Add a one-line caption under any mockup depicting an interaction
+pattern, stating the actual state change in plain terms ("Tapping Continue loads a new
+screen: step 3 of 4" / "Scrolling reveals more fields inline. Same screen, no reload."),
+plus a small visual cue where cheap to add (a faint queued "ghost" card behind a gated
+step, a bouncing chevron where content continues). A reviewer shouldn't need the
+surrounding prose to understand what a mockup is depicting.
+
+## "Needs work" can mean the underlying model is wrong, not just the pixels
+
+**What happened.** After the side-by-side and caption fixes above shipped, the same card
+got "needs work" a third time: "Isn't the distinction question by question blocks of
+them?" The visual itself was clean by then; the actual content was wrong. The mockup
+implied Progress Flow shows one field per step, when the report's own text defines the
+pattern as "one *set* of fields per step." Two rounds of purely visual iteration had
+polished a mockup that was illustrating the wrong thing.
+
+**The fix, in practice.** When repeat feedback on the same card keeps coming back
+"needs work" after a visual fix, stop iterating on pixels and re-read the source content
+the mockup is supposed to represent (the actual article text, the actual data) before
+touching the CSS again. A design fix cannot repair a factual one, and a third round of
+polish on a wrong model just produces a better-looking wrong thing.
