@@ -142,6 +142,12 @@ Both tags render as visible chips on the entry itself (`.sb-tag.domain` and `.sb
 
 The list-row markup wraps the icon in its own box (`.session-toc-icon`, additive CSS keyed to a `.has-icon` class so Field Sessions and Experiments, which share the base `.session-toc`/`.toc-tabs` classes but don't yet have a matching per-row icon source, render exactly as before). Since the hub and index merged into one section (below), there's now only the one `#sbToc` list to add the icon to, not two.
 
+## Don't bolt on a Special Report's story-stack or evidence-at-a-glance
+
+Special Reports use two chunked, icon-led summary components (a narrative `.story-stack` and, mandatory past 2 cited studies, a second one labeled "The evidence at a glance" with headline real numbers) — see the `special-report` skill. A 2026-08-27 audit checked Science Behind and found it doesn't even reach the trigger condition: every entry decodes an object into mechanisms this site already documented elsewhere, cross-linking to `principles.html#slug` rather than citing a study of its own, so no live entry carries a standalone academic citation to summarize at all.
+
+**The rule, going forward:** don't add a story-stack or an evidence-at-a-glance stack to a Science Behind entry. If a future entry does introduce more than 2 of its own real citations (not cross-links to existing principle mechanisms), reconsider whether it's still object-first Science Behind content or has grown into a Special Report's shape.
+
 ## Voice and rigor, same as everywhere else on the site
 
 - **No em dashes**, anywhere. See `CLAUDE.md`'s standing policy, real punctuation only.
