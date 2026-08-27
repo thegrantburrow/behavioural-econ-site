@@ -92,21 +92,26 @@
   var panel = document.getElementById('navSearchPanel');
   if (!toggle || !panel) return;
   var input = document.getElementById('navSearchInput');
+  var backdrop = document.getElementById('navSearchBackdrop');
 
   function open() {
     panel.hidden = false;
+    if (backdrop) backdrop.hidden = false;
     toggle.setAttribute('aria-expanded', 'true');
     if (input) input.focus();
   }
 
   function close() {
     panel.hidden = true;
+    if (backdrop) backdrop.hidden = true;
     toggle.setAttribute('aria-expanded', 'false');
   }
 
   toggle.addEventListener('click', function () {
     if (panel.hidden) open(); else close();
   });
+
+  if (backdrop) backdrop.addEventListener('click', close);
 
   document.addEventListener('click', function (e) {
     if (!panel.hidden && !panel.contains(e.target) && !toggle.contains(e.target)) close();

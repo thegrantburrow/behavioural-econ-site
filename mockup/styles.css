@@ -132,6 +132,22 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .nav-search-panel[hidden] { display: none; }
 
+/* Dimming scrim behind the search panel. Without this, a short suggestions
+   list (often just one result) ends abruptly and whatever real page content
+   sits directly beneath it in normal document flow reads as part of the
+   same block, since .nav-search-panel has no backdrop of its own, only a
+   solid background on its own box. Sibling of <nav>, not a child of it:
+   .site-nav's backdrop-filter creates a containing block for fixed-position
+   descendants, which would trap a scrim placed inside nav to the nav's own
+   box instead of the full viewport. */
+.nav-search-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 30, 36, 0.4);
+  z-index: 14;
+}
+.nav-search-backdrop[hidden] { display: none; }
+
 .site-nav .logo-img-wrap { display: block; line-height: 0; }
 .site-nav .logo-img { height: 48px; width: auto; display: block; }
 
