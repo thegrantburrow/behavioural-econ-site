@@ -1,3 +1,13 @@
+// Smart-quote apostrophes (iOS/macOS auto-correct turns a typed ' into
+// U+2019 as you type) don't match a straight ' baked into a title like
+// "Don't Say the E-Word" in a plain indexOf() comparison. Every search/
+// filter box on the site normalizes both the query and the indexed text
+// through this before comparing, so typing an apostrophe on any device
+// matches a title with either apostrophe form.
+function normalizeApostrophes(s) {
+  return String(s).replace(/[‘’‛ʼ′´]/g, "'");
+}
+
 (function () {
   var btn = document.getElementById('menuToggle');
   var links = document.getElementById('navLinks');
@@ -146,8 +156,8 @@
     if (row.dataset.title === undefined) {
       var title = row.querySelector('h3');
       var def = row.querySelector('.definition');
-      row.dataset.title = (title ? title.textContent : '').trim().toLowerCase();
-      row.dataset.def = (def ? def.textContent : '').trim().toLowerCase();
+      row.dataset.title = normalizeApostrophes((title ? title.textContent : '').trim().toLowerCase());
+      row.dataset.def = normalizeApostrophes((def ? def.textContent : '').trim().toLowerCase());
     }
     return { title: row.dataset.title, def: row.dataset.def };
   }
@@ -174,7 +184,7 @@
   }
 
   function applyFilter() {
-    var query = searchInput.value.trim().toLowerCase();
+    var query = normalizeApostrophes(searchInput.value.trim().toLowerCase());
     var visibleCount = 0;
     rows.forEach(function (row) {
       var parts = rowParts(row);
@@ -397,13 +407,13 @@
     var title = card.querySelector('h2');
     var hook = card.querySelector('.salient-question');
     var meta = card.querySelector('.session-meta');
-    var text = ((title ? title.textContent : '') + ' ' + (hook ? hook.textContent : '') + ' ' + (meta ? meta.textContent : '')).toLowerCase();
+    var text = normalizeApostrophes(((title ? title.textContent : '') + ' ' + (hook ? hook.textContent : '') + ' ' + (meta ? meta.textContent : '')).toLowerCase());
     card.dataset.searchText = text;
     return text;
   }
 
   function applyFilter() {
-    var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    var query = searchInput ? normalizeApostrophes(searchInput.value.trim().toLowerCase()) : '';
     var visibleCount = 0;
     cards.forEach(function (card, i) {
       var areas = (card.getAttribute('data-industries') || '').split(/\s+/);
@@ -462,13 +472,13 @@
     var title = article.querySelector('h2, .session-headline h2, .session-headline');
     var hook = article.querySelector('.salient-question');
     var meta = article.querySelector('.session-meta');
-    var text = ((title ? title.textContent : '') + ' ' + (hook ? hook.textContent : '') + ' ' + (meta ? meta.textContent : '')).toLowerCase();
+    var text = normalizeApostrophes(((title ? title.textContent : '') + ' ' + (hook ? hook.textContent : '') + ' ' + (meta ? meta.textContent : '')).toLowerCase());
     article.dataset.searchText = text;
     return text;
   }
 
   function applyFilter() {
-    var query = searchInput.value.trim().toLowerCase();
+    var query = normalizeApostrophes(searchInput.value.trim().toLowerCase());
     var visibleCount = 0;
     articles.forEach(function (article, i) {
       var matchesAudience = activeAudience === 'all' || article.getAttribute('data-audience') === activeAudience;
@@ -780,8 +790,8 @@
   function renderAllPrincipleChips(query) {
     var wrap = document.getElementById('allPrincipleChips');
     wrap.innerHTML = '';
-    var q = query.trim().toLowerCase();
-    var list = APPLY_PRINCIPLES.filter(function (p) { return !q || p.title.toLowerCase().indexOf(q) !== -1; });
+    var q = normalizeApostrophes(query.trim().toLowerCase());
+    var list = APPLY_PRINCIPLES.filter(function (p) { return !q || normalizeApostrophes(p.title.toLowerCase()).indexOf(q) !== -1; });
     list.forEach(function (p) {
       var chip = document.createElement('button');
       chip.type = 'button';
@@ -901,13 +911,13 @@
     if (card.dataset.searchText) return card.dataset.searchText;
     var title = card.querySelector('h2');
     var lead = card.querySelector('.sb-lead');
-    var text = ((title ? title.textContent : '') + ' ' + (lead ? lead.textContent : '')).toLowerCase();
+    var text = normalizeApostrophes(((title ? title.textContent : '') + ' ' + (lead ? lead.textContent : '')).toLowerCase());
     card.dataset.searchText = text;
     return text;
   }
 
   function applyFilter() {
-    var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    var query = searchInput ? normalizeApostrophes(searchInput.value.trim().toLowerCase()) : '';
     var visibleCount = 0;
     cards.forEach(function (card, i) {
       var matchesDomain = activeDomain === 'all' || card.getAttribute('data-domain') === activeDomain;

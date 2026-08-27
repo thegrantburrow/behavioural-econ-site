@@ -31,6 +31,15 @@
     return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
+  // Smart-quote apostrophes (iOS/macOS auto-correct turns a typed ' into
+  // U+2019 as the user types) won't substring-match a straight ' baked
+  // into indexed text like "Don't Say the E-Word". Both the query and the
+  // indexed field get normalized through this before comparing, so an
+  // apostrophe typed on any device matches either apostrophe form.
+  function normalizeApostrophes(s) {
+    return String(s).replace(/[‘’‛ʼ′´]/g, "'");
+  }
+
   function toArray(nodeList) {
     return Array.prototype.slice.call(nodeList);
   }
@@ -49,13 +58,14 @@
    * fields: { primary: 'title', secondary: 'description' } (field names on item).
    */
   function defaultRelevanceScore(item, query, fields) {
-    var title = String(item[fields.primary] || '').toLowerCase();
-    var secondary = fields.secondary ? String(item[fields.secondary] || '').toLowerCase() : '';
-    if (title === query) return 0;
-    if (title.indexOf(query) === 0) return 1;
-    if (new RegExp('\\b' + escapeRegExp(query)).test(title)) return 2;
-    if (title.indexOf(query) !== -1) return 3;
-    if (secondary && secondary.indexOf(query) !== -1) return 4;
+    var title = normalizeApostrophes(String(item[fields.primary] || '')).toLowerCase();
+    var secondary = fields.secondary ? normalizeApostrophes(String(item[fields.secondary] || '')).toLowerCase() : '';
+    var q = normalizeApostrophes(query);
+    if (title === q) return 0;
+    if (title.indexOf(q) === 0) return 1;
+    if (new RegExp('\\b' + escapeRegExp(q)).test(title)) return 2;
+    if (title.indexOf(q) !== -1) return 3;
+    if (secondary && secondary.indexOf(q) !== -1) return 4;
     return 5;
   }
 
@@ -63,7 +73,7 @@
   function defaultHighlight(text, query) {
     var str = String(text == null ? '' : text);
     if (!query) return escapeHtml(str);
-    var idx = str.toLowerCase().indexOf(query.toLowerCase());
+    var idx = normalizeApostrophes(str).toLowerCase().indexOf(normalizeApostrophes(query).toLowerCase());
     if (idx === -1) return escapeHtml(str);
     return (
       escapeHtml(str.slice(0, idx)) +
