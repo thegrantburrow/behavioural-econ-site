@@ -110,6 +110,33 @@ plus a small visual cue where cheap to add (a faint queued "ghost" card behind a
 step, a bouncing chevron where content continues). A reviewer shouldn't need the
 surrounding prose to understand what a mockup is depicting.
 
+## A copy-editing request wants a live text box, not a toggle plus a comment describing the edit
+
+**What happened.** The standard shape asks the reviewer to toggle "needs work" and then
+*describe* the fix in a comment box (e.g. "the opener should say X instead of Y"). For a
+straight prose-editing round on a short piece (a LinkedIn post draft, a caption, any text
+where the reviewer's real instinct is to just rewrite the sentence), that's an unnecessary
+translation step: the owner has to convert his edit into an instruction, then Claude has to
+convert the instruction back into the edit. His catch, verbatim, asking for this directly:
+"want a section per content when the current copy is and I'll edit it … easier for this
+kind of copy editing."
+
+**The fix, in practice.** For a copy-editing round specifically (not a visual/design
+options review, where the binary toggle is still right), swap the toggle-plus-comment shape
+for one `<textarea data-copytext>` per card, **pre-filled with the current copy** rather
+than empty. The reviewer edits the text directly, in place. Track each box's original value
+in `dataset.original` on load, and compile the feedback panel from the box's *current*
+value every time, tagged `(edited)` or `(unchanged)` by comparing against that stored
+original, not from a toggle state. This means the copied feedback is never "here's what's
+wrong", it's "here's the exact text now, some of which the reviewer rewrote themselves",
+which is both easier for the reviewer to produce and unambiguous for Claude to apply
+(diff the returned text against what was sent, rather than parse a description of an edit).
+Keep this as a distinct card type, not a wholesale replacement of the toggle: a card with no
+inherent text (an image, a layout decision, a process question) still uses the toggle plus
+a real comment box, and a design-options review (see the rest of this skill) keeps the
+toggle as its primary shape even when a card includes some copy, since the decision being
+made there is "which direction", not "fix this sentence."
+
 ## "Needs work" can mean the underlying model is wrong, not just the pixels
 
 **What happened.** After the side-by-side and caption fixes above shipped, the same card
