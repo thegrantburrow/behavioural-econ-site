@@ -949,3 +949,93 @@
     });
   }
 })();
+
+(function () {
+  /* Section permalinks.
+   *
+   * Every article section on this site already carries an id, so every one of
+   * them has always been linkable. What was missing was any way for a reader
+   * to find that out. You had to view source, or guess. So this hangs a small
+   * control off each section heading that both copies the full address and
+   * puts it in the address bar.
+   *
+   * It is a character, not an icon, and that is deliberate. VISUAL-SYSTEMS.md
+   * lists nineteen distinct icon and illustration systems on this site and
+   * says not to guess which one a new mark belongs to. A permalink is chrome
+   * rather than illustration and matches none of them, so rather than invent a
+   * twentieth system for one control, it is set in the heading's own serif.
+   *
+   * Progressive enhancement in the true sense: the ids work with this file
+   * absent, because they are in the HTML. Only the affordance is added here.
+   */
+  var TARGETS = [
+    ['.report-section[id]', 'h3'],
+    ['article.experiment[id]', 'h2'],
+    ['.session[id]', 'h2'],
+    ['.principle[id]', '.principle-summary-text h3']
+  ];
+
+  function label(node) {
+    return (node.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 90);
+  }
+
+  function urlFor(id) {
+    return location.origin + location.pathname + '#' + id;
+  }
+
+  function flash(link, text) {
+    var was = link.getAttribute('data-said');
+    link.setAttribute('data-said', text);
+    clearTimeout(link._saidTimer);
+    link._saidTimer = setTimeout(function () {
+      if (was) { link.setAttribute('data-said', was); } else { link.removeAttribute('data-said'); }
+    }, 1600);
+  }
+
+  function copy(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      return;
+    }
+    /* Older Safari and any page not on a secure origin. */
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      done(ok);
+    } catch (e) { done(false); }
+  }
+
+  TARGETS.forEach(function (pair) {
+    document.querySelectorAll(pair[0]).forEach(function (section) {
+      var head = section.querySelector(pair[1]);
+      if (!head || head.querySelector('.anchor-link')) return;
+
+      var link = document.createElement('a');
+      link.className = 'anchor-link';
+      link.href = '#' + section.id;
+      link.textContent = '#';
+      link.setAttribute('aria-label', 'Copy a link to this section: ' + label(head));
+      link.setAttribute('title', 'Copy link to this section');
+
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        /* A principle heading sits inside a <summary>, where a click would
+           otherwise toggle the disclosure open or shut under the reader. */
+        e.stopPropagation();
+        var url = urlFor(section.id);
+        if (history.replaceState) history.replaceState(null, '', '#' + section.id);
+        else location.hash = section.id;
+        copy(url, function (ok) { flash(link, ok ? 'Copied' : 'Press to copy'); });
+      });
+
+      head.appendChild(link);
+    });
+  });
+})();

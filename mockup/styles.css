@@ -3407,3 +3407,55 @@ footer a:hover { color: var(--terracotta); }
    than merged into one tab set, so the two axes stay visibly distinct */
 .sb-subhead-label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800; color: var(--muted); margin: 0 0 8px; }
 .sb-signal-tabs { margin-top: -6px; }
+
+/* ---------------------------------------------------------------------------
+   Section permalinks
+
+   A character rather than an icon, on purpose. VISUAL-SYSTEMS.md lists the
+   site's icon systems and says not to guess which one a new mark belongs to;
+   a permalink is chrome, matches none of them, and does not justify a
+   twentieth system. So it is set in the heading's own face at a smaller size.
+
+   Hidden until the heading is hovered or the link itself is focused, so a
+   hundred hash marks do not sit down the side of every article. Anything
+   without hover, which is every phone, gets them at low opacity instead:
+   revealing on hover alone would make the control unreachable there.
+--------------------------------------------------------------------------- */
+.anchor-link {
+  margin-left: 0.4em;
+  font-size: 0.72em;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--terracotta);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.16s ease, color 0.16s ease;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+h2:hover > .anchor-link,
+h3:hover > .anchor-link,
+.anchor-link:focus-visible { opacity: 1; }
+
+.anchor-link:hover { color: var(--terracotta-dim); }
+.anchor-link:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; border-radius: 2px; }
+
+/* The confirmation, set beside the mark rather than in a floating bubble that
+   would need positioning against a heading of unknown length. */
+.anchor-link[data-said]::after {
+  content: attr(data-said);
+  margin-left: 0.5em;
+  font-size: 0.82em;
+  letter-spacing: 0.02em;
+  color: var(--teal);
+}
+.anchor-link[data-said] { opacity: 1; }
+
+@media (hover: none) {
+  .anchor-link { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anchor-link { transition: none; }
+}
