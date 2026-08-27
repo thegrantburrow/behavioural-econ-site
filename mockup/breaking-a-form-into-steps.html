@@ -146,6 +146,37 @@
     <p class="toc-intro">Two different form patterns get treated as one design decision, and they're not the same choice. <b>Progress Flow</b> breaks a long form into separate steps, usually behind a visible step count or a progress bar. <b>Progressive Load</b> keeps the same form on one continuous page and lets someone scroll through it instead. Both patterns borrow real psychology to justify themselves.</p>
     <p class="toc-intro">&ldquo;Break it into steps&rdquo; and &ldquo;add a progress bar&rdquo; get applied as one rule, on every flow, on every screen. <b>The actual evidence for which pattern performs better is far more mixed than that instinct suggests.</b> In the one direct test of the two patterns against each other, on two different devices, Progressive Load made no measurable difference on a desktop screen and beat Progress Flow outright on a phone.</p>
 
+    <div class="pattern-compare" role="img" aria-label="Progress Flow shows one numbered block of fields at a time behind a Continue button, with the next block queued and hidden. Progressive Load shows all three numbered blocks on one continuous page, with nothing gated.">
+      <div class="pattern-compare-col">
+        <div class="pattern-compare-label flow">Progress Flow</div>
+        <div class="pattern-phone-wrap">
+          <div class="pattern-phone-ghost"></div>
+          <div class="pattern-phone"><div class="pattern-screen">
+            <div class="pattern-step-label"><span class="pattern-step-badge">2</span>Step 2 of 3</div>
+            <div class="pattern-bar-track"><div class="pattern-bar-fill" style="width:66%"></div></div>
+            <div class="pattern-field"></div>
+            <div class="pattern-field"></div>
+            <div class="pattern-cta">CONTINUE</div>
+          </div></div>
+        </div>
+        <p class="pattern-caption flow"><span class="icon" aria-hidden="true">&#8635;</span>Block 2 of 3 is visible. Continue swaps it for block 3, queued behind.</p>
+      </div>
+      <div class="pattern-compare-col">
+        <div class="pattern-compare-label load">Progressive Load</div>
+        <div class="pattern-phone-wrap">
+          <div class="pattern-phone"><div class="pattern-screen">
+            <div class="pattern-load-wrap">
+              <div class="pattern-load-block"><span class="pattern-load-num">1</span><div class="pattern-load-fields"><div class="pattern-field"></div><div class="pattern-field"></div></div></div>
+              <div class="pattern-load-block"><span class="pattern-load-num">2</span><div class="pattern-load-fields"><div class="pattern-field"></div><div class="pattern-field"></div></div></div>
+              <div class="pattern-load-block"><span class="pattern-load-num">3</span><div class="pattern-load-fields"><div class="pattern-field"></div><div class="pattern-field"></div></div></div>
+              <div class="pattern-load-fade"><span class="pattern-scroll-chevron" aria-hidden="true">&#8964;</span></div>
+            </div>
+          </div></div>
+        </div>
+        <p class="pattern-caption load"><span class="icon" aria-hidden="true">&#8595;</span>All three blocks sit on one page. Scrolling moves between them, nothing is gated.</p>
+      </div>
+    </div>
+
     <p class="story-stack-label">The story in four parts</p>
     <div class="story-stack">
       <div class="story-stack-item">

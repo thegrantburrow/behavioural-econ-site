@@ -2032,6 +2032,46 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   .source-fidelity .fid-rank { width: 34px; height: 34px; font-size: 1rem; }
 }
 
+/* ---------- pattern-compare: side-by-side mini device mockups comparing two
+   named UX patterns, used in a special report's own header/toc-intro area.
+   Visual system #19 (see VISUAL-SYSTEMS.md). Distinct from #10's
+   .app-mock-phone (a single hero mockup inside an experiment/session
+   article body): this is always a pair, always inside the report header,
+   and both columns share the same numbered content blocks so the reader
+   can see it's the identical form under two different rules, not two
+   different forms. Built clamp()-first so the pair stays side by side at
+   every width down to a real phone screen, never stacking. ---------- */
+.pattern-compare { display: flex; gap: clamp(8px, 3vw, 24px); flex-wrap: nowrap; justify-content: center; margin: 22px 0 4px; }
+.pattern-compare-col { flex: 1 1 0; min-width: 0; max-width: 240px; text-align: center; }
+.pattern-compare-label { font-size: clamp(10px, 2.4vw, 12px); font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: clamp(6px, 2vw, 10px); }
+.pattern-compare-label.flow { color: var(--terracotta); }
+.pattern-compare-label.load { color: var(--teal); }
+.pattern-phone-wrap { position: relative; padding: 0 clamp(6px, 2vw, 10px) clamp(6px, 2vw, 10px) 0; }
+.pattern-phone-ghost { position: absolute; inset: 0; border: 1px solid var(--line); border-radius: clamp(12px, 4vw, 20px); background: rgba(27, 30, 36, 0.04); transform: translate(clamp(4px, 1.4vw, 7px), clamp(4px, 1.4vw, 7px)); opacity: 0.6; }
+.pattern-phone { position: relative; z-index: 1; background: var(--card); border: 1px solid var(--line); border-radius: clamp(12px, 4vw, 20px); padding: clamp(7px, 2.5vw, 13px) clamp(6px, 2vw, 11px); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); }
+.pattern-screen { background: var(--paper); border-radius: 9px; padding: clamp(8px, 3vw, 13px) clamp(6px, 2.2vw, 11px); min-height: clamp(170px, 44vw, 240px); display: flex; flex-direction: column; }
+.pattern-step-label { font-size: clamp(8.5px, 2.3vw, 11px); color: var(--muted); margin-bottom: clamp(5px, 1.6vw, 8px); display: flex; align-items: center; gap: 5px; }
+.pattern-step-badge { flex-shrink: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--terracotta); color: #fff; font-size: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.pattern-bar-track { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: clamp(9px, 3vw, 14px); }
+.pattern-bar-fill { height: 100%; background: var(--terracotta); border-radius: 999px; }
+.pattern-field { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; height: clamp(16px, 5vw, 30px); margin-bottom: clamp(6px, 1.8vw, 9px); flex-shrink: 0; }
+.pattern-cta { margin-top: auto; background: var(--terracotta); color: #fff; border-radius: 6px; height: clamp(20px, 5vw, 30px); display: flex; align-items: center; justify-content: center; font-size: clamp(8px, 1.9vw, 10.5px); font-weight: 700; letter-spacing: 0.03em; }
+.pattern-load-wrap { position: relative; flex: 1; overflow: hidden; }
+.pattern-load-block { display: flex; align-items: flex-start; gap: 6px; margin-bottom: clamp(8px, 2.4vw, 12px); }
+.pattern-load-num { flex-shrink: 0; width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid var(--teal); color: var(--teal); font-size: 7.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; background: var(--paper); }
+.pattern-load-fields { flex: 1; display: flex; flex-direction: column; gap: clamp(4px, 1.4vw, 6px); min-width: 0; }
+.pattern-load-fields .pattern-field { margin-bottom: 0; }
+.pattern-load-fade { position: absolute; bottom: 0; left: 0; right: 0; height: clamp(34px, 11vw, 52px); background: linear-gradient(to bottom, transparent, var(--paper)); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px; }
+.pattern-scroll-chevron { color: var(--teal); font-size: clamp(11px, 2.8vw, 15px); font-weight: 700; line-height: 1; }
+.pattern-caption { font-size: clamp(10px, 2.4vw, 11.5px); color: var(--muted); line-height: 1.5; margin: clamp(7px, 2.2vw, 11px) 0 0; text-align: left; }
+.pattern-caption .icon { display: inline-block; width: 13px; text-align: center; font-weight: 700; }
+.pattern-caption.flow .icon { color: var(--terracotta); }
+.pattern-caption.load .icon { color: var(--teal); }
+@media (prefers-reduced-motion: no-preference) {
+  .pattern-scroll-chevron { animation: pattern-bounce 1.6s ease-in-out infinite; }
+}
+@keyframes pattern-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+
 /* ---------- hallmarks: short phrase-pattern callouts, and the four-question
    checklist that closes the evidence-ladder section. ---------- */
 .hallmark-list { display: grid; grid-template-columns: 1fr; gap: 10px; }
