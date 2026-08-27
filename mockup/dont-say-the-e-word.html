@@ -195,6 +195,106 @@
       <div class="case-cite" style="margin-top:6px">List, J. A. (2011). &ldquo;Why Economists Should Conduct Field Experiments and 14 Tips for Pulling One Off.&rdquo; <a href="https://www.aeaweb.org/articles?id=10.1257/jep.25.3.3" target="_blank" rel="noopener">Journal of Economic Perspectives, 25(3), 3&ndash;16</a>. Restated publicly: List, J. A. (2022, February). <i>Rule #1: never use the &ldquo;E&rdquo; word.</i> Referencing Heffetz, O., &amp; List, J. A. (2021). &ldquo;<a href="policy-based-evidence.html">Who's Afraid of Evidence-Based Policymaking?</a>&rdquo;</div>
     </div>
 
+    <div class="report-section" id="what-experiment-means">
+      <h3>The word hides at least six different methods</h3>
+      <p class="intro">Part of why &ldquo;experiment&rdquo; spooks people is that it doesn't mean one thing. A researcher, a product manager, and a UX designer can all use the word in the same meeting and picture <b>three different methods, with three very different levels of rigor behind them</b>. Sorting out which one is actually on the table matters more than the label itself.</p>
+      <p class="intro">Economists Glenn Harrison and John List, the same List behind this report's own citation, published an influential framework for sorting real experiments by exactly this: <b>how real the subjects, the stakes, and the setting actually are</b>. It runs from a conventional lab experiment (a researcher-built setting, a fixed pool of paid volunteers) to a natural field experiment (real people doing what they'd do anyway, with no idea they're in a study at all). Everything else in the field, a five-user usability test, a live A/B test, a hypothetical survey question, sits somewhere on that same spectrum, whether or not the person running it thinks of it that way.</p>
+      <div class="case-cite" style="margin-top:6px">Harrison, G. W., &amp; List, J. A. (2004). &ldquo;Field Experiments.&rdquo; <a href="https://www.aeaweb.org/articles?id=10.1257/0022051043004577" target="_blank" rel="noopener">Journal of Economic Literature, 42(4), 1009&ndash;1055</a>.</div>
+
+      <div class="be-chart-wrap">
+        <svg class="be-chart-svg" viewBox="0 0 400 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A chart plotting six research methods on two axes: real-world stakes and realism on the horizontal axis, and control over the comparison on the vertical axis. Hypothetical scenarios are low realism, moderate control. Lab experiments are low-moderate realism, very high control. User testing is high realism, very low control. Randomized controlled trials including A/B tests are high realism, very high control. Multivariate tests are similarly high on both, slightly lower control per comparison. Natural experiments are highest realism, with control depending on the identification strategy.">
+          <line x1="50" y1="300" x2="50" y2="20" stroke="var(--line)" stroke-width="1.5"></line>
+          <path d="M45 30 L50 20 L55 30" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <line x1="50" y1="300" x2="370" y2="300" stroke="var(--line)" stroke-width="1.5"></line>
+          <path d="M362 295 L372 300 L362 305" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <text x="4" y="12" class="be-chart-axis-label">Control over the<tspan x="4" dy="9">comparison &uarr;</tspan></text>
+          <text x="56" y="322" class="be-chart-axis-label">Real-world stakes &amp; realism &rarr;</text>
+
+          <circle cx="69" cy="118" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="80" y="115" text-anchor="start" class="be-chart-point-label">Hypothetical scenarios</text>
+          <text x="80" y="125" text-anchor="start" class="be-chart-point-sub">stated intent, not real behaviour</text>
+
+          <circle cx="114" cy="54" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="114" y="76" text-anchor="middle" class="be-chart-point-label">Lab experiments</text>
+          <text x="114" y="86" text-anchor="middle" class="be-chart-point-sub">controlled, but artificial</text>
+
+          <circle cx="236" cy="258" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="236" y="238" text-anchor="middle" class="be-chart-point-label">User testing</text>
+          <text x="236" y="248" text-anchor="middle" class="be-chart-point-sub">diagnostic, no control group</text>
+
+          <circle cx="300" cy="62" r="6.5" fill="var(--terracotta)" stroke="var(--terracotta)" stroke-width="1.8"></circle>
+          <text x="296" y="46" text-anchor="end" class="be-chart-point-label" fill="var(--terracotta)">RCTs, A/B tests included</text>
+          <text x="296" y="56" text-anchor="end" class="be-chart-point-sub">real stakes, real randomisation</text>
+
+          <circle cx="312" cy="120" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="312" y="140" text-anchor="middle" class="be-chart-point-label">Multivariate tests</text>
+          <text x="312" y="150" text-anchor="middle" class="be-chart-point-sub">more factors, thinner power</text>
+
+          <circle cx="354" cy="182" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="350" y="200" text-anchor="end" class="be-chart-point-label">Natural experiments</text>
+          <text x="350" y="210" text-anchor="end" class="be-chart-point-sub">real world, control not guaranteed</text>
+        </svg>
+      </div>
+      <p class="flow-insight"><b>Realism and control usually trade off against each other, and randomized field experiments, the RCTs and A/B tests in the upper right, are the rare design that gets both at once.</b> Everything else on the chart is paying for realism with less certainty, or paying for certainty with less realism.</p>
+
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="case-tag">Lowest realism</span>
+          <h4>Hypothetical / imagined-scenario studies</h4>
+          <div class="case-body">
+            <p>Ask people what they'd do, or pay, in a scenario they only imagine, never actually live through.</p>
+            <p><b>Strength:</b> cheap, fast, and the only option for a situation too risky or too far off to actually build, like a product that doesn't exist yet.</p>
+            <p><b>Weakness:</b> what people say they'd do and what they actually do reliably diverge. A meta-analysis of 29 studies found hypothetical willingness-to-pay and willingness-to-accept overstated real, incentivized values by <a href="https://ideas.repec.org/a/kap/enreec/v20y2001i3p241-254.html" target="_blank" rel="noopener">roughly a factor of three, on average</a> (List &amp; Gallet, 2001).</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Highest control</span>
+          <h4>Lab experiments</h4>
+          <div class="case-body">
+            <p>Randomly assign real participants to conditions inside a setting the researcher builds, isolating one variable at a time.</p>
+            <p><b>Strength:</b> the tightest possible control over confounds. If the lab result shows an effect, it's very unlikely to be a coincidence.</p>
+            <p><b>Weakness:</b> the setting, the incentives, and often the subject pool are artificial. A result that holds in a lab doesn't guarantee it survives real stakes and real distractions.</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Diagnostic, not comparative</span>
+          <h4>User testing / usability testing</h4>
+          <div class="case-body">
+            <p>A handful of real users attempt real tasks on the real product while someone watches, usually thinking aloud.</p>
+            <p><b>Strength:</b> fast and rich. Jakob Nielsen's own model puts five users at catching <a href="https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/" target="_blank" rel="noopener">roughly 85% of usability problems</a> (Nielsen, 2000), at a fraction of the cost of a bigger study.</p>
+            <p><b>Weakness:</b> no control group and no counterfactual. It shows where people got stuck, not whether version A actually converts more people than version B, or by how much.</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Realism and control together</span>
+          <h4>Randomized Controlled Trials, A/B tests included</h4>
+          <div class="case-body">
+            <p>Randomly split real people into two or more real conditions and measure a real outcome. &ldquo;A/B test&rdquo; is simply what a digital product team calls the identical design run inside a live app or website.</p>
+            <p><b>Strength:</b> random assignment plus real stakes is the combination that earns the name &ldquo;gold standard&rdquo;, high confidence a measured difference is actually caused by the change.</p>
+            <p><b>Weakness:</b> needs enough real traffic or participants to detect the effect at all (see this site's own <a href="experiments.html">sample-size guidance</a>). Testing one change at a time is also slow when there are many candidates to try.</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Same design, more factors</span>
+          <h4>Multivariate tests</h4>
+          <div class="case-body">
+            <p>The same randomized design as an A/B test, but applied to several factors at once: a headline, an image, a price display, tested together instead of one change at a time.</p>
+            <p><b>Strength:</b> reveals interaction effects a sequence of single-factor A/B tests would miss entirely, like a headline that only works with one particular image.</p>
+            <p><b>Weakness:</b> every added factor multiplies the number of combinations, so the same total traffic gets split thinner across more cells, and each individual comparison earns less statistical certainty.</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Highest realism</span>
+          <h4>Natural experiments / quasi-experiments</h4>
+          <div class="case-body">
+            <p>No one designs the comparison. A real policy change, price change, or eligibility cutoff creates something close to random variation on its own, and the researcher finds it after the fact.</p>
+            <p><b>Strength:</b> the highest possible realism, real people making real decisions, with zero risk of the study itself changing anyone's behaviour.</p>
+            <p><b>Weakness:</b> whether the comparison is really &ldquo;as good as random&rdquo; is an assumption, not a guarantee, and the whole result rests on how well that assumption holds. See <a href="natural-experiments.html">Natural Experiments</a> for the full page on how that assumption gets tested.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="report-section" id="why-it-matters">
       <h3>Why avoiding the word costs more than a word</h3>
       <p class="intro">The word swap alone would be harmless if the underlying test stayed the same. The actual risk is that avoiding &ldquo;experiment&rdquo; often travels together with <b>avoiding the thing that makes an experiment worth running in the first place</b>: a genuine control group, and a willingness to measure an outcome that might come back disappointing. A &ldquo;pilot&rdquo; that launches to everyone at once, with no comparison group and no pre-registered way to fail, isn't a gentler version of an experiment. On the evidence ladder this site sets out separately, <b>it's sitting on a much lower rung, no matter what it's called</b>.</p>
