@@ -964,3 +964,42 @@ function normalizeApostrophes(s) {
     });
   }
 })();
+
+(function () {
+  // Live Sessions landing page: category filter only, no free-text search.
+  // Seven session cards is too few to need a search box, unlike Principles'
+  // 74, so this reuses the same toc-tabs look and the landing-hub's
+  // cat-tile-click-to-filter wiring without the search half of that pattern.
+  var tabs = document.querySelectorAll('#liveSessionsFilterTabs .toc-tab');
+  var cards = document.querySelectorAll('.live-session-card');
+  var emptyMsg = document.getElementById('liveSessionsEmpty');
+  if (!tabs.length || !cards.length) return;
+
+  function applyFilter(category) {
+    var visibleCount = 0;
+    cards.forEach(function (card) {
+      var visible = category === 'all' || card.getAttribute('data-theme') === category;
+      card.hidden = !visible;
+      if (visible) visibleCount++;
+    });
+    if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      applyFilter(tab.getAttribute('data-filter-target'));
+    });
+  });
+
+  var urlCategory = new URLSearchParams(window.location.search).get('category');
+  if (urlCategory) {
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlCategory) t.click();
+    });
+  }
+})();
