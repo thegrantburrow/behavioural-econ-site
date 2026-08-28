@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Live Anchoring | What Works &amp; Why</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{
+  --paper:#F5F6F5; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.62);
+  --terracotta:#C43E1F; --mustard:#E0A93A; --teal:#1F7A6C;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-direction:column;min-height:100vh;}
+#app{display:flex;flex-direction:column;flex:1;min-height:0;}
+.screen{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 22px 40px;max-width:440px;margin:0 auto;width:100%;}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:10px;}
+h1.q{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.35;text-align:center;margin:0 0 26px;text-wrap:balance;}
+h1.q b{color:var(--terracotta);}
+.btnrow{display:flex;gap:10px;}
+.bigbtn{flex:1;text-align:center;font-size:15px;font-weight:700;padding:16px 8px;border-radius:12px;border:1.5px solid var(--ink);background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit;}
+.bigbtn:active{transform:scale(.98);}
+.bigbtn.filled{background:var(--ink);color:var(--paper);}
+.numwrap{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:22px;}
+.numinput{width:150px;font-size:32px;font-weight:700;text-align:center;padding:10px 8px;border-radius:12px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font-family:inherit;}
+.numinput:focus{outline:2px solid var(--terracotta);outline-offset:1px;}
+.suffix{font-size:26px;font-weight:700;color:var(--ink-soft);}
+.submitbtn{margin-top:4px;background:var(--terracotta);color:#fff;border:none;border-radius:12px;padding:16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.submitbtn:disabled{opacity:.5;cursor:default;}
+.msg{text-align:center;font-size:14px;line-height:1.6;color:var(--ink-soft);}
+.msg b{display:block;color:var(--ink);font-size:19px;font-family:Georgia,serif;margin-bottom:10px;}
+.msg .ps{margin-top:14px;font-size:12.5px;}
+
+/* presenter tally / reveal view */
+.reveal-wrap{max-width:680px;margin:0 auto;padding:36px 22px;width:100%;}
+.reveal-title{font-family:Georgia,serif;font-size:24px;text-align:center;margin:0 0 4px;}
+.reveal-sub{text-align:center;font-size:13px;color:var(--ink-soft);margin:0 0 28px;max-width:52ch;margin-left:auto;margin-right:auto;}
+.tally-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+@media (max-width:600px){ .tally-cols{grid-template-columns:1fr;} }
+.tally-col{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;}
+.tally-col h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px;}
+.tally-col .anchor-note{font-size:11.5px;color:var(--ink-soft);margin:0 0 12px;}
+.tally-input-row{display:flex;gap:6px;margin-bottom:12px;}
+.tally-input-row input{flex:1;min-width:0;font-size:16px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;}
+.tally-input-row button{background:var(--ink);color:var(--paper);border:none;border-radius:8px;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.tally-stats{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.tally-median{font-family:Georgia,serif;font-size:28px;font-weight:700;}
+.tally-n{font-size:12px;color:var(--ink-soft);}
+.tally-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.tally-chip{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;display:flex;align-items:center;gap:6px;}
+.tally-chip button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:0;line-height:1;}
+.chart-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.chart-label{width:100px;flex-shrink:0;font-size:12.5px;font-weight:700;text-align:right;}
+.chart-track{flex:1;background:var(--line);border-radius:7px;height:26px;position:relative;}
+.chart-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;min-width:2px;transition:width .3s ease;}
+.chart-fill span{font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;}
+.truth-line{position:absolute;top:-5px;bottom:-5px;border-left:2px dashed var(--ink-soft);}
+.legend{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:2px 0 26px;}
+.legend .sw{display:inline-block;width:12px;border-top:2px dashed var(--ink-soft);margin-right:5px;vertical-align:middle;}
+.historical{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;text-align:center;max-width:52ch;margin:0 auto 20px;}
+.reset-row{text-align:center;}
+.reset-btn{font-size:12px;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+(function(){
+"use strict";
+
+var FACT = {
+  comparative: function(anchor){
+    return 'Is the percentage of United Nations member countries that are in Africa more or less than <b>' + anchor + '%</b>?';
+  },
+  estimateQuestion: 'What percentage of United Nations member countries are in Africa?',
+  truth: 28,
+  suffix: '%',
+  min: 0,
+  max: 100,
+  historicalHigh: 45,
+  historicalLow: 25
+};
+
+var GROUPS = {
+  a: { anchor: 65, label: 'High anchor (asked about 65%)' },
+  b: { anchor: 10, label: 'Low anchor (asked about 10%)' }
+};
+
+function getGroupFromHash(){
+  var h = location.hash.replace('#','');
+  var m = h.match(/(?:^|&)g=([ab])(?:&|$)/);
+  return m ? m[1] : null;
+}
+function isReveal(){
+  return /(^|#|&)reveal(&|$)/.test(location.hash);
+}
+
+function el(tag, attrs, html){
+  var e = document.createElement(tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function render(node){
+  var app = document.getElementById('app');
+  app.innerHTML = '';
+  app.appendChild(node);
+}
+
+function renderNoGroup(){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, 'Live Anchoring'));
+  s.appendChild(el('div', {class:'msg'},
+    '<b>This link needs to come from one of the session QR codes.</b>Ask whoever&rsquo;s running the session for the right link.'));
+  render(s);
+}
+
+function renderComparative(group){
+  var anchor = GROUPS[group].anchor;
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, 'Quick question'));
+  s.appendChild(el('h1', {class:'q'}, FACT.comparative(anchor)));
+  var row = el('div', {class:'btnrow'}, '');
+  var more = el('button', {class:'bigbtn filled', type:'button'}, 'More');
+  var less = el('button', {class:'bigbtn', type:'button'}, 'Less');
+  function advance(){ renderEstimate(group); }
+  more.addEventListener('click', advance);
+  less.addEventListener('click', advance);
+  row.appendChild(more); row.appendChild(less);
+  s.appendChild(row);
+  render(s);
+}
+
+function renderEstimate(group){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, 'Your estimate'));
+  s.appendChild(el('h1', {class:'q'}, FACT.estimateQuestion));
+  var wrap = el('div', {class:'numwrap'}, '');
+  var input = el('input', {class:'numinput', type:'number', inputmode:'numeric', min:String(FACT.min), max:String(FACT.max), placeholder:'?'});
+  wrap.appendChild(input);
+  wrap.appendChild(el('span', {class:'suffix'}, FACT.suffix));
+  s.appendChild(wrap);
+  var btn = el('button', {class:'submitbtn', type:'button'}, 'Submit');
+  btn.disabled = true;
+  input.addEventListener('input', function(){
+    var v = parseFloat(input.value);
+    btn.disabled = !(isFinite(v) && v >= FACT.min && v <= FACT.max);
+  });
+  btn.addEventListener('click', function(){
+    var v = parseFloat(input.value);
+    if (!isFinite(v)) return;
+    renderThanks(v);
+  });
+  s.appendChild(btn);
+  render(s);
+  input.focus();
+}
+
+function renderThanks(v){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'msg'},
+    '<b>Thanks, your answer is ' + v + FACT.suffix + '.</b>' +
+    'When the room compares notes, call out your number (or put your hand up when asked) so it can be added to the results.' +
+    '<div class="ps">This page doesn&rsquo;t share answers between phones on its own, that part happens out loud, in the room.</div>'));
+  render(s);
+}
+
+/* ---------------- presenter tally / reveal ---------------- */
+
+var tally = { a: [], b: [] };
+
+function median(nums){
+  if (!nums.length) return null;
+  var s = nums.slice().sort(function(a,b){ return a-b; });
+  var mid = Math.floor(s.length/2);
+  return s.length % 2 ? s[mid] : (s[mid-1]+s[mid])/2;
+}
+
+function renderReveal(){
+  var wrap = el('div', {class:'reveal-wrap'}, '');
+  wrap.appendChild(el('h1', {class:'reveal-title'}, 'Live results'));
+  wrap.appendChild(el('p', {class:'reveal-sub'}, 'Ask a show of hands, or a few people per side to call out their number, and type each one in as you hear it. This tally lives only on this screen, nothing is sent anywhere.'));
+
+  var cols = el('div', {class:'tally-cols'}, '');
+
+  Object.keys(GROUPS).forEach(function(g){
+    var col = el('div', {class:'tally-col'}, '');
+    col.appendChild(el('h3', {}, GROUPS[g].label));
+    var inputRow = el('div', {class:'tally-input-row'}, '');
+    var input = el('input', {type:'number', inputmode:'numeric', placeholder:'e.g. ' + (g==='a'?'50':'15')});
+    var addBtn = el('button', {type:'button'}, 'Add');
+    function add(){
+      var v = parseFloat(input.value);
+      if (!isFinite(v)) return;
+      tally[g].push(v);
+      input.value = '';
+      renderReveal();
+    }
+    addBtn.addEventListener('click', add);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') add(); });
+    inputRow.appendChild(input); inputRow.appendChild(addBtn);
+    col.appendChild(inputRow);
+
+    var stats = el('div', {class:'tally-stats'}, '');
+    var med = median(tally[g]);
+    stats.appendChild(el('div', {class:'tally-median'}, med !== null ? Math.round(med) + FACT.suffix : '–'));
+    stats.appendChild(el('div', {class:'tally-n'}, 'n=' + tally[g].length));
+    col.appendChild(stats);
+
+    var chips = el('div', {class:'tally-chips'}, '');
+    tally[g].forEach(function(v, i){
+      var chip = el('span', {class:'tally-chip'}, v + FACT.suffix + ' ');
+      var rm = el('button', {type:'button', 'aria-label':'Remove'}, '&times;');
+      rm.addEventListener('click', function(){ tally[g].splice(i,1); renderReveal(); });
+      chip.appendChild(rm);
+      chips.appendChild(chip);
+    });
+    col.appendChild(chips);
+    cols.appendChild(col);
+  });
+
+  wrap.appendChild(cols);
+
+  var maxVal = Math.max(FACT.truth, 20, Object.keys(GROUPS).reduce(function(m,g){
+    var med = median(tally[g]);
+    return med !== null ? Math.max(m, med) : m;
+  }, 0));
+
+  var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
+  Object.keys(GROUPS).forEach(function(g){
+    var med = median(tally[g]);
+    var row = el('div', {class:'chart-row'}, '');
+    row.appendChild(el('div', {class:'chart-label'}, GROUPS[g].label.split(' (')[0]));
+    var track = el('div', {class:'chart-track'}, '');
+    if (med !== null){
+      var pct = Math.max(4, Math.min(100, (med / maxVal) * 100));
+      var fill = el('div', {class:'chart-fill'}, '<span>' + Math.round(med) + FACT.suffix + '</span>');
+      fill.style.width = pct + '%';
+      fill.style.background = colors[g];
+      track.appendChild(fill);
+    }
+    var truthPct = Math.max(0, Math.min(100, (FACT.truth / maxVal) * 100));
+    var truth = el('div', {class:'truth-line'}, '');
+    truth.style.left = truthPct + '%';
+    track.appendChild(truth);
+    row.appendChild(track);
+    wrap.appendChild(row);
+  });
+  wrap.appendChild(el('div', {class:'legend'}, '<span class="sw"></span> Real answer: ' + FACT.truth + FACT.suffix));
+
+  wrap.appendChild(el('div', {class:'historical'},
+    '<b style="color:var(--ink);display:block;margin-bottom:4px;">For comparison:</b>Tversky &amp; Kahneman&rsquo;s original 1974 study found median guesses of ' + FACT.historicalHigh + FACT.suffix + ' from the high-anchor group and ' + FACT.historicalLow + FACT.suffix + ' from the low-anchor group, everyone knew the anchor was random.'));
+
+  var resetRow = el('div', {class:'reset-row'}, '');
+  var resetBtn = el('button', {class:'reset-btn', type:'button'}, 'Clear tally (start a new session)');
+  resetBtn.addEventListener('click', function(){
+    if (!confirm('Clear both columns and start fresh for the next talk?')) return;
+    tally = { a: [], b: [] };
+    renderReveal();
+  });
+  resetRow.appendChild(resetBtn);
+  wrap.appendChild(resetRow);
+
+  render(wrap);
+}
+
+function boot(){
+  if (isReveal()) { renderReveal(); return; }
+  var group = getGroupFromHash();
+  if (!group || !GROUPS[group]) { renderNoGroup(); return; }
+  renderComparative(group);
+}
+
+boot();
+window.addEventListener('hashchange', boot);
+})();
+</script>
+</body>
+</html>
