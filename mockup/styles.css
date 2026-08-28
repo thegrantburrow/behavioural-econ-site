@@ -1600,6 +1600,10 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   border: 1px solid var(--line);
   border-radius: 10px;
 }
+.spotted-item.single {
+  max-width: 340px;
+  margin: 0 auto;
+}
 .spotted-caption { margin: 8px 0 0; font-size: 0.82rem; line-height: 1.5; color: var(--muted); }
 .spotted-caption b { color: var(--ink); }
 .spotted-disclosure {

@@ -71,7 +71,8 @@ var APPLY_PRINCIPLES = [
   {id:"clawback", title:"Clawback (Loss-Framed Incentives)", cat:"motivation", blurb:"The identical reward moves people more when it's framed as something already theirs and at risk of being taken back than when the same reward is framed as something still to be earned."},
   {id:"disclosure-backfire", title:"Disclosure Backfire (Sunlight That Doesn't Disinfect)", cat:"friction", blurb:"Disclosing a conflict of interest is meant to let the person receiving advice discount it appropriately. It can instead free the person giving the advice to lean into their bias further."},
   {id:"propinquity-effect", title:"Propinquity Effect", cat:"social", blurb:"People who cross paths often, simply because they live or work near each other, become more familiar with each other than they would otherwise, and that familiarity gets read as trust or fit, even in a decision meant to be judged on merit alone."},
-  {id:"availability-heuristic", title:"Availability Heuristic", cat:"judgment", blurb:"When something is easy to picture or recall, a recent headline, a vivid story, a memory of your own, it feels more common and more likely than it actually is, simply because it comes to mind so easily."}
+  {id:"availability-heuristic", title:"Availability Heuristic", cat:"judgment", blurb:"When something is easy to picture or recall, a recent headline, a vivid story, a memory of your own, it feels more common and more likely than it actually is, simply because it comes to mind so easily."},
+  {id:"diversification-heuristic", title:"Diversification Heuristic", cat:"judgment", blurb:"Asked to split money or attention across several options, people default to dividing it evenly by how many there are, not by what each one actually contains."}
 ];
 
 // Plain, observable business symptoms, grouped by where in the journey
