@@ -1,7 +1,7 @@
 // Smart-quote apostrophes (iOS/macOS auto-correct turns a typed ' into
 // U+2019 as you type) don't match a straight ' baked into a title like
 // "Don't Say the E-Word" in a plain indexOf() comparison. Every search/
-// filter box on the site normalizes both the query and the indexed text
+// filter box on the site normalises both the query and the indexed text
 // through this before comparing, so typing an apostrophe on any device
 // matches a title with either apostrophe form.
 function normalizeApostrophes(s) {

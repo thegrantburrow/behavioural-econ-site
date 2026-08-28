@@ -34,7 +34,7 @@
   // Smart-quote apostrophes (iOS/macOS auto-correct turns a typed ' into
   // U+2019 as the user types) won't substring-match a straight ' baked
   // into indexed text like "Don't Say the E-Word". Both the query and the
-  // indexed field get normalized through this before comparing, so an
+  // indexed field get normalised through this before comparing, so an
   // apostrophe typed on any device matches either apostrophe form.
   function normalizeApostrophes(s) {
     return String(s).replace(/[‘’‛ʼ′´]/g, "'");
@@ -123,12 +123,12 @@
    *   classNames     — { list, item, active, empty, group } CSS class
    *                     overrides.
    *   groupBy        — field name (string) or function(item) -> key.
-   *                     When set, results render as labeled groups (e.g.
+   *                     When set, results render as labelled groups (e.g.
    *                     one dataset spanning several content types on a
    *                     site, grouped the way the site's own nav already
-   *                     categorizes them) instead of one flat list.
+   *                     categorises them) instead of one flat list.
    *                     Group headers are `role="presentation"`, not
-   *                     selectable, and never count toward a result total.
+   *                     selectable, and never count towards a result total.
    *                     Ranking still runs globally first, so the best
    *                     match within each group still sorts first inside
    *                     that group. Only applies to the local `data` path,
