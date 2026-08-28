@@ -3423,3 +3423,29 @@ footer a:hover { color: var(--terracotta); }
    than merged into one tab set, so the two axes stay visibly distinct */
 .sb-subhead-label { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800; color: var(--muted); margin: 0 0 8px; }
 .sb-signal-tabs { margin-top: -6px; }
+
+/* ---------- Live Sessions (illustrative interactive sessions, run with
+   a real audience) ---------- */
+.live-hero { padding: 32px 0 8px; }
+.live-hero-intro { font-size: 0.98rem; color: var(--muted); line-height: 1.6; margin: 8px 0 0; max-width: 62ch; }
+.live-session-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px 22px; margin: 28px 0; }
+.live-session-eyebrow { display: inline-block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--terracotta); font-weight: 700; margin-bottom: 8px; }
+.live-session-card h2 { font-family: Georgia, "Times New Roman", serif; font-size: 1.5rem; margin: 0 0 6px; }
+.live-session-dek { font-size: 0.95rem; color: var(--muted); margin: 0 0 16px; max-width: 60ch; }
+.live-session-card .mechanism-note { margin-bottom: 16px; }
+.live-session-card p.body-text { font-size: 0.92rem; line-height: 1.65; margin: 0 0 14px; max-width: 62ch; }
+.live-try-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 6px; }
+.live-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; padding: 11px 18px; border-radius: 10px; text-decoration: none; }
+.live-btn.primary { background: var(--ink); color: var(--paper); }
+.live-btn.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.live-btn.reveal { background: transparent; color: var(--terracotta); border: 1.5px solid var(--terracotta); }
+.live-try-note { font-size: 0.78rem; color: var(--muted); margin: 4px 0 0; }
+.live-howitworks { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.live-howitworks h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px; color: var(--ink); }
+.live-howitworks ol { margin: 0; padding-left: 20px; font-size: 0.88rem; line-height: 1.6; color: var(--muted); }
+.live-howitworks li { margin-bottom: 8px; }
+.live-howitworks li b { color: var(--ink); }
+.live-session-links { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+.live-session-links a { color: var(--terracotta); font-weight: 600; }
+.live-more { margin: 36px 0 8px; padding: 18px 20px; background: var(--paper-alt, var(--card)); border-radius: 12px; border: 1px dashed var(--line); font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+.live-more b { color: var(--ink); }
