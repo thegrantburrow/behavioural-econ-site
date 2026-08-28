@@ -164,49 +164,60 @@
 
     <div class="apply-card" data-q="p1" hidden>
       <button type="button" class="apply-back" data-back>&larr; Back</button>
-      <p class="apply-qtext">What's the problem, in one line?</p>
-      <div class="apply-field"><textarea id="probStatement" rows="2" placeholder="e.g. New savings accounts get opened, but 40% never make a first deposit."></textarea></div>
-      <button type="button" class="apply-btn primary" data-next="p2">Continue &rarr;</button>
+      <p class="apply-qtext">Where in the journey is this happening? Pick the one that fits best.</p>
+      <div class="apply-chiprow" id="stageChips"></div>
+      <button type="button" class="apply-btn primary" data-next="p2" id="p1Next" disabled>Continue &rarr;</button>
     </div>
 
     <div class="apply-card" data-q="p2" hidden>
       <button type="button" class="apply-back" data-back>&larr; Back</button>
       <p class="apply-qtext">Which of these sound like what's happening? Pick every one that applies.</p>
       <div class="apply-checklist" id="symptomChecklist"></div>
-      <button type="button" class="apply-btn primary" data-next="p3" id="p2Next" disabled>Continue &rarr;</button>
+      <button type="button" class="apply-btn primary" id="p2Next" disabled>Continue &rarr;</button>
+    </div>
+
+    <div class="apply-card" data-q="p2b" hidden>
+      <button type="button" class="apply-back" data-back>&larr; Back</button>
+      <p class="apply-qtext">That still points to a few different things. Which of these feels closest to the real cause?</p>
+      <div class="apply-chiprow" id="categoryChips"></div>
+      <button type="button" class="apply-btn" id="p2bSkip">Not sure, show me everything &rarr;</button>
     </div>
 
     <div class="apply-card" data-q="p3" hidden>
       <button type="button" class="apply-back" data-back>&larr; Back</button>
-      <p class="apply-qtext">What do you want them to do instead?</p>
-      <div class="apply-field"><input id="targetBehaviour" placeholder="e.g. Make a first deposit within 7 days of opening the account."></div>
-      <button type="button" class="apply-btn primary" data-next="p4">Continue &rarr;</button>
+      <p class="apply-qtext">What do you want them to do instead? Pick the one that fits best.</p>
+      <div class="apply-chiprow" id="outcomeChips"></div>
+      <div class="apply-field" id="outcomeOtherField" hidden><label>In your own words</label><input id="outcomeOther" placeholder="Describe the outcome you want."></div>
+      <button type="button" class="apply-btn primary" data-next="p4" id="p3Next" disabled>Continue &rarr;</button>
     </div>
 
     <div class="apply-card" data-q="p4" hidden>
       <button type="button" class="apply-back" data-back>&larr; Back</button>
       <p class="apply-qtext">These principles might explain what's happening. Keep the ones that feel right.</p>
-      <p class="apply-hint" id="p4Hint">Matched from the categories you picked.</p>
+      <p class="apply-hint" id="p4Hint">Matched from what you picked, not a whole category.</p>
       <div class="apply-chiprow" id="principleChips"></div>
       <button type="button" class="apply-btn primary" data-next="p5" id="p4Next" disabled>Continue &rarr;</button>
     </div>
 
     <div class="apply-card" data-q="p5" hidden>
       <button type="button" class="apply-back" data-back>&larr; Back</button>
-      <p class="apply-qtext">What would applying those principles actually look like, on screen?</p>
-      <div class="apply-field"><textarea id="proposedChange" rows="2" placeholder="Describe the change you'd make."></textarea></div>
-      <button type="button" class="apply-btn primary" data-next="p6">Continue &rarr;</button>
+      <p class="apply-qtext">What would applying those principles actually look like, on screen? Pick every one that fits.</p>
+      <div class="apply-chiprow" id="changeChips"></div>
+      <div class="apply-field" id="changeOtherField" hidden><label>In your own words</label><input id="changeOther" placeholder="Describe the change you'd make."></div>
+      <button type="button" class="apply-btn primary" data-next="p6" id="p5Next" disabled>Continue &rarr;</button>
     </div>
 
     <div class="apply-card" data-q="p6" hidden>
       <button type="button" class="apply-back" data-back>&larr; Back</button>
       <p class="apply-qtext">Set up the experiment: control versus treatment, and the one metric that tells you if it worked.</p>
       <div class="apply-2col">
-        <div class="apply-field"><label>Control</label><input id="controlDesc" placeholder="What stays the same"></div>
-        <div class="apply-field"><label>Treatment</label><input id="treatmentDesc" placeholder="What changes"></div>
+        <div class="apply-field"><label>Control</label><div class="apply-autotext" id="controlAutoP">Today's experience, unchanged.</div></div>
+        <div class="apply-field"><label>Treatment</label><div class="apply-autotext" id="treatmentAutoP">Pick a change on the previous screen to fill this in.</div></div>
       </div>
-      <div class="apply-field"><label>Primary metric</label><input id="metricDesc" placeholder="e.g. % making a first deposit within 7 days"></div>
-      <button type="button" class="apply-btn primary" data-next="brief" id="buildBriefP">Build my brief &rarr;</button>
+      <p class="apply-qtext" style="margin-top:4px;">Which metric tells you if it worked?</p>
+      <div class="apply-chiprow" id="metricChipsP"></div>
+      <div class="apply-field" id="metricOtherFieldP" hidden><label>In your own words</label><input id="metricOtherP" placeholder="What you'd measure."></div>
+      <button type="button" class="apply-btn primary" data-next="brief" id="buildBriefP" disabled>Build my brief &rarr;</button>
     </div>
 
     <div class="apply-card" data-q="c1" hidden>
@@ -220,21 +231,28 @@
     <div class="apply-card" data-q="c2" hidden>
       <button type="button" class="apply-back" data-back>&larr; Back</button>
       <p class="apply-qtext" id="c2Title">Applying this principle</p>
-      <div class="apply-field"><label>What's the moment in your product?</label><input id="ctxMoment" placeholder="e.g. The screen right after signup."></div>
-      <div class="apply-field"><label>What's currently happening?</label><input id="ctxCurrent" placeholder="What people do today, without this principle applied."></div>
-      <div class="apply-field"><label>What would change if this principle applied?</label><input id="ctxChange" placeholder="Your hypothesis."></div>
-      <button type="button" class="apply-btn primary" data-next="c3">Continue &rarr;</button>
+      <p class="apply-hint">Where in the journey is this?</p>
+      <div class="apply-chiprow" id="momentChips"></div>
+      <p class="apply-hint">What's currently happening?</p>
+      <div class="apply-chiprow" id="currentChips"></div>
+      <div class="apply-field" id="currentOtherField" hidden><label>In your own words</label><input id="currentOther" placeholder="What people do today, without this principle applied."></div>
+      <p class="apply-hint">What would change if this principle applied? Pick every one that fits.</p>
+      <div class="apply-chiprow" id="changeChipsC"></div>
+      <div class="apply-field" id="changeOtherFieldC" hidden><label>In your own words</label><input id="changeOtherC" placeholder="Your hypothesis."></div>
+      <button type="button" class="apply-btn primary" data-next="c3" id="c2Next" disabled>Continue &rarr;</button>
     </div>
 
     <div class="apply-card" data-q="c3" hidden>
       <button type="button" class="apply-back" data-back>&larr; Back</button>
       <p class="apply-qtext">Set up the experiment: control versus treatment, and the one metric that tells you if it worked.</p>
       <div class="apply-2col">
-        <div class="apply-field"><label>Control</label><input id="controlDescC" placeholder="What stays the same"></div>
-        <div class="apply-field"><label>Treatment</label><input id="treatmentDescC" placeholder="What changes"></div>
+        <div class="apply-field"><label>Control</label><div class="apply-autotext" id="controlAutoC">Today's experience, unchanged.</div></div>
+        <div class="apply-field"><label>Treatment</label><div class="apply-autotext" id="treatmentAutoC">Pick a change on the previous screen to fill this in.</div></div>
       </div>
-      <div class="apply-field"><label>Primary metric</label><input id="metricDescC" placeholder="What you'd measure"></div>
-      <button type="button" class="apply-btn primary" data-next="brief" id="buildBriefC">Build my brief &rarr;</button>
+      <p class="apply-qtext" style="margin-top:4px;">Which metric tells you if it worked?</p>
+      <div class="apply-chiprow" id="metricChipsC"></div>
+      <div class="apply-field" id="metricOtherFieldC" hidden><label>In your own words</label><input id="metricOtherC" placeholder="What you'd measure."></div>
+      <button type="button" class="apply-btn primary" data-next="brief" id="buildBriefC" disabled>Build my brief &rarr;</button>
     </div>
 
     <div class="apply-card" data-q="brief" hidden>

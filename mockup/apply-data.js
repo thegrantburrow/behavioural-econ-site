@@ -75,26 +75,201 @@ var APPLY_PRINCIPLES = [
   {id:"diversification-heuristic", title:"Diversification Heuristic", cat:"judgment", blurb:"Asked to split money or attention across several options, people default to dividing it evenly by how many there are, not by what each one actually contains."}
 ];
 
-// Plain, observable business symptoms, grouped by where in the journey
-// they show up. Each symptom maps to a small, hand-picked set of specific
-// principles that actually explain it, never a whole category. No
-// behavioural-science term appears anywhere in this data: the diagnosis
-// step only ever shows what a business owner would already say out loud.
-var APPLY_SYMPTOMS = [
-  {group: "Getting them to start", items: [
-    {id: "no-click", text: "People see the offer, but don't click through.", principles: ["salience", "framing-effect", "signpost-effect"]},
-    {id: "early-abandon", text: "They start filling something out, then abandon almost immediately.", principles: ["sludge", "choice-overload"]}
-  ]},
-  {group: "Getting them through", items: [
-    {id: "price-screen", text: "They abandon right at the price or payment screen.", principles: ["price-transparency", "pain-of-paying", "payment-transparency"]},
-    {id: "one-step-stall", text: "They stall at one specific step, then give up.", principles: ["sludge", "choice-overload"]}
-  ]},
-  {group: "Getting them to choose well", items: [
-    {id: "picks-cheapest", text: "They pick the cheapest option even when it's clearly not the best value.", principles: ["decoy", "anchoring"]},
-    {id: "sticks-preselected", text: "They stick with whatever's pre-selected, rarely changing it.", principles: ["default-effect"]}
-  ]},
-  {group: "Getting them to come back", items: [
-    {id: "one-and-done", text: "They complete it once, then don't return.", principles: ["goal-gradient", "pseudo-set-framing"]},
-    {id: "cancels-soon", text: "They cancel or downgrade shortly after signing up.", principles: ["smart-defaults", "precommitment-devices"]}
-  ]}
+// Category display names, reused wherever a principle's .cat needs a real
+// label (the disambiguation step, chip hints), matching the exact 6 category
+// names already used in the site's own nav and principles.html filters.
+var APPLY_CATEGORY_LABELS = {
+  judgment: "Judgment & Memory",
+  choice: "Choice Architecture",
+  pricing: "Pricing & Value",
+  social: "Social Influence",
+  motivation: "Motivation & Goals",
+  friction: "Friction & Transparency"
+};
+
+// The full triage tree for the "I have a problem" path. Every one of the 74
+// principles above appears in at least one stage's symptom list, unlike the
+// old 4-stage/8-symptom version this replaces, which only ever reached about
+// 15 of them. Nothing here is free text: p1 picks one stage (single-select),
+// p2 checks every symptom that applies within that stage (multi-select,
+// union-matched to principles), and an optional disambiguation step narrows
+// further by category when a stage still leaves too many candidates. Plain,
+// observable business language throughout, never a behavioural-science term.
+var APPLY_STAGES = [
+  {
+    id: "notice", label: "Getting them to notice, or click through",
+    hint: "The very first moment: an ad, an email, a banner, a message.",
+    items: [
+      {id: "notice-no-click", text: "People see the offer or message, but don't click through.", principles: ["salience", "framing-effect", "signpost-effect"]},
+      {id: "notice-reword", text: "The same fact seems to land completely differently depending on how it's worded.", principles: ["framing-effect"]},
+      {id: "notice-vivid-story", text: "A vivid recent story or headline seems to be driving a decision more than the real numbers do.", principles: ["availability-heuristic"]},
+      {id: "notice-first-impression", text: "One strong first impression seems to be colouring how people see everything else about us.", principles: ["halo-effect"]},
+      {id: "notice-repetition", text: "Repeating the same claim seems to make people believe it more, true or not.", principles: ["illusory-truth-effect"]}
+    ]
+  },
+  {
+    id: "onboarding", label: "Getting them through a form or signup",
+    hint: "Signing up, filling in details, setting up an account.",
+    items: [
+      {id: "onboard-early-abandon", text: "They start filling something out, then abandon almost immediately.", principles: ["sludge", "choice-overload"]},
+      {id: "onboard-one-step-stall", text: "They stall at one specific step, then give up.", principles: ["sludge", "choice-overload"]},
+      {id: "onboard-long-number", text: "A long number or code (an ID, a reference) seems to trip people up until it's grouped.", principles: ["chunking"]},
+      {id: "onboard-more-options-harder", text: "Showing more options up front seems to make signing up harder, not easier.", principles: ["choice-overload"]},
+      {id: "onboard-removed-option", text: "Removing an option people used to have seems to have made them want it more.", principles: ["not-enough-choice"]}
+    ]
+  },
+  {
+    id: "choosing", label: "Getting them to pick well among options",
+    hint: "Comparing plans, products, or settings once they're already choosing.",
+    items: [
+      {id: "choose-cheapest", text: "They pick the cheapest option even when it's clearly not the best value.", principles: ["decoy", "anchoring"]},
+      {id: "choose-sticks-default", text: "They stick with whatever's pre-selected, rarely changing it.", principles: ["default-effect"]},
+      {id: "choose-third-option", text: "Adding a third, clearly worse option seems to have changed which of the other two people pick.", principles: ["decoy"]},
+      {id: "choose-middle-option", text: "Adding a middle option pulled people toward it, more than its actual value explains.", principles: ["compromise-effect"]},
+      {id: "choose-similar-option", text: "A new option very similar to an existing one split attention, and an unrelated third one gained.", principles: ["similarity-effect"]},
+      {id: "choose-order-changes", text: "The exact same options, shown in a different order, get picked differently.", principles: ["ordering-effects", "order-effect"]},
+      {id: "choose-splits-evenly", text: "People split their attention or budget evenly across however many options are on the menu, not by what's actually in each one.", principles: ["diversification-heuristic"]},
+      {id: "choose-meaningless-detail", text: "A specific-sounding but functionally meaningless detail seems to get read as a real benefit.", principles: ["meaningless-differentiation"]},
+      {id: "choose-sensory-cue", text: "An unrelated touch, colour, or texture cue seems to be changing how the product itself is judged.", principles: ["crossmodal-correspondence"]},
+      {id: "choose-once-for-future", text: "People choose once for a whole set of future decisions, and it produces a different outcome than deciding fresh each time.", principles: ["choice-bracketing"]},
+      {id: "choose-avoid-loss", text: "People go out of their way to avoid a loss they'd otherwise walk past as a missed gain.", principles: ["loss-aversion"]},
+      {id: "choose-ownership-jump", text: "The moment people “own” something, even briefly (a trial, a cart), they suddenly value it more.", principles: ["endowment-effect"]},
+      {id: "choose-restate-terms", text: "Restating the identical fact in different terms (cost vs. time vs. impact) changes what people choose.", principles: ["signpost-effect"]},
+      {id: "choose-scarcity-signal", text: "Marking something as limited in quantity or time makes it wanted right now.", principles: ["scarcity"]},
+      {id: "choose-only-upside", text: "Only showing the upside, never what's given up, seems to be producing worse decisions.", principles: ["tradeoff-transparency"]}
+    ]
+  },
+  {
+    id: "payment", label: "Getting them through payment or pricing",
+    hint: "The price screen, checkout, or how a cost is shown.",
+    items: [
+      {id: "pay-screen-drop", text: "They abandon right at the price or payment screen.", principles: ["price-transparency", "pain-of-paying", "payment-transparency"]},
+      {id: "pay-free-jump", text: "Making something completely free changed demand by far more than a small price cut would.", principles: ["zero-price"]},
+      {id: "pay-free-worse", text: "Making something free actually converted worse than charging a small amount.", principles: ["zero-price-paradox"]},
+      {id: "pay-99-cents", text: "Prices ending in .99 seem to be read as a lower price bracket than they actually are.", principles: ["left-digit-bias"]},
+      {id: "pay-round-vs-precise", text: "A precise price and a round price get reacted to differently, and it's not obvious which wins.", principles: ["precision-effect"]},
+      {id: "pay-yearly-vs-daily", text: "The same total cost feels different depending on whether it's shown yearly or broken down daily.", principles: ["translating-information"]},
+      {id: "pay-mental-account", text: "The same dollar seems to be treated as worth more or less depending which “account” it came from.", principles: ["mental-accounting"]},
+      {id: "pay-card-premium", text: "People pay more for the identical thing once they're paying by card instead of cash.", principles: ["credit-card-premium"]},
+      {id: "pay-recurring-reframe", text: "Restating a cost as a small recurring amount instead of one total made the same spend feel easier to accept.", principles: ["temporal-reframing"]},
+      {id: "pay-bundle-discount", text: "The same discount feels bigger stated on a bundle than spread across separate line items.", principles: ["bundling"]},
+      {id: "pay-fairness-reaction", text: "A price rise gets judged fair or unfair depending on the story behind it, not the number itself.", principles: ["perceived-fairness"]}
+    ]
+  },
+  {
+    id: "engagement", label: "Getting them to keep using it, or build a habit",
+    hint: "Repeat use, streaks, loyalty programmes, ongoing effort.",
+    items: [
+      {id: "engage-speeds-up", text: "People move slowly at first, then speed up as they get closer to finishing.", principles: ["goal-gradient"]},
+      {id: "engage-chases-token", text: "People seem to chase the points or badges themselves, more than the reward those tokens are supposed to represent.", principles: ["medium-maximization"]},
+      {id: "engage-one-slip-quits", text: "People give up completely after one slip, instead of getting back on track.", principles: ["emergency-reserves"]},
+      {id: "engage-values-built", text: "People value something more once they've helped build or set it up themselves.", principles: ["ikea-effect"]},
+      {id: "engage-badge-works", text: "A recognition badge with no real monetary value still seems to increase effort.", principles: ["symbolic-rewards"]},
+      {id: "engage-finish-group", text: "People push to finish any group we've framed as a whole, even one with no real reward for finishing.", principles: ["pseudo-set-framing"]},
+      {id: "engage-commit-vs-do", text: "People commit to something in advance, then do something different in the moment.", principles: ["present-bias"]},
+      {id: "engage-self-lockin", text: "People voluntarily lock in a constraint on their own future choices.", principles: ["precommitment-devices"]},
+      {id: "engage-round-number", text: "People change their effort or timing just to land on a round number.", principles: ["law-of-round-numbers"]},
+      {id: "engage-at-risk-reward", text: "Framing a reward as already theirs, and at risk, moves people more than framing it as still to be earned.", principles: ["clawback"]},
+      {id: "engage-identity-label", text: "An identity label (“a saver,” not “someone who saves”) seems to change behaviour more than a plain instruction does.", principles: ["behavioural-labels"]}
+    ]
+  },
+  {
+    id: "retention", label: "Getting them to stay, not cancel",
+    hint: "Renewals, downgrades, cancellations, churn.",
+    items: [
+      {id: "retain-one-and-done", text: "They complete it once, then don't return.", principles: ["goal-gradient", "pseudo-set-framing"]},
+      {id: "retain-cancels-soon", text: "They cancel or downgrade shortly after signing up.", principles: ["smart-defaults", "precommitment-devices"]},
+      {id: "retain-cancel-harder", text: "Leaving or cancelling is a lot harder than signing up was.", principles: ["sludge"]},
+      {id: "retain-default-kept", text: "A default set for their own future benefit gets kept, because saying yes costs nothing today.", principles: ["smart-defaults"]},
+      {id: "retain-regret-pause", text: "We're considering adding a deliberate pause before a choice people might later regret.", principles: ["good-friction"]}
+    ]
+  },
+  {
+    id: "trust", label: "Getting them to trust you, or each other",
+    hint: "Credibility, word of mouth, fairness, believability.",
+    items: [
+      {id: "trust-copies-others", text: "People copy what everyone else seems to be doing when they're unsure what to do.", principles: ["social-proof"]},
+      {id: "trust-norm-mismatch", text: "What people actually do and what they say they approve of point in different directions.", principles: ["social-norm"]},
+      {id: "trust-undervalues-effort", text: "People undervalue work or effort they can't actually see happening.", principles: ["transparency"]},
+      {id: "trust-gift-goodwill", text: "An unsolicited small gift or favour seems to be earning outsized goodwill back.", principles: ["reciprocity"]},
+      {id: "trust-disclosure-backfires", text: "Disclosing a conflict of interest doesn't seem to be reducing biased advice, maybe the opposite.", principles: ["disclosure-backfire"]},
+      {id: "trust-proximity-bias", text: "People who happen to sit, live, or work near each other get treated as more trustworthy, even when that shouldn't matter.", principles: ["propinquity-effect"]},
+      {id: "trust-remembers-ending", text: "People remember an experience almost entirely by its worst or best moment, and how it ended.", principles: ["peak-end-rule"]}
+    ]
+  },
+  {
+    id: "internal", label: "How your own team makes decisions, or judges results",
+    hint: "Interpreting a test, a pilot, or a result before you act on it.",
+    items: [
+      {id: "internal-two-reviewers-differ", text: "Two people review the exact same result and reach different conclusions.", principles: ["noise"]},
+      {id: "internal-knew-it-all-along", text: "Once we know how something turned out, it feels like we basically knew it all along.", principles: ["hindsight-bias"]},
+      {id: "internal-only-survivors", text: "We're only looking at the people who stuck around, not the ones who dropped out.", principles: ["survivorship-bias"]},
+      {id: "internal-analysis-choices", text: "A few small, individually reasonable analysis choices turned what might be noise into a result that looks real.", principles: ["false-positives"]},
+      {id: "internal-sample-mismatch", text: "Our test group doesn't really look like the population we're about to roll this out to.", principles: ["representativeness"]},
+      {id: "internal-best-team-piloted", text: "Our best team ran the pilot, and we're not sure an average team would get the same result.", principles: ["chef-or-the-ingredients"]},
+      {id: "internal-scale-unknown", text: "A small pilot showed a real effect, but we're not sure it survives running at full scale.", principles: ["spillovers"]},
+      {id: "internal-costlier-at-scale", text: "Something that looked cheap and effective in a small pilot got a lot more expensive once a real team owned it.", principles: ["cost-traps"]},
+      {id: "internal-cant-explain", text: "We're confident we understand how something works, right up until we're asked to actually explain it, step by step.", principles: ["illusion-of-explanatory-depth"]},
+      {id: "internal-false-control", text: "We act like we can influence an outcome that's actually random, or already decided.", principles: ["illusion-of-control"]},
+      {id: "internal-simple-rule-wins", text: "A simple, one-factor rule keeps out-predicting our more complicated model.", principles: ["take-the-best-heuristic"]},
+      {id: "internal-avoid-checking", text: "We're avoiding checking a number because it might be bad news.", principles: ["ostrich-effect"]},
+      {id: "internal-blame-messenger", text: "Whoever delivers bad news gets blamed for it, even when they didn't cause it.", principles: ["shooting-the-messenger"]},
+      {id: "internal-checklist-helped", text: "A short, read-aloud checklist cut errors in a complex task, without teaching anyone anything new.", principles: ["checklists"]},
+      {id: "internal-sunk-cost", text: "Money or effort we've already spent keeps pulling us toward continuing, even past the point it's the worse choice.", principles: ["sunk-cost-fallacy"]},
+      {id: "internal-licensing", text: "Doing one responsible thing seems to give the team permission to indulge right after.", principles: ["licensing-effect"]}
+    ]
+  }
+];
+
+// Desired-outcome options for "what do you want them to do instead"
+// (single-select chips). Roughly one per stage above, plus Other.
+var APPLY_OUTCOMES = [
+  {id: "out-click", text: "Click through to the next step"},
+  {id: "out-finish-signup", text: "Finish the form or signup, without abandoning partway"},
+  {id: "out-pick-better", text: "Pick the option that's actually the better fit, not just the cheapest or the default"},
+  {id: "out-through-payment", text: "Get through payment without dropping off"},
+  {id: "out-return", text: "Come back and use it again, not just once"},
+  {id: "out-stay-subscribed", text: "Stay subscribed, instead of cancelling"},
+  {id: "out-trust-more", text: "Trust the message, or trust each other, more"},
+  {id: "out-accurate-call", text: "Make a more accurate internal call, not get misled by noise or a small pilot"}
+];
+
+// Type-of-change options, reused for "what would applying this look like"
+// (p5) and for the principle-first path's "what would change" question (c2).
+// Multi-select chips.
+var APPLY_CHANGE_TYPES = [
+  {id: "change-default", text: "Add or change a default"},
+  {id: "change-show-cost", text: "Show the full, real cost or number upfront"},
+  {id: "change-show-effort", text: "Make the effort or work behind it visible"},
+  {id: "change-reduce-steps", text: "Remove a step, or reduce the options shown"},
+  {id: "change-comparison", text: "Add a real comparison point (an anchor, a decoy, a bundle)"},
+  {id: "change-reframe", text: "Reframe the same fact in different words"},
+  {id: "change-social-proof", text: "Show what other people are actually doing"},
+  {id: "change-urgency", text: "Add a real, honest urgency or limited-time signal"},
+  {id: "change-progress", text: "Make progress visible (a tracker, a partly-filled reward)"},
+  {id: "change-pause", text: "Add a deliberate pause before an easy-to-regret choice"}
+];
+
+// Primary-metric options for the experiment setup step (single-select chips).
+var APPLY_METRICS = [
+  {id: "metric-conversion", text: "Conversion rate (click-through, signup completion, purchase)"},
+  {id: "metric-spend", text: "Average spend or order value"},
+  {id: "metric-retention", text: "Retention or renewal rate"},
+  {id: "metric-time", text: "Time to complete"},
+  {id: "metric-errors", text: "Error or complaint rate"},
+  {id: "metric-support", text: "Support contact volume"},
+  {id: "metric-satisfaction", text: "Satisfaction or trust score"}
+];
+
+// "What's currently happening" options for the principle-first path's c2
+// step (single-select chips), a compact generic list rather than repeating
+// all 60-plus stage symptoms above.
+var APPLY_CURRENT_BEHAVIOURS = [
+  {id: "cur-no-notice", text: "They don't notice it, or don't click through"},
+  {id: "cur-abandon", text: "They start, then abandon partway"},
+  {id: "cur-default-cheapest", text: "They default to the cheapest, or whatever's pre-selected"},
+  {id: "cur-one-and-done", text: "They complete it once, then don't return"},
+  {id: "cur-cancel-soon", text: "They cancel or downgrade soon after starting"},
+  {id: "cur-distrust", text: "They don't seem to trust the message"},
+  {id: "cur-unsure-read", text: "We're not confident our own read on this is right"}
 ];

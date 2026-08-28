@@ -666,15 +666,20 @@ function normalizeApostrophes(s) {
 (function () {
   // Apply It (apply.html): an adaptive Q&A that walks a visitor from either
   // a principle or a real problem through to a copyable starter brief.
-  // The diagnosis step (p2) shows plain, observable symptoms grouped by
-  // journey stage, never a behavioural-science category name: each symptom
-  // maps by hand to the 1-3 specific principles that actually explain it
-  // (APPLY_SYMPTOMS in apply-data.js), so "principles that might explain
-  // this" is a curated, accurate filter, not a lazy category match. No-ops
-  // on any page without this markup, and on any page missing the data file.
+  // Every diagnostic question is a choice (a chip or a checklist item),
+  // never a free-text field: the one exception is a same-card "Something
+  // else" chip that reveals a short, explicitly optional text box, so
+  // typing is always a fallback, never the primary interaction. The
+  // problem-first path is a real triage tree covering every principle on
+  // the site (APPLY_STAGES in apply-data.js): pick the journey stage,
+  // check every observable symptom that applies within it (union-matched
+  // to principles), then, only if that still leaves several candidates,
+  // narrow once more by category. No-ops on any page without this markup,
+  // and on any page missing the data file.
   var toolRoot = document.getElementById('tool');
   if (!toolRoot || typeof APPLY_PRINCIPLES === 'undefined') return;
 
+  var OTHER_ID = '__other';
   var dotsEl = document.getElementById('applyDots');
   var cards = {};
   toolRoot.querySelectorAll('.apply-card').forEach(function (c) { cards[c.getAttribute('data-q')] = c; });
@@ -682,9 +687,21 @@ function normalizeApostrophes(s) {
   var STEP_ORDER = ['door'];
   var history = [];
   var currentQ = 'door';
-  var selectedSymptoms = [];
-  var selectedPrinciples = [];
-  var selectedPrincipleId = null;
+
+  // Flat state for the whole tool. Arrays hold selected chip ids; a
+  // single-select chip row still uses an array, just capped at length 1,
+  // so the same renderChipRow() helper serves both selection modes.
+  var state = {
+    stageSel: [], symptoms: [], matchIds: [], categorySel: [],
+    outcomeSel: [], selectedPrinciples: [],
+    changeSel: [], metricSel: [],
+    selectedPrincipleId: null, momentSel: [], currentSel: [], changeSelC: [], metricSelC: []
+  };
+
+  function byId(list, id) { return list.filter(function (x) { return x.id === id; })[0]; }
+  function label(list, id) { var m = byId(list, id); return m ? (m.text || m.label) : ''; }
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
   function renderDots() {
     dotsEl.innerHTML = '';
@@ -708,14 +725,67 @@ function normalizeApostrophes(s) {
 
   toolRoot.querySelectorAll('[data-back]').forEach(function (b) { b.addEventListener('click', goBack); });
 
+  // Renders one row of chips into containerId. cfg.selected is the state
+  // array this row reads from and mutates in place. mode 'single' clears
+  // every other chip first (radio behaviour); 'multi' toggles independently
+  // (checkbox behaviour). Unless cfg.includeOther is explicitly false, a
+  // trailing "Something else" chip is always appended, and picking it
+  // reveals cfg.otherFieldId (a hidden .apply-field wrapping a text input)
+  // so a real edge case never gets blocked, without typing ever being the
+  // default path.
+  function renderChipRow(containerId, options, cfg) {
+    var wrap = document.getElementById(containerId);
+    wrap.innerHTML = '';
+    var list = cfg.includeOther === false ? options : options.concat([{id: OTHER_ID, text: 'Something else'}]);
+    list.forEach(function (o) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'apply-chip' + (cfg.selected.indexOf(o.id) !== -1 ? ' selected' : '');
+      chip.innerHTML = '<span class="dot"></span>' + o.text;
+      chip.addEventListener('click', function () {
+        if (cfg.mode === 'single') {
+          cfg.selected.length = 0;
+          wrap.querySelectorAll('.apply-chip').forEach(function (c) { c.classList.remove('selected'); });
+          chip.classList.add('selected');
+          cfg.selected.push(o.id);
+        } else {
+          var idx = cfg.selected.indexOf(o.id);
+          if (idx === -1) { cfg.selected.push(o.id); chip.classList.add('selected'); }
+          else { cfg.selected.splice(idx, 1); chip.classList.remove('selected'); }
+        }
+        if (cfg.otherFieldId) document.getElementById(cfg.otherFieldId).hidden = cfg.selected.indexOf(OTHER_ID) === -1;
+        cfg.onChange();
+      });
+      wrap.appendChild(chip);
+    });
+  }
+
+  // A chip row (or checklist) is "answered" once something is picked, and,
+  // if that something is the Other chip, once the paired text box actually
+  // has content, so Other never silently counts as a real answer on its own.
+  function chipRowValid(selected, otherInputId) {
+    if (!selected.length) return false;
+    if (selected.indexOf(OTHER_ID) !== -1 && otherInputId) return val(otherInputId) !== '';
+    return true;
+  }
+
+  function selectionText(list, selected, otherInputId) {
+    var parts = selected.filter(function (id) { return id !== OTHER_ID; }).map(function (id) { return label(list, id); });
+    if (selected.indexOf(OTHER_ID) !== -1 && otherInputId) { var t = val(otherInputId); if (t) parts.push(t); }
+    return parts.join('; ');
+  }
+
   toolRoot.querySelectorAll('[data-door]').forEach(function (b) {
     b.addEventListener('click', function () {
-      selectedSymptoms = [];
-      selectedPrinciples = [];
-      selectedPrincipleId = null;
+      state = {
+        stageSel: [], symptoms: [], matchIds: [], categorySel: [],
+        outcomeSel: [], selectedPrinciples: [],
+        changeSel: [], metricSel: [],
+        selectedPrincipleId: null, momentSel: [], currentSel: [], changeSelC: [], metricSelC: []
+      };
       if (b.getAttribute('data-door') === 'problem') {
-        STEP_ORDER = ['door', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'brief'];
-        renderSymptomChecklist();
+        STEP_ORDER = ['door', 'p1', 'p2', 'p2b', 'p3', 'p4', 'p5', 'p6', 'brief'];
+        renderStageChips();
         goNext('p1');
       } else {
         STEP_ORDER = ['door', 'c1', 'c2', 'c3', 'brief'];
@@ -725,52 +795,116 @@ function normalizeApostrophes(s) {
     });
   });
 
-  function renderSymptomChecklist() {
-    var wrap = document.getElementById('symptomChecklist');
-    wrap.innerHTML = '';
-    APPLY_SYMPTOMS.forEach(function (group) {
-      var groupEl = document.createElement('div');
-      groupEl.className = 'apply-checklist-group';
-      var lbl = document.createElement('span');
-      lbl.className = 'apply-checklist-lbl';
-      lbl.textContent = group.group;
-      groupEl.appendChild(lbl);
-      group.items.forEach(function (item) {
-        var row = document.createElement('button');
-        row.type = 'button';
-        row.className = 'apply-check-item';
-        row.innerHTML = '<span class="box"></span><span>' + item.text + '</span>';
-        row.addEventListener('click', function () {
-          row.classList.toggle('selected');
-          var idx = selectedSymptoms.indexOf(item.id);
-          if (row.classList.contains('selected') && idx === -1) selectedSymptoms.push(item.id);
-          if (!row.classList.contains('selected') && idx !== -1) selectedSymptoms.splice(idx, 1);
-          document.getElementById('p2Next').disabled = selectedSymptoms.length === 0;
-        });
-        groupEl.appendChild(row);
-      });
-      wrap.appendChild(groupEl);
+  // --- p1: journey stage (single-select, no "other": the 8 stages are
+  // deliberately exhaustive of where a real business problem shows up) ---
+  function renderStageChips() {
+    renderChipRow('stageChips', APPLY_STAGES.map(function (s) { return {id: s.id, text: s.label}; }), {
+      mode: 'single', selected: state.stageSel, includeOther: false,
+      onChange: function () { document.getElementById('p1Next').disabled = !state.stageSel.length; }
     });
   }
+  document.getElementById('p1Next').addEventListener('click', function () {
+    renderSymptomChecklist(state.stageSel[0]);
+  });
 
-  document.querySelector('[data-next="p4"]').addEventListener('click', function () {
+  // --- p2: every observable symptom within the chosen stage (multi-select
+  // checklist, union-matched to principles on Continue) ---
+  function renderSymptomChecklist(stageId) {
+    var stage = byId(APPLY_STAGES, stageId);
+    var wrap = document.getElementById('symptomChecklist');
+    wrap.innerHTML = '';
+    state.symptoms = [];
+    document.getElementById('p2Next').disabled = true;
+    if (!stage) return;
+    var groupEl = document.createElement('div');
+    groupEl.className = 'apply-checklist-group';
+    (stage.items || []).forEach(function (item) {
+      var row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'apply-check-item';
+      row.innerHTML = '<span class="box"></span><span>' + item.text + '</span>';
+      row.addEventListener('click', function () {
+        row.classList.toggle('selected');
+        var idx = state.symptoms.indexOf(item.id);
+        if (row.classList.contains('selected') && idx === -1) state.symptoms.push(item.id);
+        if (!row.classList.contains('selected') && idx !== -1) state.symptoms.splice(idx, 1);
+        document.getElementById('p2Next').disabled = state.symptoms.length === 0;
+      });
+      groupEl.appendChild(row);
+    });
+    wrap.appendChild(groupEl);
+  }
+
+  document.getElementById('p2Next').addEventListener('click', function () {
+    var stage = byId(APPLY_STAGES, state.stageSel[0]);
+    var matchIds = [];
+    (stage ? stage.items : []).forEach(function (item) {
+      if (state.symptoms.indexOf(item.id) === -1) return;
+      item.principles.forEach(function (pid) { if (matchIds.indexOf(pid) === -1) matchIds.push(pid); });
+    });
+    state.matchIds = matchIds;
+    // Only ask the category-disambiguation question when there's actually
+    // something to disambiguate: more than one category represented among
+    // the matches, and enough matches that narrowing is worth the extra tap.
+    var cats = [];
+    matchIds.forEach(function (pid) {
+      var p = byId(APPLY_PRINCIPLES, pid);
+      if (p && cats.indexOf(p.cat) === -1) cats.push(p.cat);
+    });
+    if (matchIds.length > 4 && cats.length > 1) {
+      renderCategoryChips(cats);
+      goNext('p2b');
+    } else {
+      renderOutcomeChips();
+      goNext('p3');
+    }
+  });
+
+  // --- p2b: optional disambiguation by the site's own 6 categories,
+  // shown only when the symptom checklist still leaves too broad a set ---
+  function renderCategoryChips(cats) {
+    var wrap = document.getElementById('categoryChips');
+    wrap.innerHTML = '';
+    cats.forEach(function (cat) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'apply-chip';
+      chip.innerHTML = '<span class="dot"></span>' + (APPLY_CATEGORY_LABELS[cat] || cat);
+      chip.addEventListener('click', function () {
+        state.matchIds = state.matchIds.filter(function (pid) {
+          var p = byId(APPLY_PRINCIPLES, pid);
+          return p && p.cat === cat;
+        });
+        renderOutcomeChips();
+        goNext('p3');
+      });
+      wrap.appendChild(chip);
+    });
+  }
+  document.getElementById('p2bSkip').addEventListener('click', function () {
+    renderOutcomeChips();
+    goNext('p3');
+  });
+
+  // --- p3: desired outcome (single-select + Other) ---
+  function renderOutcomeChips() {
+    renderChipRow('outcomeChips', APPLY_OUTCOMES, {
+      mode: 'single', selected: state.outcomeSel, otherFieldId: 'outcomeOtherField',
+      onChange: function () { document.getElementById('p3Next').disabled = !chipRowValid(state.outcomeSel, 'outcomeOther'); }
+    });
+    document.getElementById('outcomeOther').oninput = function () {
+      document.getElementById('p3Next').disabled = !chipRowValid(state.outcomeSel, 'outcomeOther');
+    };
+  }
+
+  // --- p4: candidate principles (multi-select chip confirm), sourced from
+  // state.matchIds (built at p2/p2b), not recomputed here ---
+  document.getElementById('p3Next').addEventListener('click', function () {
     var wrap = document.getElementById('principleChips');
     wrap.innerHTML = '';
-    selectedPrinciples = [];
+    state.selectedPrinciples = [];
     document.getElementById('p4Next').disabled = true;
-    var matchIds = [];
-    APPLY_SYMPTOMS.forEach(function (group) {
-      group.items.forEach(function (item) {
-        if (selectedSymptoms.indexOf(item.id) === -1) return;
-        item.principles.forEach(function (pid) {
-          if (matchIds.indexOf(pid) === -1) matchIds.push(pid);
-        });
-      });
-    });
-    var matches = matchIds.map(function (pid) {
-      return APPLY_PRINCIPLES.filter(function (p) { return p.id === pid; })[0];
-    }).filter(Boolean);
-    document.getElementById('p4Hint').textContent = 'Matched from what you picked, not a whole category.';
+    var matches = state.matchIds.map(function (pid) { return byId(APPLY_PRINCIPLES, pid); }).filter(Boolean);
     matches.forEach(function (p) {
       var chip = document.createElement('button');
       chip.type = 'button';
@@ -778,15 +912,43 @@ function normalizeApostrophes(s) {
       chip.innerHTML = '<span class="dot"></span>' + p.title;
       chip.addEventListener('click', function () {
         chip.classList.toggle('selected');
-        var idx = selectedPrinciples.indexOf(p.id);
-        if (chip.classList.contains('selected') && idx === -1) selectedPrinciples.push(p.id);
-        if (!chip.classList.contains('selected') && idx !== -1) selectedPrinciples.splice(idx, 1);
-        document.getElementById('p4Next').disabled = selectedPrinciples.length === 0;
+        var idx = state.selectedPrinciples.indexOf(p.id);
+        if (chip.classList.contains('selected') && idx === -1) state.selectedPrinciples.push(p.id);
+        if (!chip.classList.contains('selected') && idx !== -1) state.selectedPrinciples.splice(idx, 1);
+        document.getElementById('p4Next').disabled = state.selectedPrinciples.length === 0;
       });
       wrap.appendChild(chip);
     });
   });
 
+  // --- p5: type of change (multi-select + Other) ---
+  document.getElementById('p4Next').addEventListener('click', function () {
+    renderChipRow('changeChips', APPLY_CHANGE_TYPES, {
+      mode: 'multi', selected: state.changeSel, otherFieldId: 'changeOtherField',
+      onChange: function () { document.getElementById('p5Next').disabled = !chipRowValid(state.changeSel, 'changeOther'); }
+    });
+    document.getElementById('changeOther').oninput = function () {
+      document.getElementById('p5Next').disabled = !chipRowValid(state.changeSel, 'changeOther');
+    };
+  });
+
+  // --- p6: control/treatment auto-derived from p5's change-type picks;
+  // only the metric is a fresh choice (single-select + Other) ---
+  document.getElementById('p5Next').addEventListener('click', function () {
+    var treatmentText = selectionText(APPLY_CHANGE_TYPES, state.changeSel, 'changeOther');
+    var box = document.getElementById('treatmentAutoP');
+    box.textContent = treatmentText || 'Pick a change on the previous screen to fill this in.';
+    box.classList.toggle('filled', !!treatmentText);
+    renderChipRow('metricChipsP', APPLY_METRICS, {
+      mode: 'single', selected: state.metricSel, otherFieldId: 'metricOtherFieldP',
+      onChange: function () { document.getElementById('buildBriefP').disabled = !chipRowValid(state.metricSel, 'metricOtherP'); }
+    });
+    document.getElementById('metricOtherP').oninput = function () {
+      document.getElementById('buildBriefP').disabled = !chipRowValid(state.metricSel, 'metricOtherP');
+    };
+  });
+
+  // --- principle-first path ---
   function renderAllPrincipleChips(query) {
     var wrap = document.getElementById('allPrincipleChips');
     wrap.innerHTML = '';
@@ -795,10 +957,10 @@ function normalizeApostrophes(s) {
     list.forEach(function (p) {
       var chip = document.createElement('button');
       chip.type = 'button';
-      chip.className = 'apply-chip' + (p.id === selectedPrincipleId ? ' selected' : '');
+      chip.className = 'apply-chip' + (p.id === state.selectedPrincipleId ? ' selected' : '');
       chip.innerHTML = '<span class="dot"></span>' + p.title;
       chip.addEventListener('click', function () {
-        selectedPrincipleId = p.id;
+        state.selectedPrincipleId = p.id;
         renderAllPrincipleChips(document.getElementById('principleSearch').value);
         document.getElementById('c1Next').disabled = false;
       });
@@ -809,9 +971,46 @@ function normalizeApostrophes(s) {
     renderAllPrincipleChips(this.value);
   });
 
-  document.querySelector('[data-next="c2"]').addEventListener('click', function () {
-    var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === selectedPrincipleId; })[0];
+  // --- c2: moment (reuses the 8 stages), current behaviour, and what
+  // would change (reuses the p5 change-type list), all chip-based ---
+  document.getElementById('c1Next').addEventListener('click', function () {
+    var p = byId(APPLY_PRINCIPLES, state.selectedPrincipleId);
     document.getElementById('c2Title').textContent = 'Applying ' + (p ? p.title : 'this principle');
+    state.momentSel = []; state.currentSel = []; state.changeSelC = [];
+    document.getElementById('c2Next').disabled = true;
+    function recheck() {
+      document.getElementById('c2Next').disabled = !(
+        chipRowValid(state.momentSel) &&
+        chipRowValid(state.currentSel, 'currentOther') &&
+        chipRowValid(state.changeSelC, 'changeOtherC')
+      );
+    }
+    renderChipRow('momentChips', APPLY_STAGES.map(function (s) { return {id: s.id, text: s.label}; }), {
+      mode: 'single', selected: state.momentSel, includeOther: false, onChange: recheck
+    });
+    renderChipRow('currentChips', APPLY_CURRENT_BEHAVIOURS, {
+      mode: 'single', selected: state.currentSel, otherFieldId: 'currentOtherField', onChange: recheck
+    });
+    renderChipRow('changeChipsC', APPLY_CHANGE_TYPES, {
+      mode: 'multi', selected: state.changeSelC, otherFieldId: 'changeOtherFieldC', onChange: recheck
+    });
+    document.getElementById('currentOther').oninput = recheck;
+    document.getElementById('changeOtherC').oninput = recheck;
+  });
+
+  // --- c3: same auto-derived control/treatment, metric as a fresh choice ---
+  document.getElementById('c2Next').addEventListener('click', function () {
+    var treatmentText = selectionText(APPLY_CHANGE_TYPES, state.changeSelC, 'changeOtherC');
+    var box = document.getElementById('treatmentAutoC');
+    box.textContent = treatmentText || 'Pick a change on the previous screen to fill this in.';
+    box.classList.toggle('filled', !!treatmentText);
+    renderChipRow('metricChipsC', APPLY_METRICS, {
+      mode: 'single', selected: state.metricSelC, otherFieldId: 'metricOtherFieldC',
+      onChange: function () { document.getElementById('buildBriefC').disabled = !chipRowValid(state.metricSelC, 'metricOtherC'); }
+    });
+    document.getElementById('metricOtherC').oninput = function () {
+      document.getElementById('buildBriefC').disabled = !chipRowValid(state.metricSelC, 'metricOtherC');
+    };
   });
 
   toolRoot.querySelectorAll('[data-next]').forEach(function (btn) {
@@ -819,12 +1018,9 @@ function normalizeApostrophes(s) {
     btn.addEventListener('click', function () { goNext(btn.getAttribute('data-next')); });
   });
 
-  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
-  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-
   function principleLinksHtml(ids) {
     return ids.map(function (id) {
-      var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === id; })[0];
+      var p = byId(APPLY_PRINCIPLES, id);
       return p ? '<a href="principles.html#' + p.id + '">' + p.title + '</a>' : '';
     }).join(', ');
   }
@@ -833,22 +1029,25 @@ function normalizeApostrophes(s) {
     var isProblem = STEP_ORDER.indexOf('p1') !== -1;
     var rows = [];
     if (isProblem) {
-      rows.push(['Problem', esc(val('probStatement')) || '—']);
-      rows.push(['Principles', principleLinksHtml(selectedPrinciples) || '—']);
-      rows.push(['Target behaviour', esc(val('targetBehaviour')) || '—']);
-      rows.push(['Proposed change', esc(val('proposedChange')) || '—']);
-      rows.push(['Control', esc(val('controlDesc')) || '—']);
-      rows.push(['Treatment', esc(val('treatmentDesc')) || '—']);
-      rows.push(['Primary metric', esc(val('metricDesc')) || '—']);
+      var stage = byId(APPLY_STAGES, state.stageSel[0]);
+      var symptomTexts = (stage ? stage.items : []).filter(function (i) { return state.symptoms.indexOf(i.id) !== -1; }).map(function (i) { return i.text; });
+      rows.push(['Where', esc(stage ? stage.label : '') || '—']);
+      rows.push(['What’s happening', esc(symptomTexts.join(' ')) || '—']);
+      rows.push(['Principles', principleLinksHtml(state.selectedPrinciples) || '—']);
+      rows.push(['Outcome wanted', esc(selectionText(APPLY_OUTCOMES, state.outcomeSel, 'outcomeOther')) || '—']);
+      rows.push(['Proposed change', esc(selectionText(APPLY_CHANGE_TYPES, state.changeSel, 'changeOther')) || '—']);
+      rows.push(['Control', 'Today’s experience, unchanged.']);
+      rows.push(['Treatment', esc(selectionText(APPLY_CHANGE_TYPES, state.changeSel, 'changeOther')) || '—']);
+      rows.push(['Primary metric', esc(selectionText(APPLY_METRICS, state.metricSel, 'metricOtherP')) || '—']);
     } else {
-      var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === selectedPrincipleId; })[0];
+      var p = byId(APPLY_PRINCIPLES, state.selectedPrincipleId);
       rows.push(['Principle', p ? '<a href="principles.html#' + p.id + '">' + p.title + '</a>' : '—']);
-      rows.push(['The moment', esc(val('ctxMoment')) || '—']);
-      rows.push(['Currently', esc(val('ctxCurrent')) || '—']);
-      rows.push(['Hypothesis', esc(val('ctxChange')) || '—']);
-      rows.push(['Control', esc(val('controlDescC')) || '—']);
-      rows.push(['Treatment', esc(val('treatmentDescC')) || '—']);
-      rows.push(['Primary metric', esc(val('metricDescC')) || '—']);
+      rows.push(['The moment', esc(selectionText(APPLY_STAGES.map(function (s) { return {id: s.id, text: s.label}; }), state.momentSel)) || '—']);
+      rows.push(['Currently', esc(selectionText(APPLY_CURRENT_BEHAVIOURS, state.currentSel, 'currentOther')) || '—']);
+      rows.push(['Hypothesis', esc(selectionText(APPLY_CHANGE_TYPES, state.changeSelC, 'changeOtherC')) || '—']);
+      rows.push(['Control', 'Today’s experience, unchanged.']);
+      rows.push(['Treatment', esc(selectionText(APPLY_CHANGE_TYPES, state.changeSelC, 'changeOtherC')) || '—']);
+      rows.push(['Primary metric', esc(selectionText(APPLY_METRICS, state.metricSelC, 'metricOtherC')) || '—']);
     }
     rows.push(['Next', 'Launch, measure, and iterate on what you learn.']);
 

@@ -3227,6 +3227,20 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   min-height: 44px;
 }
 .apply-field textarea:focus, .apply-field input:focus { outline: 2px solid var(--terracotta); outline-offset: 1px; }
+.apply-autotext {
+  width: 100%;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  padding: 10px 12px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.apply-autotext.filled { color: var(--ink); border-style: solid; background: var(--card); }
 .apply-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 560px; }
 @media (max-width: 560px) { .apply-2col { grid-template-columns: 1fr; } }
 
