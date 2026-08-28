@@ -62,8 +62,38 @@ h1.q b{color:var(--terracotta);}
 .legend{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:2px 0 26px;}
 .legend .sw{display:inline-block;width:12px;border-top:2px dashed var(--ink-soft);margin-right:5px;vertical-align:middle;}
 .historical{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;text-align:center;max-width:52ch;margin:0 auto 20px;}
+.session-row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
+.session-info{font-size:12px;color:var(--ink-soft);}
+.session-info b{color:var(--ink);}
+.session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
+.session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
+
+.qr-section{margin:0 0 30px;}
+.qr-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 14px;}
+.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media (max-width:520px){ .qr-grid{grid-template-columns:1fr;} }
+.qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;}
+.qr-card img{width:100%;max-width:200px;height:auto;margin:0 auto 10px;display:block;border-radius:6px;}
+.qr-card .qr-label{font-size:12.5px;font-weight:700;margin-bottom:4px;}
+.qr-card .qr-link{font-size:10.5px;color:var(--ink-soft);word-break:break-all;}
+.qr-note{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;}
+
 .reset-row{text-align:center;}
 .reset-btn{font-size:12px;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font-family:inherit;}
+
+.history-section{border-top:1px solid var(--line);margin-top:30px;padding-top:20px;}
+.history-heading{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 12px;text-align:center;}
+.history-empty{text-align:center;font-size:12.5px;color:var(--ink-soft);}
+.history-session{margin-bottom:16px;}
+.history-session-head{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.history-session-head .n{font-weight:400;color:var(--ink-soft);}
+.history-table{width:100%;border-collapse:collapse;font-size:12px;}
+.history-table th{text-align:left;color:var(--ink-soft);font-weight:600;padding:4px 8px;border-bottom:1px solid var(--line);}
+.history-table td{padding:4px 8px;border-bottom:1px solid var(--line);}
+.history-table .g-a{color:var(--terracotta);font-weight:700;}
+.history-table .g-b{color:var(--teal);font-weight:700;}
+.history-table td.rm{text-align:right;}
+.history-table td.rm button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;}
 </style>
 </head>
 <body>
@@ -154,25 +184,76 @@ function renderEstimate(group){
   btn.addEventListener('click', function(){
     var v = parseFloat(input.value);
     if (!isFinite(v)) return;
-    renderThanks(v);
+    renderThanks(v, group);
   });
   s.appendChild(btn);
   render(s);
   input.focus();
 }
 
-function renderThanks(v){
+function renderThanks(v, g){
+  addEntry(g, v);
   var s = el('div', {class:'screen'}, '');
   s.appendChild(el('div', {class:'msg'},
     '<b>Thanks, your answer is ' + v + FACT.suffix + '.</b>' +
-    'When the room compares notes, call out your number (or put your hand up when asked) so it can be added to the results.' +
-    '<div class="ps">This page doesn&rsquo;t share answers between phones on its own, that part happens out loud, in the room.</div>'));
+    'If the presenter is running this on the same screen as you, it&rsquo;s already logged. Otherwise, call out your number (or put your hand up when asked) so it can be added to the results.' +
+    '<div class="ps">Phones don&rsquo;t automatically share answers with each other, only with this same browser, that&rsquo;s why the room comparison usually happens out loud.</div>'));
   render(s);
 }
 
-/* ---------------- presenter tally / reveal ---------------- */
+/* ---------------- shared, persistent log (localStorage) ----------------
+   la_log: append-only array of every entry ever recorded, {id,g,v,t,sessionId}.
+   la_session: the currently active session {id,startedAt}. "Start new
+   session" only moves this pointer forward, it never deletes la_log, so
+   the live tally (scoped to the current session) and the full history
+   (every session ever) are two different views of the same data. */
 
-var tally = { a: [], b: [] };
+var LS_LOG = 'la_log';
+var LS_SESSION = 'la_session';
+
+function uid(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'r' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
+
+function readLog(){
+  try {
+    var raw = localStorage.getItem(LS_LOG);
+    var arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch(e){ return []; }
+}
+function writeLog(arr){
+  try { localStorage.setItem(LS_LOG, JSON.stringify(arr)); } catch(e){}
+}
+
+function getSession(){
+  try {
+    var raw = localStorage.getItem(LS_SESSION);
+    var s = raw ? JSON.parse(raw) : null;
+    if (s && s.id && s.startedAt) return s;
+  } catch(e){}
+  var fresh = { id: uid(), startedAt: Date.now() };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(fresh)); } catch(e){}
+  return fresh;
+}
+
+function startNewSession(){
+  var fresh = { id: uid(), startedAt: Date.now() };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(fresh)); } catch(e){}
+  return fresh;
+}
+
+function addEntry(g, v){
+  var session = getSession();
+  var log = readLog();
+  log.push({ id: uid(), g: g, v: v, t: Date.now(), sessionId: session.id });
+  writeLog(log);
+}
+
+function removeEntry(id){
+  writeLog(readLog().filter(function(e){ return e.id !== id; }));
+}
 
 function median(nums){
   if (!nums.length) return null;
@@ -181,13 +262,51 @@ function median(nums){
   return s.length % 2 ? s[mid] : (s[mid-1]+s[mid])/2;
 }
 
+function formatDateTime(t){
+  var d = new Date(t);
+  return d.toLocaleDateString(undefined, {month:'short', day:'numeric'}) + ', ' +
+    d.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'});
+}
+
+/* ---------------- presenter session / tally / history screen ---------------- */
+
 function renderReveal(){
+  var session = getSession();
+  var log = readLog();
+  var currentEntries = log.filter(function(e){ return e.sessionId === session.id; });
+  var byGroup = { a: [], b: [] };
+  currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
+
   var wrap = el('div', {class:'reveal-wrap'}, '');
-  wrap.appendChild(el('h1', {class:'reveal-title'}, 'Live results'));
-  wrap.appendChild(el('p', {class:'reveal-sub'}, 'Ask a show of hands, or a few people per side to call out their number, and type each one in as you hear it. This tally lives only on this screen, nothing is sent anywhere.'));
+  wrap.appendChild(el('h1', {class:'reveal-title'}, 'Live Anchoring: session'));
+  wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their number, and type each one in as you hear it.'));
+
+  var sessionRow = el('div', {class:'session-row'}, '');
+  sessionRow.appendChild(el('div', {class:'session-info'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
+  var newSessionBtn = el('button', {class:'session-btn', type:'button'}, 'Start new session');
+  newSessionBtn.addEventListener('click', function(){
+    if (currentEntries.length && !confirm('Start a new session? Today’s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
+    startNewSession();
+    renderReveal();
+  });
+  sessionRow.appendChild(newSessionBtn);
+  wrap.appendChild(sessionRow);
+
+  var qrSection = el('div', {class:'qr-section'}, '');
+  qrSection.appendChild(el('div', {class:'qr-heading'}, 'Session QR codes'));
+  var qrGrid = el('div', {class:'qr-grid'}, '');
+  Object.keys(GROUPS).forEach(function(g){
+    var card = el('div', {class:'qr-card'}, '');
+    card.appendChild(el('img', {src:'images/qr-anchoring-' + g + '.png', alt:'QR code for ' + GROUPS[g].label, loading:'lazy'}));
+    card.appendChild(el('div', {class:'qr-label'}, GROUPS[g].label));
+    card.appendChild(el('div', {class:'qr-link'}, location.origin + location.pathname + '#g=' + g));
+    qrGrid.appendChild(card);
+  });
+  qrSection.appendChild(qrGrid);
+  qrSection.appendChild(el('div', {class:'qr-note'}, 'These two codes are permanent, print them once and reuse them for every future session. &ldquo;Start new session&rdquo; resets the tally, not the codes.'));
+  wrap.appendChild(qrSection);
 
   var cols = el('div', {class:'tally-cols'}, '');
-
   Object.keys(GROUPS).forEach(function(g){
     var col = el('div', {class:'tally-col'}, '');
     col.appendChild(el('h3', {}, GROUPS[g].label));
@@ -197,7 +316,7 @@ function renderReveal(){
     function add(){
       var v = parseFloat(input.value);
       if (!isFinite(v)) return;
-      tally[g].push(v);
+      addEntry(g, v);
       input.value = '';
       renderReveal();
     }
@@ -206,34 +325,34 @@ function renderReveal(){
     inputRow.appendChild(input); inputRow.appendChild(addBtn);
     col.appendChild(inputRow);
 
+    var vals = byGroup[g].map(function(e){ return e.v; });
+    var med = median(vals);
     var stats = el('div', {class:'tally-stats'}, '');
-    var med = median(tally[g]);
     stats.appendChild(el('div', {class:'tally-median'}, med !== null ? Math.round(med) + FACT.suffix : '–'));
-    stats.appendChild(el('div', {class:'tally-n'}, 'n=' + tally[g].length));
+    stats.appendChild(el('div', {class:'tally-n'}, 'n=' + vals.length));
     col.appendChild(stats);
 
     var chips = el('div', {class:'tally-chips'}, '');
-    tally[g].forEach(function(v, i){
-      var chip = el('span', {class:'tally-chip'}, v + FACT.suffix + ' ');
+    byGroup[g].forEach(function(e){
+      var chip = el('span', {class:'tally-chip'}, e.v + FACT.suffix + ' ');
       var rm = el('button', {type:'button', 'aria-label':'Remove'}, '&times;');
-      rm.addEventListener('click', function(){ tally[g].splice(i,1); renderReveal(); });
+      rm.addEventListener('click', function(){ removeEntry(e.id); renderReveal(); });
       chip.appendChild(rm);
       chips.appendChild(chip);
     });
     col.appendChild(chips);
     cols.appendChild(col);
   });
-
   wrap.appendChild(cols);
 
   var maxVal = Math.max(FACT.truth, 20, Object.keys(GROUPS).reduce(function(m,g){
-    var med = median(tally[g]);
+    var med = median(byGroup[g].map(function(e){ return e.v; }));
     return med !== null ? Math.max(m, med) : m;
   }, 0));
 
   var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
   Object.keys(GROUPS).forEach(function(g){
-    var med = median(tally[g]);
+    var med = median(byGroup[g].map(function(e){ return e.v; }));
     var row = el('div', {class:'chart-row'}, '');
     row.appendChild(el('div', {class:'chart-label'}, GROUPS[g].label.split(' (')[0]));
     var track = el('div', {class:'chart-track'}, '');
@@ -256,14 +375,54 @@ function renderReveal(){
   wrap.appendChild(el('div', {class:'historical'},
     '<b style="color:var(--ink);display:block;margin-bottom:4px;">For comparison:</b>Tversky &amp; Kahneman&rsquo;s original 1974 study found median guesses of ' + FACT.historicalHigh + FACT.suffix + ' from the high-anchor group and ' + FACT.historicalLow + FACT.suffix + ' from the low-anchor group, everyone knew the anchor was random.'));
 
+  /* ---- full history, every session ever recorded on this device ---- */
+  var historySection = el('div', {class:'history-section'}, '');
+  historySection.appendChild(el('div', {class:'history-heading'}, 'Session history (this device)'));
+  if (!log.length) {
+    historySection.appendChild(el('div', {class:'history-empty'}, 'No sessions recorded yet on this device.'));
+  } else {
+    var bySession = {};
+    var order = [];
+    log.forEach(function(e){
+      if (!bySession[e.sessionId]) { bySession[e.sessionId] = []; order.push(e.sessionId); }
+      bySession[e.sessionId].push(e);
+    });
+    order.slice().reverse().forEach(function(sid){
+      var entries = bySession[sid].slice().sort(function(a,b){ return a.t - b.t; });
+      var startedAt = entries[0].t;
+      var block = el('div', {class:'history-session'}, '');
+      block.appendChild(el('div', {class:'history-session-head'},
+        formatDateTime(startedAt) + (sid === session.id ? ' (current)' : '') +
+        ' <span class="n">&middot; ' + entries.length + ' answer' + (entries.length===1?'':'s') + '</span>'));
+      var table = el('table', {class:'history-table'}, '');
+      table.innerHTML = '<tr><th>Time</th><th>Group</th><th>Answer</th><th></th></tr>';
+      entries.forEach(function(e){
+        var tr = el('tr', {}, '');
+        tr.appendChild(el('td', {}, formatDateTime(e.t).split(', ')[1]));
+        tr.appendChild(el('td', {class: e.g === 'a' ? 'g-a' : 'g-b'}, e.g === 'a' ? 'High' : 'Low'));
+        tr.appendChild(el('td', {}, e.v + FACT.suffix));
+        var rmTd = el('td', {class:'rm'}, '');
+        var rmBtn = el('button', {type:'button', 'aria-label':'Delete entry'}, '&times;');
+        rmBtn.addEventListener('click', function(){ removeEntry(e.id); renderReveal(); });
+        rmTd.appendChild(rmBtn);
+        tr.appendChild(rmTd);
+        table.appendChild(tr);
+      });
+      block.appendChild(table);
+      historySection.appendChild(block);
+    });
+  }
+  wrap.appendChild(historySection);
+
   var resetRow = el('div', {class:'reset-row'}, '');
-  var resetBtn = el('button', {class:'reset-btn', type:'button'}, 'Clear tally (start a new session)');
-  resetBtn.addEventListener('click', function(){
-    if (!confirm('Clear both columns and start fresh for the next talk?')) return;
-    tally = { a: [], b: [] };
+  var clearAllBtn = el('button', {class:'session-btn danger', type:'button'}, 'Clear all history');
+  clearAllBtn.addEventListener('click', function(){
+    if (!confirm('Permanently delete all ' + log.length + ' recorded answer(s) across every session on this device? This can’t be undone.')) return;
+    writeLog([]);
+    startNewSession();
     renderReveal();
   });
-  resetRow.appendChild(resetBtn);
+  resetRow.appendChild(clearAllBtn);
   wrap.appendChild(resetRow);
 
   render(wrap);
