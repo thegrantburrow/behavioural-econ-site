@@ -92,8 +92,10 @@ body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
 .session-info b{color:var(--ink);}
 .session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
 .session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
-.presentation-toggle{border-color:var(--terracotta);background:var(--terracotta);color:#fff;}
-@media (max-width:760px){ .presentation-toggle{display:none;} }
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+@media (max-width:760px){ .mode-switch{display:none;} }
 
 body.presenting .reveal-sub,
 body.presenting .manage-only,
@@ -169,6 +171,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 "use strict";
 
 var CONFIG = {"toolId": "pf", "type": "choice", "toolTitle": "Live Perceived Fairness", "targetKey": "unfair", "targetHigherGroup": "a", "targetShortLabel": "unfair", "groups": {"a": {"label": "Price raised after a snowstorm", "shortLabel": "Snowstorm", "scenarioTitle": "Is this price increase fair?", "scenarioBody": "A hardware store has been selling snow shovels for $15. The morning after a large snowstorm, the store raises the price to $20.", "options": [{"key": "fair", "label": "Fair", "short": "Fair"}, {"key": "unfair", "label": "Unfair", "short": "Unfair"}]}, "b": {"label": "Price raised after a cost increase", "shortLabel": "Cost increase", "scenarioTitle": "Is this price increase fair?", "scenarioBody": "A local shortage pushes up the wholesale price of lettuce. A grocer pays 30 cents more per head than usual, and raises the price to customers by that same 30 cents.", "options": [{"key": "fair", "label": "Fair", "short": "Fair"}, {"key": "unfair", "label": "Unfair", "short": "Unfair"}]}}, "historicalText": "Kahneman, Knetsch &amp; Thaler&rsquo;s own 1986 telephone survey found 82% of respondents called the snow-shovel price rise unfair or very unfair (n=107), against just 21% for the lettuce price rise (n=101). The identical act, a price rise passed straight to the customer, read almost completely differently depending on whether it followed a demand spike or a real cost increase.", "mechanismHtml": "This is dual entitlement. People carry an implicit reference price, the one that applied before, and treat it as something both sides are meant to honour. A firm is entitled to protect its existing profit by passing on a real cost increase, so the lettuce price rise reads as fair. It isn&rsquo;t entitled to use a shift in bargaining power, like a shortage of shovels the morning after a storm, to raise price beyond that, so the identical kind of increase reads as exploitative instead. The dollar amount never decides the verdict; which story the increase belongs to does. <a href=\"principles.html#perceived-fairness\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "Uber's surge-pricing backlash", "body": "After public anger over surge pricing during Hurricane Sandy and other disasters, Uber agreed with the New York Attorney General to cap prices during declared emergencies nationwide, an explicit admission that a demand-based price spike during a crisis reads as exploitative even when the mechanism is the same one Uber uses every other day.", "cite": "New York Attorney General, press release (2014). <a href=\"https://ag.ny.gov/press-release/2014/ag-schneiderman-announces-agreement-uber-cap-pricing-during-emergencies-and\" target=\"_blank\" rel=\"noopener\">Agreement with Uber to cap pricing during emergencies and natural disasters</a>"}, {"label": "State price-gouging laws", "body": "Most U.S. states make an “unconscionably excessive” price increase illegal only during a declared state of emergency or abnormal market disruption, the same demand-versus-cost distinction this vignette tests, written directly into law.", "cite": "E.g. New York General Business Law &sect;396-r"}, {"label": "A landlord charging a new tenant more than an existing one", "body": "The same 1986 study found it read as unfair for a landlord to raise the rent on a current tenant when a housing shortage hit, but fair for that landlord to charge a new tenant the higher, market-rate rent once the old tenant had already moved out, identical market conditions, different verdicts, depending on whose reference price was being disturbed.", "cite": "See this site&rsquo;s own <a href=\"principles.html#perceived-fairness\">Perceived Fairness</a> entry for the full citation."}]};
+var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
   var h = location.hash.replace('#','');
@@ -417,27 +420,38 @@ function renderReveal(){
   currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
 
   var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
   wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
   wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their answer, and log each one as you hear it.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
   sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
-  var presentBtn = el('button', {class:'session-btn presentation-toggle', type:'button'}, '');
-  function syncPresentBtn(){
-    presentBtn.textContent = document.body.classList.contains('presenting') ? 'Exit presentation view' : 'Room presentation view';
-  }
-  syncPresentBtn();
-  presentBtn.addEventListener('click', function(){
-    var turningOn = !document.body.classList.contains('presenting');
-    document.body.classList.toggle('presenting', turningOn);
-    syncPresentBtn();
-    if (turningOn && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(function(){});
-    } else if (!turningOn && document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(function(){});
-    }
-  });
-  sessionRow.appendChild(presentBtn);
   var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
   newSessionBtn.addEventListener('click', function(){
     if (currentEntries.length && !confirm('Start a new session? Today&rsquo;s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
@@ -638,7 +652,10 @@ function boot(){
 boot();
 window.addEventListener('hashchange', boot);
 document.addEventListener('fullscreenchange', function(){
-  if (!document.fullscreenElement) document.body.classList.remove('presenting');
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
 });
 })();
 </script>

@@ -92,8 +92,10 @@ body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
 .session-info b{color:var(--ink);}
 .session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
 .session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
-.presentation-toggle{border-color:var(--terracotta);background:var(--terracotta);color:#fff;}
-@media (max-width:760px){ .presentation-toggle{display:none;} }
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+@media (max-width:760px){ .mode-switch{display:none;} }
 
 body.presenting .reveal-sub,
 body.presenting .manage-only,
@@ -169,6 +171,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 "use strict";
 
 var CONFIG = {"toolId": "de", "type": "choice", "toolTitle": "Live Decoy Effect", "targetKey": "target", "targetHigherGroup": "b", "targetShortLabel": "Print + Digital", "groups": {"a": {"label": "Two options", "shortLabel": "Two options", "scenarioTitle": "Which subscription do you pick?", "scenarioBody": "You're choosing a subscription plan for an online magazine.", "options": [{"key": "cheap", "label": "Digital only, $59/year", "short": "Digital only"}, {"key": "target", "label": "Print + Digital, $125/year", "short": "Print + Digital"}]}, "b": {"label": "Three options", "shortLabel": "Three options", "scenarioTitle": "Which subscription do you pick?", "scenarioBody": "You're choosing a subscription plan for an online magazine.", "options": [{"key": "cheap", "label": "Digital only, $59/year", "short": "Digital only"}, {"key": "decoy", "label": "Print only, $125/year", "short": "Print only (decoy)"}, {"key": "target", "label": "Print + Digital, $125/year", "short": "Print + Digital"}]}}, "historicalText": "Huber, Payne &amp; Puto&rsquo;s original studies found adding a dominated decoy shifted choice share by 3 to 9 percentage points toward the target option, consistently across six different real product categories (cars, restaurants, beer, lotteries, film, TV sets).", "mechanismHtml": "Choices are made by relative comparison, not absolute judgment. In the three-option group, &ldquo;Print only&rdquo; costs the same as &ldquo;Print + Digital&rdquo; but gives strictly less, so beating that decoy is an easy, confident win. That confidence quietly spills over into the harder comparison, Print + Digital versus Digital only, that the decoy never actually settled. Digital only and Print + Digital themselves never change price or content between the two groups. <a href=\"principles.html#decoy\">Read the full write-up on the Principles page.</a>", "illustrativeNote": "This exact magazine-subscription menu is a designed illustration of the mechanism, not the literal stimulus used in the cited study (Huber, Payne &amp; Puto tested cars, restaurants, beer, lotteries, film, and TVs). The historical comparison above is their real, published finding.", "examples": [{"label": "The Economist's original $59 / $125 / $125 menu", "body": "A print-only option priced identically to print-plus-web made almost everyone pick the bundle over print-only, and far more people picked the bundle than when the print-only decoy wasn't shown at all, a popular illustrative case, not itself a peer-reviewed study.", "cite": "Ariely, D. (2008). <i>Predictably Irrational</i>, described in this site&rsquo;s own <a href=\"principles.html#decoy\">Decoy Effect</a> entry."}, {"label": "Streaming and software pricing tiers", "body": "A middle tier priced only slightly below the top tier, with noticeably less included, is a common way pricing pages nudge people toward the top tier without ever discounting it directly.", "cite": "General pattern; see this site&rsquo;s own <a href=\"six-moves-behind-every-pricing-page.html\">special report on pricing-page patterns</a>."}, {"label": "Real estate open homes", "body": "Agents sometimes show a clearly overpriced or under-maintained property just before the one they actually expect to sell, making the real listing look like better value by comparison.", "cite": "Widely discussed applied use of Huber, Payne &amp; Puto&rsquo;s original finding."}]};
+var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
   var h = location.hash.replace('#','');
@@ -417,27 +420,38 @@ function renderReveal(){
   currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
 
   var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
   wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
   wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their answer, and log each one as you hear it.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
   sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
-  var presentBtn = el('button', {class:'session-btn presentation-toggle', type:'button'}, '');
-  function syncPresentBtn(){
-    presentBtn.textContent = document.body.classList.contains('presenting') ? 'Exit presentation view' : 'Room presentation view';
-  }
-  syncPresentBtn();
-  presentBtn.addEventListener('click', function(){
-    var turningOn = !document.body.classList.contains('presenting');
-    document.body.classList.toggle('presenting', turningOn);
-    syncPresentBtn();
-    if (turningOn && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(function(){});
-    } else if (!turningOn && document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(function(){});
-    }
-  });
-  sessionRow.appendChild(presentBtn);
   var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
   newSessionBtn.addEventListener('click', function(){
     if (currentEntries.length && !confirm('Start a new session? Today&rsquo;s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
@@ -638,7 +652,10 @@ function boot(){
 boot();
 window.addEventListener('hashchange', boot);
 document.addEventListener('fullscreenchange', function(){
-  if (!document.fullscreenElement) document.body.classList.remove('presenting');
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
 });
 })();
 </script>

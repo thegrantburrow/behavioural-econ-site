@@ -92,8 +92,10 @@ body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
 .session-info b{color:var(--ink);}
 .session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
 .session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
-.presentation-toggle{border-color:var(--terracotta);background:var(--terracotta);color:#fff;}
-@media (max-width:760px){ .presentation-toggle{display:none;} }
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+@media (max-width:760px){ .mode-switch{display:none;} }
 
 body.presenting .reveal-sub,
 body.presenting .manage-only,
@@ -169,6 +171,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 "use strict";
 
 var CONFIG = {"toolId": "pb", "type": "choice", "toolTitle": "Live Present Bias", "targetKey": "indulgent", "targetHigherGroup": "b", "targetShortLabel": "chocolate bar", "groups": {"a": {"label": "Choosing in advance", "shortLabel": "In advance", "scenarioTitle": "Which snack would you like sent to you?", "scenarioBody": "A snack will be delivered to you in exactly one week.", "options": [{"key": "healthy", "label": "Fresh fruit", "short": "Fruit"}, {"key": "indulgent", "label": "Chocolate bar", "short": "Chocolate bar"}]}, "b": {"label": "Choosing in the moment", "shortLabel": "In the moment", "scenarioTitle": "Which snack would you like?", "scenarioBody": "A snack has just arrived for you, right now.", "options": [{"key": "healthy", "label": "Fresh fruit", "short": "Fruit"}, {"key": "indulgent", "label": "Chocolate bar", "short": "Chocolate bar"}]}}, "historicalText": "Read &amp; van Leeuwen&rsquo;s original study found participants chose the unhealthy snack far more often when choosing in the moment than when choosing the identical snack a week in advance, and being hungry at the moment of choice pushed the unhealthy pick even higher.", "mechanismHtml": "The value of a reward drops steeply the moment it's delayed at all, so a choice made calmly in advance and the choice actually made in the moment can flatly contradict each other, even though nothing about the options changed. A week out, both snacks are equally delayed, so the healthy choice wins on its merits. The instant one option becomes available right now, that immediacy itself starts winning the decision, independent of which snack is actually better for you. <a href=\"principles.html#present-bias\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "Gym memberships signed up in January", "body": "People confidently commit to a disciplined future self, then the actual moment to go to the gym arrives and an immediate competing priority wins instead, not through a change of values but through the same timing effect.", "cite": "See this site&rsquo;s own <a href=\"principles.html#present-bias\">Present Bias</a> entry."}, {"label": "Under-saving for retirement", "body": "Employees who say they want to save more for retirement still don't increase their contribution rate today, a real gap the Save More Tomorrow program was specifically built to close by timing the increase to a future pay rise instead.", "cite": "Thaler, R. H., &amp; Benartzi, S. (2004). “Save More Tomorrow.” <a href=\"https://www.journals.uchicago.edu/doi/10.1086/380085\" target=\"_blank\" rel=\"noopener\">Journal of Political Economy, 112(S1), S164&ndash;S187</a>"}, {"label": "Procrastinating on a deadline", "body": "The same task feels perfectly doable when it's scheduled for “later,” then gets pushed again the moment “later” actually arrives and a more immediate distraction is on the table.", "cite": "Akerlof, G. A. (1991). “Procrastination and Obedience.” <a href=\"https://www.jstor.org/stable/2006817\" target=\"_blank\" rel=\"noopener\">American Economic Review, 81(2), 1&ndash;19</a>"}]};
+var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
   var h = location.hash.replace('#','');
@@ -417,27 +420,38 @@ function renderReveal(){
   currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
 
   var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
   wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
   wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their answer, and log each one as you hear it.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
   sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
-  var presentBtn = el('button', {class:'session-btn presentation-toggle', type:'button'}, '');
-  function syncPresentBtn(){
-    presentBtn.textContent = document.body.classList.contains('presenting') ? 'Exit presentation view' : 'Room presentation view';
-  }
-  syncPresentBtn();
-  presentBtn.addEventListener('click', function(){
-    var turningOn = !document.body.classList.contains('presenting');
-    document.body.classList.toggle('presenting', turningOn);
-    syncPresentBtn();
-    if (turningOn && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(function(){});
-    } else if (!turningOn && document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(function(){});
-    }
-  });
-  sessionRow.appendChild(presentBtn);
   var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
   newSessionBtn.addEventListener('click', function(){
     if (currentEntries.length && !confirm('Start a new session? Today&rsquo;s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
@@ -638,7 +652,10 @@ function boot(){
 boot();
 window.addEventListener('hashchange', boot);
 document.addEventListener('fullscreenchange', function(){
-  if (!document.fullscreenElement) document.body.classList.remove('presenting');
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
 });
 })();
 </script>

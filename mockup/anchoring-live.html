@@ -133,9 +133,11 @@ body.presenting .historical-bar-fill span{font-size:clamp(18px,2.2vw,28px);}
 .session-info b{color:var(--ink);}
 .session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
 .session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
-.presentation-toggle{border-color:var(--terracotta);background:var(--terracotta);color:#fff;}
-/* the toggle only makes sense on a screen big enough to actually be a room display; a phone is always the participant's own device, never the projector */
-@media (max-width:760px){ .presentation-toggle{display:none;} }
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+/* the switch only makes sense on a screen big enough to actually be a room display; a phone is always the participant's own device, never the projector */
+@media (max-width:760px){ .mode-switch{display:none;} }
 
 /* Room presentation view: strip presenter-only chrome, let the room-scale
    scoreboard and verdict fill the screen. Mobile never sees this mode at
@@ -188,6 +190,8 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 <script>
 (function(){
 "use strict";
+
+var currentSyncModeSwitch = function(){};
 
 var FACT = {
   comparative: function(anchor){
@@ -451,27 +455,38 @@ function renderReveal(){
   currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
 
   var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
   wrap.appendChild(el('h1', {class:'reveal-title'}, 'Live Anchoring: session'));
   wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their number, and type each one in as you hear it.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
   sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
-  var presentBtn = el('button', {class:'session-btn presentation-toggle', type:'button'}, '');
-  function syncPresentBtn(){
-    presentBtn.textContent = document.body.classList.contains('presenting') ? 'Exit presentation view' : 'Room presentation view';
-  }
-  syncPresentBtn();
-  presentBtn.addEventListener('click', function(){
-    var turningOn = !document.body.classList.contains('presenting');
-    document.body.classList.toggle('presenting', turningOn);
-    syncPresentBtn();
-    if (turningOn && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(function(){});
-    } else if (!turningOn && document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(function(){});
-    }
-  });
-  sessionRow.appendChild(presentBtn);
   var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
   newSessionBtn.addEventListener('click', function(){
     if (currentEntries.length && !confirm('Start a new session? Today’s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
@@ -684,7 +699,10 @@ window.addEventListener('hashchange', boot);
    its own, drop presentation mode with it rather than leaving the page in a
    mixed state, small chrome hidden but no longer actually full-screen. */
 document.addEventListener('fullscreenchange', function(){
-  if (!document.fullscreenElement) document.body.classList.remove('presenting');
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
 });
 })();
 </script>

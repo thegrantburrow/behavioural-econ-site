@@ -92,8 +92,10 @@ body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
 .session-info b{color:var(--ink);}
 .session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
 .session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
-.presentation-toggle{border-color:var(--terracotta);background:var(--terracotta);color:#fff;}
-@media (max-width:760px){ .presentation-toggle{display:none;} }
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+@media (max-width:760px){ .mode-switch{display:none;} }
 
 body.presenting .reveal-sub,
 body.presenting .manage-only,
@@ -169,6 +171,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 "use strict";
 
 var CONFIG = {"toolId": "fr", "type": "choice", "toolTitle": "Live Framing", "targetKey": "certain", "targetHigherGroup": "a", "targetShortLabel": "certain option", "groups": {"a": {"label": "Gain frame", "shortLabel": "Gain frame", "scenarioTitle": "Which plan do you choose?", "scenarioBody": "A disease outbreak is expected to affect 600 people in a small town. Two response plans have been proposed.", "options": [{"key": "certain", "tag": "Plan A", "label": "200 people will be saved.", "short": "Plan A (certain)"}, {"key": "gamble", "tag": "Plan B", "label": "1-in-3 chance all 600 are saved, 2-in-3 chance none are saved.", "short": "Plan B (gamble)"}]}, "b": {"label": "Loss frame", "shortLabel": "Loss frame", "scenarioTitle": "Which plan do you choose?", "scenarioBody": "The same outbreak is expected to affect 600 people in a small town. Two response plans have been proposed.", "options": [{"key": "certain", "tag": "Plan C", "label": "400 people will die.", "short": "Plan C (certain)"}, {"key": "gamble", "tag": "Plan D", "label": "1-in-3 chance no one dies, 2-in-3 chance all 600 die.", "short": "Plan D (gamble)"}]}}, "historicalText": "Tversky &amp; Kahneman&rsquo;s original 1981 study found 72% chose the certain option when it was framed as lives saved, but only 22% chose the certain option (78% chose the gamble) when the identical outcome was framed as lives lost.", "mechanismHtml": "This is the framing effect. The two plans in each pair describe exactly the same real outcome, saving 200 of 600 people is identical to 400 of 600 dying, but people don&rsquo;t evaluate outcomes on a neutral number line. A sure gain (200 saved) feels worth locking in, so people avoid the gamble. A sure loss (400 dead) feels intolerable to accept outright, so people take the gamble instead, hoping to avoid it entirely, even though the math never changed. <a href=\"principles.html#framing-effect\">Read the full write-up on the Principles page.</a>", "illustrativeNote": "This session replicates Tversky &amp; Kahneman&rsquo;s original 1981 risky-choice framing paradigm. The site&rsquo;s own Framing Effect article features a different, equally real study (Levin &amp; Gaeth&rsquo;s 1988 ground beef labelling experiment) covering the same broader phenomenon from a different angle.", "examples": [{"label": "\"75% lean\" vs. \"25% fat\"", "body": "Identical ground beef labelled “75% lean” was rated more favourably than the same meat labelled “25% fat,” even by people who then tasted the product.", "cite": "Levin, I. P., &amp; Gaeth, G. J. (1988). <a href=\"https://academic.oup.com/jcr/article-abstract/15/3/374/1793963\" target=\"_blank\" rel=\"noopener\">Journal of Consumer Research, 15(3), 374&ndash;378</a>"}, {"label": "A surgery framed as \"90% survive\"", "body": "Patients, students, and physicians alike were more likely to recommend a surgery described as “90% of patients are alive after five years” than the identical surgery described as “10% of patients are dead after five years.”", "cite": "McNeil, B. J., Pauker, S. G., Sox, H. C., &amp; Tversky, A. (1982). <a href=\"https://www.nejm.org/doi/abs/10.1056/NEJM198205273062103\" target=\"_blank\" rel=\"noopener\">New England Journal of Medicine, 306(21), 1259&ndash;1262</a>"}, {"label": "A credit card surcharge vs. a cash discount", "body": "Charging card users more and calling it a “cash discount” for everyone else moves the identical price gap from a felt loss (a surcharge) to a felt gain (a discount), which is exactly why the U.S. credit card industry lobbied for that specific wording in the 1970s Truth in Lending debates.", "cite": "See this site&rsquo;s own <a href=\"principles.html#credit-card-premium\">Credit Card Premium</a> principle for the full citation."}]};
+var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
   var h = location.hash.replace('#','');
@@ -417,27 +420,38 @@ function renderReveal(){
   currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
 
   var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
   wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
   wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their answer, and log each one as you hear it.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
   sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
-  var presentBtn = el('button', {class:'session-btn presentation-toggle', type:'button'}, '');
-  function syncPresentBtn(){
-    presentBtn.textContent = document.body.classList.contains('presenting') ? 'Exit presentation view' : 'Room presentation view';
-  }
-  syncPresentBtn();
-  presentBtn.addEventListener('click', function(){
-    var turningOn = !document.body.classList.contains('presenting');
-    document.body.classList.toggle('presenting', turningOn);
-    syncPresentBtn();
-    if (turningOn && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(function(){});
-    } else if (!turningOn && document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(function(){});
-    }
-  });
-  sessionRow.appendChild(presentBtn);
   var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
   newSessionBtn.addEventListener('click', function(){
     if (currentEntries.length && !confirm('Start a new session? Today&rsquo;s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
@@ -638,7 +652,10 @@ function boot(){
 boot();
 window.addEventListener('hashchange', boot);
 document.addEventListener('fullscreenchange', function(){
-  if (!document.fullscreenElement) document.body.classList.remove('presenting');
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
 });
 })();
 </script>

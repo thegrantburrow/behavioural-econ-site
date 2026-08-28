@@ -92,8 +92,10 @@ body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
 .session-info b{color:var(--ink);}
 .session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
 .session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
-.presentation-toggle{border-color:var(--terracotta);background:var(--terracotta);color:#fff;}
-@media (max-width:760px){ .presentation-toggle{display:none;} }
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+@media (max-width:760px){ .mode-switch{display:none;} }
 
 body.presenting .reveal-sub,
 body.presenting .manage-only,
@@ -169,6 +171,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 "use strict";
 
 var CONFIG = {"toolId": "zp", "type": "choice", "toolTitle": "Live Zero Price Effect", "targetKey": "kiss", "targetHigherGroup": "b", "targetShortLabel": "the Hershey&rsquo;s Kiss", "groups": {"a": {"label": "1&cent; vs. 15&cent; chocolate", "shortLabel": "1&cent; vs 15&cent;", "scenarioTitle": "Which chocolate do you pick?", "scenarioBody": "A Hershey&rsquo;s Kiss costs 1 cent. A Lindt truffle costs 15 cents.", "options": [{"key": "kiss", "label": "Hershey&rsquo;s Kiss, 1 cent", "short": "Kiss (1&cent;)"}, {"key": "truffle", "label": "Lindt truffle, 15 cents", "short": "Truffle (15&cent;)"}]}, "b": {"label": "Free vs. 14&cent; chocolate", "shortLabel": "Free vs 14&cent;", "scenarioTitle": "Which chocolate do you pick?", "scenarioBody": "A Hershey&rsquo;s Kiss is free. A Lindt truffle costs 14 cents.", "options": [{"key": "kiss", "label": "Hershey&rsquo;s Kiss, free", "short": "Kiss (free)"}, {"key": "truffle", "label": "Lindt truffle, 14 cents", "short": "Truffle (14&cent;)"}]}}, "historicalText": "This site&rsquo;s own Zero Price Effect entry cites Shampanier, Mazar &amp; Ariely&rsquo;s 2007 study: people picked the 1 cent chocolate only 14% of the time against a 15 cent premium chocolate, but when the identical 14 cent price gap was preserved by making the cheap chocolate free, they picked it 42% of the time.", "mechanismHtml": "This is the zero price effect. Standard economics treats price as a continuous scale, a 1 cent difference should feel about the same wherever it sits. People treat zero as a different category entirely. Once something is free, there&rsquo;s no chance of feeling like you made a bad trade, so the choice reads as a pure gain instead of an exchange, and the free option gets picked far more often than the same price gap would predict anywhere else on the scale. <a href=\"principles.html#zero-price\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "Amazon France&rsquo;s one-centime shipping", "body": "When Amazon rolled out free shipping worldwide, sales jumped everywhere except France, where a pricing quirk left shipping at one franc instead of zero. Sales there barely moved until the fee was dropped to genuinely free, the same tiny price gap everywhere else, but only zero moved the needle.", "cite": "Widely reported natural experiment, discussed in Chris Anderson&rsquo;s <i>Free</i> (2009) and referenced in Shampanier, Mazar &amp; Ariely&rsquo;s own 2007 paper."}, {"label": "Free-shipping thresholds", "body": "Add-to-cart totals cluster just above a store&rsquo;s free-shipping minimum, people will spend several extra dollars on merchandise to avoid paying a much smaller shipping fee, purely to cross into free.", "cite": "General pattern; see this site&rsquo;s own <a href=\"principles.html#zero-price\">Zero Price Effect</a> entry."}, {"label": "Freemium software tiers", "body": "A free tier routinely drives adoption far beyond what an equivalent one-dollar-a-month tier would, even when the paid tier&rsquo;s price is trivial relative to the value on offer.", "cite": "Widely documented software-industry pattern; see Chris Anderson&rsquo;s <i>Free</i> (2009)."}]};
+var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
   var h = location.hash.replace('#','');
@@ -417,27 +420,38 @@ function renderReveal(){
   currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
 
   var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
   wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
   wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their answer, and log each one as you hear it.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
   sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
-  var presentBtn = el('button', {class:'session-btn presentation-toggle', type:'button'}, '');
-  function syncPresentBtn(){
-    presentBtn.textContent = document.body.classList.contains('presenting') ? 'Exit presentation view' : 'Room presentation view';
-  }
-  syncPresentBtn();
-  presentBtn.addEventListener('click', function(){
-    var turningOn = !document.body.classList.contains('presenting');
-    document.body.classList.toggle('presenting', turningOn);
-    syncPresentBtn();
-    if (turningOn && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(function(){});
-    } else if (!turningOn && document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(function(){});
-    }
-  });
-  sessionRow.appendChild(presentBtn);
   var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
   newSessionBtn.addEventListener('click', function(){
     if (currentEntries.length && !confirm('Start a new session? Today&rsquo;s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
@@ -638,7 +652,10 @@ function boot(){
 boot();
 window.addEventListener('hashchange', boot);
 document.addEventListener('fullscreenchange', function(){
-  if (!document.fullscreenElement) document.body.classList.remove('presenting');
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
 });
 })();
 </script>

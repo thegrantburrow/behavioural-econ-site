@@ -92,8 +92,10 @@ body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
 .session-info b{color:var(--ink);}
 .session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
 .session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
-.presentation-toggle{border-color:var(--terracotta);background:var(--terracotta);color:#fff;}
-@media (max-width:760px){ .presentation-toggle{display:none;} }
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+@media (max-width:760px){ .mode-switch{display:none;} }
 
 body.presenting .reveal-sub,
 body.presenting .manage-only,
@@ -169,6 +171,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 "use strict";
 
 var CONFIG = {"toolId": "co", "type": "choice", "toolTitle": "Live Compromise Effect", "targetKey": "target", "targetHigherGroup": "b", "targetShortLabel": "Camera B", "groups": {"a": {"label": "Two cameras", "shortLabel": "Two cameras", "scenarioTitle": "Which camera do you pick?", "scenarioBody": "You're choosing a camera.", "options": [{"key": "basic", "label": "Camera A, $199, basic features", "short": "Camera A"}, {"key": "target", "label": "Camera B, $349, advanced features", "short": "Camera B"}]}, "b": {"label": "Three cameras", "shortLabel": "Three cameras", "scenarioTitle": "Which camera do you pick?", "scenarioBody": "You're choosing a camera.", "options": [{"key": "basic", "label": "Camera A, $199, basic features", "short": "Camera A"}, {"key": "target", "label": "Camera B, $349, advanced features", "short": "Camera B"}, {"key": "deluxe", "label": "Camera C, $599, professional features", "short": "Camera C"}]}}, "historicalText": "Simonson&rsquo;s original 1989 camera experiment found the middle option's share rose from 50% (as one of two options) to 57% (as the middle of three), even though that camera's own price and features never changed.", "mechanismHtml": "Extreme options carry a hidden cost: choosing the priciest option risks looking wasteful, choosing the cheapest risks looking cheap. A middle option lets someone avoid both criticisms at once, especially when they expect to have to justify the choice to someone else, the decision reasons itself, rather than requiring a real weighing of the actual features. Camera B never changes between the two groups; only its position in the lineup does. <a href=\"principles.html#compromise-effect\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "Three-tier software pricing", "body": "Adding an “Enterprise” tier above an existing “Pro” tier routinely lifts how often people pick Pro, the exact same plan, at the exact same price, it's simply no longer the most expensive option on the page.", "cite": "Direct application of Simonson&rsquo;s own finding above."}, {"label": "Restaurant wine lists", "body": "Adding one clearly expensive bottle to a wine list is a well-documented trade practice for lifting sales of the second-most-expensive bottle, which suddenly reads as the reasonable middle choice.", "cite": "Discussed in Poundstone, W. (2010). <i>Priceless: The Myth of Fair Value</i>, drawing on the same compromise-effect research."}, {"label": "Cinema popcorn sizes", "body": "A large popcorn looks like poor value next to a small, but adding a jumbo size just above it makes the large suddenly look like the sensible middle option, without changing its own price at all.", "cite": "A widely cited applied example of Simonson&rsquo;s (1989) own compromise-effect finding."}]};
+var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
   var h = location.hash.replace('#','');
@@ -417,27 +420,38 @@ function renderReveal(){
   currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
 
   var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
   wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
   wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their answer, and log each one as you hear it.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
   sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
-  var presentBtn = el('button', {class:'session-btn presentation-toggle', type:'button'}, '');
-  function syncPresentBtn(){
-    presentBtn.textContent = document.body.classList.contains('presenting') ? 'Exit presentation view' : 'Room presentation view';
-  }
-  syncPresentBtn();
-  presentBtn.addEventListener('click', function(){
-    var turningOn = !document.body.classList.contains('presenting');
-    document.body.classList.toggle('presenting', turningOn);
-    syncPresentBtn();
-    if (turningOn && document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(function(){});
-    } else if (!turningOn && document.fullscreenElement && document.exitFullscreen) {
-      document.exitFullscreen().catch(function(){});
-    }
-  });
-  sessionRow.appendChild(presentBtn);
   var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
   newSessionBtn.addEventListener('click', function(){
     if (currentEntries.length && !confirm('Start a new session? Today&rsquo;s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
@@ -638,7 +652,10 @@ function boot(){
 boot();
 window.addEventListener('hashchange', boot);
 document.addEventListener('fullscreenchange', function(){
-  if (!document.fullscreenElement) document.body.classList.remove('presenting');
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
 });
 })();
 </script>
