@@ -72,7 +72,9 @@ var APPLY_PRINCIPLES = [
   {id:"disclosure-backfire", title:"Disclosure Backfire (Sunlight That Doesn't Disinfect)", cat:"friction", blurb:"Disclosing a conflict of interest is meant to let the person receiving advice discount it appropriately. It can instead free the person giving the advice to lean into their bias further."},
   {id:"propinquity-effect", title:"Propinquity Effect", cat:"social", blurb:"People who cross paths often, simply because they live or work near each other, become more familiar with each other than they would otherwise, and that familiarity gets read as trust or fit, even in a decision meant to be judged on merit alone."},
   {id:"availability-heuristic", title:"Availability Heuristic", cat:"judgment", blurb:"When something is easy to picture or recall, a recent headline, a vivid story, a memory of your own, it feels more common and more likely than it actually is, simply because it comes to mind so easily."},
-  {id:"diversification-heuristic", title:"Diversification Heuristic", cat:"judgment", blurb:"Asked to split money or attention across several options, people default to dividing it evenly by how many there are, not by what each one actually contains."}
+  {id:"diversification-heuristic", title:"Diversification Heuristic", cat:"judgment", blurb:"Asked to split money or attention across several options, people default to dividing it evenly by how many there are, not by what each one actually contains."},
+  {id:"ambiguity-aversion", title:"Ambiguity Aversion", cat:"judgment", blurb:"Given a choice between a risk with known odds and an otherwise identical risk with hidden odds, most people pick the known one, even when the hidden odds could be just as good or better."},
+  {id:"risk-aversion", title:"Risk Aversion", cat:"judgment", blurb:"Given a choice between a certain amount and a gamble worth the same or more on average, most people take the certain amount, giving up expected value in exchange for certainty."}
 ];
 
 // Category display names, reused wherever a principle's .cat needs a real
@@ -87,7 +89,7 @@ var APPLY_CATEGORY_LABELS = {
   friction: "Friction & Transparency"
 };
 
-// The full triage tree for the "I have a problem" path. Every one of the 74
+// The full triage tree for the "I have a problem" path. Every one of the 76
 // principles above appears in at least one stage's symptom list, unlike the
 // old 4-stage/8-symptom version this replaces, which only ever reached about
 // 15 of them. Nothing here is free text: p1 picks one stage (single-select),
@@ -136,7 +138,9 @@ var APPLY_STAGES = [
       {id: "choose-ownership-jump", text: "The moment people “own” something, even briefly (a trial, a cart), they suddenly value it more.", principles: ["endowment-effect"]},
       {id: "choose-restate-terms", text: "Restating the identical fact in different terms (cost vs. time vs. impact) changes what people choose.", principles: ["signpost-effect"]},
       {id: "choose-scarcity-signal", text: "Marking something as limited in quantity or time makes it wanted right now.", principles: ["scarcity"]},
-      {id: "choose-only-upside", text: "Only showing the upside, never what's given up, seems to be producing worse decisions.", principles: ["tradeoff-transparency"]}
+      {id: "choose-only-upside", text: "Only showing the upside, never what's given up, seems to be producing worse decisions.", principles: ["tradeoff-transparency"]},
+      {id: "choose-hidden-terms", text: "People avoid an option just because its terms or odds aren't fully spelled out, even when it could be the better one.", principles: ["ambiguity-aversion"]},
+      {id: "choose-sure-thing", text: "Given a certain smaller outcome and a bigger, less certain one worth more on average, people take the certain one almost every time.", principles: ["risk-aversion"]}
     ]
   },
   {
@@ -153,7 +157,8 @@ var APPLY_STAGES = [
       {id: "pay-card-premium", text: "People pay more for the identical thing once they're paying by card instead of cash.", principles: ["credit-card-premium"]},
       {id: "pay-recurring-reframe", text: "Restating a cost as a small recurring amount instead of one total made the same spend feel easier to accept.", principles: ["temporal-reframing"]},
       {id: "pay-bundle-discount", text: "The same discount feels bigger stated on a bundle than spread across separate line items.", principles: ["bundling"]},
-      {id: "pay-fairness-reaction", text: "A price rise gets judged fair or unfair depending on the story behind it, not the number itself.", principles: ["perceived-fairness"]}
+      {id: "pay-fairness-reaction", text: "A price rise gets judged fair or unfair depending on the story behind it, not the number itself.", principles: ["perceived-fairness"]},
+      {id: "pay-installment-plan", text: "Offering to spread a large cost into smaller, fee-free instalments changes whether people buy at all.", principles: ["risk-aversion"]}
     ]
   },
   {

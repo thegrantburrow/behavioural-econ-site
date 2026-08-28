@@ -1,6 +1,6 @@
 // Everything the site's own search boxes (homepage band, nav-bar search,
 // homepage inline search) can find, across every real content type, not
-// just the 71 principles. Categories match the site's own nav menu labels
+// just the 76 principles. Categories match the site's own nav menu labels
 // exactly, so grouped search results read as an extension of that same
 // menu rather than a separate taxonomy. Principles are pulled from
 // APPLY_PRINCIPLES (apply-data.js) rather than duplicated here a third
