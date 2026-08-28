@@ -35,36 +35,52 @@ h1.q{font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.4;
 .msg b{display:block;color:var(--ink);font-size:19px;font-family:Georgia,serif;margin-bottom:10px;}
 .msg .ps{margin-top:14px;font-size:12.5px;}
 
-.reveal-wrap{max-width:680px;margin:0 auto;padding:36px 22px;width:100%;}
-.reveal-title{font-family:Georgia,serif;font-size:24px;text-align:center;margin:0 0 4px;}
-.reveal-sub{text-align:center;font-size:13px;color:var(--ink-soft);margin:0 0 28px;max-width:52ch;margin-left:auto;margin-right:auto;}
-.tally-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.reveal-wrap{max-width:1080px;margin:0 auto;padding:36px 22px 48px;width:100%;}
+.reveal-title{font-family:Georgia,serif;font-weight:700;font-size:clamp(26px,4vw,46px);text-align:center;margin:0 0 6px;text-wrap:balance;}
+.reveal-sub{text-align:center;font-size:clamp(13px,1.3vw,16px);color:var(--ink-soft);margin:0 0 32px;max-width:64ch;margin-left:auto;margin-right:auto;line-height:1.6;}
+
+/* the big head-to-head scoreboard, the room-scale focal point */
+.scoreboard{margin:0 0 20px;}
+.scoreboard-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:22px;}
+@media (max-width:760px){ .scoreboard-grid{grid-template-columns:1fr;gap:16px;} .scoreboard-vs{order:2;margin:-4px auto;} }
+.scoreboard-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,2.6vw,34px) clamp(16px,2.2vw,30px);text-align:center;box-shadow:var(--shadow);}
+.scoreboard-card .sc-label{font-size:clamp(12px,1.3vw,15px);font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin:0 0 16px;}
+.scoreboard-number{font-family:Georgia,serif;font-weight:700;font-size:clamp(52px,8.5vw,104px);line-height:1;margin:0 0 4px;}
+.scoreboard-number.empty{color:var(--ink-soft);font-size:clamp(28px,4.6vw,46px);}
+.scoreboard-number.pop{animation:scPop .55s cubic-bezier(.22,.9,.3,1.25);}
+@keyframes scPop{0%{transform:scale(.7);opacity:0;}65%{transform:scale(1.07);opacity:1;}100%{transform:scale(1);}}
+.scoreboard-n{font-size:clamp(12px,1.2vw,14px);color:var(--ink-soft);margin:0 0 18px;}
+.scoreboard-sub{font-size:clamp(11px,1.1vw,13px);color:var(--ink-soft);margin:0 0 16px;}
+.scoreboard-bar-track{position:relative;height:22px;border-radius:11px;background:var(--line);}
+.scoreboard-bar-fill{position:absolute;left:0;top:0;height:100%;border-radius:11px;width:0;transition:width .9s cubic-bezier(.16,.85,.32,1);}
+.scoreboard-vs{width:60px;height:60px;border-radius:50%;background:var(--terracotta);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:16px;margin:0 auto;box-shadow:var(--shadow);flex-shrink:0;}
+@media (max-width:760px){ .scoreboard-vs{width:42px;height:42px;font-size:12px;} }
+.scoreboard-gap{text-align:center;margin-top:22px;font-size:clamp(14px,1.6vw,19px);color:var(--ink-soft);}
+.scoreboard-gap b{color:var(--terracotta);font-family:Georgia,serif;}
+
+/* compact presenter-only controls, deliberately quieter than the scoreboard above */
+.presenter-controls{margin:0 0 30px;background:var(--paper);border:1px dashed var(--line);border-radius:14px;padding:18px 18px 14px;}
+.presenter-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700;text-align:center;margin:0 0 4px;}
+.presenter-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin:0 0 14px;}
+.tally-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media (max-width:600px){ .tally-cols{grid-template-columns:1fr;} }
-.tally-col{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;}
-.tally-col h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px;}
-.tally-col .anchor-note{font-size:11.5px;color:var(--ink-soft);margin:0 0 12px;}
-.tally-input-row{display:flex;gap:6px;margin-bottom:12px;}
+.tally-col{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.tally-col h3{font-size:12px;text-transform:uppercase;letter-spacing:.03em;margin:0 0 10px;color:var(--ink-soft);}
+.tally-input-row{display:flex;gap:6px;margin-bottom:10px;}
 .tally-input-row input{flex:1;min-width:0;font-size:16px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;}
 .tally-input-row button{background:var(--ink);color:var(--paper);border:none;border-radius:8px;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
-.tally-choice-row{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.tally-choice-row{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
 .tally-choice-row button{background:var(--panel);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left;}
 .tally-choice-row button:active{transform:scale(.98);}
 .tally-choice-row button .n{float:right;color:var(--ink-soft);font-weight:700;}
-.tally-stats{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
-.tally-median{font-family:Georgia,serif;font-size:28px;font-weight:700;}
-.tally-n{font-size:12px;color:var(--ink-soft);}
 .tally-chips{display:flex;flex-wrap:wrap;gap:6px;}
 .tally-chip{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;display:flex;align-items:center;gap:6px;}
 .tally-chip button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:0;line-height:1;}
-.chart-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.chart-label{width:100px;flex-shrink:0;font-size:12.5px;font-weight:700;text-align:right;}
-.chart-track{flex:1;background:var(--line);border-radius:7px;height:26px;position:relative;}
-.chart-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;min-width:2px;transition:width .3s ease;}
-.chart-fill span{font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;}
-.truth-line{position:absolute;top:-5px;bottom:-5px;border-left:2px dashed var(--ink-soft);}
-.legend{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:2px 0 26px;}
-.legend .sw{display:inline-block;width:12px;border-top:2px dashed var(--ink-soft);margin-right:5px;vertical-align:middle;}
-.historical{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;text-align:center;max-width:56ch;margin:0 auto 20px;}
+
+.historical{border-top:1px solid var(--line);margin-top:6px;padding-top:26px;}
+.historical-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 26px;max-width:64ch;margin:0 auto;text-align:center;box-shadow:var(--shadow);}
+.historical-card .hc-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--terracotta);font-weight:700;margin:0 0 10px;}
+.historical-card p{margin:0;font-size:clamp(13.5px,1.3vw,15.5px);line-height:1.65;color:var(--ink);}
 .session-row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
 .session-info{font-size:12px;color:var(--ink-soft);}
 .session-info b{color:var(--ink);}
@@ -74,9 +90,9 @@ h1.q{font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.4;
 .qr-section{margin:0 0 30px;}
 .qr-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 14px;}
 .qr-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:16px;}
-.qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;}
-.qr-card img{width:100%;max-width:200px;height:auto;margin:0 auto 10px;display:block;border-radius:6px;}
-.qr-card .qr-label{font-size:12.5px;font-weight:700;margin-bottom:4px;}
+.qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;}
+.qr-card img{width:100%;max-width:260px;height:auto;margin:0 auto 12px;display:block;border-radius:8px;}
+.qr-card .qr-label{font-size:clamp(13px,1.3vw,15px);font-weight:700;margin-bottom:4px;}
 .qr-card .qr-link{font-size:10.5px;color:var(--ink-soft);word-break:break-all;}
 .qr-note{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;}
 
@@ -407,10 +423,69 @@ function renderReveal(){
   qrSection.appendChild(el('div', {class:'qr-note'}, 'These two codes are permanent, print them once and reuse them for every future session. &ldquo;Start new session&rdquo; resets the tally, not the codes.'));
   wrap.appendChild(qrSection);
 
+  /* ---- the big head-to-head scoreboard: the room-scale focal point ---- */
+  var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
+  function groupValue(g){
+    if (CONFIG.type === 'number') {
+      var vals = byGroup[g].map(function(e){ return e.v; });
+      return { n: vals.length, value: median(vals), isPct: false };
+    }
+    return groupMetric(currentEntries, g);
+  }
+  var mA = groupValue('a'), mB = groupValue('b');
+  var maxVal = Math.max(1, mA.value || 0, mB.value || 0);
+
+  var scoreboard = el('div', {class:'scoreboard'}, '');
+  var grid = el('div', {class:'scoreboard-grid'}, '');
+  ['a','b'].forEach(function(g){
+    var m = g === 'a' ? mA : mB;
+    var card = el('div', {class:'scoreboard-card'}, '');
+    card.appendChild(el('div', {class:'sc-label'}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
+    card.appendChild(el('div', {class:'scoreboard-number' + (m.value === null ? ' empty' : ' pop')}, m.value === null ? 'No answers yet' : fmtMetric(m)));
+    card.appendChild(el('div', {class:'scoreboard-n'}, m.n + ' answer' + (m.n===1?'':'s')));
+    if (CONFIG.type !== 'number') card.appendChild(el('div', {class:'scoreboard-sub'}, '% choosing ' + (CONFIG.targetShortLabel || 'the target option')));
+    var track = el('div', {class:'scoreboard-bar-track'}, '');
+    var fill = null;
+    if (m.value !== null){
+      fill = el('div', {class:'scoreboard-bar-fill'}, '');
+      fill.style.background = colors[g];
+      track.appendChild(fill);
+    }
+    card.appendChild(track);
+    grid.appendChild(card);
+    if (g === 'a') grid.appendChild(el('div', {class:'scoreboard-vs'}, 'VS'));
+    if (fill){
+      requestAnimationFrame(function(){
+        var pct = Math.max(4, Math.min(100, (m.value / maxVal) * 100));
+        fill.style.width = pct + '%';
+      });
+    }
+  });
+  scoreboard.appendChild(grid);
+
+  var gapEl = el('div', {class:'scoreboard-gap'}, '');
+  if (mA.value !== null && mB.value !== null){
+    var diff = Math.abs(mA.value - mB.value);
+    var diffText = mA.isPct ? Math.round(diff) + ' percentage points'
+      : (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(diff) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix);
+    gapEl.innerHTML = Math.round(diff) === 0 ? 'Both groups landed on the exact same number, <b>too close to call yet</b>.'
+      : '<b>' + diffText + '</b> apart between the two groups, same real choice, same room.';
+  } else {
+    gapEl.innerHTML = 'Waiting on answers from both groups to show the gap.';
+  }
+  scoreboard.appendChild(gapEl);
+  wrap.appendChild(scoreboard);
+
+  /* ---- presenter-only controls: quieter, for whoever is typing in called-out numbers ---- */
+  var controls = el('div', {class:'presenter-controls'}, '');
+  controls.appendChild(el('div', {class:'presenter-eyebrow'}, 'Presenter controls'));
+  controls.appendChild(el('div', {class:'presenter-note'}, CONFIG.type === 'number'
+    ? 'Type in a number as the room calls it out, or tap &times; to remove a mistaken entry. This box is for whoever is running the session, not for the projector.'
+    : 'Tap the option each person calls out, or add it from their own scan. This box is for whoever is running the session, not for the projector.'));
   var cols = el('div', {class:'tally-cols'}, '');
   ['a','b'].forEach(function(g){
     var col = el('div', {class:'tally-col'}, '');
-    col.appendChild(el('h3', {}, CONFIG.groups[g].label));
+    col.appendChild(el('h3', {}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
 
     if (CONFIG.type === 'number') {
       var inputRow = el('div', {class:'tally-input-row'}, '');
@@ -427,13 +502,6 @@ function renderReveal(){
       input.addEventListener('keydown', function(e){ if (e.key === 'Enter') add(); });
       inputRow.appendChild(input); inputRow.appendChild(addBtn);
       col.appendChild(inputRow);
-
-      var vals = byGroup[g].map(function(e){ return e.v; });
-      var med = median(vals);
-      var stats = el('div', {class:'tally-stats'}, '');
-      stats.appendChild(el('div', {class:'tally-median'}, med !== null ? (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(med) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix) : '&ndash;'));
-      stats.appendChild(el('div', {class:'tally-n'}, 'n=' + vals.length));
-      col.appendChild(stats);
 
       var chips = el('div', {class:'tally-chips'}, '');
       byGroup[g].forEach(function(e){
@@ -454,59 +522,18 @@ function renderReveal(){
         choiceRow.appendChild(btn);
       });
       col.appendChild(choiceRow);
-
-      var m = groupMetric(currentEntries, g);
-      var stats2 = el('div', {class:'tally-stats'}, '');
-      stats2.appendChild(el('div', {class:'tally-median'}, m.n ? Math.round(m.value) + '%' : '&ndash;'));
-      stats2.appendChild(el('div', {class:'tally-n'}, 'n=' + m.n + ' &middot; % ' + (CONFIG.targetShortLabel || 'target')));
-      col.appendChild(stats2);
     }
     cols.appendChild(col);
   });
-  wrap.appendChild(cols);
+  controls.appendChild(cols);
+  wrap.appendChild(controls);
 
-  var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
-  if (CONFIG.type === 'number') {
-    var maxVal = Math.max(1, ['a','b'].reduce(function(m,g){
-      var med = median(byGroup[g].map(function(e){ return e.v; }));
-      return med !== null ? Math.max(m, med) : m;
-    }, 0));
-    ['a','b'].forEach(function(g){
-      var med = median(byGroup[g].map(function(e){ return e.v; }));
-      var row = el('div', {class:'chart-row'}, '');
-      row.appendChild(el('div', {class:'chart-label'}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
-      var track = el('div', {class:'chart-track'}, '');
-      if (med !== null){
-        var pct = Math.max(4, Math.min(100, (med / maxVal) * 100));
-        var fill = el('div', {class:'chart-fill'}, '<span>' + (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(med) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix) + '</span>');
-        fill.style.width = pct + '%';
-        fill.style.background = colors[g];
-        track.appendChild(fill);
-      }
-      row.appendChild(track);
-      wrap.appendChild(row);
-    });
-  } else {
-    ['a','b'].forEach(function(g){
-      var m = groupMetric(currentEntries, g);
-      var row = el('div', {class:'chart-row'}, '');
-      row.appendChild(el('div', {class:'chart-label'}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
-      var track = el('div', {class:'chart-track'}, '');
-      if (m.n){
-        var pct = Math.max(4, Math.min(100, m.value));
-        var fill = el('div', {class:'chart-fill'}, '<span>' + Math.round(m.value) + '%</span>');
-        fill.style.width = pct + '%';
-        fill.style.background = colors[g];
-        track.appendChild(fill);
-      }
-      row.appendChild(track);
-      wrap.appendChild(row);
-    });
-    wrap.appendChild(el('div', {class:'legend'}, '% choosing ' + (CONFIG.targetShortLabel || 'the target option')));
-  }
-
-  wrap.appendChild(el('div', {class:'historical'},
-    '<b style="color:var(--ink);display:block;margin-bottom:4px;">For comparison:</b>' + CONFIG.historicalText));
+  var histSection = el('div', {class:'historical'}, '');
+  var histCard = el('div', {class:'historical-card'}, '');
+  histCard.appendChild(el('div', {class:'hc-eyebrow'}, 'For comparison'));
+  histCard.appendChild(el('p', {}, CONFIG.historicalText));
+  histSection.appendChild(histCard);
+  wrap.appendChild(histSection);
 
   wrap.appendChild(renderNarrative(currentEntries));
 

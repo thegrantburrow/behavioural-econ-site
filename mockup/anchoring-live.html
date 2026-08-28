@@ -35,33 +35,63 @@ h1.q b{color:var(--terracotta);}
 .msg b{display:block;color:var(--ink);font-size:19px;font-family:Georgia,serif;margin-bottom:10px;}
 .msg .ps{margin-top:14px;font-size:12.5px;}
 
-/* presenter tally / reveal view */
-.reveal-wrap{max-width:680px;margin:0 auto;padding:36px 22px;width:100%;}
-.reveal-title{font-family:Georgia,serif;font-size:24px;text-align:center;margin:0 0 4px;}
-.reveal-sub{text-align:center;font-size:13px;color:var(--ink-soft);margin:0 0 28px;max-width:52ch;margin-left:auto;margin-right:auto;}
-.tally-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+/* presenter tally / reveal view, designed to also work projected large in a room */
+.reveal-wrap{max-width:1080px;margin:0 auto;padding:36px 22px 48px;width:100%;}
+.reveal-title{font-family:Georgia,serif;font-weight:700;font-size:clamp(26px,4vw,46px);text-align:center;margin:0 0 6px;text-wrap:balance;}
+.reveal-sub{text-align:center;font-size:clamp(13px,1.3vw,16px);color:var(--ink-soft);margin:0 0 32px;max-width:64ch;margin-left:auto;margin-right:auto;line-height:1.6;}
+
+/* the big head-to-head scoreboard, the room-scale focal point */
+.scoreboard{margin:0 0 20px;}
+.scoreboard-answer{text-align:center;margin:0 0 26px;}
+.scoreboard-answer .tag{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);font-weight:700;font-size:clamp(13px,1.5vw,17px);padding:12px 26px;border-radius:999px;box-shadow:var(--shadow);}
+.scoreboard-answer .tag svg{width:20px;height:20px;flex-shrink:0;}
+.scoreboard-answer .tag b{font-size:1.2em;color:var(--mustard);}
+.scoreboard-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:22px;}
+@media (max-width:760px){ .scoreboard-grid{grid-template-columns:1fr;gap:16px;} .scoreboard-vs{order:2;margin:-4px auto;} }
+.scoreboard-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,2.6vw,34px) clamp(16px,2.2vw,30px);text-align:center;box-shadow:var(--shadow);}
+.scoreboard-card .sc-label{font-size:clamp(12px,1.3vw,15px);font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin:0 0 4px;}
+.scoreboard-card .sc-anchor{font-size:clamp(11px,1.1vw,13px);color:var(--ink-soft);margin:0 0 16px;}
+.scoreboard-number{font-family:Georgia,serif;font-weight:700;font-size:clamp(52px,8.5vw,104px);line-height:1;margin:0 0 4px;}
+.scoreboard-number.empty{color:var(--ink-soft);font-size:clamp(30px,5vw,52px);}
+.scoreboard-number.pop{animation:scPop .55s cubic-bezier(.22,.9,.3,1.25);}
+@keyframes scPop{0%{transform:scale(.7);opacity:0;}65%{transform:scale(1.07);opacity:1;}100%{transform:scale(1);}}
+.scoreboard-n{font-size:clamp(12px,1.2vw,14px);color:var(--ink-soft);margin:0 0 18px;}
+.scoreboard-bar-track{position:relative;height:22px;border-radius:11px;background:var(--line);}
+.scoreboard-bar-fill{position:absolute;left:0;top:0;height:100%;border-radius:11px;width:0;transition:width .9s cubic-bezier(.16,.85,.32,1);}
+.scoreboard-truth-mark{position:absolute;top:-9px;bottom:-9px;width:0;border-left:3px dashed var(--ink);}
+.scoreboard-truth-caption{text-align:center;font-size:10.5px;color:var(--ink-soft);margin-top:8px;}
+.scoreboard-truth-caption .sw{display:inline-block;width:11px;border-top:2.5px dashed var(--ink);margin-right:5px;vertical-align:middle;}
+.scoreboard-vs{width:60px;height:60px;border-radius:50%;background:var(--terracotta);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:16px;margin:0 auto;box-shadow:var(--shadow);flex-shrink:0;}
+@media (max-width:760px){ .scoreboard-vs{width:42px;height:42px;font-size:12px;} }
+.scoreboard-gap{text-align:center;margin-top:22px;font-size:clamp(14px,1.6vw,19px);color:var(--ink-soft);}
+.scoreboard-gap b{color:var(--terracotta);font-family:Georgia,serif;}
+
+/* compact presenter-only controls, deliberately quieter than the scoreboard above */
+.presenter-controls{margin:0 0 30px;background:var(--paper);border:1px dashed var(--line);border-radius:14px;padding:18px 18px 14px;}
+.presenter-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700;text-align:center;margin:0 0 4px;}
+.presenter-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin:0 0 14px;}
+.tally-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media (max-width:600px){ .tally-cols{grid-template-columns:1fr;} }
-.tally-col{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;}
-.tally-col h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px;}
-.tally-col .anchor-note{font-size:11.5px;color:var(--ink-soft);margin:0 0 12px;}
-.tally-input-row{display:flex;gap:6px;margin-bottom:12px;}
+.tally-col{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.tally-col h3{font-size:12px;text-transform:uppercase;letter-spacing:.03em;margin:0 0 10px;color:var(--ink-soft);}
+.tally-input-row{display:flex;gap:6px;margin-bottom:10px;}
 .tally-input-row input{flex:1;min-width:0;font-size:16px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;}
 .tally-input-row button{background:var(--ink);color:var(--paper);border:none;border-radius:8px;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
-.tally-stats{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
-.tally-median{font-family:Georgia,serif;font-size:28px;font-weight:700;}
-.tally-n{font-size:12px;color:var(--ink-soft);}
 .tally-chips{display:flex;flex-wrap:wrap;gap:6px;}
 .tally-chip{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;display:flex;align-items:center;gap:6px;}
 .tally-chip button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:0;line-height:1;}
-.chart-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.chart-label{width:100px;flex-shrink:0;font-size:12.5px;font-weight:700;text-align:right;}
-.chart-track{flex:1;background:var(--line);border-radius:7px;height:26px;position:relative;}
-.chart-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;min-width:2px;transition:width .3s ease;}
-.chart-fill span{font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;}
-.truth-line{position:absolute;top:-5px;bottom:-5px;border-left:2px dashed var(--ink-soft);}
-.legend{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:2px 0 26px;}
-.legend .sw{display:inline-block;width:12px;border-top:2px dashed var(--ink-soft);margin-right:5px;vertical-align:middle;}
-.historical{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;text-align:center;max-width:52ch;margin:0 auto 20px;}
+
+/* the room's live result vs. the original 1974 study, same visual language, smaller scale */
+.historical{border-top:1px solid var(--line);padding-top:26px;margin-top:6px;}
+.historical-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:700;margin:0 0 16px;}
+.historical-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:640px;margin:0 auto;}
+@media (max-width:560px){ .historical-grid{grid-template-columns:1fr;gap:18px;} }
+.historical-col .hc-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);text-align:center;margin:0 0 10px;}
+.historical-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.historical-row .hr-tag{width:64px;flex-shrink:0;font-size:11px;font-weight:700;text-align:right;color:var(--ink-soft);}
+.historical-bar-track{flex:1;height:14px;border-radius:7px;background:var(--line);position:relative;}
+.historical-bar-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;min-width:2px;}
+.historical-bar-fill span{font-size:10px;font-weight:700;color:#fff;white-space:nowrap;}
 
 .narrative-section{border-top:1px solid var(--line);margin-top:8px;padding-top:26px;}
 .narrative-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:14px;}
@@ -97,9 +127,9 @@ h1.q b{color:var(--terracotta);}
 .qr-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 14px;}
 .qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 @media (max-width:520px){ .qr-grid{grid-template-columns:1fr;} }
-.qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;}
-.qr-card img{width:100%;max-width:200px;height:auto;margin:0 auto 10px;display:block;border-radius:6px;}
-.qr-card .qr-label{font-size:12.5px;font-weight:700;margin-bottom:4px;}
+.qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;}
+.qr-card img{width:100%;max-width:260px;height:auto;margin:0 auto 12px;display:block;border-radius:8px;}
+.qr-card .qr-label{font-size:clamp(13px,1.3vw,15px);font-weight:700;margin-bottom:4px;}
 .qr-card .qr-link{font-size:10.5px;color:var(--ink-soft);word-break:break-all;}
 .qr-note{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;}
 
@@ -380,6 +410,8 @@ function renderNarrative(byGroup){
 
 /* ---------------- presenter session / tally / history screen ---------------- */
 
+var TARGET_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"></circle></svg>';
+
 function renderReveal(){
   var session = getSession();
   var log = readLog();
@@ -416,10 +448,68 @@ function renderReveal(){
   qrSection.appendChild(el('div', {class:'qr-note'}, 'These two codes are permanent, print them once and reuse them for every future session. &ldquo;Start new session&rdquo; resets the tally, not the codes.'));
   wrap.appendChild(qrSection);
 
+  /* ---- the big head-to-head scoreboard: the room-scale focal point ---- */
+  var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
+  var medA = median(byGroup.a.map(function(e){ return e.v; }));
+  var medB = median(byGroup.b.map(function(e){ return e.v; }));
+  var nA = byGroup.a.length, nB = byGroup.b.length;
+  var maxVal = Math.max(FACT.truth, 20, medA || 0, medB || 0);
+
+  var scoreboard = el('div', {class:'scoreboard'}, '');
+  scoreboard.appendChild(el('div', {class:'scoreboard-answer'},
+    '<span class="tag">' + TARGET_ICON + 'The real answer: <b>' + FACT.truth + FACT.suffix + '</b></span>'));
+
+  var grid = el('div', {class:'scoreboard-grid'}, '');
+  ['a','b'].forEach(function(g){
+    var med = g === 'a' ? medA : medB;
+    var n = g === 'a' ? nA : nB;
+    var card = el('div', {class:'scoreboard-card'}, '');
+    card.appendChild(el('div', {class:'sc-label'}, GROUPS[g].label.split(' (')[0]));
+    card.appendChild(el('div', {class:'sc-anchor'}, 'Asked about ' + GROUPS[g].anchor + FACT.suffix));
+    card.appendChild(el('div', {class:'scoreboard-number' + (med === null ? ' empty' : ' pop')}, med === null ? 'No answers yet' : Math.round(med) + FACT.suffix));
+    card.appendChild(el('div', {class:'scoreboard-n'}, n + ' answer' + (n===1?'':'s')));
+    var track = el('div', {class:'scoreboard-bar-track'}, '');
+    if (med !== null){
+      var fill = el('div', {class:'scoreboard-bar-fill'}, '');
+      fill.style.background = colors[g];
+      track.appendChild(fill);
+    }
+    var truthPct = Math.max(0, Math.min(100, (FACT.truth / maxVal) * 100));
+    var truth = el('div', {class:'scoreboard-truth-mark'}, '');
+    truth.style.left = truthPct + '%';
+    track.appendChild(truth);
+    card.appendChild(track);
+    card.appendChild(el('div', {class:'scoreboard-truth-caption'}, '<span class="sw"></span>Real answer'));
+    grid.appendChild(card);
+    if (g === 'a') grid.appendChild(el('div', {class:'scoreboard-vs'}, 'VS'));
+    if (med !== null){
+      requestAnimationFrame(function(){
+        var pct = Math.max(4, Math.min(100, (med / maxVal) * 100));
+        fill.style.width = pct + '%';
+      });
+    }
+  });
+  scoreboard.appendChild(grid);
+
+  var gapEl = el('div', {class:'scoreboard-gap'}, '');
+  if (medA !== null && medB !== null){
+    var diff = Math.round(Math.abs(medA - medB));
+    gapEl.innerHTML = diff === 0 ? 'Both groups landed on the exact same number, <b>too close to call yet</b>.'
+      : '<b>' + diff + FACT.suffix + '</b> apart between the two groups, same real question, same room.';
+  } else {
+    gapEl.innerHTML = 'Waiting on answers from both groups to show the gap.';
+  }
+  scoreboard.appendChild(gapEl);
+  wrap.appendChild(scoreboard);
+
+  /* ---- presenter-only controls: quieter, for whoever is typing in called-out numbers ---- */
+  var controls = el('div', {class:'presenter-controls'}, '');
+  controls.appendChild(el('div', {class:'presenter-eyebrow'}, 'Presenter controls'));
+  controls.appendChild(el('div', {class:'presenter-note'}, 'Type in a number as the room calls it out, or tap &times; to remove a mistaken entry. This box is for whoever is running the session, not for the projector.'));
   var cols = el('div', {class:'tally-cols'}, '');
   Object.keys(GROUPS).forEach(function(g){
     var col = el('div', {class:'tally-col'}, '');
-    col.appendChild(el('h3', {}, GROUPS[g].label));
+    col.appendChild(el('h3', {}, GROUPS[g].label.split(' (')[0]));
     var inputRow = el('div', {class:'tally-input-row'}, '');
     var input = el('input', {type:'number', inputmode:'numeric', placeholder:'e.g. ' + (g==='a'?'50':'15')});
     var addBtn = el('button', {type:'button'}, 'Add');
@@ -435,13 +525,6 @@ function renderReveal(){
     inputRow.appendChild(input); inputRow.appendChild(addBtn);
     col.appendChild(inputRow);
 
-    var vals = byGroup[g].map(function(e){ return e.v; });
-    var med = median(vals);
-    var stats = el('div', {class:'tally-stats'}, '');
-    stats.appendChild(el('div', {class:'tally-median'}, med !== null ? Math.round(med) + FACT.suffix : '–'));
-    stats.appendChild(el('div', {class:'tally-n'}, 'n=' + vals.length));
-    col.appendChild(stats);
-
     var chips = el('div', {class:'tally-chips'}, '');
     byGroup[g].forEach(function(e){
       var chip = el('span', {class:'tally-chip'}, e.v + FACT.suffix + ' ');
@@ -453,37 +536,38 @@ function renderReveal(){
     col.appendChild(chips);
     cols.appendChild(col);
   });
-  wrap.appendChild(cols);
+  controls.appendChild(cols);
+  wrap.appendChild(controls);
 
-  var maxVal = Math.max(FACT.truth, 20, Object.keys(GROUPS).reduce(function(m,g){
-    var med = median(byGroup[g].map(function(e){ return e.v; }));
-    return med !== null ? Math.max(m, med) : m;
-  }, 0));
-
-  var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
-  Object.keys(GROUPS).forEach(function(g){
-    var med = median(byGroup[g].map(function(e){ return e.v; }));
-    var row = el('div', {class:'chart-row'}, '');
-    row.appendChild(el('div', {class:'chart-label'}, GROUPS[g].label.split(' (')[0]));
-    var track = el('div', {class:'chart-track'}, '');
-    if (med !== null){
-      var pct = Math.max(4, Math.min(100, (med / maxVal) * 100));
-      var fill = el('div', {class:'chart-fill'}, '<span>' + Math.round(med) + FACT.suffix + '</span>');
+  /* ---- this room vs. the original 1974 study, same visual language, smaller scale ---- */
+  var histMax = Math.max(FACT.historicalHigh, FACT.historicalLow, medA || 0, medB || 0, FACT.truth);
+  function histRow(label, val, color){
+    var row = el('div', {class:'historical-row'}, '');
+    row.appendChild(el('div', {class:'hr-tag'}, label));
+    var track = el('div', {class:'historical-bar-track'}, '');
+    if (val !== null){
+      var pct = Math.max(4, Math.min(100, (val / histMax) * 100));
+      var fill = el('div', {class:'historical-bar-fill'}, '<span>' + Math.round(val) + FACT.suffix + '</span>');
       fill.style.width = pct + '%';
-      fill.style.background = colors[g];
+      fill.style.background = color;
       track.appendChild(fill);
     }
-    var truthPct = Math.max(0, Math.min(100, (FACT.truth / maxVal) * 100));
-    var truth = el('div', {class:'truth-line'}, '');
-    truth.style.left = truthPct + '%';
-    track.appendChild(truth);
     row.appendChild(track);
-    wrap.appendChild(row);
-  });
-  wrap.appendChild(el('div', {class:'legend'}, '<span class="sw"></span> Real answer: ' + FACT.truth + FACT.suffix));
-
-  wrap.appendChild(el('div', {class:'historical'},
-    '<b style="color:var(--ink);display:block;margin-bottom:4px;">For comparison:</b>Tversky &amp; Kahneman&rsquo;s original 1974 study found median guesses of ' + FACT.historicalHigh + FACT.suffix + ' from the high-anchor group and ' + FACT.historicalLow + FACT.suffix + ' from the low-anchor group, everyone knew the anchor was random.'));
+    return row;
+  }
+  var histSection = el('div', {class:'historical'}, '');
+  histSection.appendChild(el('div', {class:'historical-heading'}, 'This room vs. the original 1974 study'));
+  var histGrid = el('div', {class:'historical-grid'}, '');
+  var thisRoomCol = el('div', {class:'historical-col'}, '<div class="hc-label">This room, right now</div>');
+  thisRoomCol.appendChild(histRow('High', medA, colors.a));
+  thisRoomCol.appendChild(histRow('Low', medB, colors.b));
+  var originalCol = el('div', {class:'historical-col'}, '<div class="hc-label">Tversky &amp; Kahneman, 1974</div>');
+  originalCol.appendChild(histRow('High', FACT.historicalHigh, colors.a));
+  originalCol.appendChild(histRow('Low', FACT.historicalLow, colors.b));
+  histGrid.appendChild(thisRoomCol);
+  histGrid.appendChild(originalCol);
+  histSection.appendChild(histGrid);
+  wrap.appendChild(histSection);
 
   wrap.appendChild(renderNarrative(byGroup));
 
