@@ -122,6 +122,27 @@ h1.q b{color:var(--terracotta);}
 .session-info b{color:var(--ink);}
 .session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
 .session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
+.presentation-toggle{border-color:var(--terracotta);background:var(--terracotta);color:#fff;}
+/* the toggle only makes sense on a screen big enough to actually be a room display; a phone is always the participant's own device, never the projector */
+@media (max-width:760px){ .presentation-toggle{display:none;} }
+
+/* Room presentation view: strip presenter-only chrome, let the room-scale
+   scoreboard and verdict fill the screen. Mobile never sees this mode at
+   all (the toggle is hidden above), so this block only ever applies on a
+   desktop/laptop screen already being cast to a projector or a big display. */
+body.presenting .reveal-sub,
+body.presenting .manage-only,
+body.presenting .presenter-controls,
+body.presenting .narrative-block,
+body.presenting .history-section,
+body.presenting .reset-row{display:none;}
+body.presenting .reveal-wrap{max-width:1600px;}
+body.presenting .reveal-title{font-size:clamp(32px,5.5vw,68px);}
+body.presenting .scoreboard-number{font-size:clamp(64px,11vw,180px);}
+body.presenting .scoreboard-gap{font-size:clamp(18px,2.4vw,30px);}
+body.presenting .narrative-verdict{padding:clamp(20px,2.4vw,34px);}
+body.presenting .narrative-verdict p{font-size:clamp(15px,1.8vw,22px);}
+body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 
 .qr-section{margin:0 0 30px;}
 .qr-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 14px;}
@@ -424,8 +445,24 @@ function renderReveal(){
   wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their number, and type each one in as you hear it.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
-  sessionRow.appendChild(el('div', {class:'session-info'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
-  var newSessionBtn = el('button', {class:'session-btn', type:'button'}, 'Start new session');
+  sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
+  var presentBtn = el('button', {class:'session-btn presentation-toggle', type:'button'}, '');
+  function syncPresentBtn(){
+    presentBtn.textContent = document.body.classList.contains('presenting') ? 'Exit presentation view' : 'Room presentation view';
+  }
+  syncPresentBtn();
+  presentBtn.addEventListener('click', function(){
+    var turningOn = !document.body.classList.contains('presenting');
+    document.body.classList.toggle('presenting', turningOn);
+    syncPresentBtn();
+    if (turningOn && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(function(){});
+    } else if (!turningOn && document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(function(){});
+    }
+  });
+  sessionRow.appendChild(presentBtn);
+  var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
   newSessionBtn.addEventListener('click', function(){
     if (currentEntries.length && !confirm('Start a new session? Today’s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
     startNewSession();
@@ -633,6 +670,12 @@ function boot(){
 
 boot();
 window.addEventListener('hashchange', boot);
+/* if the room's browser (or the presenter pressing Esc) drops fullscreen on
+   its own, drop presentation mode with it rather than leaving the page in a
+   mixed state, small chrome hidden but no longer actually full-screen. */
+document.addEventListener('fullscreenchange', function(){
+  if (!document.fullscreenElement) document.body.classList.remove('presenting');
+});
 })();
 </script>
 </body>
