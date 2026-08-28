@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Live Endowment Effect | What Works &amp; Why</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{
+  --paper:#F5F6F5; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.62);
+  --terracotta:#C43E1F; --mustard:#E0A93A; --teal:#1F7A6C;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-direction:column;min-height:100vh;}
+#app{display:flex;flex-direction:column;flex:1;min-height:0;}
+.screen{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 22px 40px;max-width:460px;margin:0 auto;width:100%;}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:10px;}
+h1.q{font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.4;text-align:center;margin:0 0 22px;text-wrap:balance;}
+.scenario{font-size:14px;line-height:1.6;color:var(--ink-soft);text-align:center;margin:0 0 22px;}
+.choicebtn-col{display:flex;flex-direction:column;gap:12px;}
+.choicebtn{text-align:left;font-size:14.5px;font-weight:600;padding:16px 18px;border-radius:12px;border:1.5px solid var(--ink);background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit;line-height:1.4;}
+.choicebtn:active{transform:scale(.98);}
+.choicebtn b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--terracotta);margin-bottom:4px;}
+.numwrap{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:22px;}
+.numinput{width:150px;font-size:32px;font-weight:700;text-align:center;padding:10px 8px;border-radius:12px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font-family:inherit;}
+.numinput:focus{outline:2px solid var(--terracotta);outline-offset:1px;}
+.suffix{font-size:26px;font-weight:700;color:var(--ink-soft);}
+.submitbtn{margin-top:4px;background:var(--terracotta);color:#fff;border:none;border-radius:12px;padding:16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.submitbtn:disabled{opacity:.5;cursor:default;}
+.msg{text-align:center;font-size:14px;line-height:1.6;color:var(--ink-soft);}
+.msg b{display:block;color:var(--ink);font-size:19px;font-family:Georgia,serif;margin-bottom:10px;}
+.msg .ps{margin-top:14px;font-size:12.5px;}
+
+.reveal-wrap{max-width:680px;margin:0 auto;padding:36px 22px;width:100%;}
+.reveal-title{font-family:Georgia,serif;font-size:24px;text-align:center;margin:0 0 4px;}
+.reveal-sub{text-align:center;font-size:13px;color:var(--ink-soft);margin:0 0 28px;max-width:52ch;margin-left:auto;margin-right:auto;}
+.tally-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+@media (max-width:600px){ .tally-cols{grid-template-columns:1fr;} }
+.tally-col{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;}
+.tally-col h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px;}
+.tally-col .anchor-note{font-size:11.5px;color:var(--ink-soft);margin:0 0 12px;}
+.tally-input-row{display:flex;gap:6px;margin-bottom:12px;}
+.tally-input-row input{flex:1;min-width:0;font-size:16px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;}
+.tally-input-row button{background:var(--ink);color:var(--paper);border:none;border-radius:8px;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.tally-choice-row{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.tally-choice-row button{background:var(--panel);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left;}
+.tally-choice-row button:active{transform:scale(.98);}
+.tally-choice-row button .n{float:right;color:var(--ink-soft);font-weight:700;}
+.tally-stats{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.tally-median{font-family:Georgia,serif;font-size:28px;font-weight:700;}
+.tally-n{font-size:12px;color:var(--ink-soft);}
+.tally-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.tally-chip{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;display:flex;align-items:center;gap:6px;}
+.tally-chip button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:0;line-height:1;}
+.chart-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.chart-label{width:100px;flex-shrink:0;font-size:12.5px;font-weight:700;text-align:right;}
+.chart-track{flex:1;background:var(--line);border-radius:7px;height:26px;position:relative;}
+.chart-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;min-width:2px;transition:width .3s ease;}
+.chart-fill span{font-size:11.5px;font-weight:700;color:#fff;white-space:nowrap;}
+.truth-line{position:absolute;top:-5px;bottom:-5px;border-left:2px dashed var(--ink-soft);}
+.legend{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:2px 0 26px;}
+.legend .sw{display:inline-block;width:12px;border-top:2px dashed var(--ink-soft);margin-right:5px;vertical-align:middle;}
+.historical{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;text-align:center;max-width:56ch;margin:0 auto 20px;}
+.session-row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
+.session-info{font-size:12px;color:var(--ink-soft);}
+.session-info b{color:var(--ink);}
+.session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
+.session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
+
+.qr-section{margin:0 0 30px;}
+.qr-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 14px;}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:16px;}
+.qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;}
+.qr-card img{width:100%;max-width:200px;height:auto;margin:0 auto 10px;display:block;border-radius:6px;}
+.qr-card .qr-label{font-size:12.5px;font-weight:700;margin-bottom:4px;}
+.qr-card .qr-link{font-size:10.5px;color:var(--ink-soft);word-break:break-all;}
+.qr-note{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;}
+
+.reset-row{text-align:center;}
+.reset-btn{font-size:12px;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font-family:inherit;}
+
+.history-section{border-top:1px solid var(--line);margin-top:30px;padding-top:20px;}
+.history-heading{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 12px;text-align:center;}
+.history-empty{text-align:center;font-size:12.5px;color:var(--ink-soft);}
+.history-session{margin-bottom:16px;}
+.history-session-head{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.history-session-head .n{font-weight:400;color:var(--ink-soft);}
+.history-table{width:100%;border-collapse:collapse;font-size:12px;}
+.history-table th{text-align:left;color:var(--ink-soft);font-weight:600;padding:4px 8px;border-bottom:1px solid var(--line);}
+.history-table td{padding:4px 8px;border-bottom:1px solid var(--line);}
+.history-table .g-a{color:var(--terracotta);font-weight:700;}
+.history-table .g-b{color:var(--teal);font-weight:700;}
+.history-table td.rm{text-align:right;}
+.history-table td.rm button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;}
+
+.narrative-section{border-top:1px solid var(--line);margin-top:8px;padding-top:26px;}
+.narrative-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:14px;}
+.narrative-verdict{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--ink-soft);border-radius:10px;padding:16px 18px;margin-bottom:22px;}
+.narrative-verdict.aligned{border-left-color:var(--teal);}
+.narrative-verdict.reversed{border-left-color:var(--terracotta);}
+.narrative-verdict.tie{border-left-color:var(--mustard);}
+.narrative-verdict.wait{border-left-color:var(--mustard);}
+.narrative-tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+.narrative-tag.aligned{color:var(--teal);}
+.narrative-tag.reversed{color:var(--terracotta);}
+.narrative-tag.tie{color:#a3821f;}
+.narrative-tag.wait{color:#a3821f;}
+.narrative-verdict p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink);}
+.narrative-verdict p a{color:inherit;}
+.narrative-block{margin-bottom:22px;}
+.narrative-block h4{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px;color:var(--ink);}
+.narrative-block > p{font-size:13.5px;line-height:1.65;color:var(--ink-soft);margin:0;}
+.narrative-block p a{color:var(--terracotta);}
+.example-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.example-item{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.example-label{font-size:13.5px;font-weight:700;margin-bottom:5px;}
+.example-item p{font-size:13px;line-height:1.6;color:var(--ink-soft);margin:0 0 6px;}
+.example-cite{font-size:11px;color:var(--ink-soft);opacity:.75;}
+.also-illustrative{font-size:11.5px;color:var(--ink-soft);font-style:italic;margin:8px 0 22px;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+(function(){
+"use strict";
+
+var CONFIG = {"toolId": "en", "type": "number", "toolTitle": "Live Endowment Effect", "targetHigherGroup": "a", "number": {"suffix": "$", "min": 0, "max": 1000}, "groups": {"a": {"label": "Owners (sellers)", "shortLabel": "Sellers", "scenarioTitle": "What's the lowest price you'd sell it for?", "scenarioBody": "Imagine you've just been given a branded mug as a gift. It's yours now.", "placeholder": "e.g. 5"}, "b": {"label": "Non-owners (buyers)", "shortLabel": "Buyers", "scenarioTitle": "What's the most you'd pay to buy it?", "scenarioBody": "Imagine you don't own this mug, and you're deciding whether to buy one.", "placeholder": "e.g. 2"}}, "historicalText": "Kahneman, Knetsch &amp; Thaler&rsquo;s original 1990 mug study found sellers demanded a median of roughly $5.25, about twice the roughly $2.25 median that buyers were willing to pay for the identical mug.", "mechanismHtml": "Loss aversion applies to ownership itself. Once the mug is yours, giving it up registers as a loss, and losses are felt more sharply than equivalent gains. That pulls the minimum price a seller will accept upward, above what a neutral, non-owning buyer would pay for the identical object, a gap created entirely by which side of the transaction someone happens to be standing on. <a href=\"principles.html#endowment-effect\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "Free trials and generous return windows", "body": "Once a product has sat in your home for two weeks, sending it back starts to feel like a loss, which inflates its perceived value well past what you'd have paid for it cold.", "cite": "See this site&rsquo;s own <a href=\"principles.html#endowment-effect\">Endowment Effect</a> entry."}, {"label": "Homeowners overvaluing their own house", "body": "Sellers in a falling market set asking prices well above what comparable homes are actually fetching, and hold out for those prices longer, a real, measured loss-aversion effect specifically in home sales.", "cite": "Genesove, D., &amp; Mayer, C. (2001). “Loss Aversion and Seller Behavior.” <a href=\"https://academic.oup.com/qje/article-abstract/116/4/1233/1904185\" target=\"_blank\" rel=\"noopener\">Quarterly Journal of Economics, 116(4), 1233&ndash;1260</a>"}, {"label": "Trade-in valuations", "body": "Owners routinely expect a trade-in price for an old phone or car well above what the market will actually pay, the same gap between what an owner will accept and what a buyer will offer.", "cite": "Direct application of Kahneman, Knetsch &amp; Thaler&rsquo;s own finding above."}]};
+
+function getGroupFromHash(){
+  var h = location.hash.replace('#','');
+  var m = h.match(/(?:^|&)g=([ab])(?:&|$)/);
+  return m ? m[1] : null;
+}
+function isReveal(){
+  return /(^|#|&)reveal(&|$)/.test(location.hash);
+}
+
+function el(tag, attrs, html){
+  var e = document.createElement(tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function render(node){
+  var app = document.getElementById('app');
+  app.innerHTML = '';
+  app.appendChild(node);
+}
+
+function renderNoGroup(){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, CONFIG.toolTitle));
+  s.appendChild(el('div', {class:'msg'},
+    '<b>This link needs to come from one of the session QR codes.</b>Ask whoever&rsquo;s running the session for the right link.'));
+  render(s);
+}
+
+function renderParticipant(group){
+  var g = CONFIG.groups[group];
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, g.label));
+  if (CONFIG.type === 'choice') {
+    s.appendChild(el('h1', {class:'q'}, g.scenarioTitle));
+    if (g.scenarioBody) s.appendChild(el('p', {class:'scenario'}, g.scenarioBody));
+    var col = el('div', {class:'choicebtn-col'}, '');
+    g.options.forEach(function(opt){
+      var btn = el('button', {class:'choicebtn', type:'button'}, (opt.tag ? '<b>' + opt.tag + '</b>' : '') + opt.label);
+      btn.addEventListener('click', function(){ renderThanks(opt.key, group, opt.label); });
+      col.appendChild(btn);
+    });
+    s.appendChild(col);
+  } else {
+    s.appendChild(el('h1', {class:'q'}, g.scenarioTitle));
+    if (g.scenarioBody) s.appendChild(el('p', {class:'scenario'}, g.scenarioBody));
+    var wrap = el('div', {class:'numwrap'}, '');
+    var input = el('input', {class:'numinput', type:'number', inputmode:'numeric', min:String(CONFIG.number.min), max:String(CONFIG.number.max), placeholder: g.placeholder || '?'});
+    wrap.appendChild(input);
+    wrap.appendChild(el('span', {class:'suffix'}, CONFIG.number.suffix));
+    s.appendChild(wrap);
+    var btn = el('button', {class:'submitbtn', type:'button'}, 'Submit');
+    btn.disabled = true;
+    input.addEventListener('input', function(){
+      var v = parseFloat(input.value);
+      btn.disabled = !(isFinite(v) && v >= CONFIG.number.min && v <= CONFIG.number.max);
+    });
+    btn.addEventListener('click', function(){
+      var v = parseFloat(input.value);
+      if (!isFinite(v)) return;
+      renderThanks(v, group, (CONFIG.number.suffix === '$' ? '$' : '') + v + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix));
+    });
+    s.appendChild(btn);
+    render(s);
+    input.focus();
+    return;
+  }
+  render(s);
+}
+
+function renderThanks(val, g, displayLabel){
+  addEntry(g, val);
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'msg'},
+    '<b>Thanks, you picked: ' + displayLabel + '.</b>' +
+    'If the presenter is running this on the same screen as you, it&rsquo;s already logged. Otherwise, call out your answer (or put your hand up when asked) so it can be added to the results.' +
+    '<div class="ps">Phones don&rsquo;t automatically share answers with each other, only with this same browser, that&rsquo;s why the room comparison usually happens out loud.</div>'));
+  render(s);
+}
+
+/* ---------------- shared, persistent log (localStorage) ---------------- */
+
+var LS_LOG = CONFIG.toolId + '_log';
+var LS_SESSION = CONFIG.toolId + '_session';
+
+function uid(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'r' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
+
+function readLog(){
+  try {
+    var raw = localStorage.getItem(LS_LOG);
+    var arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch(e){ return []; }
+}
+function writeLog(arr){
+  try { localStorage.setItem(LS_LOG, JSON.stringify(arr)); } catch(e){}
+}
+
+function getSession(){
+  try {
+    var raw = localStorage.getItem(LS_SESSION);
+    var s = raw ? JSON.parse(raw) : null;
+    if (s && s.id && s.startedAt) return s;
+  } catch(e){}
+  var fresh = { id: uid(), startedAt: Date.now() };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(fresh)); } catch(e){}
+  return fresh;
+}
+
+function startNewSession(){
+  var fresh = { id: uid(), startedAt: Date.now() };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(fresh)); } catch(e){}
+  return fresh;
+}
+
+function addEntry(g, val){
+  var session = getSession();
+  var log = readLog();
+  log.push({ id: uid(), g: g, v: val, t: Date.now(), sessionId: session.id });
+  writeLog(log);
+}
+
+function removeEntry(id){
+  writeLog(readLog().filter(function(e){ return e.id !== id; }));
+}
+
+function median(nums){
+  if (!nums.length) return null;
+  var s = nums.slice().sort(function(a,b){ return a-b; });
+  var mid = Math.floor(s.length/2);
+  return s.length % 2 ? s[mid] : (s[mid-1]+s[mid])/2;
+}
+
+function formatDateTime(t){
+  var d = new Date(t);
+  return d.toLocaleDateString(undefined, {month:'short', day:'numeric'}) + ', ' +
+    d.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'});
+}
+
+function displayVal(g, v){
+  if (CONFIG.type === 'number') return (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(v) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix);
+  var opt = null;
+  CONFIG.groups[g].options.forEach(function(o){ if (o.key === v) opt = o; });
+  if (!opt) {
+    var other = g === 'a' ? 'b' : 'a';
+    CONFIG.groups[other].options.forEach(function(o){ if (o.key === v) opt = o; });
+  }
+  return opt ? opt.short || opt.label : v;
+}
+
+/* ---------------- narrative write-up ---------------- */
+
+function groupMetric(entries, g){
+  var vals = entries.filter(function(e){ return e.g === g; });
+  if (CONFIG.type === 'number') {
+    var nums = vals.map(function(e){ return e.v; });
+    return { n: nums.length, value: median(nums), isPct: false };
+  } else {
+    var n = vals.length;
+    var targetCount = vals.filter(function(e){ return e.v === CONFIG.targetKey; }).length;
+    var pct = n ? (targetCount / n) * 100 : null;
+    return { n: n, value: pct, isPct: true };
+  }
+}
+
+function fmtMetric(m){
+  if (m.value === null) return '&ndash;';
+  if (m.isPct) return Math.round(m.value) + '%';
+  return (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(m.value) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix);
+}
+
+function renderNarrative(currentEntries){
+  var section = el('div', {class:'narrative-section'}, '');
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+
+  var hi = CONFIG.targetHigherGroup;
+  var lo = hi === 'a' ? 'b' : 'a';
+  var mHi = groupMetric(currentEntries, hi);
+  var mLo = groupMetric(currentEntries, lo);
+
+  var tag, tagClass, verdictHtml;
+  var hiLabel = CONFIG.groups[hi].label;
+  var loLabel = CONFIG.groups[lo].label;
+
+  if (mHi.n === 0 && mLo.n === 0) {
+    tag = 'Waiting for answers'; tagClass = 'wait';
+    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic pattern, or not.';
+  } else if (mHi.n === 0 || mLo.n === 0) {
+    var emptyLabel = mHi.n === 0 ? hiLabel : loLabel;
+    tag = 'Waiting for answers'; tagClass = 'wait';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the effect.';
+  } else {
+    var diff = mHi.value - mLo.value;
+    var smallN = (mHi.n < 5 || mLo.n < 5);
+    if (diff > 0) {
+      tag = 'Lined up with the effect'; tagClass = 'aligned';
+      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group came in at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '), higher than the &ldquo;' + loLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '). That&rsquo;s the same direction the original study found.';
+      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, treat this as a live demonstration rather than a controlled study. The direction is still the one the real research would predict.';
+    } else if (diff === 0) {
+      tag = 'Too close to call'; tagClass = 'tie';
+      verdictHtml = 'Both groups landed on exactly the same figure, <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly. Add more answers and check back.';
+    } else {
+      tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
+      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group came in at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '). The original study, and the real replications since, are among the more reliable findings in behavioural science, so one reversed session doesn&rsquo;t undo that. What it usually means at this size is noise: a handful of people per side is a small enough sample that one or two unusual answers can flip the result entirely, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+    }
+  }
+
+  var verdict = el('div', {class:'narrative-verdict ' + tagClass}, '');
+  verdict.appendChild(el('span', {class:'narrative-tag ' + tagClass}, tag));
+  verdict.appendChild(el('p', {}, verdictHtml));
+  section.appendChild(verdict);
+
+  section.appendChild(el('div', {class:'narrative-block'},
+    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+
+  if (CONFIG.illustrativeNote) {
+    section.appendChild(el('p', {class:'also-illustrative'}, CONFIG.illustrativeNote));
+  }
+
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var list = el('ul', {class:'example-list'}, '');
+  CONFIG.examples.forEach(function(ex){
+    var li = el('li', {class:'example-item'}, '');
+    li.appendChild(el('div', {class:'example-label'}, ex.label));
+    li.appendChild(el('p', {}, ex.body));
+    li.appendChild(el('div', {class:'example-cite'}, ex.cite));
+    list.appendChild(li);
+  });
+  examplesBlock.appendChild(list);
+  section.appendChild(examplesBlock);
+
+  return section;
+}
+
+/* ---------------- presenter session / tally / history screen ---------------- */
+
+function renderReveal(){
+  var session = getSession();
+  var log = readLog();
+  var currentEntries = log.filter(function(e){ return e.sessionId === session.id; });
+  var byGroup = { a: [], b: [] };
+  currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
+
+  var wrap = el('div', {class:'reveal-wrap'}, '');
+  wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
+  wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their answer, and log each one as you hear it.'));
+
+  var sessionRow = el('div', {class:'session-row'}, '');
+  sessionRow.appendChild(el('div', {class:'session-info'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
+  var newSessionBtn = el('button', {class:'session-btn', type:'button'}, 'Start new session');
+  newSessionBtn.addEventListener('click', function(){
+    if (currentEntries.length && !confirm('Start a new session? Today&rsquo;s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
+    startNewSession();
+    renderReveal();
+  });
+  sessionRow.appendChild(newSessionBtn);
+  wrap.appendChild(sessionRow);
+
+  var qrSection = el('div', {class:'qr-section'}, '');
+  qrSection.appendChild(el('div', {class:'qr-heading'}, 'Session QR codes'));
+  var qrGrid = el('div', {class:'qr-grid'}, '');
+  ['a','b'].forEach(function(g){
+    var card = el('div', {class:'qr-card'}, '');
+    card.appendChild(el('img', {src:'images/qr-' + CONFIG.toolId + '-' + g + '.png', alt:'QR code for ' + CONFIG.groups[g].label, loading:'lazy'}));
+    card.appendChild(el('div', {class:'qr-label'}, CONFIG.groups[g].label));
+    card.appendChild(el('div', {class:'qr-link'}, location.origin + location.pathname + '#g=' + g));
+    qrGrid.appendChild(card);
+  });
+  qrSection.appendChild(qrGrid);
+  qrSection.appendChild(el('div', {class:'qr-note'}, 'These two codes are permanent, print them once and reuse them for every future session. &ldquo;Start new session&rdquo; resets the tally, not the codes.'));
+  wrap.appendChild(qrSection);
+
+  var cols = el('div', {class:'tally-cols'}, '');
+  ['a','b'].forEach(function(g){
+    var col = el('div', {class:'tally-col'}, '');
+    col.appendChild(el('h3', {}, CONFIG.groups[g].label));
+
+    if (CONFIG.type === 'number') {
+      var inputRow = el('div', {class:'tally-input-row'}, '');
+      var input = el('input', {type:'number', inputmode:'numeric', placeholder: CONFIG.groups[g].placeholder || 'e.g. 10'});
+      var addBtn = el('button', {type:'button'}, 'Add');
+      function add(){
+        var v = parseFloat(input.value);
+        if (!isFinite(v)) return;
+        addEntry(g, v);
+        input.value = '';
+        renderReveal();
+      }
+      addBtn.addEventListener('click', add);
+      input.addEventListener('keydown', function(e){ if (e.key === 'Enter') add(); });
+      inputRow.appendChild(input); inputRow.appendChild(addBtn);
+      col.appendChild(inputRow);
+
+      var vals = byGroup[g].map(function(e){ return e.v; });
+      var med = median(vals);
+      var stats = el('div', {class:'tally-stats'}, '');
+      stats.appendChild(el('div', {class:'tally-median'}, med !== null ? (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(med) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix) : '&ndash;'));
+      stats.appendChild(el('div', {class:'tally-n'}, 'n=' + vals.length));
+      col.appendChild(stats);
+
+      var chips = el('div', {class:'tally-chips'}, '');
+      byGroup[g].forEach(function(e){
+        var chip = el('span', {class:'tally-chip'}, (CONFIG.number.suffix === '$' ? '$' : '') + e.v + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix) + ' ');
+        var rm = el('button', {type:'button', 'aria-label':'Remove'}, '&times;');
+        rm.addEventListener('click', function(){ removeEntry(e.id); renderReveal(); });
+        chip.appendChild(rm);
+        chips.appendChild(chip);
+      });
+      col.appendChild(chips);
+    } else {
+      var choiceRow = el('div', {class:'tally-choice-row'}, '');
+      CONFIG.groups[g].options.forEach(function(opt){
+        var count = byGroup[g].filter(function(e){ return e.v === opt.key; }).length;
+        var btn = el('button', {type:'button'}, opt.short || opt.label);
+        btn.appendChild(el('span', {class:'n'}, '+1 (' + count + ')'));
+        btn.addEventListener('click', function(){ addEntry(g, opt.key); renderReveal(); });
+        choiceRow.appendChild(btn);
+      });
+      col.appendChild(choiceRow);
+
+      var m = groupMetric(currentEntries, g);
+      var stats2 = el('div', {class:'tally-stats'}, '');
+      stats2.appendChild(el('div', {class:'tally-median'}, m.n ? Math.round(m.value) + '%' : '&ndash;'));
+      stats2.appendChild(el('div', {class:'tally-n'}, 'n=' + m.n + ' &middot; % ' + (CONFIG.targetShortLabel || 'target')));
+      col.appendChild(stats2);
+    }
+    cols.appendChild(col);
+  });
+  wrap.appendChild(cols);
+
+  var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
+  if (CONFIG.type === 'number') {
+    var maxVal = Math.max(1, ['a','b'].reduce(function(m,g){
+      var med = median(byGroup[g].map(function(e){ return e.v; }));
+      return med !== null ? Math.max(m, med) : m;
+    }, 0));
+    ['a','b'].forEach(function(g){
+      var med = median(byGroup[g].map(function(e){ return e.v; }));
+      var row = el('div', {class:'chart-row'}, '');
+      row.appendChild(el('div', {class:'chart-label'}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
+      var track = el('div', {class:'chart-track'}, '');
+      if (med !== null){
+        var pct = Math.max(4, Math.min(100, (med / maxVal) * 100));
+        var fill = el('div', {class:'chart-fill'}, '<span>' + (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(med) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix) + '</span>');
+        fill.style.width = pct + '%';
+        fill.style.background = colors[g];
+        track.appendChild(fill);
+      }
+      row.appendChild(track);
+      wrap.appendChild(row);
+    });
+  } else {
+    ['a','b'].forEach(function(g){
+      var m = groupMetric(currentEntries, g);
+      var row = el('div', {class:'chart-row'}, '');
+      row.appendChild(el('div', {class:'chart-label'}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
+      var track = el('div', {class:'chart-track'}, '');
+      if (m.n){
+        var pct = Math.max(4, Math.min(100, m.value));
+        var fill = el('div', {class:'chart-fill'}, '<span>' + Math.round(m.value) + '%</span>');
+        fill.style.width = pct + '%';
+        fill.style.background = colors[g];
+        track.appendChild(fill);
+      }
+      row.appendChild(track);
+      wrap.appendChild(row);
+    });
+    wrap.appendChild(el('div', {class:'legend'}, '% choosing ' + (CONFIG.targetShortLabel || 'the target option')));
+  }
+
+  wrap.appendChild(el('div', {class:'historical'},
+    '<b style="color:var(--ink);display:block;margin-bottom:4px;">For comparison:</b>' + CONFIG.historicalText));
+
+  wrap.appendChild(renderNarrative(currentEntries));
+
+  /* ---- full history, every session ever recorded on this device ---- */
+  var historySection = el('div', {class:'history-section'}, '');
+  historySection.appendChild(el('div', {class:'history-heading'}, 'Session history (this device)'));
+  if (!log.length) {
+    historySection.appendChild(el('div', {class:'history-empty'}, 'No sessions recorded yet on this device.'));
+  } else {
+    var bySession = {};
+    var order = [];
+    log.forEach(function(e){
+      if (!bySession[e.sessionId]) { bySession[e.sessionId] = []; order.push(e.sessionId); }
+      bySession[e.sessionId].push(e);
+    });
+    order.slice().reverse().forEach(function(sid){
+      var entries = bySession[sid].slice().sort(function(a,b){ return a.t - b.t; });
+      var startedAt = entries[0].t;
+      var block = el('div', {class:'history-session'}, '');
+      block.appendChild(el('div', {class:'history-session-head'},
+        formatDateTime(startedAt) + (sid === session.id ? ' (current)' : '') +
+        ' <span class="n">&middot; ' + entries.length + ' answer' + (entries.length===1?'':'s') + '</span>'));
+      var table = el('table', {class:'history-table'}, '');
+      table.innerHTML = '<tr><th>Time</th><th>Group</th><th>Answer</th><th></th></tr>';
+      entries.forEach(function(e){
+        var tr = el('tr', {}, '');
+        tr.appendChild(el('td', {}, formatDateTime(e.t).split(', ')[1]));
+        tr.appendChild(el('td', {class: e.g === 'a' ? 'g-a' : 'g-b'}, CONFIG.groups[e.g].shortLabel || CONFIG.groups[e.g].label));
+        tr.appendChild(el('td', {}, displayVal(e.g, e.v)));
+        var rmTd = el('td', {class:'rm'}, '');
+        var rmBtn = el('button', {type:'button', 'aria-label':'Delete entry'}, '&times;');
+        rmBtn.addEventListener('click', function(){ removeEntry(e.id); renderReveal(); });
+        rmTd.appendChild(rmBtn);
+        tr.appendChild(rmTd);
+        table.appendChild(tr);
+      });
+      block.appendChild(table);
+      historySection.appendChild(block);
+    });
+  }
+  wrap.appendChild(historySection);
+
+  var resetRow = el('div', {class:'reset-row'}, '');
+  var clearAllBtn = el('button', {class:'session-btn danger', type:'button'}, 'Clear all history');
+  clearAllBtn.addEventListener('click', function(){
+    if (!confirm('Permanently delete all ' + log.length + ' recorded answer(s) across every session on this device? This can&rsquo;t be undone.')) return;
+    writeLog([]);
+    startNewSession();
+    renderReveal();
+  });
+  resetRow.appendChild(clearAllBtn);
+  wrap.appendChild(resetRow);
+
+  render(wrap);
+}
+
+function boot(){
+  if (isReveal()) { renderReveal(); return; }
+  var group = getGroupFromHash();
+  if (!group || !CONFIG.groups[group]) { renderNoGroup(); return; }
+  renderParticipant(group);
+}
+
+boot();
+window.addEventListener('hashchange', boot);
+})();
+</script>
+</body>
+</html>
