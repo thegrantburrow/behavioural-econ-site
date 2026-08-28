@@ -62,6 +62,31 @@ h1.q b{color:var(--terracotta);}
 .legend{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:2px 0 26px;}
 .legend .sw{display:inline-block;width:12px;border-top:2px dashed var(--ink-soft);margin-right:5px;vertical-align:middle;}
 .historical{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;color:var(--ink-soft);line-height:1.6;text-align:center;max-width:52ch;margin:0 auto 20px;}
+
+.narrative-section{border-top:1px solid var(--line);margin-top:8px;padding-top:26px;}
+.narrative-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:14px;}
+.narrative-verdict{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--ink-soft);border-radius:10px;padding:16px 18px;margin-bottom:22px;}
+.narrative-verdict.aligned{border-left-color:var(--teal);}
+.narrative-verdict.reversed{border-left-color:var(--terracotta);}
+.narrative-verdict.tie{border-left-color:var(--mustard);}
+.narrative-verdict.wait{border-left-color:var(--mustard);}
+.narrative-tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+.narrative-tag.aligned{color:var(--teal);}
+.narrative-tag.reversed{color:var(--terracotta);}
+.narrative-tag.tie{color:#a3821f;}
+.narrative-tag.wait{color:#a3821f;}
+.narrative-verdict p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink);}
+.narrative-verdict p a{color:inherit;}
+.narrative-block{margin-bottom:22px;}
+.narrative-block h4{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px;color:var(--ink);}
+.narrative-block > p{font-size:13.5px;line-height:1.65;color:var(--ink-soft);margin:0;}
+.narrative-block p a{color:var(--terracotta);}
+.example-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.example-item{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.example-label{font-size:13.5px;font-weight:700;margin-bottom:5px;}
+.example-item p{font-size:13px;line-height:1.6;color:var(--ink-soft);margin:0 0 6px;}
+.example-cite{font-size:11px;color:var(--ink-soft);opacity:.75;}
+
 .session-row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
 .session-info{font-size:12px;color:var(--ink-soft);}
 .session-info b{color:var(--ink);}
@@ -268,6 +293,91 @@ function formatDateTime(t){
     d.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'});
 }
 
+var EXAMPLES = [
+  {
+    label: 'Credit card minimum payments',
+    body: 'A statement that shows &ldquo;minimum payment: $35&rdquo; anchors what feels like a reasonable amount to repay, even for people who could easily pay more. One study found that simply printing a minimum payment figure measurably lowered how much people chose to repay, real money left on the table because of one printed number.',
+    cite: 'Stewart, N. (2009). &ldquo;The Cost of Anchoring on Credit-Card Minimum Repayments.&rdquo; <a href="https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2008.02255.x" target="_blank" rel="noopener">Psychological Science, 20(1), 39&ndash;41</a>'
+  },
+  {
+    label: 'A home&rsquo;s asking price',
+    body: 'Real estate agents shown an inflated or deflated listing price for the identical house gave appraisals pulled toward that number, then insisted the list price hadn&rsquo;t influenced their judgment when asked directly.',
+    cite: 'Northcraft, G. B., &amp; Neale, M. A. (1987). &ldquo;Experts, Amateurs, and Real Estate.&rdquo; <a href="https://www.sciencedirect.com/science/article/abs/pii/074959788790046X" target="_blank" rel="noopener">Organizational Behavior and Human Decision Processes, 39(1), 84&ndash;97</a>'
+  },
+  {
+    label: 'Whoever names a number first in a negotiation',
+    body: 'Across salary talks and price haggling alike, the first offer on the table predicts the final settlement better than almost anything said afterward. The rest of the negotiation mostly adjusts from that one opening anchor.',
+    cite: 'Galinsky, A. D., &amp; Mussweiler, T. (2001). &ldquo;First Offers as Anchors.&rdquo; <a href="https://pubmed.ncbi.nlm.nih.gov/11642352/" target="_blank" rel="noopener">Journal of Personality and Social Psychology, 81(4), 657&ndash;669</a>'
+  },
+  {
+    label: 'A judge&rsquo;s sentencing decision',
+    body: 'Experienced judges asked to roll a pair of dice before recommending a criminal sentence gave longer sentences after rolling high, shorter after rolling low, despite knowing full well the dice had nothing to do with the case in front of them.',
+    cite: 'Englich, B., Mussweiler, T., &amp; Strack, F. (2006). &ldquo;Playing Dice With Criminal Sentences.&rdquo; <a href="https://journals.sagepub.com/doi/10.1177/0146167205282152" target="_blank" rel="noopener">Personality and Social Psychology Bulletin, 32(2), 188&ndash;200</a>'
+  },
+  {
+    label: 'The last two digits of your own social security number',
+    body: 'Asked to write down the last two digits of their social security number, then bid on ordinary products like wine and keyboards, people with higher digit pairs bid noticeably more, an anchor with no connection whatsoever to what the product was actually worth.',
+    cite: 'Ariely, D., Loewenstein, G., &amp; Prelec, D. (2003). &ldquo;Coherent Arbitrariness.&rdquo; <a href="https://academic.oup.com/qje/article-abstract/118/1/73/1917051" target="_blank" rel="noopener">Quarterly Journal of Economics, 118(1), 73&ndash;106</a>'
+  }
+];
+
+function renderNarrative(byGroup){
+  var section = el('div', {class:'narrative-section'}, '');
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+
+  var valsA = byGroup.a.map(function(e){ return e.v; });
+  var valsB = byGroup.b.map(function(e){ return e.v; });
+  var nA = valsA.length, nB = valsB.length;
+  var medA = median(valsA), medB = median(valsB);
+
+  var tag, tagClass, verdictHtml;
+
+  if (nA === 0 && nB === 0) {
+    tag = 'Waiting for answers'; tagClass = 'wait';
+    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic anchoring pattern, a higher median guess from the group asked about 65% than from the group asked about 10%, or not.';
+  } else if (nA === 0 || nB === 0) {
+    var emptyLabel = (nA === 0 ? GROUPS.a.label : GROUPS.b.label).split(' (')[0];
+    tag = 'Waiting for answers'; tagClass = 'wait';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the anchoring effect.';
+  } else {
+    var diff = medA - medB;
+    var smallN = (nA < 5 || nB < 5);
+    if (diff > 0) {
+      tag = 'Lined up with anchoring'; tagClass = 'aligned';
+      verdictHtml = 'The high-anchor group&rsquo;s median guess, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '), came in higher than the low-anchor group&rsquo;s, <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '). That&rsquo;s the same direction Tversky and Kahneman found with their rigged wheel in 1974: whichever number people heard first, even one they knew was random, pulled their guess toward it.';
+      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, treat this as a live demonstration rather than a controlled study. The direction is still the one decades of replication would predict.';
+    } else if (diff === 0) {
+      tag = 'Too close to call'; tagClass = 'tie';
+      verdictHtml = 'Both groups landed on the exact same median guess, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + ' and n=' + nB + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly. Add more answers and check back.';
+    } else {
+      tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
+      verdictHtml = 'This time it ran the other way: the low-anchor group&rsquo;s median guess, <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '), came in higher than the high-anchor group&rsquo;s, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '). Tversky and Kahneman&rsquo;s own version, and dozens of replications since, are among the most reliable findings in behavioural science, so one reversed session doesn&rsquo;t undo that. What it usually means at this size is noise: a handful of people per side is a small enough sample that one or two unusual guesses can flip the median entirely, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+    }
+  }
+
+  var verdict = el('div', {class:'narrative-verdict ' + tagClass}, '');
+  verdict.appendChild(el('span', {class:'narrative-tag ' + tagClass}, tag));
+  verdict.appendChild(el('p', {}, verdictHtml));
+  section.appendChild(verdict);
+
+  section.appendChild(el('div', {class:'narrative-block'},
+    '<h4>The mechanism, in one paragraph</h4><p>This is the &ldquo;anchoring-and-adjustment&rdquo; heuristic. Instead of estimating from scratch, people start from whatever number they heard most recently, even an arbitrary one like a rigged wheel or this page&rsquo;s own comparative question, and adjust away from it. That adjustment reliably stops too early, as soon as the number feels plausible, not when it&rsquo;s actually correct. The result: two groups shown the identical real question end up with different guesses, each pulled toward whichever starting number it happened to hear. <a href="principles.html#anchoring">Read the full write-up, including the original study, on the Principles page.</a></p>'));
+
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var list = el('ul', {class:'example-list'}, '');
+  EXAMPLES.forEach(function(ex){
+    var li = el('li', {class:'example-item'}, '');
+    li.appendChild(el('div', {class:'example-label'}, ex.label));
+    li.appendChild(el('p', {}, ex.body));
+    li.appendChild(el('div', {class:'example-cite'}, ex.cite));
+    list.appendChild(li);
+  });
+  examplesBlock.appendChild(list);
+  section.appendChild(examplesBlock);
+
+  return section;
+}
+
 /* ---------------- presenter session / tally / history screen ---------------- */
 
 function renderReveal(){
@@ -374,6 +484,8 @@ function renderReveal(){
 
   wrap.appendChild(el('div', {class:'historical'},
     '<b style="color:var(--ink);display:block;margin-bottom:4px;">For comparison:</b>Tversky &amp; Kahneman&rsquo;s original 1974 study found median guesses of ' + FACT.historicalHigh + FACT.suffix + ' from the high-anchor group and ' + FACT.historicalLow + FACT.suffix + ' from the low-anchor group, everyone knew the anchor was random.'));
+
+  wrap.appendChild(renderNarrative(byGroup));
 
   /* ---- full history, every session ever recorded on this device ---- */
   var historySection = el('div', {class:'history-section'}, '');
