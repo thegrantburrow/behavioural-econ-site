@@ -82,16 +82,27 @@ h1.q b{color:var(--terracotta);}
 .tally-chip button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:0;line-height:1;}
 
 /* the room's live result vs. the original 1974 study, same visual language, smaller scale */
-.historical{border-top:1px solid var(--line);padding-top:26px;margin-top:6px;}
-.historical-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:700;margin:0 0 16px;}
-.historical-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:640px;margin:0 auto;}
-@media (max-width:560px){ .historical-grid{grid-template-columns:1fr;gap:18px;} }
-.historical-col .hc-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);text-align:center;margin:0 0 10px;}
-.historical-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.historical-row .hr-tag{width:64px;flex-shrink:0;font-size:11px;font-weight:700;text-align:right;color:var(--ink-soft);}
-.historical-bar-track{flex:1;height:14px;border-radius:7px;background:var(--line);position:relative;}
-.historical-bar-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;min-width:2px;}
-.historical-bar-fill span{font-size:10px;font-weight:700;color:#fff;white-space:nowrap;}
+/* This is the session's second hero moment, not a footnote: the room's own
+   number set directly against the classic study's, at a scale that reads
+   from the back of the room, same as the scoreboard above it. */
+.historical{border-top:1px solid var(--line);padding-top:clamp(28px,3.5vw,44px);margin-top:8px;}
+.historical-heading{text-align:center;font-size:clamp(15px,1.8vw,22px);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:800;margin:0 0 clamp(18px,2.2vw,28px);}
+.historical-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,28px);max-width:1000px;margin:0 auto;}
+@media (max-width:640px){ .historical-grid{grid-template-columns:1fr;gap:16px;} }
+.historical-col{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,2.4vw,30px);box-shadow:var(--shadow);}
+.historical-col .hc-label{font-size:clamp(13px,1.5vw,18px);font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);text-align:center;margin:0 0 clamp(14px,1.8vw,20px);}
+.historical-row{display:flex;align-items:center;gap:clamp(10px,1.4vw,16px);margin-bottom:clamp(10px,1.4vw,16px);}
+.historical-row:last-child{margin-bottom:0;}
+.historical-row .hr-tag{min-width:52px;flex-shrink:0;font-size:clamp(13px,1.5vw,18px);font-weight:800;text-align:right;color:var(--ink);}
+.historical-bar-track{flex:1;height:clamp(26px,3.4vw,44px);border-radius:14px;background:var(--line);position:relative;}
+.historical-bar-fill{height:100%;border-radius:14px;display:flex;align-items:center;justify-content:flex-end;padding-right:clamp(8px,1vw,14px);min-width:2px;transition:width .6s ease;}
+.historical-bar-fill span{font-size:clamp(14px,1.7vw,21px);font-weight:800;color:#fff;white-space:nowrap;}
+body.presenting .historical-grid{max-width:1300px;}
+body.presenting .historical-heading{font-size:clamp(20px,2.6vw,32px);}
+body.presenting .historical-col .hc-label{font-size:clamp(15px,1.8vw,22px);}
+body.presenting .historical-row .hr-tag{font-size:clamp(16px,2vw,24px);}
+body.presenting .historical-bar-track{height:clamp(34px,4.4vw,58px);}
+body.presenting .historical-bar-fill span{font-size:clamp(18px,2.2vw,28px);}
 
 .narrative-section{border-top:1px solid var(--line);margin-top:8px;padding-top:26px;}
 .narrative-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:14px;}

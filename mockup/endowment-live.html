@@ -77,10 +77,16 @@ h1.q{font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.4;
 .tally-chip{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;display:flex;align-items:center;gap:6px;}
 .tally-chip button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:0;line-height:1;}
 
-.historical{border-top:1px solid var(--line);margin-top:6px;padding-top:26px;}
-.historical-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 26px;max-width:64ch;margin:0 auto;text-align:center;box-shadow:var(--shadow);}
-.historical-card .hc-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--terracotta);font-weight:700;margin:0 0 10px;}
-.historical-card p{margin:0;font-size:clamp(13.5px,1.3vw,15.5px);line-height:1.65;color:var(--ink);}
+/* This is the session's second hero moment, not a footnote: the real
+   study's own result, at a scale that reads from the back of the room,
+   same as the scoreboard above it. */
+.historical{border-top:1px solid var(--line);margin-top:8px;padding-top:clamp(28px,3.5vw,44px);}
+.historical-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3.2vw,40px);max-width:74ch;margin:0 auto;text-align:center;box-shadow:var(--shadow);}
+.historical-card .hc-eyebrow{font-size:clamp(13px,1.5vw,17px);text-transform:uppercase;letter-spacing:.06em;color:var(--terracotta);font-weight:800;margin:0 0 clamp(12px,1.6vw,18px);}
+.historical-card p{margin:0;font-size:clamp(16px,2vw,23px);line-height:1.6;color:var(--ink);font-weight:500;}
+body.presenting .historical-card{max-width:1300px;padding:clamp(30px,4vw,52px);}
+body.presenting .historical-card .hc-eyebrow{font-size:clamp(16px,2vw,22px);}
+body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
 .session-row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
 .session-info{font-size:12px;color:var(--ink-soft);}
 .session-info b{color:var(--ink);}
