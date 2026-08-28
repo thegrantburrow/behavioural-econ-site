@@ -1110,14 +1110,12 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 }
 
 @media (max-width: 640px) {
-  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 9px; }
 }
 
 .cat-tile {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
   width: 100%;
   background: var(--card);
   border: 1px solid var(--line);
@@ -1141,6 +1139,13 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 
 .sb-domain-row { margin: 0 0 10px; }
 
+/* Desktop default: icon sits above the title row, generous chip size,
+   matching every other tile-based component on this site (explore-hub-card,
+   persona-tile), a spacious vertical read, since a 3-up desktop column has
+   plenty of width per tile. */
+.cat-tile-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.cat-tile-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex: 1; min-width: 0; }
+
 .cat-icon { width: 22px; height: 22px; color: var(--ink); }
 
 .cat-name { font-size: 0.9rem; font-weight: 700; line-height: 1.25; }
@@ -1152,6 +1157,27 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   background: var(--line);
   border-radius: 999px;
   padding: 2px 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.cat-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+
+/* Mobile: a 2-up grid leaves far less width per tile than 3-up desktop
+   columns do, so the same vertical, generously-padded card reads as mostly
+   empty space with a name and count nobody can parse without more context
+   (the original complaint). Tighten the chip, fonts, and padding so the
+   added description line fits without pushing the tile taller than it
+   needs to be or forcing horizontal scroll, a genuinely different
+   density from desktop's, not the same tile scaled down. */
+@media (max-width: 640px) {
+  .cat-tile { padding: 11px 12px; }
+  .cat-tile-head { gap: 8px; margin-bottom: 6px; }
+  .cat-tile .tile-icon-chip { width: 28px; height: 28px; flex-shrink: 0; }
+  .cat-tile .tile-icon-chip .cat-icon { width: 14px; height: 14px; }
+  .cat-name { font-size: 0.8rem; line-height: 1.2; }
+  .cat-count { font-size: 0.62rem; padding: 2px 6px; }
+  .cat-desc { font-size: 0.72rem; line-height: 1.35; }
 }
 
 .hub-anchor-grid {
