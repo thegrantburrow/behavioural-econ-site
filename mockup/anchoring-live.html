@@ -157,8 +157,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 
 .qr-section{margin:0 0 30px;}
 .qr-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 14px;}
-.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-@media (max-width:520px){ .qr-grid{grid-template-columns:1fr;} }
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:16px;}
 .qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;}
 .qr-card img{width:100%;max-width:260px;height:auto;margin:0 auto 12px;display:block;border-radius:8px;}
 .qr-card .qr-label{font-size:clamp(13px,1.3vw,15px);font-weight:700;margin-bottom:4px;}
