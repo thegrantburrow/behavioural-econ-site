@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN9X80R7HE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KN9X80R7HE');
+  </script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F5F6F5">
+<title>How Strong Is That Evidence? | What Works &amp; Why</title>
+<meta name="description" content="A field guide to causal evidence: a ranked ladder from raw correlation to randomized trials, framed around product and commercial decisions, with the selection-bias traps that sink careful-looking analysis.">
+<link rel="canonical" href="https://www.grantburrow.com/evidence-strength.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="What Works &amp; Why">
+<meta property="og:title" content="How Strong Is That Evidence? | What Works &amp; Why">
+<meta property="og:description" content="A field guide to causal evidence: a ranked ladder from raw correlation to randomized trials, framed around product and commercial decisions, with the selection-bias traps that sink careful-looking analysis.">
+<meta property="og:url" content="https://www.grantburrow.com/evidence-strength.html">
+<meta property="og:image" content="https://www.grantburrow.com/images/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Strong Is That Evidence? | What Works &amp; Why">
+<meta name="twitter:description" content="A field guide to causal evidence: a ranked ladder from raw correlation to randomized trials, framed around product and commercial decisions, with the selection-bias traps that sink careful-looking analysis.">
+<meta name="twitter:image" content="https://www.grantburrow.com/images/og-card.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo logo-img-wrap" href="index.html" aria-label="What Works &amp; Why, home"><img class="logo-img" src="images/logo-lockup.png" alt="What Works &amp; Why"></a>
+      <div class="bar-actions">
+        <button class="nav-search-toggle" id="navSearchToggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="navSearchPanel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.3" y2="16.3"></line></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="links" id="navLinks">
+      <img class="links-logo" src="images/logo-lockup.png" alt="What Works &amp; Why">
+      <div class="nav-item-expandable">
+        <a href="principles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="1.5"></rect><line x1="8" y1="7.5" x2="16" y2="7.5"></line><line x1="8" y1="11.5" x2="16" y2="11.5"></line><line x1="8" y1="15.5" x2="13" y2="15.5" stroke="var(--mustard)"></line></svg><span class="link-text">Principles<span class="nav-desc">73 cited principles, searchable and filterable</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 6 principle categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="principles.html?category=judgment">Judgment &amp; Memory</a>
+          <a href="principles.html?category=choice">Choice Architecture</a>
+          <a href="principles.html?category=pricing">Pricing &amp; Value</a>
+          <a href="principles.html?category=social">Social Influence</a>
+          <a href="principles.html?category=motivation">Motivation &amp; Goals</a>
+          <a href="principles.html?category=friction">Friction &amp; Transparency</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="science-behind.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><line x1="14.6" y1="14.6" x2="20" y2="20"></line><circle cx="10" cy="10" r="2" stroke="var(--terracotta)"></circle></svg><span class="link-text">The Science Behind<span class="nav-desc">Real products, decoded into the mechanism</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 Science Behind categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="science-behind.html?category=craft-materials">Craft &amp; Materials</a>
+          <a href="science-behind.html?category=food-drink">Food &amp; Drink</a>
+          <a href="science-behind.html?category=tech-product">Tech &amp; Product Design</a>
+          <a href="science-behind.html?category=money-banking">Money &amp; Banking</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="sessions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9l-4.5 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path><circle cx="12" cy="11" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">Field Sessions<span class="nav-desc">Real talks: what actually happened</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 field session categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="sessions.html?category=team">Team Workshops</a>
+          <a href="sessions.html?category=conference">Conference Talks</a>
+          <a href="sessions.html?category=education">Education</a>
+          <a href="sessions.html?category=solo">Solo Field Notes</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3h5v6.2l4.7 8.4a1.6 1.6 0 0 1-1.4 2.4H6.2a1.6 1.6 0 0 1-1.4-2.4l4.7-8.4V3z"></path><line x1="8.7" y1="3" x2="15.3" y2="3"></line><circle cx="12" cy="16" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Experiments<span class="nav-desc">Testable blueprints you could run yourself</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 experiment categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="experiments.html?category=savings-deposits">Savings &amp; Deposits</a>
+          <a href="experiments.html?category=credit-lending">Credit &amp; Lending</a>
+          <a href="experiments.html?category=service-ops">Service &amp; Support</a>
+          <a href="experiments.html?category=fees-pricing">Fees &amp; Pricing</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="reading-the-research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"></circle><line x1="14.8" y1="14.8" x2="20" y2="20" stroke="var(--mustard)"></line></svg><span class="link-text">Reading the Research<span class="nav-desc">How to evaluate a study properly</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 16 related essays">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="evidence-strength.html">How Strong Is That Evidence?<span class="nav-desc">A field guide to causal claims</span></a>
+          <a href="policy-based-evidence.html">Policy-Based Evidence, Not Evidence-Based Policy<span class="nav-desc">Why pilots don't survive scale</span></a>
+          <a href="dont-say-the-e-word.html">Don't Say the E-Word<span class="nav-desc">Why &ldquo;experiment&rdquo; spooks teams</span></a>
+          <a href="how-you-pay-changes-what-you-spend.html">How You Pay Changes What You Spend<span class="nav-desc">Cash, debit, and credit aren't equivalent</span></a>
+          <a href="small-sample-big-claim.html">The Test Was Real. The Conclusion Wasn't.<span class="nav-desc">Thirteen experiments that misled without lying</span></a>
+          <a href="savings-lottery.html">The Lottery You Can't Lose<span class="nav-desc">Why a no-loss lottery moves real savings</span></a>
+          <a href="nobody-owns-a-bias.html">Behavioural Economics vs. Behavioural Science vs. Psychology vs. UX<span class="nav-desc">Nobody owns a bias</span></a>
+          <a href="six-moves-behind-every-pricing-page.html">Six Moves Behind Every Pricing Page<span class="nav-desc">The same six mechanisms, on repeat</span></a>
+          <a href="not-testing-is-still-a-bet.html">Not Testing Is Still a Bet<span class="nav-desc">Why pre-vs-post isn't measurement</span></a>
+          <a href="every-default-decides-who-pays.html">Every Default Decides Who Pays for Doing Nothing<span class="nav-desc">Opt-in, opt-out, forced choice, and what's newer</span></a>
+          <a href="the-fine-print-nobody-reads.html">The Fine Print Nobody Reads<span class="nav-desc">Why disclosure fails, and what actually works</span></a>
+          <a href="you-are-already-doing-behavioural-economics.html">You're Already Doing Behavioural Economics<span class="nav-desc">Eight mechanisms already running on your pages</span></a>
+          <a href="proximity-gets-mistaken-for-merit.html">Proximity Gets Mistaken for Merit<span class="nav-desc">A housing lottery and an MLB draft, seventy years apart</span></a>
+          <a href="the-tactile-premium.html">It Costs More to Print. It Still Works Better.<span class="nav-desc">Touch, reading, and why the paper copy still earns its keep</span></a>
+          <a href="breaking-a-form-into-steps.html">Breaking a Form Into Steps Changes How It Feels<span class="nav-desc">It doesn't always change how it performs</span></a>
+          <a href="ai-over-trusted-then-under-trusted.html">AI Gets Over-Trusted Until It Errs Once<span class="nav-desc">Then it gets under-trusted for good</span></a>
+        </div>
+      </div>
+      <a href="natural-experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v7"></path><path d="M12 10 L6 20"></path><path d="M12 10 L18 20"></path><circle cx="12" cy="3" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Natural Experiments<span class="nav-desc">How to prove a cause without an RCT</span></span></a>
+      <a href="apply.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.2"></circle><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"></circle><path d="M12 2.5v3M21.5 12h-3" stroke="var(--terracotta)"></path></svg><span class="link-text">Apply It<span class="nav-desc">Turn a principle or a problem into an experiment</span></span></a>
+      <a href="index.html#about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="11" x2="12" y2="16"></line><circle cx="12" cy="7.5" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">About<span class="nav-desc">Who's behind this, and why</span></span></a>
+      <a href="index.html#newsletter" class="nav-cta">Subscribe<span class="nav-desc">One real study per email, no schedule</span></a>
+    </div>
+  </div>
+  <div class="nav-search-panel" id="navSearchPanel" hidden>
+    <div class="wrap">
+      <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
+        <label for="navSearchInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
+        <input type="search" id="navSearchInput" name="q" placeholder="Search 73 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="navSearchSuggestions" aria-haspopup="listbox">
+        <button type="submit">Search</button>
+        <ul class="search-suggestions" id="navSearchSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<section class="principles-index" id="top">
+  <div class="wrap">
+    <span class="label">Field Guide</span>
+    <h1 class="principles-index-title">How strong is that evidence, actually?</h1>
+    <p class="toc-intro">Every product team, marketer, and policy office eventually says some version of the same sentence: &ldquo;this worked.&rdquo; What that sentence rests on varies enormously, from a genuinely randomized trial to two numbers that happened to move together on a dashboard. This is a field guide to telling the difference: <b>a ranked ladder of causal evidence</b>, framed around product, commercial, and digital decisions, but built on the same tools economists use to study credit risk and public policy. It ends with <b>the specific mistakes that sink careful-looking analysis</b>, with real cases where getting this wrong (or right) changed the answer.</p>
+
+    <p class="story-stack-label">The story in four parts</p>
+    <div class="story-stack">
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="18" height="22" rx="2"></rect><line x1="9" y1="9" x2="19" y2="9"></line><line x1="9" y1="14" x2="19" y2="14" stroke="#C43E1F"></line><line x1="9" y1="19" x2="15" y2="19"></line></svg>
+        <div><h4>Every &ldquo;it worked&rdquo; claim rests on different ground</h4><p>A randomized trial and a dashboard correlation get described with the same word: evidence.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="18" width="5" height="6"></rect><rect x="11.5" y="13" width="5" height="11"></rect><rect x="19" y="5" width="5" height="19" fill="#1F7A6C" stroke="none"></rect></svg>
+        <div><h4>Rank them, weakest to strongest</h4><p>Raw correlation, matched comparison, natural experiment, randomized trial, in that order.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="3" x2="7" y2="25"></line><path d="M7 5 h14 l-4 4.5 4 4.5 h-14" fill="#E0A93A" stroke="#E0A93A" stroke-linejoin="round"></path></svg>
+        <div><h4>The weakest kind gets funded most often</h4><p>Right before a budget decision, when nobody's checking which rung the evidence is standing on.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M9.5 12 L14 16.5 L18.5 12" stroke="#C43E1F"></path></svg>
+        <div><h4>Here's the full ladder, and where it breaks</h4><p>Real cases below: paid search, ad measurement, credit scoring, survivorship bias.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="report report-light" id="evidence-strength">
+  <div class="wrap">
+
+    <div class="report-section" id="the-ladder">
+      <h3>The evidence ladder: four ways to test whether X caused Y</h3>
+      <p class="intro">All four of these get described, casually, as &ldquo;evidence that it worked.&rdquo; They are not the same evidence. Read from the top: <b>each rung down removes one more safeguard against a confound</b> quietly doing the work you're crediting to X.</p>
+
+      <div class="strength-spectrum" role="img" aria-label="A horizontal strength spectrum running from raw correlation, weakest, through matched observational comparison and natural experiment, to randomized controlled trial, strongest.">
+        <div class="spectrum-endpoints"><span>Weakest</span><span>Strongest</span></div>
+        <div class="spectrum-track">
+          <div class="spectrum-seg tier-4"></div>
+          <div class="spectrum-seg tier-3"></div>
+          <div class="spectrum-seg tier-2"></div>
+          <div class="spectrum-seg tier-1"></div>
+        </div>
+        <div class="spectrum-labels">
+          <div class="spectrum-label"><b>Correlation</b><span>Take skeptically</span></div>
+          <div class="spectrum-label"><b>Matched comparison</b><span>Worth a look</span></div>
+          <div class="spectrum-label"><b>Natural experiment</b><span>Good evidence</span></div>
+          <div class="spectrum-label"><b>Randomized trial</b><span>Trust it</span></div>
+        </div>
+      </div>
+
+      <div class="evidence-ladder">
+
+        <div class="rung tier-1">
+          <div class="rung-head">
+            <div class="rung-head-left">
+              <svg class="rung-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="5" r="2.6"></circle>
+                <path d="M12 7.5 L6 15"></path>
+                <path d="M12 7.5 L18 15"></path>
+                <circle cx="6" cy="17.5" r="2.6" fill="#C43E1F" stroke="none"></circle>
+                <circle cx="18" cy="17.5" r="2.6"></circle>
+              </svg>
+              <span class="rung-name">Randomized controlled trial</span>
+            </div>
+            <span class="rung-strength">Strongest</span>
+          </div>
+          <div class="rung-bar-track"><div class="rung-bar"></div></div>
+          <p class="rung-claim">People (or accounts, or stores) are randomly split into treatment and control, so only the intervention differs between the two groups, on average, including on things nobody thought to measure.</p>
+          <p class="rung-examples">Feature A/B tests &middot; marketing lift tests &middot; a randomized pilot of a new loan-approval rule</p>
+          <div class="rung-subtypes cols-3">
+            <div class="subtype"><b>Individual RCT</b><span>Each person or account is randomized on their own, the classic feature A/B test.</span></div>
+            <div class="subtype"><b>Cluster RCT</b><span>Whole stores, branches, or regions are randomized together, used when a treatment can't be applied to one person at a time.</span></div>
+            <div class="subtype"><b>Stepped-wedge rollout</b><span>Everyone eventually gets the treatment; only the order of rollout is randomized.</span></div>
+          </div>
+        </div>
+
+        <div class="rung tier-2">
+          <div class="rung-head">
+            <div class="rung-head-left">
+              <svg class="rung-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+                <line x1="12" y1="2.5" x2="12" y2="21.5" stroke-dasharray="2.4 2.4"></line>
+                <circle cx="6" cy="15" r="1.6" fill="currentColor" stroke="none"></circle>
+                <circle cx="8.5" cy="17" r="1.6" fill="currentColor" stroke="none"></circle>
+                <circle cx="16" cy="8" r="1.6" fill="#C43E1F" stroke="none"></circle>
+                <circle cx="18.5" cy="6" r="1.6" fill="#C43E1F" stroke="none"></circle>
+              </svg>
+              <span class="rung-name">Natural experiment</span>
+            </div>
+            <span class="rung-strength">High</span>
+          </div>
+          <div class="rung-bar-track"><div class="rung-bar"></div></div>
+          <p class="rung-claim">A real-world rule, cutoff, or accident of timing splits people as if at random, without anyone designing an experiment: regression discontinuity at an eligibility threshold, difference-in-differences around a policy change, an instrument that shifts exposure for reasons unrelated to the outcome.</p>
+          <p class="rung-examples">A price change rolled out region by region &middot; a credit-limit rule that only applies above a score cutoff &middot; a platform outage that hits some users and not others</p>
+          <div class="rung-subtypes cols-3">
+            <div class="subtype"><b>Regression discontinuity</b><span>Compares people just above and just below a real cutoff, a credit score threshold, an age limit, who are otherwise near-identical.</span></div>
+            <div class="subtype"><b>Difference-in-differences</b><span>Compares the change over time in a group affected by a policy against the change in a similar, unaffected group.</span></div>
+            <div class="subtype"><b>Instrumental variable</b><span>Uses a third factor that shifts exposure to the treatment for reasons unrelated to the outcome, to isolate its effect.</span></div>
+          </div>
+        </div>
+
+        <div class="rung tier-3">
+          <div class="rung-head">
+            <div class="rung-head-left">
+              <svg class="rung-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="7" cy="8" r="3"></circle>
+                <path d="M7 11.5c-2.8 0-4.5 1.8-4.5 4.5"></path>
+                <circle cx="17" cy="8" r="3"></circle>
+                <path d="M17 11.5c2.8 0 4.5 1.8 4.5 4.5"></path>
+                <line x1="10" y1="8" x2="14" y2="8" stroke="#C43E1F"></line>
+              </svg>
+              <span class="rung-name">Matched observational comparison</span>
+            </div>
+            <span class="rung-strength">Moderate</span>
+          </div>
+          <div class="rung-bar-track"><div class="rung-bar"></div></div>
+          <p class="rung-claim">Treated and untreated groups are matched or statistically adjusted to look similar on the traits you thought to record. Nobody was randomly assigned to anything, so any trait you didn't think to record can still be doing the real work.</p>
+          <p class="rung-examples">A credit scorecard trained on approved applicants, matched to similar-looking rejected ones &middot; a marketing report comparing &ldquo;similar&rdquo; cohorts before and after a campaign</p>
+          <div class="rung-subtypes cols-2">
+            <div class="subtype"><b>Propensity score matching</b><span>Statistically pairs treated and untreated units that look alike on measured characteristics.</span></div>
+            <div class="subtype"><b>Regression with controls</b><span>Adjusts for known confounders inside a single statistical model, rather than physically matching pairs.</span></div>
+          </div>
+        </div>
+
+        <div class="rung tier-4">
+          <div class="rung-head">
+            <div class="rung-head-left">
+              <svg class="rung-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.5 17 L9 10 L13 13 L21.5 4"></path>
+                <path d="M2.5 20 L9 13.5 L13 16 L21.5 7.5" stroke="#C43E1F"></path>
+              </svg>
+              <span class="rung-name">Raw correlation</span>
+            </div>
+            <span class="rung-strength">Lowest</span>
+          </div>
+          <div class="rung-bar-track"><div class="rung-bar"></div></div>
+          <p class="rung-claim">Two things moved together in the data. Which one, if either, caused the other, and whether a third thing caused both, is still completely unknown.</p>
+          <p class="rung-examples">Power users click feature X more often &middot; most dashboard &ldquo;insights&rdquo; &middot; most growth-hack case studies posted online</p>
+          <div class="rung-subtypes cols-2">
+            <div class="subtype"><b>Bivariate correlation</b><span>Two variables measured and compared, with no other factors accounted for.</span></div>
+            <div class="subtype"><b>Anecdote or single case</b><span>One example treated as if it were representative of a general pattern.</span></div>
+          </div>
+        </div>
+
+      </div>
+      <p class="intro" style="margin-top:4px">Moving up a rung doesn't mean the lower rungs are worthless. A correlation is a reasonable place to start looking. It's <b>a bad place to stop, especially right before a budget decision</b>.</p>
+    </div>
+
+    <div class="report-section" id="reading-the-claim">
+      <h3>Hallmarks: what a lower rung sounds like when it's dressed up as a higher one</h3>
+      <p class="intro">None of the phrases below are lies. They're just <b>quieter about which rung they're actually standing on</b> than the sentence around them implies.</p>
+      <div class="hallmark-list">
+        <div class="hallmark-item">
+          <p class="phrase">&ldquo;Users who did X converted Y% more.&rdquo;</p>
+          <p class="note">A correlation, stated with no comparison group and no mention of who chose to do X in the first place.</p>
+        </div>
+        <div class="hallmark-item">
+          <p class="phrase">&ldquo;We saw a lift after launching X.&rdquo;</p>
+          <p class="note">A before-and-after on one group, with nothing else that changed over the same period ruled out.</p>
+        </div>
+        <div class="hallmark-item">
+          <p class="phrase">&ldquo;Our top performers all do X.&rdquo;</p>
+          <p class="note">Survivorship bias: the people who tried X and failed usually aren't in the sample being described.</p>
+        </div>
+        <div class="hallmark-item">
+          <p class="phrase">&ldquo;The data suggests a strong link.&rdquo;</p>
+          <p class="note">Correlational language, carrying unearned causal confidence by the time it reaches a decision-maker.</p>
+        </div>
+      </div>
+
+      <div class="questions-callout" style="margin-top:22px">
+        <h4>Four questions that do most of the work</h4>
+        <ol>
+          <li><b>Compared to what?</b><span>Is there an actual comparison group, or just a before-and-after on the same people?</span></li>
+          <li><b>Who's missing, and why?</b><span>Could selection into or out of the sample, who clicked, who was approved, who's still in business, be driving the result?</span></li>
+          <li><b>Is this the headline result, or a secondary point being promoted?</b><span>A true statement pulled from deep in a report can still misrepresent what the study actually found first.</span></li>
+          <li><b>Would this survive real scale, with ordinary staff and the full population?</b><span>A result from a small, favourably-run pilot answers a narrower question than the one usually being asked of it.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="report-section" id="other-fields">
+      <h3>The same ladder, outside product and marketing</h3>
+      <p class="intro">This ladder isn't a product-analytics invention. It's the ordinary hierarchy economists have used for decades to study labour markets, credit, and public policy, usually under the banner economists call the &ldquo;credibility revolution&rdquo;: <b>a decades-long shift toward designs that can actually support a causal claim, not just a correlational one</b>.</p>
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="case-tag">Natural experiment</span>
+          <h4>The Minimum-Wage Border Study</h4>
+          <p class="salient-question">Why compare fast-food jobs on <mark>two sides of a state line</mark>, instead of just before and after?</p>
+          <div class="case-body">
+            <p>When New Jersey raised its minimum wage in 1992, most economists expected fewer fast-food jobs to follow. Card and Krueger compared employment at fast-food restaurants in New Jersey against restaurants just across the Pennsylvania border, whose wage floor hadn't changed, using the neighbouring state as a stand-in control group for whatever else was happening in the regional economy at the time.</p>
+            <p class="lesson"><b>What it teaches:</b> A before-and-after comparison in one place can't separate the policy's effect from everything else that also changed over that period. Finding a comparable place where the policy didn't happen turns a weak before/after into a genuine natural experiment.</p>
+          </div>
+          <div class="case-cite">Card, D., &amp; Krueger, A. B. (1994). &ldquo;Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania.&rdquo; <a href="https://www.jstor.org/stable/2118030" target="_blank" rel="noopener">American Economic Review, 84(4), 772&ndash;793</a></div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Field study type</span>
+          <h4>Credit Scoring's Missing Half</h4>
+          <p class="salient-question">How do you judge a lending rule on the applicants it <mark>never approved</mark>?</p>
+          <div class="case-body">
+            <p>A lender only observes repayment behaviour for the applicants it actually approved. Everyone it rejected has no outcome to learn from, so a model trained naively on approved-only data is being trained on a non-random, already-filtered slice of the applicant pool. The credit-risk literature has a name for correcting this: reject inference.</p>
+            <p class="lesson"><b>What it teaches:</b> Selection isn't only about who chooses to participate. Sometimes the selection happens on the institution's side, and the missing group is the one you'd most need to see to know if the current rule is actually working.</p>
+          </div>
+          <div class="case-cite">Hand, D. J., &amp; Henley, W. E. (1997). &ldquo;Statistical Classification Methods in Consumer Credit Scoring: A Review.&rdquo; <a href="https://doi.org/10.1111/j.1467-985X.1997.00078.x" target="_blank" rel="noopener">Journal of the Royal Statistical Society: Series A, 160(3), 523&ndash;541</a></div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Field study type</span>
+          <h4>Lab vs. Field, Again</h4>
+          <p class="salient-question">Does a result from a <mark>controlled lab</mark> travel to the market it's meant to describe?</p>
+          <div class="case-body">
+            <p>This site covers the lab-versus-field gap, and the related question of whether a small pilot's effect survives being scaled up, in its own dedicated report rather than repeating it here.</p>
+            <p class="lesson"><b>What it teaches:</b> Randomization tells you the comparison is fair. It doesn't automatically tell you the setting, the sample, or the scale is the one you actually care about, that's a separate question, covered in full at the link below.</p>
+          </div>
+          <div class="case-cite">See <a href="reading-the-research.html#lab-vs-field">Reading the Research: Lab vs. field</a>, and <a href="policy-based-evidence.html">Why Governments Need Policy-Based Evidence</a> for the scaling version of this problem.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-section" id="how-it-goes-wrong">
+      <h3>Where careful-looking analysis still goes wrong</h3>
+      <p class="intro">Every case below used real data, competent analysts, and a plausible story. Each one still <b>produced a materially wrong answer</b>, right up until it was checked against a design higher up the ladder.</p>
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="case-tag">Selection bias</span>
+          <h4>The Paid Search That Wasn't Doing Much</h4>
+          <p class="salient-question">What happens when the people who click your ad were <mark>already going to buy</mark>?</p>
+          <div class="case-body">
+            <p>Standard marketing measurement credits a sale to whichever ad a customer clicked last. On that logic, eBay's brand-keyword paid search looked highly profitable, since people who clicked those ads converted at a high rate. The confound: people already searching for &ldquo;eBay&rdquo; by name were disproportionately people who were going to visit and buy anyway, ad or no ad.</p>
+            <p class="lesson"><b>What it teaches:</b> A large-scale randomized experiment, turning brand-keyword search ads off entirely across many U.S. markets while leaving them on in others, found the true incremental effect of that spend was close to zero. The correlational read wasn't wrong about who clicked. It was wrong about what caused the sale.</p>
+          </div>
+          <div class="case-cite">Blake, T., Nosko, C., &amp; Tadelis, S. (2015). &ldquo;Consumer Heterogeneity and Paid Search Effectiveness: A Large-Scale Field Experiment.&rdquo; <a href="https://doi.org/10.3982/ECTA12423" target="_blank" rel="noopener">Econometrica, 83(1), 155&ndash;174</a></div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Measurement bias</span>
+          <h4>Ad Measurement, Checked Against Itself</h4>
+          <p class="salient-question">How far off is the ad-effectiveness number you already trust?</p>
+          <div class="case-body">
+            <p>Most digital ad platforms measure lift by comparing people who were shown an ad against people who weren't, using whoever was already exposed or not through the normal delivery process, not a random split. Researchers at Facebook ran large randomized experiments (holding back a genuine control group with &ldquo;ghost ads&rdquo;) alongside the standard observational methods, on the same campaigns, to see how far apart the two answers were.</p>
+            <p class="lesson"><b>What it teaches:</b> The observational methods overstated the ad's true effect by a wide margin, in both directions depending on the method, because who a platform's delivery algorithm chooses to show an ad to is never a random sample of the audience. The gap wasn't a rounding error. It was large enough to change which campaigns looked worth funding.</p>
+          </div>
+          <div class="case-cite">Gordon, B. R., Zettelmeyer, F., Bhargava, N., &amp; Chapsky, D. (2019). &ldquo;A Comparison of Approaches to Advertising Measurement: Evidence from Big Field Experiments at Facebook.&rdquo; <a href="https://doi.org/10.1287/mksc.2018.1135" target="_blank" rel="noopener">Marketing Science, 38(2), 193&ndash;225</a></div>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">Survivorship bias</span>
+          <h4>Counting Only the Cases Still in the Room</h4>
+          <p class="salient-question">What's missing from a case study of <mark>companies that succeeded</mark>?</p>
+          <div class="case-body">
+            <p>This site has a full principle article on survivorship bias, the pattern behind &ldquo;successful founders all did X&rdquo; claims that quietly ignore every founder who did the same X and failed.</p>
+            <p class="lesson"><b>What it teaches:</b> The fix isn't a different statistical test. It's asking who's missing from the dataset before trusting a pattern found only among the survivors.</p>
+          </div>
+          <div class="case-cite">See <a href="principles.html#survivorship-bias">Survivorship Bias</a> for the full mechanism and citation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-section" id="evidence-strength-related">
+      <h3>Continue reading</h3>
+      <p class="intro">This ladder shows up again once evidence has to survive being scaled up, not just measured once, and again in why organizations avoid running <b>the kind of test that would actually settle the question</b>.</p>
+      <div class="method-grid">
+        <div class="method-col strength">
+          <span class="lbl">Next</span>
+          <a href="policy-based-evidence.html">Why Governments Need Policy-Based Evidence, Not Just Evidence-Based Policy</a>
+        </div>
+        <div class="method-col weakness">
+          <span class="lbl">Related</span>
+          <a href="dont-say-the-e-word.html">Don't Say the E-Word: Why Organizations Avoid the Test That Would Actually Answer This</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; 2026 What Works &amp; Why</div>
+    <ul>
+      <li><a href="principles.html">Principles</a></li>
+      <li><a href="science-behind.html">The Science Behind</a></li>
+      <li><a href="sessions.html">Field Sessions</a></li>
+      <li><a href="experiments.html">Experiments</a></li>
+      <li><a href="reading-the-research.html">Reading the Research</a></li>
+      <li><a href="natural-experiments.html">Natural Experiments</a></li>
+      <li><a href="apply.html">Apply It</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#newsletter">Subscribe</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="apply-data.js"></script>
+<script src="search-index.js"></script>
+<script src="predictive-search.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

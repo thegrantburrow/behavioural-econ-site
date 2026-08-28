@@ -1,9 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN9X80R7HE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KN9X80R7HE');
+  </script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#FBF9F4">
+<meta name="theme-color" content="#F5F6F5">
 <title>Field Sessions | What Works &amp; Why</title>
 <meta name="description" content="Real talks and workshops where behavioural economics gets put in front of a room, written up warts and all, including what didn't land.">
 <link rel="canonical" href="https://www.grantburrow.com/sessions.html">
@@ -25,21 +35,153 @@
 <nav class="site-nav">
   <div class="wrap">
     <div class="bar">
-      <a class="logo" href="index.html">What Works &amp; Why</a>
-      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a class="logo logo-img-wrap" href="index.html" aria-label="What Works &amp; Why, home"><img class="logo-img" src="images/logo-lockup.png" alt="What Works &amp; Why"></a>
+      <div class="bar-actions">
+        <button class="nav-search-toggle" id="navSearchToggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="navSearchPanel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.3" y2="16.3"></line></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
     <div class="links" id="navLinks">
-      <a href="principles.html">Principles<span class="nav-desc">56 cited principles, searchable and filterable</span></a>
-      <a href="sessions.html">Field Sessions<span class="nav-desc">Real talks: what actually happened</span></a>
-      <a href="experiments.html">Experiments<span class="nav-desc">Testable blueprints you could run yourself</span></a>
-      <a href="reading-the-research.html">Reading the Research<span class="nav-desc">How to evaluate a study properly</span></a>
-      <a href="index.html#about">About<span class="nav-desc">Who's behind this, and why</span></a>
+      <img class="links-logo" src="images/logo-lockup.png" alt="What Works &amp; Why">
+      <div class="nav-item-expandable">
+        <a href="principles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="1.5"></rect><line x1="8" y1="7.5" x2="16" y2="7.5"></line><line x1="8" y1="11.5" x2="16" y2="11.5"></line><line x1="8" y1="15.5" x2="13" y2="15.5" stroke="var(--mustard)"></line></svg><span class="link-text">Principles<span class="nav-desc">73 cited principles, searchable and filterable</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 6 principle categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="principles.html?category=judgment">Judgment &amp; Memory</a>
+          <a href="principles.html?category=choice">Choice Architecture</a>
+          <a href="principles.html?category=pricing">Pricing &amp; Value</a>
+          <a href="principles.html?category=social">Social Influence</a>
+          <a href="principles.html?category=motivation">Motivation &amp; Goals</a>
+          <a href="principles.html?category=friction">Friction &amp; Transparency</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="science-behind.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><line x1="14.6" y1="14.6" x2="20" y2="20"></line><circle cx="10" cy="10" r="2" stroke="var(--terracotta)"></circle></svg><span class="link-text">The Science Behind<span class="nav-desc">Real products, decoded into the mechanism</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 Science Behind categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="science-behind.html?category=craft-materials">Craft &amp; Materials</a>
+          <a href="science-behind.html?category=food-drink">Food &amp; Drink</a>
+          <a href="science-behind.html?category=tech-product">Tech &amp; Product Design</a>
+          <a href="science-behind.html?category=money-banking">Money &amp; Banking</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="sessions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9l-4.5 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path><circle cx="12" cy="11" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">Field Sessions<span class="nav-desc">Real talks: what actually happened</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 field session categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="sessions.html?category=team">Team Workshops</a>
+          <a href="sessions.html?category=conference">Conference Talks</a>
+          <a href="sessions.html?category=education">Education</a>
+          <a href="sessions.html?category=solo">Solo Field Notes</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3h5v6.2l4.7 8.4a1.6 1.6 0 0 1-1.4 2.4H6.2a1.6 1.6 0 0 1-1.4-2.4l4.7-8.4V3z"></path><line x1="8.7" y1="3" x2="15.3" y2="3"></line><circle cx="12" cy="16" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Experiments<span class="nav-desc">Testable blueprints you could run yourself</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 experiment categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="experiments.html?category=savings-deposits">Savings &amp; Deposits</a>
+          <a href="experiments.html?category=credit-lending">Credit &amp; Lending</a>
+          <a href="experiments.html?category=service-ops">Service &amp; Support</a>
+          <a href="experiments.html?category=fees-pricing">Fees &amp; Pricing</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="reading-the-research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"></circle><line x1="14.8" y1="14.8" x2="20" y2="20" stroke="var(--mustard)"></line></svg><span class="link-text">Reading the Research<span class="nav-desc">How to evaluate a study properly</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 16 related essays">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="evidence-strength.html">How Strong Is That Evidence?<span class="nav-desc">A field guide to causal claims</span></a>
+          <a href="policy-based-evidence.html">Policy-Based Evidence, Not Evidence-Based Policy<span class="nav-desc">Why pilots don't survive scale</span></a>
+          <a href="dont-say-the-e-word.html">Don't Say the E-Word<span class="nav-desc">Why &ldquo;experiment&rdquo; spooks teams</span></a>
+          <a href="how-you-pay-changes-what-you-spend.html">How You Pay Changes What You Spend<span class="nav-desc">Cash, debit, and credit aren't equivalent</span></a>
+          <a href="small-sample-big-claim.html">The Test Was Real. The Conclusion Wasn't.<span class="nav-desc">Thirteen experiments that misled without lying</span></a>
+          <a href="savings-lottery.html">The Lottery You Can't Lose<span class="nav-desc">Why a no-loss lottery moves real savings</span></a>
+          <a href="nobody-owns-a-bias.html">Behavioural Economics vs. Behavioural Science vs. Psychology vs. UX<span class="nav-desc">Nobody owns a bias</span></a>
+          <a href="six-moves-behind-every-pricing-page.html">Six Moves Behind Every Pricing Page<span class="nav-desc">The same six mechanisms, on repeat</span></a>
+          <a href="not-testing-is-still-a-bet.html">Not Testing Is Still a Bet<span class="nav-desc">Why pre-vs-post isn't measurement</span></a>
+          <a href="every-default-decides-who-pays.html">Every Default Decides Who Pays for Doing Nothing<span class="nav-desc">Opt-in, opt-out, forced choice, and what's newer</span></a>
+          <a href="the-fine-print-nobody-reads.html">The Fine Print Nobody Reads<span class="nav-desc">Why disclosure fails, and what actually works</span></a>
+          <a href="you-are-already-doing-behavioural-economics.html">You're Already Doing Behavioural Economics<span class="nav-desc">Eight mechanisms already running on your pages</span></a>
+          <a href="proximity-gets-mistaken-for-merit.html">Proximity Gets Mistaken for Merit<span class="nav-desc">A housing lottery and an MLB draft, seventy years apart</span></a>
+          <a href="the-tactile-premium.html">It Costs More to Print. It Still Works Better.<span class="nav-desc">Touch, reading, and why the paper copy still earns its keep</span></a>
+          <a href="breaking-a-form-into-steps.html">Breaking a Form Into Steps Changes How It Feels<span class="nav-desc">It doesn't always change how it performs</span></a>
+          <a href="ai-over-trusted-then-under-trusted.html">AI Gets Over-Trusted Until It Errs Once<span class="nav-desc">Then it gets under-trusted for good</span></a>
+        </div>
+      </div>
+      <a href="natural-experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v7"></path><path d="M12 10 L6 20"></path><path d="M12 10 L18 20"></path><circle cx="12" cy="3" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Natural Experiments<span class="nav-desc">How to prove a cause without an RCT</span></span></a>
+      <a href="apply.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.2"></circle><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"></circle><path d="M12 2.5v3M21.5 12h-3" stroke="var(--terracotta)"></path></svg><span class="link-text">Apply It<span class="nav-desc">Turn a principle or a problem into an experiment</span></span></a>
+      <a href="index.html#about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="11" x2="12" y2="16"></line><circle cx="12" cy="7.5" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">About<span class="nav-desc">Who's behind this, and why</span></span></a>
       <a href="index.html#newsletter" class="nav-cta">Subscribe<span class="nav-desc">One real study per email, no schedule</span></a>
     </div>
   </div>
+  <div class="nav-search-panel" id="navSearchPanel" hidden>
+    <div class="wrap">
+      <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
+        <label for="navSearchInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
+        <input type="search" id="navSearchInput" name="q" placeholder="Search 73 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="navSearchSuggestions" aria-haspopup="listbox">
+        <button type="submit">Search</button>
+        <ul class="search-suggestions" id="navSearchSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
+      </form>
+    </div>
+  </div>
 </nav>
+
+<section class="landing-hub" id="hub">
+  <div class="wrap">
+    <span class="label">Field Sessions</span>
+    <h2 class="landing-hub-title">Real talks, real rooms, real reactions</h2>
+    <p class="landing-hub-intro">Written up as they actually happened, including the parts that didn't land. Browse by the kind of room it happened in, or jump straight to any session by name.</p>
+    <div class="view-toggle" role="tablist">
+      <button type="button" class="view-btn active" data-hub-view="category" role="tab" aria-selected="true">By category</button>
+      <button type="button" class="view-btn" data-hub-view="all" role="tab" aria-selected="false">All 8</button>
+    </div>
+    <div class="hub-panel" data-hub-panel="category">
+      <div class="cat-grid">
+        <button type="button" class="cat-tile" data-hub-category="team"><span class="tile-icon-chip chip-a"><svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M2.5 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M14.5 14.8c2.6.3 4.5 2.2 4.5 5.2"/></svg></span>
+          <span class="cat-name">Team Workshops</span>
+          <span class="cat-count">5</span>
+        </button>
+        <button type="button" class="cat-tile" data-hub-category="conference"><span class="tile-icon-chip chip-b"><svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21M9 21h6"/></svg></span>
+          <span class="cat-name">Conference Talks</span>
+          <span class="cat-count">1</span>
+        </button>
+        <button type="button" class="cat-tile" data-hub-category="education"><span class="tile-icon-chip chip-c"><svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></svg></span>
+          <span class="cat-name">Education</span>
+          <span class="cat-count">1</span>
+        </button>
+        <button type="button" class="cat-tile" data-hub-category="solo"><span class="tile-icon-chip chip-a"><svg class="cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="1.5"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12.5" y2="16"/></svg></span>
+          <span class="cat-name">Solo Field Notes</span>
+          <span class="cat-count">1</span>
+        </button>
+      </div>
+    </div>
+    <div class="hub-panel" data-hub-panel="all" hidden>
+      <ul class="hub-anchor-grid cols-1">
+        <li><a class="hub-anchor-link has-icon" href="#airds-high-money-talk"><span class="hub-anchor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.5V4.8a1 1 0 0 1 1-1h7.7L21 12l-9 9L3 12.5z"></path><circle cx="8.3" cy="8.3" r="1.3" fill="currentColor" stroke="none"></circle></svg></span>Teaching Year 8/9 students the maths their brains skip</a></li>
+        <li><a class="hub-anchor-link has-icon" href="#mapping-outcome-logic"><span class="hub-anchor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V3"></path><path d="M5 4.5h12.5l-3 4 3 4H5"></path></svg></span>Finding the &ldquo;Phase 2&rdquo; every roadmap quietly skips</a></li>
+        <li><a class="hub-anchor-link has-icon" href="#safe-to-spend-backfire"><span class="hub-anchor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0"></path><path d="M12 16 16 9"></path><circle cx="12" cy="16" r="1.3" fill="currentColor" stroke="none"></circle></svg></span>Why telling customers what's &ldquo;safe to spend&rdquo; can make them spend more</a></li>
+        <li><a class="hub-anchor-link has-icon" href="#voltage-effect-scaling"><span class="hub-anchor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 5 14h6l-1 8 9-12h-6l1-8z"></path></svg></span>Why your best pilot is the one most likely to lose its voltage</a></li>
+        <li><a class="hub-anchor-link has-icon" href="#dentist-visit"><span class="hub-anchor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2"></rect><path d="M9 3.5h6v2.2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"></path><path d="M8.3 12l2 2 4.5-4.5"></path></svg></span>What my dentist got right, without ever hearing the term &ldquo;behavioural economics&rdquo;</a></li>
+        <li><a class="hub-anchor-link has-icon" href="#defining-behavioural-economics"><span class="hub-anchor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="9" height="9" rx="1"></rect><line x1="2" y1="9.5" x2="11" y2="9.5"></line><line x1="6.5" y1="5" x2="6.5" y2="14"></line><circle cx="17.5" cy="9.5" r="4.5"></circle><circle cx="17.5" cy="9.5" r="1.3" fill="currentColor" stroke="none"></circle></svg></span>Where Behavioural Economics Actually Sits</a></li>
+        <li><a class="hub-anchor-link has-icon" href="#watching-the-metric-lies"><span class="hub-anchor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12c2.8-4.2 6.4-6.3 10-6.3S19.2 7.8 22 12c-2.8 4.2-6.4 6.3-10 6.3S4.8 16.2 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>The Metric That Lied To The Whole Room</a></li>
+        <li><a class="hub-anchor-link has-icon" href="#agile-australia-10x-product"><span class="hub-anchor-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5v3.2a1 1 0 0 0 1 1h1.7l3.6 2.6V6.9L5.7 9.5H4a1 1 0 0 0-1 1z"></path><path d="M13.3 8.3a4 4 0 0 1 0 7.4" stroke="var(--terracotta)"></path></svg></span>Why $350,000 suddenly looks cheap</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
 <section class="principles-index" id="top">
   <div class="wrap">
@@ -52,21 +194,21 @@
     </div>
     <div class="toc-tabs" role="tablist" id="sessionsFilterTabs">
       <button type="button" class="toc-tab active" data-filter-target="all" role="tab" aria-selected="true"><span class="toc-tab-label">All</span><span class="toc-tab-count">8</span></button>
-      <button type="button" class="toc-tab" data-filter-target="team" role="tab" aria-selected="false"><span class="toc-tab-label">Team Workshops</span><span class="toc-tab-count">5</span></button>
-      <button type="button" class="toc-tab" data-filter-target="conference" role="tab" aria-selected="false"><span class="toc-tab-label">Conference Talks</span><span class="toc-tab-count">1</span></button>
-      <button type="button" class="toc-tab" data-filter-target="education" role="tab" aria-selected="false"><span class="toc-tab-label">Education</span><span class="toc-tab-count">1</span></button>
-      <button type="button" class="toc-tab" data-filter-target="solo" role="tab" aria-selected="false"><span class="toc-tab-label">Solo Field Notes</span><span class="toc-tab-count">1</span></button>
+      <button type="button" class="toc-tab" data-filter-target="team" role="tab" aria-selected="false"><svg class="toc-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M2.5 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M14.5 14.8c2.6.3 4.5 2.2 4.5 5.2"/></svg><span class="toc-tab-label">Team Workshops</span><span class="toc-tab-count">5</span></button>
+      <button type="button" class="toc-tab" data-filter-target="conference" role="tab" aria-selected="false"><svg class="toc-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21M9 21h6"/></svg><span class="toc-tab-label">Conference Talks</span><span class="toc-tab-count">1</span></button>
+      <button type="button" class="toc-tab" data-filter-target="education" role="tab" aria-selected="false"><svg class="toc-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></svg><span class="toc-tab-label">Education</span><span class="toc-tab-count">1</span></button>
+      <button type="button" class="toc-tab" data-filter-target="solo" role="tab" aria-selected="false"><svg class="toc-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="1.5"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12.5" y2="16"/></svg><span class="toc-tab-label">Solo Field Notes</span><span class="toc-tab-count">1</span></button>
     </div>
     <p class="principles-empty" id="sessionsEmpty" hidden>No sessions match your search.</p>
     <ul class="session-toc" id="sessionsToc">
-      <li data-audience="education"><a href="#airds-high-money-talk"><span class="session-toc-title">Teaching Year 8/9 students the maths their brains skip</span><span class="session-toc-meta">Airds High School &middot; Year 8/9</span></a></li>
-      <li data-audience="team"><a href="#mapping-outcome-logic"><span class="session-toc-title">Finding the &ldquo;Phase 2&rdquo; every roadmap quietly skips</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
-      <li data-audience="team"><a href="#safe-to-spend-backfire"><span class="session-toc-title">Why telling customers what's &ldquo;safe to spend&rdquo; can make them spend more</span><span class="session-toc-meta">Digital, Design &amp; Product teams</span></a></li>
-      <li data-audience="team"><a href="#voltage-effect-scaling"><span class="session-toc-title">Why your best pilot is the one most likely to lose its voltage</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
-      <li data-audience="solo"><a href="#dentist-visit"><span class="session-toc-title">What my dentist got right, without ever hearing the term &ldquo;behavioural economics&rdquo;</span><span class="session-toc-meta">A routine check-up &middot; real-time field notes</span></a></li>
-      <li data-audience="team"><a href="#defining-behavioural-economics"><span class="session-toc-title">Where Behavioural Economics Actually Sits</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
-      <li data-audience="team"><a href="#watching-the-metric-lies"><span class="session-toc-title">The Metric That Lied To The Whole Room</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></a></li>
-      <li data-audience="conference"><a href="#agile-australia-10x-product"><span class="session-toc-title">Why $350,000 suddenly looks cheap</span><span class="session-toc-meta">Agile Australia 2023 &middot; 200+ product &amp; agile leaders</span></a></li>
+      <li data-audience="education"><a class="has-icon" href="#airds-high-money-talk"><span class="session-toc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.5V4.8a1 1 0 0 1 1-1h7.7L21 12l-9 9L3 12.5z"></path><circle cx="8.3" cy="8.3" r="1.3" fill="currentColor" stroke="none"></circle></svg></span><span class="session-toc-text">Teaching Year 8/9 students the maths their brains skip</span><span class="session-toc-meta">Airds High School &middot; Year 8/9</span></span></a></li>
+      <li data-audience="team"><a class="has-icon" href="#mapping-outcome-logic"><span class="session-toc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V3"></path><path d="M5 4.5h12.5l-3 4 3 4H5"></path></svg></span><span class="session-toc-text">Finding the &ldquo;Phase 2&rdquo; every roadmap quietly skips</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></span></a></li>
+      <li data-audience="team"><a class="has-icon" href="#safe-to-spend-backfire"><span class="session-toc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0"></path><path d="M12 16 16 9"></path><circle cx="12" cy="16" r="1.3" fill="currentColor" stroke="none"></circle></svg></span><span class="session-toc-text">Why telling customers what's &ldquo;safe to spend&rdquo; can make them spend more</span><span class="session-toc-meta">Digital, Design &amp; Product teams</span></span></a></li>
+      <li data-audience="team"><a class="has-icon" href="#voltage-effect-scaling"><span class="session-toc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 5 14h6l-1 8 9-12h-6l1-8z"></path></svg></span><span class="session-toc-text">Why your best pilot is the one most likely to lose its voltage</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></span></a></li>
+      <li data-audience="solo"><a class="has-icon" href="#dentist-visit"><span class="session-toc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2"></rect><path d="M9 3.5h6v2.2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"></path><path d="M8.3 12l2 2 4.5-4.5"></path></svg></span><span class="session-toc-text">What my dentist got right, without ever hearing the term &ldquo;behavioural economics&rdquo;</span><span class="session-toc-meta">A routine check-up &middot; real-time field notes</span></span></a></li>
+      <li data-audience="team"><a class="has-icon" href="#defining-behavioural-economics"><span class="session-toc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="9" height="9" rx="1"></rect><line x1="2" y1="9.5" x2="11" y2="9.5"></line><line x1="6.5" y1="5" x2="6.5" y2="14"></line><circle cx="17.5" cy="9.5" r="4.5"></circle><circle cx="17.5" cy="9.5" r="1.3" fill="currentColor" stroke="none"></circle></svg></span><span class="session-toc-text">Where Behavioural Economics Actually Sits</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></span></a></li>
+      <li data-audience="team"><a class="has-icon" href="#watching-the-metric-lies"><span class="session-toc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12c2.8-4.2 6.4-6.3 10-6.3S19.2 7.8 22 12c-2.8 4.2-6.4 6.3-10 6.3S4.8 16.2 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></span><span class="session-toc-text">The Metric That Lied To The Whole Room</span><span class="session-toc-meta">Product, Design &amp; Digital teams</span></span></a></li>
+      <li data-audience="conference"><a class="has-icon" href="#agile-australia-10x-product"><span class="session-toc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5v3.2a1 1 0 0 0 1 1h1.7l3.6 2.6V6.9L5.7 9.5H4a1 1 0 0 0-1 1z"></path><path d="M13.3 8.3a4 4 0 0 1 0 7.4" stroke="var(--terracotta)"></path></svg></span><span class="session-toc-text">Why $350,000 suddenly looks cheap</span><span class="session-toc-meta">Agile Australia 2023 &middot; 200+ product &amp; agile leaders</span></span></a></li>
     </ul>
 
     <span class="label session-upcoming-label">Coming soon: not yet written up</span>
@@ -151,7 +293,7 @@
           <div class="flow-arrow-down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg></div>
           <div class="flow-step">
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="5" y1="19" x2="19" y2="5" stroke="var(--terracotta)"></line>
+              <line x1="5" y1="19" x2="19" y2="5" stroke="var(--mustard)"></line>
               <circle cx="7" cy="7" r="2.4"></circle>
               <circle cx="17" cy="17" r="2.4"></circle>
             </svg>
@@ -161,8 +303,8 @@
           <div class="flow-step">
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="9"></circle>
-              <path d="M9.2 9.5a2.8 2.8 0 1 1 3.9 2.6c-.9.5-1.1 1-1.1 2.1" stroke="var(--terracotta)"></path>
-              <circle cx="12" cy="17.3" r="0.9" fill="var(--terracotta)" stroke="none"></circle>
+              <path d="M9.2 9.5a2.8 2.8 0 1 1 3.9 2.6c-.9.5-1.1 1-1.1 2.1" stroke="var(--teal)"></path>
+              <circle cx="12" cy="17.3" r="0.9" fill="var(--teal)" stroke="none"></circle>
             </svg>
             <span class="flow-step-label">Asked the room: &ldquo;How much are you saving?&rdquo;</span>
           </div>
@@ -181,8 +323,8 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 12 L12 3 A9 9 0 0 1 19.79 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
-              <path d="M12 12 L19.79 16.5 A9 9 0 0 1 4.21 16.5 Z" fill="var(--teal)" stroke="var(--card)" stroke-width="0.6"></path>
-              <path d="M12 12 L4.21 16.5 A9 9 0 0 1 12 3 Z" fill="var(--mustard)" stroke="var(--card)" stroke-width="0.6"></path>
+              <path d="M12 12 L19.79 16.5 A9 9 0 0 1 4.21 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
+              <path d="M12 12 L4.21 16.5 A9 9 0 0 1 12 3 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
             </svg>
             <span class="case-tag">Heuristic</span>
             <h4>A third, a third, a third</h4>
@@ -194,7 +336,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 4h16v12.5L15 21H4z"></path>
-              <path d="M15 21v-4.5h5" stroke="var(--terracotta)"></path>
+              <path d="M15 21v-4.5h5" stroke="var(--mustard)"></path>
               <line x1="7.5" y1="9" x2="16.5" y2="9"></line>
             </svg>
             <span class="case-tag">Mental Accounting</span>
@@ -208,7 +350,7 @@
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path>
               <circle cx="12" cy="12" r="3"></circle>
-              <line x1="3.5" y1="20.5" x2="20.5" y2="3.5" stroke="var(--terracotta)"></line>
+              <line x1="3.5" y1="20.5" x2="20.5" y2="3.5" stroke="var(--teal)"></line>
             </svg>
             <span class="case-tag">Salience + Friction</span>
             <h4>Out of sight, out of mind</h4>
@@ -225,7 +367,7 @@
         <p class="trio-sub">Naming the saving habits only covers half the room's money; the other half needs recognising what's working against it: the same tricks, printed on one slide, that shops and apps use every day, none of which needed to be true to work.</p>
         <div class="case-grid trio-grid">
           <div class="case-card trio-card">
-            <svg class="case-icon" viewBox="0 0 24 24" fill="var(--mustard)" stroke="var(--terracotta)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="var(--terracotta)" stroke="var(--terracotta)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 3.5l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.5l-5.1 2.7 1-5.7-4.1-4 5.7-.8z"></path>
             </svg>
             <span class="case-tag">Social Proof</span>
@@ -241,7 +383,7 @@
               <path d="M6.5 21h11"></path>
               <path d="M7.5 3c0 4.2 4.5 5.3 4.5 8s-4.5 3.8-4.5 8"></path>
               <path d="M16.5 3c0 4.2-4.5 5.3-4.5 8s4.5 3.8 4.5 8"></path>
-              <circle cx="12" cy="11" r="1" fill="var(--terracotta)" stroke="none"></circle>
+              <circle cx="12" cy="11" r="1" fill="var(--mustard)" stroke="none"></circle>
             </svg>
             <span class="case-tag">Scarcity</span>
             <h4>Limited time!</h4>
@@ -252,7 +394,7 @@
 
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="5" y1="19" x2="19" y2="5" stroke="var(--terracotta)"></line>
+              <line x1="5" y1="19" x2="19" y2="5" stroke="var(--teal)"></line>
               <circle cx="7" cy="7" r="2.4"></circle>
               <circle cx="17" cy="17" r="2.4"></circle>
             </svg>
@@ -290,7 +432,7 @@
               <circle cx="8" cy="8" r="2.6"></circle>
               <path d="M3 19c0-3 2.2-5 5-5s5 2 5 5"></path>
               <circle cx="17.5" cy="9" r="2.2"></circle>
-              <path d="M13.8 19c.3-2.6 2-4.4 4.4-4.4 2 0 3.6 1.2 4.1 3.2" stroke="var(--terracotta)"></path>
+              <path d="M13.8 19c.3-2.6 2-4.4 4.4-4.4 2 0 3.6 1.2 4.1 3.2" stroke="var(--mustard)"></path>
             </svg>
             <span class="flow-start-label">$5 bar &rarr; marked to $2.50, live, 50% off &rarr; &ldquo;how much are you saving?&rdquo;</span>
           </div>
@@ -305,8 +447,8 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 12 L12 3 A9 9 0 0 1 19.79 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
-            <path d="M12 12 L19.79 16.5 A9 9 0 0 1 4.21 16.5 Z" fill="var(--teal)" stroke="var(--card)" stroke-width="0.6"></path>
-            <path d="M12 12 L4.21 16.5 A9 9 0 0 1 12 3 Z" fill="var(--mustard)" stroke="var(--card)" stroke-width="0.6"></path>
+            <path d="M12 12 L19.79 16.5 A9 9 0 0 1 4.21 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
+            <path d="M12 12 L4.21 16.5 A9 9 0 0 1 12 3 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
           </svg>
           <span class="case-tag">Heuristic</span>
           <h4>A third, a third, a third</h4>
@@ -314,7 +456,7 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M4 4h16v12.5L15 21H4z"></path>
-            <path d="M15 21v-4.5h5" stroke="var(--terracotta)"></path>
+            <path d="M15 21v-4.5h5" stroke="var(--mustard)"></path>
             <line x1="7.5" y1="9" x2="16.5" y2="9"></line>
           </svg>
           <span class="case-tag">Mental Accounting</span>
@@ -324,7 +466,7 @@
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path>
             <circle cx="12" cy="12" r="3"></circle>
-            <line x1="3.5" y1="20.5" x2="20.5" y2="3.5" stroke="var(--terracotta)"></line>
+            <line x1="3.5" y1="20.5" x2="20.5" y2="3.5" stroke="var(--teal)"></line>
           </svg>
           <span class="case-tag">Salience + Friction</span>
           <h4>Out of sight, out of mind</h4>
@@ -333,7 +475,7 @@
 
       <div class="case-grid trio-grid condensed-trio">
         <div class="case-card trio-card">
-          <svg class="case-icon" viewBox="0 0 24 24" fill="var(--mustard)" stroke="var(--terracotta)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="case-icon" viewBox="0 0 24 24" fill="var(--terracotta)" stroke="var(--terracotta)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3.5l2.5 5.2 5.7.8-4.1 4 1 5.7L12 16.5l-5.1 2.7 1-5.7-4.1-4 5.7-.8z"></path>
           </svg>
           <span class="case-tag">Social Proof</span>
@@ -345,14 +487,14 @@
             <path d="M6.5 21h11"></path>
             <path d="M7.5 3c0 4.2 4.5 5.3 4.5 8s-4.5 3.8-4.5 8"></path>
             <path d="M16.5 3c0 4.2-4.5 5.3-4.5 8s4.5 3.8 4.5 8"></path>
-            <circle cx="12" cy="11" r="1" fill="var(--terracotta)" stroke="none"></circle>
+            <circle cx="12" cy="11" r="1" fill="var(--mustard)" stroke="none"></circle>
           </svg>
           <span class="case-tag">Scarcity</span>
           <h4>Limited time!</h4>
         </div>
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="19" x2="19" y2="5" stroke="var(--terracotta)"></line>
+            <line x1="5" y1="19" x2="19" y2="5" stroke="var(--teal)"></line>
             <circle cx="7" cy="7" r="2.4"></circle>
             <circle cx="17" cy="17" r="2.4"></circle>
           </svg>
@@ -417,8 +559,8 @@
             <div class="app-mock-screen">
               <svg class="app-mock-icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 12 L12 3 A9 9 0 0 1 19.79 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
-                <path d="M12 12 L19.79 16.5 A9 9 0 0 1 4.21 16.5 Z" fill="var(--teal)" stroke="var(--card)" stroke-width="0.6"></path>
-                <path d="M12 12 L4.21 16.5 A9 9 0 0 1 12 3 Z" fill="var(--mustard)" stroke="var(--card)" stroke-width="0.6"></path>
+                <path d="M12 12 L19.79 16.5 A9 9 0 0 1 4.21 16.5 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
+                <path d="M12 12 L4.21 16.5 A9 9 0 0 1 12 3 Z" fill="var(--terracotta)" stroke="var(--card)" stroke-width="0.6"></path>
               </svg>
               <h4>Split it 3 ways from day one</h4>
               <p>Most people who do this end up saving more, not because they earn more, but because the decision only gets made once.</p>
@@ -499,8 +641,8 @@
           <div class="flow-start">
             <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="9"></circle>
-              <path d="M9.2 9.5a2.8 2.8 0 1 1 3.9 2.6c-.9.5-1.1 1-1.1 2.1" stroke="var(--terracotta)"></path>
-              <circle cx="12" cy="17.3" r="0.9" fill="var(--terracotta)" stroke="none"></circle>
+              <path d="M9.2 9.5a2.8 2.8 0 1 1 3.9 2.6c-.9.5-1.1 1-1.1 2.1" stroke="var(--teal)"></path>
+              <circle cx="12" cy="17.3" r="0.9" fill="var(--teal)" stroke="none"></circle>
             </svg>
             <span class="flow-start-label">A room of product, design, and digital people, looking at gnomes</span>
           </div>
@@ -518,7 +660,7 @@
           <div class="flow-step">
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="5" y1="20" x2="5" y2="15"></line>
-              <line x1="12" y1="20" x2="12" y2="10" stroke="var(--terracotta)"></line>
+              <line x1="12" y1="20" x2="12" y2="10" stroke="var(--mustard)"></line>
               <line x1="19" y1="20" x2="19" y2="6"></line>
               <line x1="3" y1="20" x2="21" y2="20"></line>
             </svg>
@@ -553,7 +695,7 @@
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2.5" y="8" width="16" height="8" rx="1.5"></rect>
               <path d="M21 10.5v3"></path>
-              <rect x="4.5" y="10" width="4" height="4" fill="var(--terracotta)" stroke="none"></rect>
+              <rect x="4.5" y="10" width="4" height="4" fill="var(--mustard)" stroke="none"></rect>
             </svg>
             <span class="case-tag">The Voltage Effect</span>
             <h4>What works shrinks at scale</h4>
@@ -566,7 +708,7 @@
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="3" y="9" width="3" height="10" rx="0.6" transform="rotate(-8 4.5 14)"></rect>
               <rect x="9" y="7" width="3" height="12" rx="0.6" transform="rotate(-4 10.5 13)"></rect>
-              <rect x="15" y="5" width="3" height="14" rx="0.6" fill="var(--terracotta)" stroke="var(--terracotta)" transform="rotate(10 16.5 12)"></rect>
+              <rect x="15" y="5" width="3" height="14" rx="0.6" fill="var(--teal)" stroke="var(--teal)" transform="rotate(10 16.5 12)"></rect>
             </svg>
             <span class="case-tag">Rube Goldberg</span>
             <h4>More links, more that can break</h4>
@@ -622,7 +764,7 @@
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2.5" y="8" width="16" height="8" rx="1.5"></rect>
             <path d="M21 10.5v3"></path>
-            <rect x="4.5" y="10" width="4" height="4" fill="var(--terracotta)" stroke="none"></rect>
+            <rect x="4.5" y="10" width="4" height="4" fill="var(--mustard)" stroke="none"></rect>
           </svg>
           <span class="case-tag">Voltage Effect</span>
           <h4>Shrinks at scale</h4>
@@ -631,7 +773,7 @@
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="9" width="3" height="10" rx="0.6" transform="rotate(-8 4.5 14)"></rect>
             <rect x="9" y="7" width="3" height="12" rx="0.6" transform="rotate(-4 10.5 13)"></rect>
-            <rect x="15" y="5" width="3" height="14" rx="0.6" fill="var(--terracotta)" stroke="var(--terracotta)" transform="rotate(10 16.5 12)"></rect>
+            <rect x="15" y="5" width="3" height="14" rx="0.6" fill="var(--teal)" stroke="var(--teal)" transform="rotate(10 16.5 12)"></rect>
           </svg>
           <span class="case-tag">Rube Goldberg</span>
           <h4>More can break</h4>
@@ -766,7 +908,7 @@
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2.5" y="6" width="19" height="13" rx="2"></rect>
               <path d="M2.5 10h19"></path>
-              <circle cx="17.5" cy="14.5" r="1.4" fill="var(--terracotta)" stroke="none"></circle>
+              <circle cx="17.5" cy="14.5" r="1.4" fill="var(--teal)" stroke="none"></circle>
             </svg>
             <span class="flow-step-label">Buy-now-pay-later purchases get deferred, so today's balance doesn't yet reflect what's already spent.</span>
           </div>
@@ -821,7 +963,7 @@
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2.5" y="5" width="19" height="14" rx="2"></rect>
               <line x1="2.5" y1="9.5" x2="21.5" y2="9.5"></line>
-              <line x1="5.5" y1="14.5" x2="10.5" y2="14.5" stroke="var(--terracotta)"></line>
+              <line x1="5.5" y1="14.5" x2="10.5" y2="14.5" stroke="var(--mustard)"></line>
             </svg>
             <span class="case-tag">Runnemark, Hedman &amp; Xiao, 2015</span>
             <h4>Debit</h4>
@@ -834,8 +976,8 @@
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="5.5" width="15" height="12" rx="2"></rect>
               <line x1="2" y1="9" x2="17" y2="9"></line>
-              <circle cx="18.5" cy="16.5" r="4" fill="var(--paper)" stroke="var(--terracotta)"></circle>
-              <path d="M18.5 14.5v2l1.3 1" stroke="var(--terracotta)" stroke-width="1.3"></path>
+              <circle cx="18.5" cy="16.5" r="4" fill="var(--paper)" stroke="var(--teal)"></circle>
+              <path d="M18.5 14.5v2l1.3 1" stroke="var(--teal)" stroke-width="1.3"></path>
             </svg>
             <span class="case-tag">Prelec &amp; Simester, 2001</span>
             <h4>Credit</h4>
@@ -884,7 +1026,7 @@
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2.5" y="5" width="19" height="14" rx="2"></rect>
             <line x1="2.5" y1="9.5" x2="21.5" y2="9.5"></line>
-            <line x1="5.5" y1="14.5" x2="10.5" y2="14.5" stroke="var(--terracotta)"></line>
+            <line x1="5.5" y1="14.5" x2="10.5" y2="14.5" stroke="var(--mustard)"></line>
           </svg>
           <span class="case-tag">Runnemark et al.</span>
           <h4>Debit</h4>
@@ -893,8 +1035,8 @@
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2" y="5.5" width="15" height="12" rx="2"></rect>
             <line x1="2" y1="9" x2="17" y2="9"></line>
-            <circle cx="18.5" cy="16.5" r="4" fill="var(--paper)" stroke="var(--terracotta)"></circle>
-            <path d="M18.5 14.5v2l1.3 1" stroke="var(--terracotta)" stroke-width="1.3"></path>
+            <circle cx="18.5" cy="16.5" r="4" fill="var(--paper)" stroke="var(--teal)"></circle>
+            <path d="M18.5 14.5v2l1.3 1" stroke="var(--teal)" stroke-width="1.3"></path>
           </svg>
           <span class="case-tag">Prelec &amp; Simester</span>
           <h4>Credit: +100%</h4>
@@ -953,7 +1095,7 @@
           <svg class="doc-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="4" y="3" width="16" height="18" rx="1.5"></rect>
             <line x1="7.5" y1="8" x2="16.5" y2="8"></line>
-            <line x1="7.5" y1="12" x2="16.5" y2="12" stroke="var(--terracotta)"></line>
+            <line x1="7.5" y1="12" x2="16.5" y2="12" stroke="var(--mustard)"></line>
             <line x1="7.5" y1="16" x2="13" y2="16"></line>
           </svg>
           <span>Payment-flow friction review</span>
@@ -1014,7 +1156,7 @@
           <div class="flow-start">
             <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 16v-3.5l2-4.5h12l2 4.5V16"></path>
-              <path d="M4 16h16" stroke="var(--terracotta)"></path>
+              <path d="M4 16h16" stroke="var(--mustard)"></path>
               <circle cx="7.5" cy="17.5" r="1.5"></circle>
               <circle cx="16.5" cy="17.5" r="1.5"></circle>
             </svg>
@@ -1024,7 +1166,7 @@
           <div class="flow-step">
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 7l6 5 4-2 6 8"></path>
-              <path d="M20 14v4h-4" stroke="var(--terracotta)"></path>
+              <path d="M20 14v4h-4" stroke="var(--mustard)"></path>
             </svg>
             <span class="flow-step-label">Left with nothing, a bad ride quietly cost Uber future business: riders spent 5&ndash;10% less afterward than riders who hadn't had one.</span>
           </div>
@@ -1090,7 +1232,7 @@
           <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>A $5 coupon was a more effective apology than words alone, and paid for itself, a positive net return for Uber even after the cost of the coupon.</div>
           <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>Sending the same coupon apology after a second or third bad ride reversed direction, a &ldquo;backfire effect&rdquo; the authors attribute to riders reading each apology as a promise, broken again by the next failure.</div>
         </div>
-        <div class="also-note"><b>See also:</b> <a href="index.html#lab-vs-field">The Voltage Drop at Scale</a> on this site's Reading the Research page, and the Voltage Effect trio in the <a href="#mapping-outcome-logic">outcome-logic session</a> above, the same idea, one study deeper.</div>
+        <div class="also-note"><b>See also:</b> <a href="index.html#lab-vs-field">The Voltage Drop at Scale</a> on this site's Reading the Research page, and the Voltage Effect trio in the <a href="#mapping-outcome-logic">outcome-logic session</a> above, the same idea, one study deeper. The government-scale version of this same problem: <a href="policy-based-evidence.html">Why Governments Need Policy-Based Evidence, Not Just Evidence-Based Policy</a>.</div>
       </div>
 
       <div class="session-trio" data-rail-section data-rail-label="Vital signs">
@@ -1113,8 +1255,8 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="9"></circle>
-              <path d="M12 7.5v5" stroke="var(--terracotta)"></path>
-              <circle cx="12" cy="16" r="1" fill="var(--terracotta)" stroke="none"></circle>
+              <path d="M12 7.5v5" stroke="var(--mustard)"></path>
+              <circle cx="12" cy="16" r="1" fill="var(--mustard)" stroke="none"></circle>
             </svg>
             <span class="case-tag">Vital sign</span>
             <h4>False positives</h4>
@@ -1126,7 +1268,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 3c3 4 6 7 6 10.5a6 6 0 1 1-12 0C6 10 9 7 12 3z"></path>
-              <path d="M9.5 15.5a2.5 2.5 0 0 0 3 2.4" stroke="var(--terracotta)"></path>
+              <path d="M9.5 15.5a2.5 2.5 0 0 0 3 2.4" stroke="var(--teal)"></path>
             </svg>
             <span class="case-tag">Vital sign</span>
             <h4>Spillovers</h4>
@@ -1145,7 +1287,7 @@
       <p>Ask any room who staffed their last pilot with their A-team, and most hands go up, on purpose, to give the idea its best shot. That instinct is exactly what CHECC's design pushes against, and it's the story that actually landed harder than Uber's, because it runs against instinct instead of just being a good result. List's point isn't subtle once you sit with it: stacking a pilot with your strongest people answers a different question than the one you meant to ask, and most teams never notice they asked the wrong one.</p>
 
       <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#false-positives">False Positives</a>, <a href="principles.html#representativeness">Representativeness</a>, <a href="principles.html#chef-or-the-ingredients">Chef or the Ingredients</a>, <a href="principles.html#spillovers">Spillovers</a>, and <a href="principles.html#cost-traps">Cost Traps</a>, List's five &ldquo;vital signs,&rdquo; each with the full study-and-citation treatment on the Principles page.</div>
-      <div class="also-note"><b>Taken further:</b> <a href="experiments.html#costly-specific-apology">Does a costly, specific apology beat a generic one after a service failure?</a>, the Uber finding above, designed out as a live service-recovery test.</div>
+      <div class="also-note"><b>Taken further:</b> <a href="experiments.html#costly-specific-apology">Does a costly, specific apology beat a generic one after a service failure?</a>, the Uber finding above, designed out as a live service-recovery test. Both CHECC and the Uber study exist because List and his organizational partners were willing to call these what they were: <a href="dont-say-the-e-word.html">Don't Say the E-Word</a> covers why so few organizations do.</div>
       </div>
       </div>
     </div>
@@ -1175,8 +1317,8 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>
-            <path d="M12 7.5v5" stroke="var(--terracotta)"></path>
-            <circle cx="12" cy="16" r="1" fill="var(--terracotta)" stroke="none"></circle>
+            <path d="M12 7.5v5" stroke="var(--mustard)"></path>
+            <circle cx="12" cy="16" r="1" fill="var(--mustard)" stroke="none"></circle>
           </svg>
           <span class="case-tag">Vital sign</span>
           <h4>False positives</h4>
@@ -1184,7 +1326,7 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3c3 4 6 7 6 10.5a6 6 0 1 1-12 0C6 10 9 7 12 3z"></path>
-            <path d="M9.5 15.5a2.5 2.5 0 0 0 3 2.4" stroke="var(--terracotta)"></path>
+            <path d="M9.5 15.5a2.5 2.5 0 0 0 3 2.4" stroke="var(--teal)"></path>
           </svg>
           <span class="case-tag">Vital sign</span>
           <h4>Spillovers</h4>
@@ -1244,8 +1386,8 @@
           <div class="app-mock-phone">
             <div class="app-mock-screen">
               <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="var(--terracotta)"></circle>
-                <path d="M9 12l2 2 4-4" stroke="var(--terracotta)"></path>
+                <circle cx="12" cy="12" r="9" stroke="var(--mustard)"></circle>
+                <path d="M9 12l2 2 4-4" stroke="var(--mustard)"></path>
               </svg>
               <h4>Your transfer arrived 40 minutes late</h4>
               <p>We've refunded the $3 transfer fee and added a $5 credit. Sorry for the wait.</p>
@@ -1259,9 +1401,9 @@
           <div class="app-mock-phone">
             <div class="app-mock-screen">
               <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="var(--terracotta)"></circle>
-                <path d="M12 8v5" stroke="var(--terracotta)"></path>
-                <circle cx="12" cy="15.5" r="1" fill="var(--terracotta)" stroke="none"></circle>
+                <circle cx="12" cy="12" r="9" stroke="var(--teal)"></circle>
+                <path d="M12 8v5" stroke="var(--teal)"></path>
+                <circle cx="12" cy="15.5" r="1" fill="var(--teal)" stroke="none"></circle>
               </svg>
               <h4>This shouldn't have happened twice</h4>
               <p>We've escalated the underlying issue to our transfers team, here's what we're changing, not just another credit.</p>
@@ -1318,10 +1460,10 @@
           <span class="flow-tag">One appointment, not a controlled study</span>
           <div class="flow-start">
             <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="7" cy="12" r="4.2" fill="var(--terracotta)" stroke="none"></circle>
+              <circle cx="7" cy="12" r="4.2" fill="var(--teal)" stroke="none"></circle>
               <circle cx="17" cy="12" r="4.2" stroke-dasharray="2 2"></circle>
-              <path d="M12 12h2.3" stroke="var(--terracotta)"></path>
-              <path d="M13.3 10.3l2 1.7-2 1.7" stroke="var(--terracotta)"></path>
+              <path d="M12 12h2.3" stroke="var(--teal)"></path>
+              <path d="M13.3 10.3l2 1.7-2 1.7" stroke="var(--teal)"></path>
             </svg>
             <span class="flow-start-label">Present-me, weighing a filling I didn't want today against a future-me who wouldn't thank me for skipping it</span>
           </div>
@@ -1330,7 +1472,7 @@
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 13.5c0-4.4 3.6-8 8-8s8 3.6 8 8"></path>
               <path d="M4 13.5h16" opacity="0.35"></path>
-              <path d="M8.5 9.8c1.5-1.2 5.5-1.2 7 0" stroke="var(--terracotta)"></path>
+              <path d="M8.5 9.8c1.5-1.2 5.5-1.2 7 0" stroke="var(--mustard)"></path>
             </svg>
             <span class="flow-step-label">Ostrich Effect had the booking sitting untouched for months, a text with the exact date, and being asked to write it into my own calendar before I left last time, got me there anyway.</span>
           </div>
@@ -1338,8 +1480,8 @@
           <div class="flow-step">
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M2.5 17 L6 15 L9 8 L12 15 L15 14 L18 12 L21.5 5"></path>
-              <circle cx="9" cy="8" r="1.6" fill="var(--terracotta)" stroke="none"></circle>
-              <circle cx="21.5" cy="5" r="1.6" fill="var(--terracotta)" stroke="none"></circle>
+              <circle cx="9" cy="8" r="1.6" fill="var(--teal)" stroke="none"></circle>
+              <circle cx="21.5" cy="5" r="1.6" fill="var(--teal)" stroke="none"></circle>
             </svg>
             <span class="flow-step-label">She broke the news plainly: here's what's wrong, here's why, no minimising, then closed the conversation warm. Bedside manner is peak-end management, whether she'd call it that or not.</span>
           </div>
@@ -1359,7 +1501,7 @@
               <rect x="5" y="2" width="14" height="20" rx="1"></rect>
               <line x1="8" y1="7" x2="16" y2="7"></line>
               <line x1="8" y1="11" x2="16" y2="11"></line>
-              <path d="M8 18.5l1.8 1.8L15 15.5" stroke="var(--terracotta)" stroke-width="1.8"></path>
+              <path d="M8 18.5l1.8 1.8L15 15.5" stroke="var(--mustard)" stroke-width="1.8"></path>
             </svg>
             <span class="flow-step-label">Then it got split into what needed doing now, what could wait, and what each option actually cost, in dollars and in downside, side by side.</span>
           </div>
@@ -1406,7 +1548,7 @@
               <rect x="6.5" y="15" width="3" height="3" rx="0.5"></rect>
               <rect x="15" y="15" width="3" height="3" rx="0.5"></rect>
               <rect x="19" y="15" width="3" height="3" rx="0.5"></rect>
-              <rect x="9.3" y="6.5" width="6.5" height="6.5" rx="1" fill="var(--terracotta)" stroke="var(--terracotta)"></rect>
+              <rect x="9.3" y="6.5" width="6.5" height="6.5" rx="1" fill="var(--mustard)" stroke="var(--mustard)"></rect>
             </svg>
             <span class="case-tag">Implementation Intentions</span>
             <h4>A reminder that actually reached me</h4>
@@ -1418,7 +1560,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"></path>
-              <path d="M9 12l2 2 4-4" stroke="var(--terracotta)"></path>
+              <path d="M9 12l2 2 4-4" stroke="var(--teal)"></path>
             </svg>
             <span class="case-tag">Authority Effect</span>
             <h4>A logo I trusted without reading it</h4>
@@ -1451,8 +1593,8 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M2.5 17 L6 15 L9 8 L12 15 L15 14 L18 12 L21.5 5"></path>
-              <circle cx="9" cy="8" r="1.6" fill="var(--terracotta)" stroke="none"></circle>
-              <circle cx="21.5" cy="5" r="1.6" fill="var(--terracotta)" stroke="none"></circle>
+              <circle cx="9" cy="8" r="1.6" fill="var(--mustard)" stroke="none"></circle>
+              <circle cx="21.5" cy="5" r="1.6" fill="var(--mustard)" stroke="none"></circle>
             </svg>
             <span class="case-tag">Peak-End Rule</span>
             <h4>How the visit gets remembered</h4>
@@ -1463,8 +1605,8 @@
 
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="19" cy="12" r="2.3" stroke="var(--terracotta)"></circle>
-              <path d="M17.3 12h-13" stroke="var(--terracotta)" stroke-width="2"></path>
+              <circle cx="19" cy="12" r="2.3" stroke="var(--teal)"></circle>
+              <path d="M17.3 12h-13" stroke="var(--teal)" stroke-width="2"></path>
               <circle cx="4" cy="6" r="1" fill="currentColor" stroke="none" opacity="0.4"></circle>
               <circle cx="4" cy="18" r="1" fill="currentColor" stroke="none" opacity="0.4"></circle>
             </svg>
@@ -1483,7 +1625,7 @@
 
       <p>What stuck with me wasn't any one moment. It was how many of these were stacked into one ordinary appointment, unplanned, unnamed, and each one doing real work. A dental practice isn't a fintech or a subscription business, and nobody there is running an experimentation program. It doesn't matter. The mechanisms don't ask permission. If I ran a version of this for a room of clinicians or small-business owners, I'd open with the same question I'd ask any product team: which of these are you already doing by accident, and which one, done on purpose, would actually move the number you care about?</p>
 
-      <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#anchoring">Anchoring</a>, <a href="principles.html#tradeoff-transparency">Tradeoff Transparency</a>, <a href="principles.html#goal-gradient">Goal Gradient Effect</a>, <a href="principles.html#ostrich-effect">Ostrich Effect</a>, <a href="principles.html#salience">Salience</a>, <a href="principles.html#zero-price">Zero Price Effect</a>, <a href="principles.html#reciprocity">Reciprocity</a>, <a href="principles.html#peak-end-rule">Peak-End Rule</a>, and <a href="principles.html#chunking">Chunking</a>, each gets the full study-and-citation treatment on the Principles page. Two more showed up along the way: Implementation Intentions and the Authority Effect,ash; that don't have their own write-ups on this site yet. This is what they look like applied to a dental chair instead of a lab.</div>
+      <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#anchoring">Anchoring</a>, <a href="principles.html#tradeoff-transparency">Tradeoff Transparency</a>, <a href="principles.html#goal-gradient">Goal Gradient Effect</a>, <a href="principles.html#ostrich-effect">Ostrich Effect</a>, <a href="principles.html#salience">Salience</a>, <a href="principles.html#zero-price">Zero Price Effect</a>, <a href="principles.html#reciprocity">Reciprocity</a>, <a href="principles.html#peak-end-rule">Peak-End Rule</a>, and <a href="principles.html#chunking">Chunking</a>, each gets the full study-and-citation treatment on the Principles page. Two more showed up along the way: Implementation Intentions and the Authority Effect, which don't have their own write-ups on this site yet. This is what they look like applied to a dental chair instead of a lab.</div>
       </div>
       </div>
     </div>
@@ -1528,7 +1670,7 @@
             <rect x="6.5" y="15" width="3" height="3" rx="0.5"></rect>
             <rect x="15" y="15" width="3" height="3" rx="0.5"></rect>
             <rect x="19" y="15" width="3" height="3" rx="0.5"></rect>
-            <rect x="9.3" y="6.5" width="6.5" height="6.5" rx="1" fill="var(--terracotta)" stroke="var(--terracotta)"></rect>
+            <rect x="9.3" y="6.5" width="6.5" height="6.5" rx="1" fill="var(--mustard)" stroke="var(--mustard)"></rect>
           </svg>
           <span class="case-tag">Implementation Intentions</span>
           <h4>A reminder that reached me</h4>
@@ -1536,7 +1678,7 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6z"></path>
-            <path d="M9 12l2 2 4-4" stroke="var(--terracotta)"></path>
+            <path d="M9 12l2 2 4-4" stroke="var(--teal)"></path>
           </svg>
           <span class="case-tag">Authority Effect</span>
           <h4>A logo I trusted</h4>
@@ -1557,16 +1699,16 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M2.5 17 L6 15 L9 8 L12 15 L15 14 L18 12 L21.5 5"></path>
-            <circle cx="9" cy="8" r="1.6" fill="var(--terracotta)" stroke="none"></circle>
-            <circle cx="21.5" cy="5" r="1.6" fill="var(--terracotta)" stroke="none"></circle>
+            <circle cx="9" cy="8" r="1.6" fill="var(--mustard)" stroke="none"></circle>
+            <circle cx="21.5" cy="5" r="1.6" fill="var(--mustard)" stroke="none"></circle>
           </svg>
           <span class="case-tag">Peak-End Rule</span>
           <h4>How it's remembered</h4>
         </div>
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="19" cy="12" r="2.3" stroke="var(--terracotta)"></circle>
-            <path d="M17.3 12h-13" stroke="var(--terracotta)" stroke-width="2"></path>
+            <circle cx="19" cy="12" r="2.3" stroke="var(--teal)"></circle>
+            <path d="M17.3 12h-13" stroke="var(--teal)" stroke-width="2"></path>
             <circle cx="4" cy="6" r="1" fill="currentColor" stroke="none" opacity="0.4"></circle>
             <circle cx="4" cy="18" r="1" fill="currentColor" stroke="none" opacity="0.4"></circle>
           </svg>
@@ -1713,7 +1855,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 3.5c-3 .8-5 3.6-5 6.8 0 2 .9 3.6 2.3 4.7L6 19h9l-.3-3.8c1.6-1.1 2.6-2.9 2.6-5 0-3.7-3-6.7-6.7-6.7-.5 0-1.1.1-1.6.2z"></path>
-              <path d="M9.5 8.5c1-.8 2.5-1 3.7-.3" stroke="var(--terracotta)"></path>
+              <path d="M9.5 8.5c1-.8 2.5-1 3.7-.3" stroke="var(--mustard)"></path>
             </svg>
             <span class="case-tag">Psychology</span>
             <h4>Explains the actual mechanism</h4>
@@ -1725,7 +1867,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="9" cy="12" r="6.5"></circle>
-              <circle cx="15" cy="12" r="6.5" stroke="var(--terracotta)"></circle>
+              <circle cx="15" cy="12" r="6.5" stroke="var(--teal)"></circle>
             </svg>
             <span class="case-tag">Behavioural economics</span>
             <h4>Predictable irrationality</h4>
@@ -1749,7 +1891,7 @@
 
       <p>Fair pushback, and one I get most times I give this talk. The honest answer is falsifiability: marketing wants something to work, and will keep the story if it does. Behavioural economics wants to know exactly when a mechanism stops working, and for whom, that's why every principle on this site carries a named study, a sample, and a methodology critique, not just a claim. I used to leave that distinction for the Q&amp;A. Now I put it straight after this chart, because the room trusts everything that follows a lot more once they've heard it.</p>
 
-      <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#zero-price">Zero Price Effect</a>, the full study-and-citation write-up is on the Principles page. This is the argument that sits underneath every other session on this site.</div>
+      <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#zero-price">Zero Price Effect</a>, the full study-and-citation write-up is on the Principles page. This is the argument that sits underneath every other session on this site. For where behavioural science and UX &amp; product design fit onto this same picture, see <a href="nobody-owns-a-bias.html">Behavioural Economics vs. Behavioural Science vs. Psychology vs. UX</a>.</div>
       </div>
       </div>
     </div>
@@ -1792,7 +1934,7 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M9 3.5c-3 .8-5 3.6-5 6.8 0 2 .9 3.6 2.3 4.7L6 19h9l-.3-3.8c1.6-1.1 2.6-2.9 2.6-5 0-3.7-3-6.7-6.7-6.7-.5 0-1.1.1-1.6.2z"></path>
-            <path d="M9.5 8.5c1-.8 2.5-1 3.7-.3" stroke="var(--terracotta)"></path>
+            <path d="M9.5 8.5c1-.8 2.5-1 3.7-.3" stroke="var(--mustard)"></path>
           </svg>
           <span class="case-tag">Psychology</span>
           <h4>The real mechanism</h4>
@@ -1800,7 +1942,7 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="9" cy="12" r="6.5"></circle>
-            <circle cx="15" cy="12" r="6.5" stroke="var(--terracotta)"></circle>
+            <circle cx="15" cy="12" r="6.5" stroke="var(--teal)"></circle>
           </svg>
           <span class="case-tag">Behavioural economics</span>
           <h4>Predictable irrationality</h4>
@@ -1915,8 +2057,8 @@
               <rect x="2.5" y="8" width="8" height="4" rx="1"></rect>
               <circle cx="4.3" cy="10" r="0.6" fill="currentColor" stroke="none"></circle>
               <circle cx="9.5" cy="10" r="0.6" fill="currentColor" stroke="none"></circle>
-              <rect x="13.5" y="7" width="8" height="6" rx="1.5" stroke="var(--terracotta)"></rect>
-              <line x1="15.3" y1="10" x2="19.7" y2="10" stroke="var(--terracotta)"></line>
+              <rect x="13.5" y="7" width="8" height="6" rx="1.5" stroke="var(--mustard)"></rect>
+              <line x1="15.3" y1="10" x2="19.7" y2="10" stroke="var(--mustard)"></line>
             </svg>
             <span class="flow-start-label">Room sees the real search-page redesign: a plain min/max price slider (control) vs. $/$$/$$$/$$$$ tier buttons (treatment)</span>
           </div>
@@ -1932,7 +2074,7 @@
           <div class="flow-step">
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="8.5"></circle>
-              <path d="M9 12h6M12 9v6" stroke="var(--terracotta)"></path>
+              <path d="M9 12h6M12 9v6" stroke="var(--mustard)"></path>
             </svg>
             <span class="flow-step-label">The room always has good theories: the buttons are faster to scan, price tiers match how people actually search, the slider was fiddly on mobile. Every one sounds right.</span>
           </div>
@@ -1981,8 +2123,8 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M3 10v4h3l6 4V6l-6 4H3z"></path>
-              <path d="M15 9.5c1 1 1 4 0 5" stroke="var(--terracotta)"></path>
-              <path d="M17.5 7.5c2 2 2 7 0 9" stroke="var(--terracotta)"></path>
+              <path d="M15 9.5c1 1 1 4 0 5" stroke="var(--mustard)"></path>
+              <path d="M17.5 7.5c2 2 2 7 0 9" stroke="var(--mustard)"></path>
             </svg>
             <span class="case-tag">The market around you</span>
             <h4>Promotions and competitors</h4>
@@ -1994,7 +2136,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"></path>
-              <path d="M4 7.5l8 4.5 8-4.5" stroke="var(--terracotta)"></path>
+              <path d="M4 7.5l8 4.5 8-4.5" stroke="var(--teal)"></path>
               <line x1="12" y1="12" x2="12" y2="21"></line>
             </svg>
             <span class="case-tag">Your own other work</span>
@@ -2029,7 +2171,7 @@
           <div class="flow-start">
             <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="8.5"></circle>
-              <path d="M9 12h6M12 9v6" stroke="var(--terracotta)"></path>
+              <path d="M9 12h6M12 9v6" stroke="var(--teal)"></path>
             </svg>
             <span class="flow-start-label">Real chart, real launch window &rarr; the room's theories all sound plausible</span>
           </div>
@@ -2054,8 +2196,8 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M3 10v4h3l6 4V6l-6 4H3z"></path>
-            <path d="M15 9.5c1 1 1 4 0 5" stroke="var(--terracotta)"></path>
-            <path d="M17.5 7.5c2 2 2 7 0 9" stroke="var(--terracotta)"></path>
+            <path d="M15 9.5c1 1 1 4 0 5" stroke="var(--mustard)"></path>
+            <path d="M17.5 7.5c2 2 2 7 0 9" stroke="var(--mustard)"></path>
           </svg>
           <span class="case-tag">The market</span>
           <h4>Promos &amp; competitors</h4>
@@ -2063,7 +2205,7 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"></path>
-            <path d="M4 7.5l8 4.5 8-4.5" stroke="var(--terracotta)"></path>
+            <path d="M4 7.5l8 4.5 8-4.5" stroke="var(--teal)"></path>
             <line x1="12" y1="12" x2="12" y2="21"></line>
           </svg>
           <span class="case-tag">Your own work</span>
@@ -2086,7 +2228,7 @@
           <svg class="doc-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="4" y="3" width="16" height="18" rx="1.5"></rect>
             <line x1="7.5" y1="8" x2="16.5" y2="8"></line>
-            <line x1="7.5" y1="12" x2="16.5" y2="12" stroke="var(--terracotta)"></line>
+            <line x1="7.5" y1="12" x2="16.5" y2="12" stroke="var(--teal)"></line>
             <line x1="7.5" y1="16" x2="13" y2="16"></line>
           </svg>
           <span>Before you trust this metric</span>
@@ -2172,8 +2314,8 @@
             <svg class="flow-step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M3 15.5 6 9h12l3 6.5"></path>
               <path d="M4.5 15.5h15v3h-15z"></path>
-              <path d="M12 9V4" stroke="var(--terracotta)"></path>
-              <path d="M12 4l3 1.5" stroke="var(--terracotta)"></path>
+              <path d="M12 9V4" stroke="var(--teal)"></path>
+              <path d="M12 4l3 1.5" stroke="var(--teal)"></path>
             </svg>
             <span class="flow-step-label">Right next to it: $6,495,000, a yacht, at the same international boat show a $350,000 luxury car was also on display at.</span>
           </div>
@@ -2209,7 +2351,7 @@
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="7" cy="8" r="2.3" fill="var(--mustard)" stroke="var(--mustard)"></circle>
               <circle cx="16.5" cy="7" r="1.7"></circle>
-              <circle cx="12" cy="15" r="2" fill="var(--terracotta)" stroke="var(--terracotta)"></circle>
+              <circle cx="12" cy="15" r="2" fill="var(--mustard)" stroke="var(--mustard)"></circle>
               <circle cx="18" cy="16.5" r="1.5"></circle>
             </svg>
             <span class="case-tag">Overreach</span>
@@ -2224,8 +2366,8 @@
               <circle cx="11" cy="11" r="8"></circle>
               <circle cx="11" cy="11" r="4"></circle>
               <circle cx="11" cy="11" r="0.8" fill="currentColor"></circle>
-              <path d="M17 3l4 4-6.5 6.5" stroke="var(--terracotta)"></path>
-              <path d="M21 3l0 4-4 0" stroke="var(--terracotta)"></path>
+              <path d="M17 3l4 4-6.5 6.5" stroke="var(--teal)"></path>
+              <path d="M21 3l0 4-4 0" stroke="var(--teal)"></path>
             </svg>
             <span class="case-tag">Good intentions, no measurement</span>
             <h4>Assuming it worked</h4>
@@ -2244,7 +2386,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M3.5 20 L4.3 13.5 L7.7 13.5 L8.5 20 Z"></path>
-              <path d="M10.5 20 L11.5 9 L15.5 9 L16.5 20 Z" fill="var(--mustard)" opacity="0.3" stroke="var(--mustard)"></path>
+              <path d="M10.5 20 L11.5 9 L15.5 9 L16.5 20 Z" fill="var(--terracotta)" opacity="0.3" stroke="var(--terracotta)"></path>
               <path d="M18 20 L19 3.5 L22.5 3.5 L23.5 20 Z" fill="var(--terracotta)" stroke="var(--terracotta)"></path>
             </svg>
             <span class="case-tag">Attraction Effect</span>
@@ -2257,7 +2399,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="3" y="7" width="18" height="10" rx="5"></rect>
-              <circle cx="16" cy="12" r="4" fill="var(--terracotta)" stroke="var(--terracotta)"></circle>
+              <circle cx="16" cy="12" r="4" fill="var(--mustard)" stroke="var(--mustard)"></circle>
             </svg>
             <span class="case-tag">Default Effect</span>
             <h4>The setting nobody switches off</h4>
@@ -2269,7 +2411,7 @@
           <div class="case-card trio-card">
             <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"></path>
-              <circle cx="12" cy="12" r="3" fill="var(--terracotta)" stroke="var(--terracotta)"></circle>
+              <circle cx="12" cy="12" r="3" fill="var(--teal)" stroke="var(--teal)"></circle>
             </svg>
             <span class="case-tag">Salience</span>
             <h4>&ldquo;Try free for 30 days!&rdquo;</h4>
@@ -2289,7 +2431,7 @@
 
       <div class="also-note"><b>The mechanisms behind this session:</b> <a href="principles.html#anchoring">Anchoring</a>, <a href="principles.html#zero-price">Zero Price Effect</a>, <a href="principles.html#decoy">Decoy Effect</a>, <a href="principles.html#default-effect">Default Effect</a>, and <a href="principles.html#salience">Salience</a>, each gets the full study-and-citation treatment on the Principles page.</div>
       <div class="also-note"><b>The two case studies this talk builds on:</b> <a href="#watching-the-metric-lies">The Metric That Lied To The Whole Room</a> (the Airbnb filter reveal) and <a href="#voltage-effect-scaling">Why your best pilot is the one most likely to lose its voltage</a> (the Uber apology study), both get their own full session on this site rather than a retelling here.</div>
-      <div class="also-note"><b>The chainsaw line, taken further:</b> <a href="index.html#ethics-of-not-experimenting">Ethics of Not Experimenting</a>, same idea, argued at length: the power to change behaviour at scale is also the power to do real harm at scale, and that's an argument for measuring carefully, not for not experimenting at all.</div>
+      <div class="also-note"><b>The chainsaw line, taken further:</b> <a href="not-testing-is-still-a-bet.html">Not Testing Is Still a Bet</a>, same idea, argued at length: the power to change behaviour at scale is also the power to do real harm at scale, and that's an argument for measuring carefully, not for not experimenting at all.</div>
       </div>
       </div>
     </div>
@@ -2305,7 +2447,7 @@
           <div class="flow-start">
             <svg class="flow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M11 3h7a1 1 0 0 1 1 1v7a1 1 0 0 1-.3.7l-8 8a1 1 0 0 1-1.4 0l-6.7-6.7a1 1 0 0 1 0-1.4l8-8A1 1 0 0 1 11 3z"></path>
-              <circle cx="15.6" cy="8.4" r="1.4" fill="var(--terracotta)" stroke="none"></circle>
+              <circle cx="15.6" cy="8.4" r="1.4" fill="var(--mustard)" stroke="none"></circle>
             </svg>
             <span class="flow-start-label">&ldquo;Is $350,000 cheap?&rdquo; &rarr; shown $6,495,000 right beside it, same boat show</span>
           </div>
@@ -2328,7 +2470,7 @@
         <div class="case-card trio-card">
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="9" cy="10" r="2.3" fill="var(--mustard)" stroke="var(--mustard)"></circle>
-            <circle cx="16" cy="14" r="2" fill="var(--terracotta)" stroke="var(--terracotta)"></circle>
+            <circle cx="16" cy="14" r="2" fill="var(--mustard)" stroke="var(--mustard)"></circle>
           </svg>
           <span class="case-tag">Mistake</span>
           <h4>Biases like candy</h4>
@@ -2337,7 +2479,7 @@
           <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <circle cx="11" cy="11" r="0.8" fill="currentColor"></circle>
-            <path d="M17 3l4 4-6.5 6.5" stroke="var(--terracotta)"></path>
+            <path d="M17 3l4 4-6.5 6.5" stroke="var(--teal)"></path>
           </svg>
           <span class="case-tag">Mistake</span>
           <h4>Assuming it worked</h4>
@@ -2397,15 +2539,21 @@
     <div>&copy; 2026 What Works &amp; Why</div>
     <ul>
       <li><a href="principles.html">Principles</a></li>
+      <li><a href="science-behind.html">The Science Behind</a></li>
       <li><a href="sessions.html">Field Sessions</a></li>
       <li><a href="experiments.html">Experiments</a></li>
       <li><a href="reading-the-research.html">Reading the Research</a></li>
+      <li><a href="natural-experiments.html">Natural Experiments</a></li>
+      <li><a href="apply.html">Apply It</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#newsletter">Subscribe</a></li>
     </ul>
   </div>
 </footer>
 
+<script src="apply-data.js"></script>
+<script src="search-index.js"></script>
+<script src="predictive-search.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

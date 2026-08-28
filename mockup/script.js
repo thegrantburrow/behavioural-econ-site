@@ -15,6 +15,109 @@
 })();
 
 (function () {
+  // Nav expandable sub-lists: a small toggle reveals related links under a
+  // nav item (dropdown on desktop, inline expansion on mobile), instead of
+  // a new top-level item. Closed by default on every load. Multiple pairs
+  // are supported (Principles, Field Sessions, Experiments, Reading the
+  // Research each carry their own toggle + sublist).
+  var pairs = Array.prototype.map.call(document.querySelectorAll('.nav-item-expandable'), function (item) {
+    return { toggle: item.querySelector('.nav-expand-toggle'), sublist: item.querySelector('.nav-sublist') };
+  }).filter(function (p) { return p.toggle && p.sublist; });
+  if (!pairs.length) return;
+
+  function closeAll(except) {
+    pairs.forEach(function (p) {
+      if (p === except) return;
+      p.sublist.classList.remove('show');
+      p.toggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  pairs.forEach(function (pair) {
+    pair.toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      var showing = pair.sublist.classList.toggle('show');
+      pair.toggle.setAttribute('aria-expanded', showing ? 'true' : 'false');
+      if (showing) closeAll(pair);
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    var clickedInsideAny = pairs.some(function (p) {
+      return p.toggle.contains(e.target) || p.sublist.contains(e.target);
+    });
+    if (!clickedInsideAny) closeAll();
+  });
+})();
+
+(function () {
+  // Every predictive search box on the site (the homepage's inline search,
+  // its standalone search band, and the nav-bar search available on every
+  // page) wired through the same portable ranked-suggestions component
+  // (predictive-search.js) against SEARCH_INDEX (loaded via
+  // search-index.js), which covers every real content type on the site,
+  // not just principles, and groups results under the same category
+  // labels the site's own nav menu already uses. No-ops per box on any
+  // page missing its markup.
+  if (typeof PredictiveSearch === 'undefined' || typeof SEARCH_INDEX === 'undefined') return;
+
+  var CATEGORY_ORDER = ['Principles', 'The Science Behind', 'Field Sessions', 'Experiments', 'Reading the Research', 'Natural Experiments', 'Apply It'];
+
+  [
+    { input: 'homeSearch', list: 'homeSearchSuggestions' },
+    { input: 'searchBandInput', list: 'searchBandSuggestions' },
+    { input: 'navSearchInput', list: 'navSearchSuggestions' }
+  ].forEach(function (box) {
+    var input = document.getElementById(box.input);
+    var list = document.getElementById(box.list);
+    if (!input || !list) return;
+    PredictiveSearch.init({
+      input: input,
+      list: list,
+      data: SEARCH_INDEX,
+      fields: { primary: 'title', secondary: 'blurb' },
+      groupBy: 'category',
+      groupOrder: CATEGORY_ORDER,
+      maxResultsPerGroup: 3,
+      classNames: { list: 'search-suggestions', item: 'search-suggestion', active: 'active', group: 'search-suggestion-group' }
+    });
+  });
+})();
+
+(function () {
+  // Nav-bar search icon: a click-to-open panel available on every page
+  // (the nav is the one element that's actually site-wide), independent
+  // of the predictive-search dropdown's own open/close state above.
+  var toggle = document.getElementById('navSearchToggle');
+  var panel = document.getElementById('navSearchPanel');
+  if (!toggle || !panel) return;
+  var input = document.getElementById('navSearchInput');
+
+  function open() {
+    panel.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    if (input) input.focus();
+  }
+
+  function close() {
+    panel.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', function () {
+    if (panel.hidden) open(); else close();
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!panel.hidden && !panel.contains(e.target) && !toggle.contains(e.target)) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) close();
+  });
+})();
+
+(function () {
   // Principles archive page: search box + category chips both filter the
   // same single list of principle rows (not two separate representations
   // of the 36 principles — that duplication was part of what made the
@@ -22,32 +125,68 @@
   // doesn't have this markup (i.e. the homepage).
   var searchInput = document.getElementById('principlesSearch');
   var tabs = document.querySelectorAll('#principlesFilterTabs .toc-tab');
-  var rows = document.querySelectorAll('.principles-list > section.principle');
+  var list = document.getElementById('principlesList');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('section.principle'));
   var emptyMsg = document.getElementById('principlesEmpty');
   if (!searchInput || !tabs.length || !rows.length) return;
 
+  // Canonical (numbered) order, captured once, so clearing the search box
+  // or ties in relevance always fall back to this instead of whatever
+  // order the last search happened to leave things in.
+  rows.forEach(function (row, i) { row.dataset.origOrder = i; });
+
   var activeCategory = 'all';
 
-  function rowText(row) {
-    if (row.dataset.searchText) return row.dataset.searchText;
-    var title = row.querySelector('h3');
-    var def = row.querySelector('.definition');
-    var text = ((title ? title.textContent : '') + ' ' + (def ? def.textContent : '')).toLowerCase();
-    row.dataset.searchText = text;
-    return text;
+  function rowParts(row) {
+    if (row.dataset.title === undefined) {
+      var title = row.querySelector('h3');
+      var def = row.querySelector('.definition');
+      row.dataset.title = (title ? title.textContent : '').trim().toLowerCase();
+      row.dataset.def = (def ? def.textContent : '').trim().toLowerCase();
+    }
+    return { title: row.dataset.title, def: row.dataset.def };
+  }
+
+  function escapeRegExp(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  // Lower score = more relevant. A match on the principle's own name always
+  // outranks a match merely mentioned somewhere in its body text, so
+  // searching "claw" surfaces Clawback first instead of buried under every
+  // other principle whose full definition happens to contain that
+  // substring somewhere. This is what makes the list feel predictive as
+  // it's typed, rather than just a fixed-order show/hide filter.
+  function relevanceScore(row, query) {
+    if (!query) return 0;
+    var parts = rowParts(row);
+    if (parts.title === query) return 0;
+    if (parts.title.indexOf(query) === 0) return 1;
+    if (new RegExp('\\b' + escapeRegExp(query)).test(parts.title)) return 2;
+    if (parts.title.indexOf(query) !== -1) return 3;
+    if (parts.def.indexOf(query) !== -1) return 4;
+    return 5;
   }
 
   function applyFilter() {
     var query = searchInput.value.trim().toLowerCase();
     var visibleCount = 0;
     rows.forEach(function (row) {
+      var parts = rowParts(row);
       var matchesCategory = activeCategory === 'all' || row.getAttribute('data-theme') === activeCategory;
-      var matchesSearch = query === '' || rowText(row).indexOf(query) !== -1;
+      var matchesSearch = query === '' || parts.title.indexOf(query) !== -1 || parts.def.indexOf(query) !== -1;
       var visible = matchesCategory && matchesSearch;
       row.hidden = !visible;
       if (visible) visibleCount++;
     });
     if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+
+    if (list) {
+      rows.slice().sort(function (a, b) {
+        var scoreDiff = relevanceScore(a, query) - relevanceScore(b, query);
+        return scoreDiff !== 0 ? scoreDiff : Number(a.dataset.origOrder) - Number(b.dataset.origOrder);
+      }).forEach(function (row) { list.appendChild(row); });
+    }
   }
 
   tabs.forEach(function (tab) {
@@ -71,6 +210,13 @@
 
   var urlQuery = new URLSearchParams(window.location.search).get('q');
   if (urlQuery) applyQuery(urlQuery);
+
+  var urlCategory = new URLSearchParams(window.location.search).get('category');
+  if (urlCategory) {
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlCategory) t.click();
+    });
+  }
 
   // Exposed so a combined single-page preview can re-run this without a
   // real page load; unused by the real two-file site.
@@ -96,10 +242,10 @@
   };
 
   var STAGES = [
-    { id: 'awareness', count: 6, marketing: 'Awareness', product: 'Acquisition', short: { marketing: 'Awareness', product: 'Acquire' } },
-    { id: 'consideration', count: 15, marketing: 'Consideration', product: 'Activation', short: { marketing: 'Compare', product: 'Activate' } },
-    { id: 'conversion', count: 17, marketing: 'Conversion', product: 'Conversion', short: { marketing: 'Convert', product: 'Convert' } },
-    { id: 'retention', count: 17, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
+    { id: 'awareness', count: 10, marketing: 'Awareness', product: 'Acquisition', short: { marketing: 'Awareness', product: 'Acquire' } },
+    { id: 'consideration', count: 24, marketing: 'Consideration', product: 'Activation', short: { marketing: 'Compare', product: 'Activate' } },
+    { id: 'conversion', count: 32, marketing: 'Conversion', product: 'Conversion', short: { marketing: 'Convert', product: 'Convert' } },
+    { id: 'retention', count: 28, marketing: 'Retention', product: 'Retention', short: { marketing: 'Retain', product: 'Retain' } },
     { id: 'advocacy', count: 6, marketing: 'Advocacy', product: 'Referral', short: { marketing: 'Advocate', product: 'Refer' } }
   ];
 
@@ -210,7 +356,14 @@
     if (details && !details.open) details.open = true;
     target.scrollIntoView();
   }
-  openTargetPrinciple(window.location.hash);
+  // Two rAFs, not one: the initial call can otherwise fire before layout has
+  // settled (web fonts, the just-opened details' own content), landing the
+  // scroll short and leaving the target's heading partially hidden behind
+  // the sticky nav. hashchange navigation (already post-load) doesn't need
+  // this and calls the function directly.
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { openTargetPrinciple(window.location.hash); });
+  });
   window.addEventListener('hashchange', function () { openTargetPrinciple(window.location.hash); });
 
   // Exposed so a combined single-page preview can re-run this without a
@@ -272,6 +425,13 @@
   });
 
   if (searchInput) searchInput.addEventListener('input', applyFilter);
+
+  var urlCategory = new URLSearchParams(window.location.search).get('category');
+  if (urlCategory) {
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlCategory) t.click();
+    });
+  }
 })();
 
 (function () {
@@ -331,6 +491,13 @@
   });
 
   searchInput.addEventListener('input', applyFilter);
+
+  var urlAudience = new URLSearchParams(window.location.search).get('category');
+  if (urlAudience) {
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlAudience) t.click();
+    });
+  }
 })();
 
 (function () {
@@ -418,6 +585,45 @@
 })();
 
 (function () {
+  // Landing hub (nav-entry intro layer on Principles/Field Sessions/
+  // Experiments): a view-toggle switches between category tiles and a flat
+  // all-items index, reusing the existing .view-btn look. A category tile
+  // doesn't duplicate any filter logic itself: it just activates the real
+  // toc-tab for that category (already wired to filter the full list
+  // further down the page) and scrolls there, so the hub and the archive
+  // below it never fall out of sync with each other.
+  document.querySelectorAll('.landing-hub').forEach(function (hub) {
+    // The Science Behind page merges this hub with its search/filter
+    // section into one block (too few entries yet to justify two separate
+    // category browsers) and wires its own cat-tile clicks below instead.
+    if (hub.querySelector('.sb-domain-btn')) return;
+
+    hub.querySelectorAll('.view-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var view = btn.getAttribute('data-hub-view');
+        hub.querySelectorAll('.view-btn').forEach(function (b) {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        });
+        hub.querySelectorAll('.hub-panel').forEach(function (p) {
+          p.hidden = p.getAttribute('data-hub-panel') !== view;
+        });
+      });
+    });
+
+    hub.querySelectorAll('.cat-tile').forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        var category = tile.getAttribute('data-hub-category');
+        var tab = document.querySelector('#top .toc-tabs .toc-tab[data-filter-target="' + category + '"]');
+        if (tab) tab.click();
+        var archive = document.getElementById('top');
+        if (archive) archive.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
+})();
+
+(function () {
   // Field Session pages: each session's toggle switches between full
   // alternate renderings of that same session (full write-up / condensed /
   // applied variants), not two small lists — so this reuses the
@@ -438,6 +644,398 @@
         });
         panels.forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== view; });
       });
+    });
+  });
+})();
+
+(function () {
+  // Apply It (apply.html): an adaptive Q&A that walks a visitor from either
+  // a principle or a real problem through to a copyable starter brief.
+  // The diagnosis step (p2) shows plain, observable symptoms grouped by
+  // journey stage, never a behavioural-science category name: each symptom
+  // maps by hand to the 1-3 specific principles that actually explain it
+  // (APPLY_SYMPTOMS in apply-data.js), so "principles that might explain
+  // this" is a curated, accurate filter, not a lazy category match. No-ops
+  // on any page without this markup, and on any page missing the data file.
+  var toolRoot = document.getElementById('tool');
+  if (!toolRoot || typeof APPLY_PRINCIPLES === 'undefined') return;
+
+  var dotsEl = document.getElementById('applyDots');
+  var cards = {};
+  toolRoot.querySelectorAll('.apply-card').forEach(function (c) { cards[c.getAttribute('data-q')] = c; });
+
+  var STEP_ORDER = ['door'];
+  var history = [];
+  var currentQ = 'door';
+  var selectedSymptoms = [];
+  var selectedPrinciples = [];
+  var selectedPrincipleId = null;
+
+  function renderDots() {
+    dotsEl.innerHTML = '';
+    var idx = STEP_ORDER.indexOf(currentQ);
+    STEP_ORDER.forEach(function (id, i) {
+      var d = document.createElement('div');
+      d.className = 'apply-qdot' + (i === idx ? ' active' : (i < idx ? ' done' : ''));
+      dotsEl.appendChild(d);
+    });
+  }
+
+  function show(qid) {
+    if (qid === 'door') STEP_ORDER = ['door'];
+    Object.keys(cards).forEach(function (k) { cards[k].hidden = (k !== qid); });
+    currentQ = qid;
+    renderDots();
+  }
+
+  function goNext(qid) { history.push(currentQ); show(qid); }
+  function goBack() { if (history.length) show(history.pop()); }
+
+  toolRoot.querySelectorAll('[data-back]').forEach(function (b) { b.addEventListener('click', goBack); });
+
+  toolRoot.querySelectorAll('[data-door]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      selectedSymptoms = [];
+      selectedPrinciples = [];
+      selectedPrincipleId = null;
+      if (b.getAttribute('data-door') === 'problem') {
+        STEP_ORDER = ['door', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'brief'];
+        renderSymptomChecklist();
+        goNext('p1');
+      } else {
+        STEP_ORDER = ['door', 'c1', 'c2', 'c3', 'brief'];
+        renderAllPrincipleChips('');
+        goNext('c1');
+      }
+    });
+  });
+
+  function renderSymptomChecklist() {
+    var wrap = document.getElementById('symptomChecklist');
+    wrap.innerHTML = '';
+    APPLY_SYMPTOMS.forEach(function (group) {
+      var groupEl = document.createElement('div');
+      groupEl.className = 'apply-checklist-group';
+      var lbl = document.createElement('span');
+      lbl.className = 'apply-checklist-lbl';
+      lbl.textContent = group.group;
+      groupEl.appendChild(lbl);
+      group.items.forEach(function (item) {
+        var row = document.createElement('button');
+        row.type = 'button';
+        row.className = 'apply-check-item';
+        row.innerHTML = '<span class="box"></span><span>' + item.text + '</span>';
+        row.addEventListener('click', function () {
+          row.classList.toggle('selected');
+          var idx = selectedSymptoms.indexOf(item.id);
+          if (row.classList.contains('selected') && idx === -1) selectedSymptoms.push(item.id);
+          if (!row.classList.contains('selected') && idx !== -1) selectedSymptoms.splice(idx, 1);
+          document.getElementById('p2Next').disabled = selectedSymptoms.length === 0;
+        });
+        groupEl.appendChild(row);
+      });
+      wrap.appendChild(groupEl);
+    });
+  }
+
+  document.querySelector('[data-next="p4"]').addEventListener('click', function () {
+    var wrap = document.getElementById('principleChips');
+    wrap.innerHTML = '';
+    selectedPrinciples = [];
+    document.getElementById('p4Next').disabled = true;
+    var matchIds = [];
+    APPLY_SYMPTOMS.forEach(function (group) {
+      group.items.forEach(function (item) {
+        if (selectedSymptoms.indexOf(item.id) === -1) return;
+        item.principles.forEach(function (pid) {
+          if (matchIds.indexOf(pid) === -1) matchIds.push(pid);
+        });
+      });
+    });
+    var matches = matchIds.map(function (pid) {
+      return APPLY_PRINCIPLES.filter(function (p) { return p.id === pid; })[0];
+    }).filter(Boolean);
+    document.getElementById('p4Hint').textContent = 'Matched from what you picked, not a whole category.';
+    matches.forEach(function (p) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'apply-chip';
+      chip.innerHTML = '<span class="dot"></span>' + p.title;
+      chip.addEventListener('click', function () {
+        chip.classList.toggle('selected');
+        var idx = selectedPrinciples.indexOf(p.id);
+        if (chip.classList.contains('selected') && idx === -1) selectedPrinciples.push(p.id);
+        if (!chip.classList.contains('selected') && idx !== -1) selectedPrinciples.splice(idx, 1);
+        document.getElementById('p4Next').disabled = selectedPrinciples.length === 0;
+      });
+      wrap.appendChild(chip);
+    });
+  });
+
+  function renderAllPrincipleChips(query) {
+    var wrap = document.getElementById('allPrincipleChips');
+    wrap.innerHTML = '';
+    var q = query.trim().toLowerCase();
+    var list = APPLY_PRINCIPLES.filter(function (p) { return !q || p.title.toLowerCase().indexOf(q) !== -1; });
+    list.forEach(function (p) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'apply-chip' + (p.id === selectedPrincipleId ? ' selected' : '');
+      chip.innerHTML = '<span class="dot"></span>' + p.title;
+      chip.addEventListener('click', function () {
+        selectedPrincipleId = p.id;
+        renderAllPrincipleChips(document.getElementById('principleSearch').value);
+        document.getElementById('c1Next').disabled = false;
+      });
+      wrap.appendChild(chip);
+    });
+  }
+  document.getElementById('principleSearch').addEventListener('input', function () {
+    renderAllPrincipleChips(this.value);
+  });
+
+  document.querySelector('[data-next="c2"]').addEventListener('click', function () {
+    var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === selectedPrincipleId; })[0];
+    document.getElementById('c2Title').textContent = 'Applying ' + (p ? p.title : 'this principle');
+  });
+
+  toolRoot.querySelectorAll('[data-next]').forEach(function (btn) {
+    if (btn.id === 'buildBriefP' || btn.id === 'buildBriefC') return;
+    btn.addEventListener('click', function () { goNext(btn.getAttribute('data-next')); });
+  });
+
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  function principleLinksHtml(ids) {
+    return ids.map(function (id) {
+      var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === id; })[0];
+      return p ? '<a href="principles.html#' + p.id + '">' + p.title + '</a>' : '';
+    }).join(', ');
+  }
+
+  function buildBrief() {
+    var isProblem = STEP_ORDER.indexOf('p1') !== -1;
+    var rows = [];
+    if (isProblem) {
+      rows.push(['Problem', esc(val('probStatement')) || '—']);
+      rows.push(['Principles', principleLinksHtml(selectedPrinciples) || '—']);
+      rows.push(['Target behaviour', esc(val('targetBehaviour')) || '—']);
+      rows.push(['Proposed change', esc(val('proposedChange')) || '—']);
+      rows.push(['Control', esc(val('controlDesc')) || '—']);
+      rows.push(['Treatment', esc(val('treatmentDesc')) || '—']);
+      rows.push(['Primary metric', esc(val('metricDesc')) || '—']);
+    } else {
+      var p = APPLY_PRINCIPLES.filter(function (x) { return x.id === selectedPrincipleId; })[0];
+      rows.push(['Principle', p ? '<a href="principles.html#' + p.id + '">' + p.title + '</a>' : '—']);
+      rows.push(['The moment', esc(val('ctxMoment')) || '—']);
+      rows.push(['Currently', esc(val('ctxCurrent')) || '—']);
+      rows.push(['Hypothesis', esc(val('ctxChange')) || '—']);
+      rows.push(['Control', esc(val('controlDescC')) || '—']);
+      rows.push(['Treatment', esc(val('treatmentDescC')) || '—']);
+      rows.push(['Primary metric', esc(val('metricDescC')) || '—']);
+    }
+    rows.push(['Next', 'Launch, measure, and iterate on what you learn.']);
+
+    var out = document.getElementById('briefOutput');
+    var html = '<h4>Starter brief</h4>';
+    rows.forEach(function (r) {
+      html += '<div class="apply-brief-row"><b>' + r[0] + '</b><span>' + r[1] + '</span></div>';
+    });
+    html += '<div class="apply-brief-foot"><button type="button" class="apply-btn" id="copyBriefBtn">Copy brief</button><a class="apply-btn primary" href="experiments.html">See the full experiment-blueprint format &rarr;</a></div>';
+    out.innerHTML = html;
+
+    document.getElementById('copyBriefBtn').addEventListener('click', function () {
+      var text = rows.map(function (r) { return r[0] + ': ' + r[1].replace(/<[^>]+>/g, ''); }).join('\n');
+      var btn = this;
+      function done() {
+        btn.textContent = 'Copied ✓';
+        setTimeout(function () { btn.textContent = 'Copy brief'; }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopyApply(text, done); });
+      } else {
+        fallbackCopyApply(text, done);
+      }
+    });
+  }
+
+  function fallbackCopyApply(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    cb();
+  }
+
+  document.getElementById('buildBriefP').addEventListener('click', function () { buildBrief(); goNext('brief'); });
+  document.getElementById('buildBriefC').addEventListener('click', function () { buildBrief(); goNext('brief'); });
+
+  show('door');
+})();
+
+(function () {
+  // The Science Behind page: two independent filter axes (domain, signal
+  // type) plus search, all combined with AND logic against the same
+  // article list and TOC. Distinct from every other page's single-category
+  // filter model because this content type is deliberately tagged on two
+  // orthogonal taxonomies at once (see the science-behind-article skill).
+  // No-ops on any page without this markup.
+  var searchInput = document.getElementById('sbSearch');
+  var domainTabs = document.querySelectorAll('.sb-domain-btn');
+  var signalTabs = document.querySelectorAll('#sbSignalTabs .toc-tab');
+  var cards = document.querySelectorAll('article.sb-entry');
+  var tocItems = document.querySelectorAll('#sbToc > li');
+  var emptyMsg = document.getElementById('sbEmpty');
+  if (!domainTabs.length || !cards.length) return;
+
+  var activeDomain = 'all';
+  var activeSignal = 'all';
+
+  function cardText(card) {
+    if (card.dataset.searchText) return card.dataset.searchText;
+    var title = card.querySelector('h2');
+    var lead = card.querySelector('.sb-lead');
+    var text = ((title ? title.textContent : '') + ' ' + (lead ? lead.textContent : '')).toLowerCase();
+    card.dataset.searchText = text;
+    return text;
+  }
+
+  function applyFilter() {
+    var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    var visibleCount = 0;
+    cards.forEach(function (card, i) {
+      var matchesDomain = activeDomain === 'all' || card.getAttribute('data-domain') === activeDomain;
+      var matchesSignal = activeSignal === 'all' || card.getAttribute('data-signal') === activeSignal;
+      var matchesSearch = query === '' || cardText(card).indexOf(query) !== -1;
+      var visible = matchesDomain && matchesSignal && matchesSearch;
+      card.hidden = !visible;
+      if (tocItems[i]) tocItems[i].hidden = !visible;
+      if (visible) visibleCount++;
+    });
+    if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+  }
+
+  domainTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activeDomain = tab.getAttribute('data-filter-target');
+      domainTabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      applyFilter();
+    });
+  });
+
+  signalTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activeSignal = tab.getAttribute('data-filter-target');
+      signalTabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      applyFilter();
+    });
+  });
+
+  if (searchInput) searchInput.addEventListener('input', applyFilter);
+
+  var urlCategory = new URLSearchParams(window.location.search).get('category');
+  if (urlCategory) {
+    domainTabs.forEach(function (t) {
+      if (t.getAttribute('data-filter-target') === urlCategory) t.click();
+    });
+  }
+})();
+
+(function () {
+  /* Section permalinks.
+   *
+   * Every article section on this site already carries an id, so every one of
+   * them has always been linkable. What was missing was any way for a reader
+   * to find that out. You had to view source, or guess. So this hangs a small
+   * control off each section heading that both copies the full address and
+   * puts it in the address bar.
+   *
+   * It is a character, not an icon, and that is deliberate. VISUAL-SYSTEMS.md
+   * lists nineteen distinct icon and illustration systems on this site and
+   * says not to guess which one a new mark belongs to. A permalink is chrome
+   * rather than illustration and matches none of them, so rather than invent a
+   * twentieth system for one control, it is set in the heading's own serif.
+   *
+   * Progressive enhancement in the true sense: the ids work with this file
+   * absent, because they are in the HTML. Only the affordance is added here.
+   */
+  var TARGETS = [
+    ['.report-section[id]', 'h3'],
+    ['article.experiment[id]', 'h2'],
+    ['.session[id]', 'h2'],
+    ['.principle[id]', '.principle-summary-text h3']
+  ];
+
+  function label(node) {
+    return (node.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 90);
+  }
+
+  function urlFor(id) {
+    return location.origin + location.pathname + '#' + id;
+  }
+
+  function flash(link, text) {
+    var was = link.getAttribute('data-said');
+    link.setAttribute('data-said', text);
+    clearTimeout(link._saidTimer);
+    link._saidTimer = setTimeout(function () {
+      if (was) { link.setAttribute('data-said', was); } else { link.removeAttribute('data-said'); }
+    }, 1600);
+  }
+
+  function copy(text, done) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+      return;
+    }
+    /* Older Safari and any page not on a secure origin. */
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      done(ok);
+    } catch (e) { done(false); }
+  }
+
+  TARGETS.forEach(function (pair) {
+    document.querySelectorAll(pair[0]).forEach(function (section) {
+      var head = section.querySelector(pair[1]);
+      if (!head || head.querySelector('.anchor-link')) return;
+
+      var link = document.createElement('a');
+      link.className = 'anchor-link';
+      link.href = '#' + section.id;
+      link.textContent = '#';
+      link.setAttribute('aria-label', 'Copy a link to this section: ' + label(head));
+      link.setAttribute('title', 'Copy link to this section');
+
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        /* A principle heading sits inside a <summary>, where a click would
+           otherwise toggle the disclosure open or shut under the reader. */
+        e.stopPropagation();
+        var url = urlFor(section.id);
+        if (history.replaceState) history.replaceState(null, '', '#' + section.id);
+        else location.hash = section.id;
+        copy(url, function (ok) { flash(link, ok ? 'Copied' : 'Press to copy'); });
+      });
+
+      head.appendChild(link);
     });
   });
 })();

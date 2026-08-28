@@ -1,21 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN9X80R7HE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KN9X80R7HE');
+  </script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#FBF9F4">
+<meta name="theme-color" content="#F5F6F5">
 <title>What Works &amp; Why: real examples, real research</title>
-<meta name="description" content="What Works &amp; Why is a guide to applied behavioural economics: 56 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
+<meta name="description" content="What Works &amp; Why is a guide to applied behavioural economics: 73 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
 <link rel="canonical" href="https://www.grantburrow.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="What Works &amp; Why">
 <meta property="og:title" content="What Works &amp; Why: real examples, real research">
-<meta property="og:description" content="56 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
+<meta property="og:description" content="73 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
 <meta property="og:url" content="https://www.grantburrow.com/">
 <meta property="og:image" content="https://www.grantburrow.com/images/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="What Works &amp; Why: real examples, real research">
-<meta name="twitter:description" content="56 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
+<meta name="twitter:description" content="73 principles, real field sessions, and testable experiment blueprints, each tied to a real study, not folk wisdom.">
 <meta name="twitter:image" content="https://www.grantburrow.com/images/og-card.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
@@ -31,115 +41,253 @@
 </head>
 <body>
 
-<nav class="site-nav">
+<nav class="site-nav no-logo">
   <div class="wrap">
     <div class="bar">
-      <a class="logo" href="index.html">What Works &amp; Why</a>
-      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="bar-actions">
+        <button class="nav-search-toggle" id="navSearchToggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="navSearchPanel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.3" y2="16.3"></line></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
     <div class="links" id="navLinks">
-      <a href="principles.html">Principles<span class="nav-desc">56 cited principles, searchable and filterable</span></a>
-      <a href="sessions.html">Field Sessions<span class="nav-desc">Real talks: what actually happened</span></a>
-      <a href="experiments.html">Experiments<span class="nav-desc">Testable blueprints you could run yourself</span></a>
-      <a href="reading-the-research.html">Reading the Research<span class="nav-desc">How to evaluate a study properly</span></a>
-      <a href="#about">About<span class="nav-desc">Who's behind this, and why</span></a>
+      <img class="links-logo" src="images/logo-lockup.png" alt="What Works &amp; Why">
+      <div class="nav-item-expandable">
+        <a href="principles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="1.5"></rect><line x1="8" y1="7.5" x2="16" y2="7.5"></line><line x1="8" y1="11.5" x2="16" y2="11.5"></line><line x1="8" y1="15.5" x2="13" y2="15.5" stroke="var(--mustard)"></line></svg><span class="link-text">Principles<span class="nav-desc">73 cited principles, searchable and filterable</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 6 principle categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="principles.html?category=judgment">Judgment &amp; Memory</a>
+          <a href="principles.html?category=choice">Choice Architecture</a>
+          <a href="principles.html?category=pricing">Pricing &amp; Value</a>
+          <a href="principles.html?category=social">Social Influence</a>
+          <a href="principles.html?category=motivation">Motivation &amp; Goals</a>
+          <a href="principles.html?category=friction">Friction &amp; Transparency</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="science-behind.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><line x1="14.6" y1="14.6" x2="20" y2="20"></line><circle cx="10" cy="10" r="2" stroke="var(--terracotta)"></circle></svg><span class="link-text">The Science Behind<span class="nav-desc">Real products, decoded into the mechanism</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 Science Behind categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="science-behind.html?category=craft-materials">Craft &amp; Materials</a>
+          <a href="science-behind.html?category=food-drink">Food &amp; Drink</a>
+          <a href="science-behind.html?category=tech-product">Tech &amp; Product Design</a>
+          <a href="science-behind.html?category=money-banking">Money &amp; Banking</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="sessions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9l-4.5 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path><circle cx="12" cy="11" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">Field Sessions<span class="nav-desc">Real talks: what actually happened</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 field session categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="sessions.html?category=team">Team Workshops</a>
+          <a href="sessions.html?category=conference">Conference Talks</a>
+          <a href="sessions.html?category=education">Education</a>
+          <a href="sessions.html?category=solo">Solo Field Notes</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3h5v6.2l4.7 8.4a1.6 1.6 0 0 1-1.4 2.4H6.2a1.6 1.6 0 0 1-1.4-2.4l4.7-8.4V3z"></path><line x1="8.7" y1="3" x2="15.3" y2="3"></line><circle cx="12" cy="16" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Experiments<span class="nav-desc">Testable blueprints you could run yourself</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 experiment categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="experiments.html?category=savings-deposits">Savings &amp; Deposits</a>
+          <a href="experiments.html?category=credit-lending">Credit &amp; Lending</a>
+          <a href="experiments.html?category=service-ops">Service &amp; Support</a>
+          <a href="experiments.html?category=fees-pricing">Fees &amp; Pricing</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="reading-the-research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"></circle><line x1="14.8" y1="14.8" x2="20" y2="20" stroke="var(--mustard)"></line></svg><span class="link-text">Reading the Research<span class="nav-desc">How to evaluate a study properly</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 16 related essays">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="evidence-strength.html">How Strong Is That Evidence?<span class="nav-desc">A field guide to causal claims</span></a>
+          <a href="policy-based-evidence.html">Policy-Based Evidence, Not Evidence-Based Policy<span class="nav-desc">Why pilots don't survive scale</span></a>
+          <a href="dont-say-the-e-word.html">Don't Say the E-Word<span class="nav-desc">Why &ldquo;experiment&rdquo; spooks teams</span></a>
+          <a href="how-you-pay-changes-what-you-spend.html">How You Pay Changes What You Spend<span class="nav-desc">Cash, debit, and credit aren't equivalent</span></a>
+          <a href="small-sample-big-claim.html">The Test Was Real. The Conclusion Wasn't.<span class="nav-desc">Thirteen experiments that misled without lying</span></a>
+          <a href="savings-lottery.html">The Lottery You Can't Lose<span class="nav-desc">Why a no-loss lottery moves real savings</span></a>
+          <a href="nobody-owns-a-bias.html">Behavioural Economics vs. Behavioural Science vs. Psychology vs. UX<span class="nav-desc">Nobody owns a bias</span></a>
+          <a href="six-moves-behind-every-pricing-page.html">Six Moves Behind Every Pricing Page<span class="nav-desc">The same six mechanisms, on repeat</span></a>
+          <a href="not-testing-is-still-a-bet.html">Not Testing Is Still a Bet<span class="nav-desc">Why pre-vs-post isn't measurement</span></a>
+          <a href="every-default-decides-who-pays.html">Every Default Decides Who Pays for Doing Nothing<span class="nav-desc">Opt-in, opt-out, forced choice, and what's newer</span></a>
+          <a href="the-fine-print-nobody-reads.html">The Fine Print Nobody Reads<span class="nav-desc">Why disclosure fails, and what actually works</span></a>
+          <a href="you-are-already-doing-behavioural-economics.html">You're Already Doing Behavioural Economics<span class="nav-desc">Eight mechanisms already running on your pages</span></a>
+          <a href="proximity-gets-mistaken-for-merit.html">Proximity Gets Mistaken for Merit<span class="nav-desc">A housing lottery and an MLB draft, seventy years apart</span></a>
+          <a href="the-tactile-premium.html">It Costs More to Print. It Still Works Better.<span class="nav-desc">Touch, reading, and why the paper copy still earns its keep</span></a>
+          <a href="breaking-a-form-into-steps.html">Breaking a Form Into Steps Changes How It Feels<span class="nav-desc">It doesn't always change how it performs</span></a>
+          <a href="ai-over-trusted-then-under-trusted.html">AI Gets Over-Trusted Until It Errs Once<span class="nav-desc">Then it gets under-trusted for good</span></a>
+        </div>
+      </div>
+      <a href="natural-experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v7"></path><path d="M12 10 L6 20"></path><path d="M12 10 L18 20"></path><circle cx="12" cy="3" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Natural Experiments<span class="nav-desc">How to prove a cause without an RCT</span></span></a>
+      <a href="apply.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.2"></circle><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"></circle><path d="M12 2.5v3M21.5 12h-3" stroke="var(--terracotta)"></path></svg><span class="link-text">Apply It<span class="nav-desc">Turn a principle or a problem into an experiment</span></span></a>
+      <a href="#about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="11" x2="12" y2="16"></line><circle cx="12" cy="7.5" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">About<span class="nav-desc">Who's behind this, and why</span></span></a>
       <a href="#newsletter" class="nav-cta">Subscribe<span class="nav-desc">One real study per email, no schedule</span></a>
+    </div>
+  </div>
+  <div class="nav-search-panel" id="navSearchPanel" hidden>
+    <div class="wrap">
+      <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
+        <label for="navSearchInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
+        <input type="search" id="navSearchInput" name="q" placeholder="Search 73 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="navSearchSuggestions" aria-haspopup="listbox">
+        <button type="submit">Search</button>
+        <ul class="search-suggestions" id="navSearchSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
+      </form>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <img class="hero-logo" src="images/logo-lockup.png" alt="What Works &amp; Why" width="1100" height="323">
+    <img class="hero-logo" src="images/logo-lockup.png" alt="What Works &amp; Why" width="1120" height="384">
     <span class="eyebrow">
       <svg class="eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="8.5"></circle>
         <path d="M15.5 8.5l-2.2 5-5 2.2 2.2-5 5-2.2z" fill="currentColor" stroke="none"></path>
       </svg>
-      Applied behavioural economics
+      Applied behavioural economics <span class="eyebrow-byline-group"><span class="eyebrow-dot" aria-hidden="true">&middot;</span> By Grant Burrow</span>
     </span>
-    <h1 class="hero-h1">You're already doing <span class="accent-word">behavioural
+    <h1 class="hero-h1 grad-word">You're already doing <span class="accent-word">behavioural
       <svg class="accent-underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M4,10 C40,5 90,14 130,8 C160,4 180,13 196,7" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" pathLength="1"></path>
+        <defs>
+          <linearGradient id="heroUnderlineGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="var(--ink)"></stop>
+            <stop offset="32%" stop-color="var(--terracotta)"></stop>
+            <stop offset="64%" stop-color="var(--mustard)"></stop>
+            <stop offset="100%" stop-color="var(--teal)"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M4,10 C40,5 90,14 130,8 C160,4 180,13 196,7" fill="none" stroke="url(#heroUnderlineGradient)" stroke-width="4" stroke-linecap="round" pathLength="1"></path>
       </svg>
     </span> economics.</h1>
-    <p class="subline">Probably without knowing it. And probably doing it badly.<span class="subline-underline" aria-hidden="true"></span></p>
+    <p class="hero-tagline">Probably without knowing it. And probably doing it badly.</p>
+    <p class="hero-report-link"><a href="you-are-already-doing-behavioural-economics.html">The full argument, in eight mechanisms &rsaquo;</a></p>
+    <div class="proof-row">
+      <span class="proof-item"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41L11 3.83A2 2 0 0 0 9.57 3H4a1 1 0 0 0-1 1v5.57a2 2 0 0 0 .59 1.42l9.58 9.58a2 2 0 0 0 2.82 0l4.36-4.36a2 2 0 0 0 0-2.8z" stroke="var(--terracotta)"></path><line x1="7" y1="7" x2="7.01" y2="7" stroke="var(--mustard)"></line></svg><b>Moment</b></span>
+      <span class="proof-item"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8" stroke="var(--mustard)"></circle><line x1="8" y1="13" x2="8" y2="10" stroke="var(--teal)"></line><line x1="11" y1="13" x2="11" y2="8" stroke="var(--teal)"></line><line x1="14" y1="13" x2="14" y2="11" stroke="var(--teal)"></line><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="var(--terracotta)"></line></svg><b>Research</b></span>
+      <span class="proof-item"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6" stroke="var(--terracotta)"></path><path d="M10 22h4" stroke="var(--terracotta)"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2.3v0h6v0c0-1.1.4-1.8 1-2.3A7 7 0 0 0 12 2z" stroke="var(--teal)"></path><circle cx="12" cy="9" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><b>Why it works</b></span>
+    </div>
   </div>
 </header>
 
+<section class="search-band" id="search-band">
+  <div class="wrap">
+    <p class="search-band-label">Know what you're looking for?</p>
+    <p class="search-band-sub">Search all 73 principles directly.</p>
+    <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
+      <label for="searchBandInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
+      <input type="search" id="searchBandInput" name="q" placeholder="Search 73 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="searchBandSuggestions" aria-haspopup="listbox">
+      <button type="submit">Search</button>
+      <ul class="search-suggestions" id="searchBandSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
+    </form>
+  </div>
+</section>
+
+<section class="beats-teaser" id="see-one-for-yourself">
+  <div class="wrap">
+    <p class="beats-label">See one for yourself</p>
+    <div class="beats-row">
+      <article class="beats-card">
+        <svg class="beats-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 3.5h9l8 8-9 9-8-8v-9z"></path><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+        <div class="beats-card-text">
+          <h3>Zero Price Effect</h3>
+          <p>A price drops to free. Demand doesn't rise a little. It jumps, even when the discount to get there was identical.</p>
+        </div>
+      </article>
+      <article class="beats-card">
+        <svg class="beats-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"></rect><circle cx="7.5" cy="12" r="1.4" fill="currentColor" stroke="none"></circle><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"></circle><circle cx="16.5" cy="12" r="1.4"></circle></svg>
+        <div class="beats-card-text">
+          <h3>Goal Gradient Effect</h3>
+          <p>A loyalty card arrives with two stamps already on it. You finish it faster, for the exact same reward.</p>
+        </div>
+      </article>
+      <article class="beats-card">
+        <svg class="beats-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 12.5l2.5 2.5L16 9"></path></svg>
+        <div class="beats-card-text">
+          <h3>Default Effect</h3>
+          <p>Whatever's pre-selected gets chosen, far more often than the exact same option would if you had to pick it.</p>
+        </div>
+      </article>
+    </div>
+    <div class="beats-close">
+      <p>73 of these, each tied to a real study.</p>
+      <a class="beats-cta" href="principles.html">See them all &rsaquo;</a>
+    </div>
+  </div>
+</section>
+
+<section class="explore-hub" id="explore">
+  <div class="wrap">
+    <h2 class="explore-hub-title">Understand what works &amp; why</h2>
+    <p class="explore-hub-sub">Six ways into the same site, pick whichever matches what you actually need right now.</p>
+    <div class="explore-hub-grid">
+      <a class="explore-hub-card" href="principles.html">
+        <span class="tile-icon-chip chip-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="1.5"></rect><line x1="8" y1="7.5" x2="16" y2="7.5"></line><line x1="8" y1="11.5" x2="16" y2="11.5"></line><line x1="8" y1="15.5" x2="13" y2="15.5" stroke="var(--teal)"></line></svg></span>
+        <span class="explore-hub-text"><span class="explore-hub-name">Principles</span><span class="explore-hub-count">73 cited</span></span>
+      </a>
+      <a class="explore-hub-card" href="science-behind.html">
+        <span class="tile-icon-chip chip-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><line x1="14.6" y1="14.6" x2="20" y2="20"></line><circle cx="10" cy="10" r="2" stroke="var(--terracotta)"></circle></svg></span>
+        <span class="explore-hub-text"><span class="explore-hub-name">The Science Behind</span><span class="explore-hub-count">3 real objects</span></span>
+      </a>
+      <a class="explore-hub-card" href="experiments.html">
+        <span class="tile-icon-chip chip-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3h5v6.2l4.7 8.4a1.6 1.6 0 0 1-1.4 2.4H6.2a1.6 1.6 0 0 1-1.4-2.4l4.7-8.4V3z"></path><line x1="8.7" y1="3" x2="15.3" y2="3"></line><circle cx="12" cy="16" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg></span>
+        <span class="explore-hub-text"><span class="explore-hub-name">Experiments</span><span class="explore-hub-count">20 blueprints</span></span>
+      </a>
+      <a class="explore-hub-card" href="reading-the-research.html">
+        <span class="tile-icon-chip chip-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"></circle><line x1="14.8" y1="14.8" x2="20" y2="20" stroke="var(--teal)"></line></svg></span>
+        <span class="explore-hub-text"><span class="explore-hub-name">Special reports</span><span class="explore-hub-count">15 arguments</span></span>
+      </a>
+      <a class="explore-hub-card" href="sessions.html">
+        <span class="tile-icon-chip chip-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9l-4.5 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path><circle cx="12" cy="11" r="1" fill="var(--mustard)" stroke="none"></circle></svg></span>
+        <span class="explore-hub-text"><span class="explore-hub-name">Field Sessions</span><span class="explore-hub-count">Live talks</span></span>
+      </a>
+      <a class="explore-hub-card" href="apply.html">
+        <span class="tile-icon-chip chip-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.2"></circle><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"></circle><path d="M12 2.5v3M21.5 12h-3" stroke="var(--terracotta)"></path></svg></span>
+        <span class="explore-hub-text"><span class="explore-hub-name">Apply It</span><span class="explore-hub-count">Find your fix</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <hr class="rule">
 
-<section class="about" id="intention">
+<section class="persona-picker" id="find-your-start">
   <div class="wrap">
-    <p class="lede">This is a guide to the forces already shaping how people decide, so you can use them deliberately, not by accident.</p>
-    <p class="bio">Real signage, real menus, real checkouts: each one broken down to the actual study behind it, not just the theory.</p>
+    <h2 class="persona-picker-label">Start with what's built for you</h2>
+    <div class="persona-tiles" role="group" aria-label="Choose your role to see relevant examples">
+      <a class="persona-tile" href="for-small-business.html">
+        <span class="tile-icon-chip chip-square"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10l1.2-5h13.6L20 10"></path><path d="M4 10v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9" stroke="var(--terracotta)"></path><line x1="7" y1="6" x2="6.3" y2="9.6" stroke="var(--mustard)" stroke-width="1.1"></line><line x1="12" y1="5.4" x2="12" y2="9.6" stroke="var(--mustard)" stroke-width="1.1"></line><line x1="17" y1="6" x2="17.7" y2="9.6" stroke="var(--mustard)" stroke-width="1.1"></line><path d="M9 20v-6h6v6"></path><circle cx="13.6" cy="17" r="0.5" fill="var(--teal)" stroke="none"></circle></svg></span>
+        <span class="persona-tile-name">Small business</span>
+      </a>
+      <a class="persona-tile" href="for-large-business.html">
+        <span class="tile-icon-chip chip-square"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="1"></rect><rect x="10" y="17" width="4" height="4" stroke="var(--terracotta)" stroke-width="1.2"></rect><line x1="9" y1="7" x2="9" y2="7.01" stroke="var(--mustard)" stroke-width="1.4"></line><line x1="15" y1="7" x2="15" y2="7.01" stroke="var(--mustard)" stroke-width="1.4"></line><line x1="12" y1="11" x2="12" y2="11.01" stroke="var(--mustard)" stroke-width="1.4"></line><line x1="12" y1="7" x2="12" y2="7.01" stroke-width="1.4"></line><line x1="9" y1="11" x2="9" y2="11.01" stroke-width="1.4"></line><line x1="15" y1="11" x2="15" y2="11.01" stroke-width="1.4"></line><line x1="12" y1="3" x2="12" y2="1.3" stroke="var(--teal)" stroke-width="1.1"></line><circle cx="12" cy="1" r="0.6" fill="var(--teal)" stroke="none"></circle></svg></span>
+        <span class="persona-tile-name">Large business</span>
+      </a>
+      <a class="persona-tile" href="for-product-managers.html">
+        <span class="tile-icon-chip chip-square"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"></rect><rect x="4" y="10" width="16" height="4" rx="1" stroke="var(--teal)"></rect><rect x="4" y="16" width="10" height="4" rx="1" stroke="var(--terracotta)"></rect><path d="M16.6 17.4L20.6 21.4L18.8 21.6L17.9 23.2L15.6 18.9Z" fill="var(--mustard)" stroke="var(--mustard)" stroke-width="0.7" stroke-linejoin="round"></path></svg></span>
+        <span class="persona-tile-name">Product manager</span>
+      </a>
+      <a class="persona-tile" href="for-researchers.html">
+        <span class="tile-icon-chip chip-square"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4L21 8.5L12 13L3 8.5L12 4Z"></path><path d="M7 10.3V14c0 1.1 2.2 2 5 2s5-.9 5-2v-3.7"></path><path d="M18 9.3V15" stroke="var(--terracotta)" stroke-width="1.2"></path><circle cx="18" cy="16" r="1" fill="var(--terracotta)" stroke="none"></circle><line x1="12" y1="4" x2="12" y2="1.6" stroke="var(--mustard)" stroke-width="1.1"></line><circle cx="12" cy="1.3" r="0.6" fill="var(--mustard)" stroke="none"></circle><circle cx="6.7" cy="17.6" r="1.4" stroke="var(--teal)" stroke-width="1"></circle><line x1="7.7" y1="18.6" x2="8.6" y2="19.5" stroke="var(--teal)" stroke-width="1"></line></svg></span>
+        <span class="persona-tile-name">Researcher</span>
+      </a>
+      <a class="persona-tile" href="for-marketers.html">
+        <span class="tile-icon-chip chip-square"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10v4l4 1 10 5V4L7 9l-4 1z"></path><path d="M17 10.5a2.5 2.5 0 0 1 0 3" stroke="var(--mustard)" stroke-width="1.3"></path><path d="M19.3 8.7a5 5 0 0 1 0 6.6" stroke="var(--mustard)" stroke-width="1"></path><line x1="7" y1="9.6" x2="7" y2="13.9" stroke="var(--terracotta)" stroke-width="1.4"></line><circle cx="6" cy="11.8" r="0.6" fill="var(--teal)" stroke="none"></circle></svg></span>
+        <span class="persona-tile-name">Marketer</span>
+      </a>
+    </div>
   </div>
 </section>
-
-<section class="proof-strip">
-  <div class="wrap">
-    <div class="proof-item">
-      <span class="proof-num">56</span>
-      <p>Principles, <b>each tied to a real study</b>, not folk wisdom.</p>
-    </div>
-    <div class="proof-item">
-      <span class="proof-num">10</span>
-      <p>Full experiment teardowns, <b>actual numbers included</b>.</p>
-    </div>
-    <div class="proof-item">
-      <span class="proof-num">0</span>
-      <p>Growth hacks <b>used to get you to read this</b>.</p>
-    </div>
-  </div>
-</section>
-
-<div class="newsletter-inline">
-  <div class="wrap">
-    <div class="newsletter-inline-row">
-      <div class="newsletter-inline-text">
-        <div class="newsletter-inline-heading">
-          <svg class="newsletter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2.5" y="5" width="19" height="14" rx="2"></rect>
-            <path d="M3 6.5l9 7 9-7"></path>
-          </svg>
-          <strong>Get the next teardown before it's added to this page</strong>
-        </div>
-        <ul class="newsletter-inline-points">
-          <li>
-            <svg class="newsletter-point-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="3.5" width="14" height="17" rx="1.5"></rect>
-              <line x1="6.5" y1="8" x2="13.5" y2="8"></line>
-              <line x1="6.5" y1="11.5" x2="13.5" y2="11.5"></line>
-              <line x1="6.5" y1="15" x2="10.5" y2="15"></line>
-              <circle cx="18.5" cy="16.5" r="4" stroke="var(--terracotta)"></circle>
-              <line x1="21.4" y1="19.4" x2="23.5" y2="21.5" stroke="var(--terracotta)"></line>
-            </svg>
-            <span><b>One real study</b> per email, broken down to the mechanism and the numbers behind it.</span>
-          </li>
-          <li>
-            <svg class="newsletter-point-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 18h6"></path>
-              <path d="M10 21h4"></path>
-              <path d="M12 3a6.5 6.5 0 0 0-3.8 11.8c.5.4.8 1 .8 1.7v.5h6v-.5c0-.7.3-1.3.8-1.7A6.5 6.5 0 0 0 12 3z"></path>
-              <line x1="12" y1="7" x2="12" y2="11" stroke="var(--terracotta)"></line>
-            </svg>
-            <span>See the lever clearly enough to <b>stop guessing</b> and start designing for it.</span>
-          </li>
-          <li>
-            <svg class="newsletter-point-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 11.5L20.5 3.5 15 20.5l-4-7.5-7.5-1.5z"></path>
-              <line x1="11" y1="13" x2="20.5" y2="3.5" stroke="var(--terracotta)"></line>
-            </svg>
-            <span>No schedule: sent only when <b>there's a teardown worth sending</b>.</span>
-          </li>
-        </ul>
-      </div>
-      <div class="ml-embedded" data-form="4EN3Ls"></div>
-    </div>
-  </div>
-</div>
 
 <hr class="rule">
 
@@ -156,86 +304,13 @@
       <div class="stage-row" id="stageRow"></div>
     </div>
     <div class="featured-cta">
-      <form class="principles-search-cta" action="principles.html" method="get">
+      <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
         <label for="homeSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
-        <input type="search" id="homeSearch" name="q" placeholder="Search 56 principles&hellip;">
+        <input type="search" id="homeSearch" name="q" placeholder="Search 73 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="homeSearchSuggestions" aria-haspopup="listbox">
         <button type="submit">Search</button>
+        <ul class="search-suggestions" id="homeSearchSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
       </form>
-      <a class="featured-browse-all" href="principles.html">Browse all 56 principles &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<hr class="rule">
-
-<section class="reports-row" id="reports-row">
-  <div class="wrap">
-    <span class="label">More ways in</span>
-    <div class="reports-grid">
-      <a class="report-card accent-teal" href="reading-the-research.html">
-        <span class="report-card-tag">Special Report</span>
-        <strong>Reading the Research</strong>
-        <span class="report-card-sub">How to evaluate a study: the replication crisis, why interventions backfire, lab vs. field evidence, and why stated intentions are unreliable.</span>
-      </a>
-      <a class="report-card accent-mustard" href="#ethics-of-not-experimenting">
-        <span class="report-card-tag">Field Note</span>
-        <strong>The Ethics of Not Experimenting</strong>
-        <span class="report-card-sub">An argument, not a finding, on why skipping measurement is still a bet, just an unmeasured one.</span>
-      </a>
-      <div class="report-card accent-terracotta" id="experiment-teardowns">
-        <span class="report-card-tag">Case Studies</span>
-        <strong>Experiment Teardowns</strong>
-        <span class="report-card-sub">Selected principles get a visual breakdown of exactly how the study was run: the two conditions, the manipulated variable, and the real result.</span>
-        <span class="report-card-links">
-          <a href="principles.html#zero-price">Zero Price Effect</a>
-          <a href="principles.html#medium-maximization">Medium Maximization</a>
-          <a href="principles.html#choice-overload">Choice Overload</a>
-          <a href="principles.html#ordering-effects">Ordering Effects</a>
-          <a href="principles.html#social-norm">Social Norm</a>
-          <a href="principles.html#peak-end-rule">Peak-End Rule</a>
-          <a href="principles.html#tradeoff-transparency">Tradeoff Transparency</a>
-          <a href="principles.html#mental-accounting">Mental Accounting</a>
-          <a href="principles.html#symbolic-rewards">Symbolic Rewards</a>
-          <a href="principles.html#checklists">Checklists</a>
-        </span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="field-note" id="ethics-of-not-experimenting">
-  <div class="wrap">
-    <span class="field-note-tag">A field note, not a study</span>
-    <h3>The ethics of not experimenting</h3>
-    <p>Every principle on this site comes with a study, a citation, a methodology critique, because that's the standard the site holds itself to. This one doesn't get that treatment, and it shouldn't pretend to: it's an argument, not a finding, and it's worth saying so plainly before making it.</p>
-    <p>The argument: choosing not to measure the effect of a change you're making isn't a neutral, cautious default. It's still a bet, just an unmeasured one. Every new feature, policy, or message you ship changes something, whether or not anyone tracks what. &ldquo;We didn't have time to test it&rdquo; and &ldquo;we tested it and it worked&rdquo; are not equally safe choices; the first is just the second one without the information.</p>
-    <p>This doesn't mean every decision needs a randomised trial before it ships. That bar is often genuinely too high, too slow, or too expensive for the size of the decision. But it's worth being honest about what's actually being traded away when a team skips measurement: not caution, but the ability to know, later, whether the change helped, hurt, or did nothing at all.</p>
-    <p class="stance-note">Treat this as one site's argument, not settled research, and feel free to disagree.</p>
-  </div>
-</section>
-
-<hr class="rule">
-
-<section class="explore" id="explore">
-  <div class="wrap">
-    <h2>More to explore</h2>
-    <div class="explore-grid">
-      <a class="explore-card" href="principles.html">
-        <h3>Principles</h3>
-        <p>56 cited principles, each broken down to the real study behind it, searchable and filterable.</p>
-      </a>
-      <a class="explore-card" href="sessions.html">
-        <h3>Field Sessions</h3>
-        <p>Live talks and workshops where this gets put in front of a real room, and what actually happened.</p>
-      </a>
-      <a class="explore-card" href="experiments.html">
-        <h3>Experiments</h3>
-        <p>Testable blueprints: hypothesis, sample size, and how to run each one yourself.</p>
-      </a>
-      <a class="explore-card" href="reading-the-research.html">
-        <h3>Reading the Research</h3>
-        <p>How to evaluate a study: replication, backfires, lab vs. field, and unreliable stated intentions.</p>
-      </a>
+      <a class="featured-browse-all" href="principles.html">Browse all 73 principles &rarr;</a>
     </div>
   </div>
 </section>
@@ -245,14 +320,14 @@
 <section class="about" id="about">
   <div class="wrap">
     <span class="eyebrow">Who's behind this</span>
-    <p class="bio">I'm Grant. I've spent years running behavioural experiments inside real consumer products, the kind written up as Harvard Business School case studies, not just textbooks. I care about the applied part: not reciting theory, but showing you the sign, the screen, the menu, and exactly why it works.</p>
+    <p class="bio">I'm Grant Burrow. I've spent years running behavioural experiments inside real consumer products, the kind written up as Harvard Business School case studies, not just textbooks. I care about the applied part: not reciting theory, but showing you the sign, the screen, the menu, and exactly why it works.</p>
     <div class="credentials">
       <div class="credential-item">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M2 9l10-5 10 5-10 5-10-5z"></path>
           <path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path>
-          <path d="M22 9v6" stroke="var(--terracotta)"></path>
-          <circle cx="22" cy="17" r="1" fill="var(--terracotta)" stroke="none"></circle>
+          <path d="M22 9v6" stroke="var(--mustard)"></path>
+          <circle cx="22" cy="17" r="1" fill="var(--mustard)" stroke="none"></circle>
         </svg>
         <span>Masters, Behavioural Economics</span>
       </div>
@@ -260,7 +335,7 @@
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M9 3h6"></path>
           <path d="M10 3v6l-6 10a1 1 0 0 0 .9 1.5h14.2a1 1 0 0 0 .9-1.5L14 9V3"></path>
-          <path d="M6.5 15h11" stroke="var(--terracotta)"></path>
+          <path d="M6.5 15h11" stroke="var(--teal)"></path>
         </svg>
         <span>250+ experiments run</span>
       </div>
@@ -272,7 +347,7 @@
           <line x1="6" y1="12" x2="13" y2="12"></line>
           <line x1="6" y1="16" x2="10" y2="16"></line>
         </svg>
-        <span>Case studies: Harvard Business School, AFR</span>
+        <span>Case studies: Harvard Business School, Australian Financial Review</span>
       </div>
     </div>
   </div>
@@ -284,7 +359,11 @@
   <div class="wrap">
     <h2>One field note, whenever there's something worth sending</h2>
     <p>Real examples, plainly explained. No spam, no sleazy tricks.</p>
-    <div class="ml-embedded" data-form="4EN3Ls"></div>
+    <form class="newsletter-form" action="https://assets.mailerlite.com/jsonp/2581803/forms/196106615158474445/subscribe" method="post" target="_blank" novalidate>
+      <label for="email-input" class="visually-hidden">Email address</label>
+      <input id="email-input" type="email" name="fields[email]" placeholder="you@example.com" required>
+      <button type="submit">Send me the next one</button>
+    </form>
     <p class="fine">Unsubscribe in one tap, anytime.</p>
   </div>
 </section>
@@ -294,15 +373,21 @@
     <div>&copy; 2026 What Works &amp; Why</div>
     <ul>
       <li><a href="principles.html">Principles</a></li>
+      <li><a href="science-behind.html">The Science Behind</a></li>
       <li><a href="sessions.html">Field Sessions</a></li>
       <li><a href="experiments.html">Experiments</a></li>
       <li><a href="reading-the-research.html">Reading the Research</a></li>
+      <li><a href="natural-experiments.html">Natural Experiments</a></li>
+      <li><a href="apply.html">Apply It</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#newsletter">Subscribe</a></li>
     </ul>
   </div>
 </footer>
 
+<script src="apply-data.js"></script>
+<script src="search-index.js"></script>
+<script src="predictive-search.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
