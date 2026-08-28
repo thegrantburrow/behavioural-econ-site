@@ -1549,6 +1549,11 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   grid-template-columns: 1fr 1fr;
   gap: 18px;
 }
+/* One screenshot on its own gets the whole column. Half of it is right for a
+   magazine cover, and wrong for a phone screenshot: the McDonald's offer
+   screen came out about 250px wide on desktop, which put the price the block
+   is citing at roughly six pixels tall. */
+.spotted-grid--single { grid-template-columns: 1fr; }
 @media (max-width: 640px) {
   .spotted-grid { grid-template-columns: 1fr; }
 }
