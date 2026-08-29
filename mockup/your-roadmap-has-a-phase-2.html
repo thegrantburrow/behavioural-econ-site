@@ -207,6 +207,91 @@
       <p class="intro" style="margin-top:16px">The rest of this report maps that gap for one real kind of feature, stage by stage, with a named metric and a named trap at each link. <b>The example: a bank ships a &ldquo;set a savings goal&rdquo; feature</b>, letting a customer name a goal, a target amount, and a date, with progress shown on the home screen.</p>
     </div>
 
+    <div class="report-section" id="outcome-logic-map">
+      <h3>The same chain, mapped end to end</h3>
+      <p class="intro">The five stages below aren't five separate checks. They're one chain, and every link narrows the group that reaches the next one. The map applies that chain to the savings-goal example, starting from an illustrative cohort of 1,000 customers who actually noticed the feature. <b>The numbers are illustrative, built to show the shape a funnel like this takes, not a measured result from any real product.</b></p>
+
+      <div class="outcome-funnel">
+        <span class="visually-hidden">Funnel diagram: an illustrative cohort of 1,000 customers narrows to 95 across five stages, awareness, discovery, trial, completion, and persistence, with the conversion rate and drop-off between each stage shown below.</span>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-head">
+            <span class="funnel-stage-num">1</span>
+            <a class="funnel-stage-name" href="#stage-awareness">Awareness</a>
+            <span class="funnel-stage-count">1,000<span>customers</span></span>
+          </div>
+          <p class="funnel-stage-task">Notices the feature: sees the banner, the notification, or the homepage tile.</p>
+          <div class="funnel-bar-track"><div class="funnel-bar-fill" style="width:100%"></div></div>
+        </div>
+
+        <div class="funnel-connector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg>
+          <span class="funnel-rate">62% continue</span>
+          <span class="funnel-drop">380 don&rsquo;t</span>
+        </div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-head">
+            <span class="funnel-stage-num">2</span>
+            <a class="funnel-stage-name" href="#stage-discovery">Discovery</a>
+            <span class="funnel-stage-count">620<span>customers</span></span>
+          </div>
+          <p class="funnel-stage-task">Opens the goal-setting screen unprompted, days after the campaign ended.</p>
+          <div class="funnel-bar-track"><div class="funnel-bar-fill" style="width:62%"></div></div>
+        </div>
+
+        <div class="funnel-connector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg>
+          <span class="funnel-rate">55% continue</span>
+          <span class="funnel-drop">280 don&rsquo;t</span>
+        </div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-head">
+            <span class="funnel-stage-num">3</span>
+            <a class="funnel-stage-name" href="#stage-trial">Trial</a>
+            <span class="funnel-stage-count">340<span>customers</span></span>
+          </div>
+          <p class="funnel-stage-task">Names a goal and sets a target amount, the first substantive input.</p>
+          <div class="funnel-bar-track"><div class="funnel-bar-fill" style="width:34%"></div></div>
+        </div>
+
+        <div class="funnel-connector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg>
+          <span class="funnel-rate">53% continue</span>
+          <span class="funnel-drop">160 don&rsquo;t</span>
+        </div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-head">
+            <span class="funnel-stage-num">4</span>
+            <a class="funnel-stage-name" href="#stage-onboarding-completion">Completion</a>
+            <span class="funnel-stage-count">180<span>customers</span></span>
+          </div>
+          <p class="funnel-stage-task">Finishes all four setup steps: name, amount, date, funding source.</p>
+          <div class="funnel-bar-track"><div class="funnel-bar-fill" style="width:18%"></div></div>
+        </div>
+
+        <div class="funnel-connector">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v14M6 13l6 6 6-6"></path></svg>
+          <span class="funnel-rate">53% continue</span>
+          <span class="funnel-drop">85 don&rsquo;t</span>
+        </div>
+
+        <div class="funnel-stage">
+          <div class="funnel-stage-head">
+            <span class="funnel-stage-num">5</span>
+            <a class="funnel-stage-name" href="#stage-persistence">Persistence</a>
+            <span class="funnel-stage-count">95<span>customers</span></span>
+          </div>
+          <p class="funnel-stage-task">Still has the goal active and funded, 90 days later.</p>
+          <div class="funnel-bar-track"><div class="funnel-bar-fill" style="width:9.5%"></div></div>
+        </div>
+
+        <p class="funnel-close">About <b>95 of the original 1,000</b> are still there three months later, roughly one in ten. That's the number worth taking to a steering committee. The 1,000 at the top, and the raw count of goals ever created, both look better, and both tell you less.</p>
+      </div>
+    </div>
+
     <div class="report-section" id="stage-awareness">
       <h3>Stage one: awareness, does anyone know it exists?</h3>
       <p class="intro">Before anyone can try a feature, they have to know it's there. <b>The proxy trap here is counting impressions instead of people.</b> A banner shown five times to the same customer who never noticed it logs as five impressions and zero real awareness. The metric that actually matters is the share of eligible customers reached at least once through a channel they'd plausibly notice, not the raw number of times the banner rendered.</p>
