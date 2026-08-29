@@ -1,17 +1,18 @@
-// coin-engine.js — shared coin-flip simulation and statistics.
+// coin-engine.js: shared coin-flip simulation and statistics.
 // Used by the-coin-has-no-memory.html's four interactive widgets and by
 // this site's coin-flip Live Session tools, so the same tested logic
 // (not four separately-typed copies of it) underlies every one of them.
 (function (global) {
   "use strict";
 
-  function flip() {
-    return Math.random() < 0.5 ? "H" : "T";
+  function flip(p) {
+    p = p === undefined ? 0.5 : p;
+    return Math.random() < p ? "H" : "T";
   }
 
-  function flipSequence(n) {
+  function flipSequence(n, p) {
     var out = [];
-    for (var i = 0; i < n; i++) out.push(flip());
+    for (var i = 0; i < n; i++) out.push(flip(p));
     return out;
   }
 
@@ -106,6 +107,38 @@
     return Math.sqrt(n * p * (1 - p));
   }
 
+  // Wald 95% confidence interval for a proportion, in percentage points.
+  // Deliberately the simple normal-approximation formula (observed
+  // proportion plus or minus 1.96 standard errors), not the more
+  // exact Wilson score interval, matching the same standard-error math
+  // already used elsewhere in this file (stddevCountBinomial) so the
+  // report's own worked examples stay internally consistent.
+  function ciWald(heads, n, z) {
+    z = z === undefined ? 1.96 : z;
+    var phat = heads / n;
+    var se = Math.sqrt((phat * (1 - phat)) / n);
+    var margin = z * se;
+    return {
+      lo: Math.max(0, 100 * (phat - margin)),
+      hi: Math.min(100, 100 * (phat + margin))
+    };
+  }
+
+  // Exact statistical power: if the coin's true heads-probability really
+  // is trueP (not 0.5), what fraction of n-flip samples would a two-tailed
+  // test at the given alpha correctly flag as significant? Computed by
+  // summing the coin's true-trueP probability of landing in whichever
+  // outcomes a fair-coin two-tailed test would reject, not simulated,
+  // for the same exactness twoTailedP already holds to.
+  function power(n, trueP, alpha) {
+    alpha = alpha === undefined ? 0.05 : alpha;
+    var total = 0;
+    for (var k = 0; k <= n; k++) {
+      if (twoTailedP(n, k, 0.5) < alpha) total += binomPmf(n, k, trueP);
+    }
+    return total;
+  }
+
   global.CoinEngine = {
     flip: flip,
     flipSequence: flipSequence,
@@ -116,6 +149,8 @@
     binomPmf: binomPmf,
     twoTailedP: twoTailedP,
     mean: mean,
-    stddevCountBinomial: stddevCountBinomial
+    stddevCountBinomial: stddevCountBinomial,
+    ciWald: ciWald,
+    power: power
   };
 })(window);
