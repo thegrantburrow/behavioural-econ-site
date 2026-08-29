@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KN9X80R7HE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KN9X80R7HE');
+  </script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F5F6F5">
+<title>The Coin Has No Memory. The Streak Still Feels Real. | What Works &amp; Why</title>
+<meta name="description" content="What a fair coin can teach you about statistics: why runs feel meaningful when they're not, what a p-value actually says, and why the smallest sample always looks the most extreme.">
+<link rel="canonical" href="https://www.grantburrow.com/the-coin-has-no-memory.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="What Works &amp; Why">
+<meta property="og:title" content="The Coin Has No Memory. The Streak Still Feels Real. | What Works &amp; Why">
+<meta property="og:description" content="What a fair coin can teach you about statistics: why runs feel meaningful when they're not, what a p-value actually says, and why the smallest sample always looks the most extreme.">
+<meta property="og:url" content="https://www.grantburrow.com/the-coin-has-no-memory.html">
+<meta property="og:image" content="https://www.grantburrow.com/images/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Coin Has No Memory. The Streak Still Feels Real. | What Works &amp; Why">
+<meta name="twitter:description" content="What a fair coin can teach you about statistics: why runs feel meaningful when they're not, what a p-value actually says, and why the smallest sample always looks the most extreme.">
+<meta name="twitter:image" content="https://www.grantburrow.com/images/og-card.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo logo-img-wrap" href="index.html" aria-label="What Works &amp; Why, home"><img class="logo-img" src="images/logo-lockup.png" alt="What Works &amp; Why"></a>
+      <div class="bar-actions">
+        <button class="nav-search-toggle" id="navSearchToggle" type="button" aria-label="Search" aria-expanded="false" aria-controls="navSearchPanel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.3" y2="16.3"></line></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="links" id="navLinks">
+      <img class="links-logo" src="images/logo-lockup.png" alt="What Works &amp; Why">
+      <div class="nav-item-expandable">
+        <a href="principles.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="1.5"></rect><line x1="8" y1="7.5" x2="16" y2="7.5"></line><line x1="8" y1="11.5" x2="16" y2="11.5"></line><line x1="8" y1="15.5" x2="13" y2="15.5" stroke="var(--mustard)"></line></svg><span class="link-text">Principles<span class="nav-desc">76 cited principles, searchable and filterable</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 6 principle categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="principles.html?category=judgment">Judgment &amp; Memory</a>
+          <a href="principles.html?category=choice">Choice Architecture</a>
+          <a href="principles.html?category=pricing">Pricing &amp; Value</a>
+          <a href="principles.html?category=social">Social Influence</a>
+          <a href="principles.html?category=motivation">Motivation &amp; Goals</a>
+          <a href="principles.html?category=friction">Friction &amp; Transparency</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="science-behind.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><line x1="14.6" y1="14.6" x2="20" y2="20"></line><circle cx="10" cy="10" r="2" stroke="var(--terracotta)"></circle></svg><span class="link-text">The Science Behind<span class="nav-desc">Real products, decoded into the mechanism</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 Science Behind categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="science-behind.html?category=craft-materials">Craft &amp; Materials</a>
+          <a href="science-behind.html?category=food-drink">Food &amp; Drink</a>
+          <a href="science-behind.html?category=tech-product">Tech &amp; Product Design</a>
+          <a href="science-behind.html?category=money-banking">Money &amp; Banking</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="sessions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9l-4.5 4v-4H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path><circle cx="12" cy="11" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">Field Sessions<span class="nav-desc">Real talks: what actually happened</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 field session categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="sessions.html?category=team">Team Workshops</a>
+          <a href="sessions.html?category=conference">Conference Talks</a>
+          <a href="sessions.html?category=education">Education</a>
+          <a href="sessions.html?category=solo">Solo Field Notes</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3h5v6.2l4.7 8.4a1.6 1.6 0 0 1-1.4 2.4H6.2a1.6 1.6 0 0 1-1.4-2.4l4.7-8.4V3z"></path><line x1="8.7" y1="3" x2="15.3" y2="3"></line><circle cx="12" cy="16" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Experiments<span class="nav-desc">Testable blueprints you could run yourself</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 4 experiment categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="experiments.html?category=savings-deposits">Savings &amp; Deposits</a>
+          <a href="experiments.html?category=credit-lending">Credit &amp; Lending</a>
+          <a href="experiments.html?category=service-ops">Service &amp; Support</a>
+          <a href="experiments.html?category=fees-pricing">Fees &amp; Pricing</a>
+        </div>
+      </div>
+      <div class="nav-item-expandable">
+        <a href="reading-the-research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"></circle><line x1="14.8" y1="14.8" x2="20" y2="20" stroke="var(--mustard)"></line></svg><span class="link-text">Reading the Research<span class="nav-desc">How to evaluate a study properly</span></span></a>
+        <button type="button" class="nav-expand-toggle" aria-expanded="false" aria-label="Show 17 related essays">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-sublist">
+          <a href="evidence-strength.html">How Strong Is That Evidence?<span class="nav-desc">A field guide to causal claims</span></a>
+          <a href="policy-based-evidence.html">Policy-Based Evidence, Not Evidence-Based Policy<span class="nav-desc">Why pilots don't survive scale</span></a>
+          <a href="dont-say-the-e-word.html">Don't Say the E-Word<span class="nav-desc">Why &ldquo;experiment&rdquo; spooks teams</span></a>
+          <a href="how-you-pay-changes-what-you-spend.html">How You Pay Changes What You Spend<span class="nav-desc">Cash, debit, and credit aren't equivalent</span></a>
+          <a href="small-sample-big-claim.html">The Test Was Real. The Conclusion Wasn't.<span class="nav-desc">Thirteen experiments that misled without lying</span></a>
+          <a href="savings-lottery.html">The Lottery You Can't Lose<span class="nav-desc">Why a no-loss lottery moves real savings</span></a>
+          <a href="nobody-owns-a-bias.html">Behavioural Economics vs. Behavioural Science vs. Psychology vs. UX<span class="nav-desc">Nobody owns a bias</span></a>
+          <a href="six-moves-behind-every-pricing-page.html">Six Moves Behind Every Pricing Page<span class="nav-desc">The same six mechanisms, on repeat</span></a>
+          <a href="not-testing-is-still-a-bet.html">Not Testing Is Still a Bet<span class="nav-desc">Why pre-vs-post isn't measurement</span></a>
+          <a href="every-default-decides-who-pays.html">Every Default Decides Who Pays for Doing Nothing<span class="nav-desc">Opt-in, opt-out, forced choice, and what's newer</span></a>
+          <a href="the-fine-print-nobody-reads.html">The Fine Print Nobody Reads<span class="nav-desc">Why disclosure fails, and what actually works</span></a>
+          <a href="you-are-already-doing-behavioural-economics.html">You're Already Doing Behavioural Economics<span class="nav-desc">Eight mechanisms already running on your pages</span></a>
+          <a href="proximity-gets-mistaken-for-merit.html">Proximity Gets Mistaken for Merit<span class="nav-desc">A housing lottery and an MLB draft, seventy years apart</span></a>
+          <a href="the-tactile-premium.html">Printing Costs More Than Digital. The Paper Copy Still Wins.<span class="nav-desc">Touch, reading, and why the paper copy still earns its keep</span></a>
+          <a href="breaking-a-form-into-steps.html">Breaking a Form Into Steps Changes How It Feels<span class="nav-desc">It doesn't always change how it performs</span></a>
+          <a href="ai-over-trusted-then-under-trusted.html">AI Gets Over-Trusted Until It Errs Once<span class="nav-desc">Then it gets under-trusted for good</span></a>
+          <a href="the-coin-has-no-memory.html">The Coin Has No Memory. The Streak Still Feels Real.<span class="nav-desc">What a fair coin can teach you about statistics</span></a>
+        </div>
+      </div>
+      <a href="natural-experiments.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v7"></path><path d="M12 10 L6 20"></path><path d="M12 10 L18 20"></path><circle cx="12" cy="3" r="1.3" fill="var(--mustard)" stroke="none"></circle></svg><span class="link-text">Natural Experiments<span class="nav-desc">How to prove a cause without an RCT</span></span></a>
+      <a href="live-sessions.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"></circle><path d="M8.5 8.5a5 5 0 0 0 0 7"></path><path d="M15.5 8.5a5 5 0 0 1 0 7" stroke="var(--terracotta)"></path><path d="M5.8 5.8a9 9 0 0 0 0 12.4" opacity="0.4"></path><path d="M18.2 5.8a9 9 0 0 1 0 12.4" opacity="0.4"></path></svg><span class="link-text">Live Sessions<span class="nav-desc">Real behavioural science, run live in the room</span></span></a>
+      <a href="apply.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4.2"></circle><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"></circle><path d="M12 2.5v3M21.5 12h-3" stroke="var(--terracotta)"></path></svg><span class="link-text">Apply It<span class="nav-desc">Turn a principle or a problem into an experiment</span></span></a>
+      <a href="index.html#about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="11" x2="12" y2="16"></line><circle cx="12" cy="7.5" r="1" fill="var(--teal)" stroke="none"></circle></svg><span class="link-text">About<span class="nav-desc">Who's behind this, and why</span></span></a>
+      <a href="index.html#newsletter" class="nav-cta">Subscribe<span class="nav-desc">One real study per email, no schedule</span></a>
+    </div>
+  </div>
+  <div class="nav-search-panel" id="navSearchPanel" hidden>
+    <div class="wrap">
+      <form class="principles-search-cta" action="principles.html" method="get" autocomplete="off">
+        <label for="navSearchInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Search principles</label>
+        <input type="search" id="navSearchInput" name="q" placeholder="Search 76 principles&hellip;" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="navSearchSuggestions" aria-haspopup="listbox">
+        <button type="submit">Search</button>
+        <ul class="search-suggestions" id="navSearchSuggestions" role="listbox" aria-label="Matching principles" hidden></ul>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-search-backdrop" id="navSearchBackdrop" hidden></div>
+
+<section class="principles-index" id="top">
+  <div class="wrap">
+    <span class="label">Special Report</span>
+    <h1 class="principles-index-title">The Coin Has No Memory. The Streak Still Feels Real.</h1>
+    <p class="toc-intro">A fair coin is the simplest random process there is: two outcomes, <b>50/50 every single time</b>, no memory of what it just did. That simplicity is exactly why it's the tool statisticians reach for to teach what a real random result looks like, and why it's such a clean way to catch the specific ways people misread one.</p>
+    <p class="toc-intro">Seeing a system in a random streak, trusting a small sample too much, and treating &ldquo;statistically significant&rdquo; as stronger proof than it is: these are the same three misreadings that trip people up on a literal coin. They sit underneath a huge share of the confident &ldquo;the data shows&rdquo; claims made every day in business, media, and research. <b>Even trained statisticians get some of these wrong</b>, reliably, in published studies.</p>
+    <p class="toc-intro">This report walks through all three, each one first shown on a literal coin, then traced to a real, cited study built on exactly the same mechanism.</p>
+
+    <p class="story-stack-label">The story in four parts</p>
+    <div class="story-stack">
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="14" r="10"></circle><path d="M9 11 L11 9 M13 15 L17 11 M19 17 L21 15" stroke="#C43E1F"></path></svg>
+        <div><h4>Real randomness looks streakier than it feels like it should</h4><p>Genuine coin flips produce runs of four or five in a row far more often than an intuitive guess expects.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="10" r="2" fill="currentColor" stroke="none"></circle><circle cx="14" cy="10" r="2" fill="currentColor" stroke="none"></circle><circle cx="20" cy="10" r="2" fill="currentColor" stroke="none"></circle><circle cx="14" cy="18" r="2.4" fill="#E0A93A" stroke="none"></circle><path d="M8 10 L14 18 M20 10 L14 18" stroke-dasharray="1.2 2"></path></svg>
+        <div><h4>After a run of heads, tails feels &ldquo;due&rdquo;</h4><p>The coin has no memory of its last flip, but the mind assumes the run has to correct itself soon.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="14" r="10"></circle><text x="14" y="18.5" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="11" fill="#1F7A6C" stroke="none">p</text></svg>
+        <div><h4>&ldquo;Statistically significant&rdquo; is a narrower claim than it sounds</h4><p>It says a result that size is unlikely under pure chance, nothing about how real, big, or true it is.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="18" r="2.2" fill="currentColor" stroke="none"></circle><circle cx="14" cy="10" r="2.2" fill="#C43E1F" stroke="none"></circle><circle cx="20" cy="18" r="2.2" fill="currentColor" stroke="none"></circle><path d="M4 22 Q14 6 24 22" stroke-dasharray="1.5 2.5"></path></svg>
+        <div><h4>The smallest sample always looks the most extreme</h4><p>Fewer flips swing further from 50/50, purely from arithmetic, before any real effect enters the picture.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="report report-light" id="the-coin-has-no-memory">
+  <div class="wrap">
+
+    <p class="story-stack-label">The evidence at a glance</p>
+    <div class="story-stack">
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M9.5 12 L14 16.5 L18.5 12" stroke="#C43E1F"></path></svg>
+        <div><h4>Trained researchers, still fooled by small numbers</h4><p>Tversky and Kahneman found working scientists routinely <b>overestimated how closely a small sample would match the true population</b>, expecting far less random variation than actually occurs.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="20" height="16" rx="1.5"></rect><path d="M4 9l10 6 10-6" stroke="#1F7A6C"></path></svg>
+        <div><h4>100% of students got it wrong</h4><p>Every psychology undergraduate tested by Haller and Krauss misread a basic p-value question, and so did <b>80% of the methodology instructors teaching them</b>.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 20V11a2 2 0 0 1 4 0v9M14 20V8a2 2 0 0 1 4 0v12M20 20v-6a2 2 0 0 1 4 0v6" stroke="#1F7A6C"></path></svg>
+        <div><h4>One flip changes the verdict</h4><p>Out of 100 fair coin flips, 60 heads doesn't clear the traditional 0.05 significance bar. <b>61 does.</b> Nothing about the coin changed between the two.</p></div>
+      </div>
+      <div class="story-stack-item">
+        <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="14" r="7" fill="#C43E1F" stroke="none" opacity="0.3"></circle><circle cx="10" cy="14" r="7"></circle><circle cx="19" cy="14" r="3.3"></circle></svg>
+        <div><h4>Smallest samples, both extremes</h4><p>Howard Wainer found the US counties with the highest, and the counties with the <b>lowest</b>, cancer rates were both disproportionately the smallest, least populated ones, a pure artefact of sample size.</p></div>
+      </div>
+    </div>
+
+    <div class="report-section" id="randomness-looks-streaky">
+      <h3>A coin is the cleanest random process there is</h3>
+      <p class="intro">Two outcomes, a fixed 50/50 split, and no memory of the last flip: a fair coin is about as simple as randomness gets, which is exactly why it's the example statisticians reach for first. <b>The catch is that genuine randomness doesn't look the way most people expect it to.</b> Below are two 20-flip sequences. One is a real run of a random-number generator standing in for a coin. The other was typed by hand, trying to look random.</p>
+      <div class="method-grid">
+        <div class="method-col strength">
+          <span class="lbl">Sequence A</span>
+          H&thinsp;H&thinsp;T&thinsp;H&thinsp;T&thinsp;T&thinsp;T&thinsp;T&thinsp;H&thinsp;H&thinsp;T&thinsp;H&thinsp;T&thinsp;T&thinsp;H&thinsp;T&thinsp;T&thinsp;H&thinsp;H&thinsp;T
+        </div>
+        <div class="method-col weakness">
+          <span class="lbl">Sequence B</span>
+          H&thinsp;T&thinsp;H&thinsp;T&thinsp;T&thinsp;H&thinsp;T&thinsp;H&thinsp;T&thinsp;H&thinsp;T&thinsp;H&thinsp;T&thinsp;T&thinsp;H&thinsp;T&thinsp;H&thinsp;T&thinsp;H&thinsp;T
+        </div>
+      </div>
+      <p class="intro" style="margin-top:16px">Sequence A is the real one. It has a run of <b>four tails in a row</b> and switches sides 11 times across 20 flips. Sequence B, the handwritten one, never runs longer than two of the same side and switches 17 times, <b>far more often than genuine chance produces</b>. People faking randomness reliably alternate too much, because a long run doesn't feel random even though it's exactly what randomness looks like roughly half the time. This single habit, avoiding runs, is one of the more reliable ways forensic statisticians catch faked data.</p>
+    </div>
+
+    <div class="report-section" id="gamblers-fallacy">
+      <h3>Once the flips start, the mind goes looking for a system that isn't there</h3>
+      <p class="intro">Sequence A above had four tails in a row. Ask most people what's more likely to come next, another tails or a heads, and a common answer is heads: <b>surely it's &ldquo;due.&rdquo;</b> The coin has no memory of the previous four flips. The odds on flip five are 50/50, exactly the same as they were on flip one.</p>
+      <p class="intro">Amos Tversky and Daniel Kahneman named the deeper pattern behind this the <b>&ldquo;law of small numbers&rdquo;</b>. People, including trained researchers, expect a small sample to closely resemble the true underlying odds. Small samples are actually far noisier than that. A short random sequence that happens to look uneven doesn't mean anything is wrong with the coin. It means small samples are supposed to look uneven sometimes, and often do.</p>
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="case-tag">Concept</span>
+          <h4>The Gambler's Fallacy</h4>
+          <p class="salient-question">Why does a run of heads make <mark>tails feel overdue</mark>, when the coin can't remember what it just did?</p>
+          <div class="case-body">
+            <p>Tversky and Kahneman surveyed working research psychologists, at a professional statistics convention, on their expectations for small samples. Researchers repeatedly overestimated how similar a small sample's result would be to the true population value, and underestimated how much a small sample naturally varies just from chance. The same expectation, that a short random sequence should look &ldquo;balanced,&rdquo; underlies the gambler's fallacy. A fair coin's long-run average is 50/50, so a run of heads gets treated as a debt the sequence owes back in tails, soon.</p>
+            <p class="lesson"><b>What it teaches:</b> a truly random process has no obligation to look balanced over any short stretch, only over a very large number of trials. Believing otherwise doesn't just cost a gambler money. Tversky and Kahneman's own subjects were statisticians, and they got it wrong too.</p>
+          </div>
+          <div class="case-cite">Tversky, A., &amp; Kahneman, D. (1971). &ldquo;Belief in the Law of Small Numbers.&rdquo; <a href="https://doi.org/10.1037/h0031322" target="_blank" rel="noopener">Psychological Bulletin, 76(2), 105&ndash;110</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-section" id="hot-hand-bridge">
+      <h3>The same misreading, dressed up as expertise</h3>
+      <p class="intro">The gambler's fallacy above runs in one direction: expecting a streak to correct itself. Its mirror image runs the other way, expecting a streak to continue, and this site already has a full case study of exactly that, built on the same coin-flip logic. <b>A famous 1985 study found NBA players' sequences of makes and misses were statistically indistinguishable from a coin flip</b>, seeming to debunk the &ldquo;hot hand.&rdquo; Decades later, other researchers found a subtle bias baked into how that comparison was measured, and once corrected, a real hot hand reappeared.</p>
+      <div class="also-note"><b>Read the full case:</b> <a href="small-sample-big-claim.html#small-samples-big-claims">The Hot Hand, Reversed</a>, on <i>The Test Was Real. The Conclusion Wasn't.</i>, including the exact statistical bias that hid a real effect for thirty years.</div>
+    </div>
+
+    <div class="report-section" id="what-significant-means">
+      <h3>What &ldquo;61 heads out of 100&rdquo; can and can't tell you</h3>
+      <p class="intro">Flip a fair coin 100 times and the expected count is 50 heads, but not exactly 50 every time. The natural spread around that expectation, its standard deviation, works out to <b>5 heads either way</b> for 100 flips. So how many heads would actually be surprising, if the coin really is fair?</p>
+      <p class="intro">Sixty heads out of 100 sits two standard deviations from 50, which sounds like a lot. Run the exact calculation and a fair coin produces 60 or more heads (or the equivalent shortfall of tails) <b>about 5.7% of the time</b>, just from ordinary chance. That's higher than the conventional 0.05 significance threshold, so by that convention, 60 heads is not &ldquo;statistically significant.&rdquo; <b>Sixty-one heads is</b>: the exact same calculation puts that result at 3.5%, under the line. One single flip is the entire distance between the two verdicts.</p>
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="case-tag">Concept</span>
+          <h4>What a p-value actually says</h4>
+          <p class="salient-question">Does clearing <mark>p &lt; 0.05</mark> mean the coin is real evidence of bias?</p>
+          <div class="case-body">
+            <p>A p-value answers one specific question: if the coin really is fair, how often would a result this extreme happen by pure chance? It says nothing about how likely the coin is to actually be biased, how big any bias would be, or whether the same result would repeat on a second try. Haller and Krauss gave psychology students, methodology instructors, and working research psychologists a simple, realistic significance-test result and six true-or-false statements testing common misreadings of exactly this point.</p>
+            <p class="lesson"><b>What it teaches:</b> every one of the psychology students they tested got at least one misreading wrong. So did 80% of the instructors teaching statistics methods courses, and 90% of the psychology researchers who had already published using these exact statistics. Misreading a p-value isn't a beginner's mistake. It's the default, even among people whose job is teaching it correctly.</p>
+          </div>
+          <div class="case-cite">Haller, H., &amp; Krauss, S. (2002). &ldquo;Misinterpretations of Significance: A Problem Students Share with Their Teachers?&rdquo; <a href="https://www.researchgate.net/publication/27262211" target="_blank" rel="noopener">Methods of Psychological Research Online, 7(1), 1&ndash;20</a></div>
+        </div>
+      </div>
+      <div class="also-note"><b>A note on sourcing:</b> this site's network access blocked every attempt to reach the paper's own text, so the description above is paraphrased from secondary summaries reporting the same figures (100% of students, 80% of instructors, 90% of research psychologists making at least one error), not quoted verbatim from the original page.</div>
+      <p class="intro" style="margin-top:16px">See the <a href="small-sample-big-claim.html#the-basics">Statistical significance and Confidence intervals concept cards</a> on <i>The Test Was Real. The Conclusion Wasn't.</i> for what a p-value gets used for once real research is involved: <b>p-hacking, flexible analysis, and a wide confidence interval hiding behind a single headline number</b>.</p>
+    </div>
+
+    <div class="report-section" id="small-sample-swings">
+      <h3>Why the smallest sample always looks the most extreme</h3>
+      <p class="intro">The 100-flip example above wasn't arbitrary. <b>How far a coin's result can plausibly swing from 50/50 depends directly on how many times it's flipped</b>, and the relationship isn't gentle. Flip a coin only 10 times and the natural swing is a huge &plusmn;16 percentage points. At 100 flips it narrows to &plusmn;5 points. At 1,000 flips, just &plusmn;1.6 points. Ten times the flips buys roughly three times the precision, not ten times, because the swing shrinks with the square root of the sample size, not the sample size itself.</p>
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="case-tag">Concept</span>
+          <h4>The Most Dangerous Equation</h4>
+          <p class="salient-question">Why do the very best, and the very worst, results on any ranked list tend to come from the <mark>smallest samples</mark>?</p>
+          <div class="case-body">
+            <p>Statistician Howard Wainer named the standard-error formula behind the pattern above &ldquo;the most dangerous equation in the world,&rdquo; arguing that ignorance of it has misled decision-makers for centuries. He documented it in two real settings with real consequences: US counties ranked by cancer rate, and American schools ranked by standardised test scores. In both cases, the very top and the very bottom of the ranking were disproportionately filled by the smallest counties and the smallest schools. That's not because tiny populations are healthier or sicker, or smarter or weaker. A small sample's average naturally swings further in both directions, in a place with just a handful of people as easily as in one with millions.</p>
+            <p class="lesson"><b>What it teaches:</b> a school-improvement initiative once poured resources into the &ldquo;best&rdquo; small schools on a test-score ranking, and a cancer researcher once looked for what protected the &ldquo;healthiest&rdquo; small counties. Both were partly chasing statistical noise. The same small sample size that put those places at the top was equally capable of putting an equivalent small place at the bottom, and often did, on the very same list.</p>
+          </div>
+          <div class="case-cite">Wainer, H. (2007). &ldquo;The Most Dangerous Equation.&rdquo; <a href="http://nsmn1.uh.edu/dgraur/niv/themostdangerousequation.pdf" target="_blank" rel="noopener">American Scientist, 95(3), 249&ndash;256</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-section" id="coin-pattern-summary">
+      <h3>The same pattern, every time</h3>
+      <p class="intro">All four sections above trace back to one fact about a fair coin: <b>each flip is independent, and a small number of them is genuinely noisy</b>. Expecting a streak to correct itself, expecting one to continue, treating a p-value as proof, and trusting a small sample's extreme result are four different costumes on the identical mistake: forgetting that randomness, on a small scale, is supposed to look uneven sometimes. The coin never stops being fair. The reader's expectations are what need adjusting.</p>
+    </div>
+
+    <div class="report-section" id="how-to-spot-it">
+      <h3>Four questions before trusting a streak, a p-value, or a small sample</h3>
+      <p class="intro">None of the four misreadings above require dishonesty from anyone involved. <b>They're the default way a mind reads a short random sequence</b>, which is exactly why they're worth checking for deliberately.</p>
+      <div class="questions-callout">
+        <ol>
+          <li><b>Could this streak have happened from pure chance alone?</b><span>A run of four or five identical outcomes in a row is a normal feature of real randomness, not evidence that something changed.</span></li>
+          <li><b>Does &ldquo;significant&rdquo; here mean real, or just unlikely under pure chance?</b><span>A p-value under 0.05 rules out one specific explanation. It doesn't say how large, important, or repeatable the result is.</span></li>
+          <li><b>How many trials, people, or days is this number actually built on?</b><span>The smallest samples in any dataset are the ones most likely to sit at the extreme ends, in both directions, for reasons that have nothing to do with what's being measured.</span></li>
+          <li><b>Would this same conclusion survive being run again?</b><span>A single striking result, from a single small sample, is exactly the kind of thing genuine randomness produces some of the time, with nothing unusual behind it.</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="report-section" id="coin-report-related">
+      <h3>Continue reading</h3>
+      <p class="intro">This report built up the basics from a single coin. <b>The pieces below apply the same ideas to real, cited research failures and to the ladder of causal evidence more broadly.</b></p>
+      <div class="method-grid">
+        <div class="method-col strength">
+          <span class="lbl">Next</span>
+          <a href="small-sample-big-claim.html">The Test Was Real. The Conclusion Wasn't.: thirteen real cases, including the Hot Hand reversal</a>
+        </div>
+        <div class="method-col weakness">
+          <span class="lbl">Related</span>
+          <a href="evidence-strength.html">How Strong Is That Evidence? A field guide to causal claims</a>
+        </div>
+        <div class="method-col strength">
+          <span class="lbl">Related</span>
+          <a href="reading-the-research.html">Reading the Research: how to evaluate a study properly</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap">
+    <div>&copy; 2026 What Works &amp; Why</div>
+    <ul>
+      <li><a href="principles.html">Principles</a></li>
+      <li><a href="science-behind.html">The Science Behind</a></li>
+      <li><a href="sessions.html">Field Sessions</a></li>
+      <li><a href="experiments.html">Experiments</a></li>
+      <li><a href="reading-the-research.html">Reading the Research</a></li>
+      <li><a href="natural-experiments.html">Natural Experiments</a></li>
+      <li><a href="live-sessions.html">Live Sessions</a></li>
+      <li><a href="apply.html">Apply It</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#newsletter">Subscribe</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="apply-data.js"></script>
+<script src="search-index.js"></script>
+<script src="predictive-search.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
