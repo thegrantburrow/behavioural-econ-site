@@ -210,6 +210,20 @@
         </div>
       </div>
       <p class="intro" style="margin-top:16px">Sequence A is the real one. It has a run of <b>four tails in a row</b> and switches sides 11 times across 20 flips. Sequence B, the handwritten one, never runs longer than two of the same side and switches 17 times, <b>far more often than genuine chance produces</b>. People faking randomness reliably alternate too much, because a long run doesn't feel random even though it's exactly what randomness looks like roughly half the time. This single habit, avoiding runs, is one of the more reliable ways forensic statisticians catch faked data.</p>
+      <div class="coin-widget" id="streaksWidget">
+        <span class="coin-widget-label">Try it yourself</span>
+        <p class="coin-widget-prompt">Flip 20 real coins and see how streaky a genuine random sequence looks.</p>
+        <div class="coin-btn-row">
+          <button class="coin-btn" id="streaksFlipBtn" type="button">Flip 20 coins</button>
+        </div>
+        <div class="coin-seq-row" id="streaksSeqRow" aria-live="polite"></div>
+        <div class="coin-stat-row" id="streaksStatRow" hidden>
+          <div class="coin-stat">Longest run<b id="streaksLongest">0</b></div>
+          <div class="coin-stat">Times it switched<b id="streaksSwitches">0</b></div>
+          <div class="coin-stat">Heads<b id="streaksHeads">0</b></div>
+        </div>
+        <p class="coin-readout" id="streaksReadout" hidden></p>
+      </div>
     </div>
 
     <div class="report-section" id="gamblers-fallacy">
@@ -228,6 +242,22 @@
           <div class="case-cite">Tversky, A., &amp; Kahneman, D. (1971). &ldquo;Belief in the Law of Small Numbers.&rdquo; <a href="https://doi.org/10.1037/h0031322" target="_blank" rel="noopener">Psychological Bulletin, 76(2), 105&ndash;110</a></div>
         </div>
       </div>
+      <div class="coin-widget" id="fallacyWidget">
+        <span class="coin-widget-label">Try it yourself</span>
+        <p class="coin-widget-prompt">Predict each flip before it happens. After a run, does &ldquo;due&rdquo; feel true? Ten rounds, then the tally.</p>
+        <div class="coin-visual-row">
+          <div class="coin-face" id="fallacyLastFace">?</div>
+          <p class="coin-readout" id="fallacyPrompt" style="margin:0">Round <b id="fallacyRound">1</b> of 10. What's next?</p>
+        </div>
+        <div class="coin-btn-row">
+          <button class="coin-btn secondary" id="fallacyPredictH" type="button">Predict Heads</button>
+          <button class="coin-btn secondary" id="fallacyPredictT" type="button">Predict Tails</button>
+          <button class="coin-btn" id="fallacyReset" type="button" hidden>Run it again</button>
+        </div>
+        <div class="coin-tally" id="fallacyTally"></div>
+        <p class="coin-verdict" id="fallacyVerdict" hidden></p>
+      </div>
+      <div class="also-note"><b>Run this one live:</b> <a href="live-sessions.html#gamblers-fallacy">Live Sessions: Gambler's Fallacy</a>, a real room predicting a coin's next flip after a streak of heads versus after an alternating run.</div>
     </div>
 
     <div class="report-section" id="hot-hand-bridge">
@@ -253,6 +283,19 @@
         </div>
       </div>
       <div class="also-note"><b>A note on sourcing:</b> this site's network access blocked every attempt to reach the paper's own text, so the description above is paraphrased from secondary summaries reporting the same figures (100% of students, 80% of instructors, 90% of research psychologists making at least one error), not quoted verbatim from the original page.</div>
+      <div class="coin-widget" id="pvalWidget">
+        <span class="coin-widget-label">Try it yourself</span>
+        <p class="coin-widget-prompt">Flip 100 coins and see the exact p-value for whatever you get, live.</p>
+        <div class="coin-btn-row">
+          <button class="coin-btn" id="pvalFlipBtn" type="button">Flip 100 coins</button>
+        </div>
+        <div class="coin-stat-row" id="pvalStatRow" hidden>
+          <div class="coin-stat">Heads<b id="pvalHeads">0</b></div>
+          <div class="coin-stat">p-value<b id="pvalP">0</b></div>
+        </div>
+        <p class="coin-verdict" id="pvalVerdict" hidden></p>
+        <p class="coin-tally" id="pvalTally"></p>
+      </div>
       <p class="intro" style="margin-top:16px">See the <a href="small-sample-big-claim.html#the-basics">Statistical significance and Confidence intervals concept cards</a> on <i>The Test Was Real. The Conclusion Wasn't.</i> for what a p-value gets used for once real research is involved: <b>p-hacking, flexible analysis, and a wide confidence interval hiding behind a single headline number</b>.</p>
     </div>
 
@@ -271,6 +314,31 @@
           <div class="case-cite">Wainer, H. (2007). &ldquo;The Most Dangerous Equation.&rdquo; <a href="http://nsmn1.uh.edu/dgraur/niv/themostdangerousequation.pdf" target="_blank" rel="noopener">American Scientist, 95(3), 249&ndash;256</a></div>
         </div>
       </div>
+      <div class="coin-widget" id="swingWidget">
+        <span class="coin-widget-label">Try it yourself</span>
+        <p class="coin-widget-prompt">Pick a sample size and flip it. Watch how far the result swings from 50/50, and how much that swing shrinks as the sample grows.</p>
+        <div class="coin-btn-row">
+          <button class="coin-btn secondary" data-n="10" type="button">Flip 10</button>
+          <button class="coin-btn secondary" data-n="100" type="button">Flip 100</button>
+          <button class="coin-btn secondary" data-n="1000" type="button">Flip 1,000</button>
+        </div>
+        <div class="coin-track-wrap" data-track="10">
+          <div class="coin-track-label">n = 10</div>
+          <div class="coin-track"><div class="coin-track-mid"></div></div>
+          <div class="coin-track-range">Not flipped yet.</div>
+        </div>
+        <div class="coin-track-wrap" data-track="100">
+          <div class="coin-track-label">n = 100</div>
+          <div class="coin-track"><div class="coin-track-mid"></div></div>
+          <div class="coin-track-range">Not flipped yet.</div>
+        </div>
+        <div class="coin-track-wrap" data-track="1000">
+          <div class="coin-track-label">n = 1,000</div>
+          <div class="coin-track"><div class="coin-track-mid"></div></div>
+          <div class="coin-track-range">Not flipped yet.</div>
+        </div>
+      </div>
+      <div class="also-note"><b>Run this one live:</b> <a href="live-sessions.html#sample-size-swing">Live Sessions: Sample Size Swing</a>, a real room flipping 10 coins versus 100 and watching the swing from 50/50 shrink.</div>
     </div>
 
     <div class="report-section" id="coin-pattern-summary">
@@ -336,5 +404,156 @@
 <script src="search-index.js"></script>
 <script src="predictive-search.js"></script>
 <script src="script.js"></script>
+<script src="coin-engine.js"></script>
+<script>
+(function () {
+  var btn = document.getElementById("streaksFlipBtn");
+  if (btn && window.CoinEngine) {
+    var seqRow = document.getElementById("streaksSeqRow");
+    var statRow = document.getElementById("streaksStatRow");
+    var readout = document.getElementById("streaksReadout");
+    btn.addEventListener("click", function () {
+      btn.disabled = true;
+      var seq = CoinEngine.flipSequence(20);
+      seqRow.innerHTML = "";
+      seq.forEach(function (face, i) {
+        var d = document.createElement("div");
+        d.className = "coin-face small";
+        d.textContent = face;
+        seqRow.appendChild(d);
+        setTimeout(function () { d.classList.add("flipping"); }, i * 60);
+      });
+      setTimeout(function () {
+        var longest = CoinEngine.longestRun(seq);
+        var switches = CoinEngine.numRuns(seq) - 1;
+        var heads = CoinEngine.countHeads(seq);
+        document.getElementById("streaksLongest").textContent = longest;
+        document.getElementById("streaksSwitches").textContent = switches;
+        document.getElementById("streaksHeads").textContent = heads + " / 20";
+        statRow.hidden = false;
+        readout.hidden = false;
+        readout.innerHTML = "A real fair coin averages about <b>9 to 10 switches</b> over 20 flips (Sequence A above switched 11 times). Yours switched <b>" + switches + "</b> times, with a longest run of <b>" + longest + "</b>.";
+        btn.disabled = false;
+        btn.textContent = "Flip 20 more";
+      }, seq.length * 60 + 500);
+    });
+  }
+})();
+
+(function () {
+  var btnH = document.getElementById("fallacyPredictH");
+  if (!btnH || !window.CoinEngine) return;
+  var btnT = document.getElementById("fallacyPredictT");
+  var resetBtn = document.getElementById("fallacyReset");
+  var lastFace = document.getElementById("fallacyLastFace");
+  var roundEl = document.getElementById("fallacyRound");
+  var tallyEl = document.getElementById("fallacyTally");
+  var verdictEl = document.getElementById("fallacyVerdict");
+  var TOTAL = 10;
+  var state;
+
+  function reset() {
+    state = { round: 0, lastFlip: null, withStreak: { n: 0, right: 0 }, againstStreak: { n: 0, right: 0 } };
+    lastFace.textContent = "?";
+    lastFace.classList.remove("flipping");
+    roundEl.textContent = "1";
+    tallyEl.textContent = "";
+    verdictEl.hidden = true;
+    btnH.hidden = false;
+    btnT.hidden = false;
+    resetBtn.hidden = true;
+    btnH.disabled = false;
+    btnT.disabled = false;
+  }
+
+  function predict(choice) {
+    if (state.round >= TOTAL) return;
+    var actual = CoinEngine.flip();
+    var against = state.lastFlip !== null && choice !== state.lastFlip;
+    var bucket = against ? state.againstStreak : state.withStreak;
+    bucket.n++;
+    if (choice === actual) bucket.right++;
+    state.lastFlip = actual;
+    state.round++;
+    lastFace.textContent = actual;
+    lastFace.classList.remove("flipping");
+    void lastFace.offsetWidth;
+    lastFace.classList.add("flipping");
+    tallyEl.innerHTML = "With the streak: " + state.withStreak.right + "/" + state.withStreak.n + " right. Against the streak: " + state.againstStreak.right + "/" + state.againstStreak.n + " right.";
+    if (state.round >= TOTAL) {
+      roundEl.textContent = TOTAL;
+      btnH.hidden = true;
+      btnT.hidden = true;
+      resetBtn.hidden = false;
+      verdictEl.hidden = false;
+      var wPct = state.withStreak.n ? Math.round(100 * state.withStreak.right / state.withStreak.n) : null;
+      var aPct = state.againstStreak.n ? Math.round(100 * state.againstStreak.right / state.againstStreak.n) : null;
+      verdictEl.innerHTML = "Ten rounds done. " + (aPct !== null ? "Betting against the streak was right " + aPct + "% of the time" : "You never bet against the streak") + (wPct !== null ? ", betting with it was right " + wPct + "% of the time. " : ". ") + "The coin has no memory, so both should land near 50%, whichever way you leaned.";
+    } else {
+      roundEl.textContent = state.round + 1;
+    }
+  }
+
+  btnH.addEventListener("click", function () { predict("H"); });
+  btnT.addEventListener("click", function () { predict("T"); });
+  resetBtn.addEventListener("click", reset);
+  reset();
+})();
+
+(function () {
+  var btn = document.getElementById("pvalFlipBtn");
+  if (!btn || !window.CoinEngine) return;
+  var statRow = document.getElementById("pvalStatRow");
+  var headsEl = document.getElementById("pvalHeads");
+  var pEl = document.getElementById("pvalP");
+  var verdictEl = document.getElementById("pvalVerdict");
+  var tallyEl = document.getElementById("pvalTally");
+  var batches = 0, sig = 0;
+  btn.addEventListener("click", function () {
+    var seq = CoinEngine.flipSequence(100);
+    var heads = CoinEngine.countHeads(seq);
+    var p = CoinEngine.twoTailedP(100, heads, 0.5);
+    var isSig = p < 0.05;
+    batches++;
+    if (isSig) sig++;
+    statRow.hidden = false;
+    headsEl.textContent = heads + " / 100";
+    pEl.textContent = p.toFixed(3);
+    verdictEl.hidden = false;
+    verdictEl.innerHTML = isSig
+      ? "<b class=\"sig\">Statistically significant</b> at the conventional p &lt; 0.05 line. That means a fair coin would produce a result this far from 50/50 less than 5% of the time by chance, not that this coin is biased."
+      : "<b class=\"notsig\">Not statistically significant.</b> A fair coin lands this far from 50/50 more than 5% of the time by pure chance.";
+    tallyEl.textContent = "So far: " + sig + " of " + batches + " batches you've flipped came out “significant,” purely from chance, since a fair coin is expected to do that about 5% of the time.";
+  });
+})();
+
+(function () {
+  if (!window.CoinEngine) return;
+  var buttons = document.querySelectorAll("#swingWidget .coin-btn[data-n]");
+  if (!buttons.length) return;
+  function wrapFor(n) { return document.querySelector('.coin-track-wrap[data-track="' + n + '"]'); }
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var n = parseInt(b.getAttribute("data-n"), 10);
+      var seq = CoinEngine.flipSequence(n);
+      var heads = CoinEngine.countHeads(seq);
+      var pct = 100 * heads / n;
+      var swing = pct - 50;
+      var wrap = wrapFor(n);
+      var track = wrap.querySelector(".coin-track");
+      var old = track.querySelector(".coin-track-dot");
+      if (old) old.remove();
+      var dot = document.createElement("div");
+      dot.className = "coin-track-dot";
+      var clamped = Math.max(-20, Math.min(20, swing));
+      var posPct = 50 + (clamped / 20) * 50;
+      dot.style.left = posPct + "%";
+      track.appendChild(dot);
+      var rangeEl = wrap.querySelector(".coin-track-range");
+      rangeEl.innerHTML = heads + "/" + n + " heads (" + pct.toFixed(1) + "%), <b>" + Math.abs(swing).toFixed(1) + " points</b> " + (swing >= 0 ? "above" : "below") + " 50/50.";
+    });
+  });
+})();
+</script>
 </body>
 </html>
