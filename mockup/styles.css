@@ -1991,6 +1991,41 @@ a.funnel-stage-name:hover { border-bottom-color: var(--teal); }
   .funnel-close { font-size: 0.92rem; }
 }
 
+/* ---------- chain stepper (roadmap chain with a missing link, one line) ---------- */
+.chain-stepper-wrap { margin: 16px 0 6px; }
+.chain-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 0;
+}
+.chain-stepper::-webkit-scrollbar { display: none; }
+.chain-pill {
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  padding: 5px 11px;
+}
+.chain-pill.gap {
+  border: 1.5px dashed var(--mustard);
+  background: rgba(224, 169, 58, 0.16);
+  color: var(--terracotta);
+}
+.chain-sep { color: var(--muted); flex-shrink: 0; font-size: 0.72rem; margin: 0 5px; }
+
+@media (min-width: 700px) {
+  .chain-pill { font-size: 0.88rem; padding: 8px 18px; }
+  .chain-sep { font-size: 0.85rem; margin: 0 11px; }
+}
+
 .study-card .citation { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
 .study-card .citation a { color: var(--terracotta); text-decoration: underline; }
 .study-card .journal { font-size: 0.78rem; color: var(--muted); margin-bottom: 10px; }
