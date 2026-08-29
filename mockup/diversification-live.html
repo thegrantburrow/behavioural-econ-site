@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Live Diversification Heuristic | What Works &amp; Why</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{
+  --paper:#F5F6F5; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.62);
+  --terracotta:#C43E1F; --mustard:#E0A93A; --teal:#1F7A6C;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-direction:column;min-height:100vh;}
+#app{display:flex;flex-direction:column;flex:1;min-height:0;}
+.screen{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 22px 40px;max-width:460px;margin:0 auto;width:100%;}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:10px;}
+h1.q{font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.4;text-align:center;margin:0 0 22px;text-wrap:balance;}
+.scenario{font-size:14px;line-height:1.6;color:var(--ink-soft);text-align:center;margin:0 0 22px;}
+.choicebtn-col{display:flex;flex-direction:column;gap:12px;}
+.choicebtn{text-align:left;font-size:14.5px;font-weight:600;padding:16px 18px;border-radius:12px;border:1.5px solid var(--ink);background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit;line-height:1.4;}
+.choicebtn:active{transform:scale(.98);}
+.choicebtn b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--terracotta);margin-bottom:4px;}
+.numwrap{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:22px;}
+.numinput{width:150px;font-size:32px;font-weight:700;text-align:center;padding:10px 8px;border-radius:12px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font-family:inherit;}
+.numinput:focus{outline:2px solid var(--terracotta);outline-offset:1px;}
+.suffix{font-size:26px;font-weight:700;color:var(--ink-soft);}
+.submitbtn{margin-top:4px;background:var(--terracotta);color:#fff;border:none;border-radius:12px;padding:16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.submitbtn:disabled{opacity:.5;cursor:default;}
+.msg{text-align:center;font-size:14px;line-height:1.6;color:var(--ink-soft);}
+.msg b{display:block;color:var(--ink);font-size:19px;font-family:Georgia,serif;margin-bottom:10px;}
+.msg .ps{margin-top:14px;font-size:12.5px;}
+
+.reveal-wrap{max-width:1080px;margin:0 auto;padding:36px 22px 48px;width:100%;}
+.reveal-title{font-family:Georgia,serif;font-weight:700;font-size:clamp(26px,4vw,46px);text-align:center;margin:0 0 6px;text-wrap:balance;}
+.reveal-sub{text-align:center;font-size:clamp(13px,1.3vw,16px);color:var(--ink-soft);margin:0 0 32px;max-width:64ch;margin-left:auto;margin-right:auto;line-height:1.6;}
+
+/* the big head-to-head scoreboard, the room-scale focal point */
+.scoreboard{margin:0 0 20px;}
+.scoreboard-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:22px;}
+@media (max-width:760px){ .scoreboard-grid{grid-template-columns:1fr;gap:16px;} .scoreboard-vs{order:2;margin:-4px auto;} }
+.scoreboard-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,2.6vw,34px) clamp(16px,2.2vw,30px);text-align:center;box-shadow:var(--shadow);}
+.scoreboard-card .sc-label{font-size:clamp(12px,1.3vw,15px);font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin:0 0 16px;}
+.scoreboard-number{font-family:Georgia,serif;font-weight:700;font-size:clamp(52px,8.5vw,104px);line-height:1;margin:0 0 4px;}
+.scoreboard-number.empty{color:var(--ink-soft);font-size:clamp(28px,4.6vw,46px);}
+.scoreboard-number.pop{animation:scPop .55s cubic-bezier(.22,.9,.3,1.25);}
+@keyframes scPop{0%{transform:scale(.7);opacity:0;}65%{transform:scale(1.07);opacity:1;}100%{transform:scale(1);}}
+.scoreboard-n{font-size:clamp(12px,1.2vw,14px);color:var(--ink-soft);margin:0 0 18px;}
+.scoreboard-sub{font-size:clamp(11px,1.1vw,13px);color:var(--ink-soft);margin:0 0 16px;}
+.scoreboard-bar-track{position:relative;height:22px;border-radius:11px;background:var(--line);}
+.scoreboard-bar-fill{position:absolute;left:0;top:0;height:100%;border-radius:11px;width:0;transition:width .9s cubic-bezier(.16,.85,.32,1);}
+.scoreboard-vs{width:60px;height:60px;border-radius:50%;background:var(--terracotta);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:16px;margin:0 auto;box-shadow:var(--shadow);flex-shrink:0;}
+@media (max-width:760px){ .scoreboard-vs{width:42px;height:42px;font-size:12px;} }
+.scoreboard-gap{text-align:center;margin-top:22px;font-size:clamp(14px,1.6vw,19px);color:var(--ink-soft);}
+.scoreboard-gap b{color:var(--terracotta);font-family:Georgia,serif;}
+
+/* compact presenter-only controls, deliberately quieter than the scoreboard above */
+.presenter-controls{margin:0 0 30px;background:var(--paper);border:1px dashed var(--line);border-radius:14px;padding:18px 18px 14px;}
+.presenter-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700;text-align:center;margin:0 0 4px;}
+.presenter-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin:0 0 14px;}
+.tally-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:600px){ .tally-cols{grid-template-columns:1fr;} }
+.tally-col{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.tally-col h3{font-size:12px;text-transform:uppercase;letter-spacing:.03em;margin:0 0 10px;color:var(--ink-soft);}
+.tally-input-row{display:flex;gap:6px;margin-bottom:10px;}
+.tally-input-row input{flex:1;min-width:0;font-size:16px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;}
+.tally-input-row button{background:var(--ink);color:var(--paper);border:none;border-radius:8px;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.tally-choice-row{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.tally-choice-row button{background:var(--panel);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left;}
+.tally-choice-row button:active{transform:scale(.98);}
+.tally-choice-row button .n{float:right;color:var(--ink-soft);font-weight:700;}
+.tally-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.tally-chip{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;display:flex;align-items:center;gap:6px;}
+.tally-chip button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;padding:0;line-height:1;}
+
+/* This is the session's second hero moment, not a footnote: the real
+   study's own result, at a scale that reads from the back of the room,
+   same as the scoreboard above it. */
+.historical{border-top:1px solid var(--line);margin-top:8px;padding-top:clamp(28px,3.5vw,44px);}
+.historical-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3.2vw,40px);max-width:74ch;margin:0 auto;text-align:center;box-shadow:var(--shadow);}
+.historical-card .hc-eyebrow{font-size:clamp(13px,1.5vw,17px);text-transform:uppercase;letter-spacing:.06em;color:var(--terracotta);font-weight:800;margin:0 0 clamp(12px,1.6vw,18px);}
+.historical-card p{margin:0;font-size:clamp(16px,2vw,23px);line-height:1.6;color:var(--ink);font-weight:500;}
+body.presenting .historical-card{max-width:1300px;padding:clamp(30px,4vw,52px);}
+body.presenting .historical-card .hc-eyebrow{font-size:clamp(16px,2vw,22px);}
+body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
+.session-row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
+.session-info{font-size:12px;color:var(--ink-soft);}
+.session-info b{color:var(--ink);}
+.session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
+.session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+@media (max-width:760px){ .mode-switch{display:none;} }
+
+body.presenting .reveal-sub,
+body.presenting .manage-only,
+body.presenting .presenter-controls,
+body.presenting .narrative-block,
+body.presenting .history-section,
+body.presenting .reset-row{display:none;}
+body.presenting .reveal-wrap{max-width:1600px;}
+body.presenting .reveal-title{font-size:clamp(32px,5.5vw,68px);}
+body.presenting .scoreboard-number{font-size:clamp(64px,11vw,180px);}
+body.presenting .scoreboard-gap{font-size:clamp(18px,2.4vw,30px);}
+body.presenting .narrative-verdict{padding:clamp(20px,2.4vw,34px);}
+body.presenting .narrative-verdict p{font-size:clamp(15px,1.8vw,22px);}
+body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
+
+.qr-section{margin:0 0 30px;}
+.qr-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 14px;}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:16px;}
+.qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;}
+.qr-card img{width:100%;max-width:260px;height:auto;margin:0 auto 12px;display:block;border-radius:8px;}
+.qr-card .qr-label{font-size:clamp(13px,1.3vw,15px);font-weight:700;margin-bottom:4px;}
+.qr-card .qr-link{font-size:10.5px;color:var(--ink-soft);word-break:break-all;}
+.qr-note{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;}
+
+.reset-row{text-align:center;}
+.reset-btn{font-size:12px;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font-family:inherit;}
+
+.history-section{border-top:1px solid var(--line);margin-top:30px;padding-top:20px;}
+.history-heading{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 12px;text-align:center;}
+.history-empty{text-align:center;font-size:12.5px;color:var(--ink-soft);}
+.history-session{margin-bottom:16px;}
+.history-session-head{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.history-session-head .n{font-weight:400;color:var(--ink-soft);}
+.history-table{width:100%;border-collapse:collapse;font-size:12px;}
+.history-table th{text-align:left;color:var(--ink-soft);font-weight:600;padding:4px 8px;border-bottom:1px solid var(--line);}
+.history-table td{padding:4px 8px;border-bottom:1px solid var(--line);}
+.history-table .g-a{color:var(--terracotta);font-weight:700;}
+.history-table .g-b{color:var(--teal);font-weight:700;}
+.history-table td.rm{text-align:right;}
+.history-table td.rm button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;}
+
+.narrative-section{border-top:1px solid var(--line);margin-top:8px;padding-top:26px;}
+.narrative-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:14px;}
+.narrative-verdict{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--ink-soft);border-radius:10px;padding:16px 18px;margin-bottom:22px;}
+.narrative-verdict.aligned{border-left-color:var(--teal);}
+.narrative-verdict.reversed{border-left-color:var(--terracotta);}
+.narrative-verdict.tie{border-left-color:var(--mustard);}
+.narrative-verdict.wait{border-left-color:var(--mustard);}
+.narrative-tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+.narrative-tag.aligned{color:var(--teal);}
+.narrative-tag.reversed{color:var(--terracotta);}
+.narrative-tag.tie{color:#a3821f;}
+.narrative-tag.wait{color:#a3821f;}
+.narrative-verdict p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink);}
+.narrative-verdict p a{color:inherit;}
+.narrative-block{margin-bottom:22px;}
+.narrative-block h4{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px;color:var(--ink);}
+.narrative-block > p{font-size:13.5px;line-height:1.65;color:var(--ink-soft);margin:0;}
+.narrative-block p a{color:var(--terracotta);}
+.example-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.example-item{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.example-label{font-size:13.5px;font-weight:700;margin-bottom:5px;}
+.example-item p{font-size:13px;line-height:1.6;color:var(--ink-soft);margin:0 0 6px;}
+.example-cite{font-size:11px;color:var(--ink-soft);opacity:.75;}
+.also-illustrative{font-size:11.5px;color:var(--ink-soft);font-style:italic;margin:8px 0 22px;}
+
+.multiselect-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.multiselect-row{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--panel);font-size:14px;font-weight:600;cursor:pointer;}
+.multiselect-row input{width:18px;height:18px;flex-shrink:0;accent-color:var(--terracotta);}
+.multiselect-row.checked{border-color:var(--terracotta);background:rgba(196,62,31,0.06);}
+.multiselect-counter{text-align:center;font-size:13px;color:var(--ink-soft);margin:0 0 16px;font-weight:600;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+(function(){
+"use strict";
+
+var CONFIG = {"toolId": "div", "type": "multiselect", "toolTitle": "Live Diversification Heuristic", "targetHigherGroup": "a", "groups": {"a": {"label": "Flat 10-option menu", "shortLabel": "Flat 10-menu", "scenarioTitle": "Tap every fund you&rsquo;d actually invest in today", "scenarioBody": "This is CommSec Pocket&rsquo;s real &ldquo;Invest in&rdquo; menu: ten flat options, no default, no grouping.", "placeholder": "e.g. 4", "options": [{"key": "top200", "label": "Aussie Top 200"}, {"key": "dividends", "label": "Aussie Dividends"}, {"key": "sustainability", "label": "Aussie Sustainability"}, {"key": "bonds", "label": "Aussie Corporate Bonds"}, {"key": "global100", "label": "Global 100"}, {"key": "diversified", "label": "Diversified Equities"}, {"key": "emerging", "label": "Emerging Markets"}, {"key": "health", "label": "Health Wise"}, {"key": "sustleaders", "label": "Sustainability Leaders"}, {"key": "tech", "label": "Tech Savvy"}]}, "b": {"label": "Curated 3-option menu", "shortLabel": "Curated 3-menu", "scenarioTitle": "Tap every fund you&rsquo;d actually invest in today", "scenarioBody": "A redesigned menu offering three curated options instead of the same ten flat ones.", "placeholder": "e.g. 1", "options": [{"key": "balanced", "label": "Balanced Starter"}, {"key": "aussie", "label": "Aussie Shares"}, {"key": "seeall", "label": "See all 10 individually"}]}}, "historicalText": "This site&rsquo;s own Diversification Heuristic entry cites Benartzi &amp; Thaler&rsquo;s 2001 finding that retirement savers roughly split their contributions evenly across however many funds a plan happened to offer, the &ldquo;1/n&rdquo; pattern: a plan listing mostly stock funds ended up with mostly-stock participant portfolios, almost independent of what savers said about their own risk tolerance. This room&rsquo;s version swaps allocation percentages for a simpler live proxy, how many funds each group taps on CommSec Pocket&rsquo;s own real menu, already documented on the Principles page.", "mechanismHtml": "This is the diversification heuristic, sometimes called naive or &ldquo;1/n&rdquo; diversification. Weighing what each option actually contains, its real risk, how much it overlaps with everything else on the list, takes more effort than most people have on hand in the moment. Instead, the mind substitutes an easier question: how many options are there, so what&rsquo;s one divided by that? A menu offering ten options invites picking several of them; a menu offering three invites picking fewer, almost regardless of what&rsquo;s actually inside each one. <a href=\"principles.html#diversification-heuristic\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "CommSec Pocket&rsquo;s real &ldquo;Invest in&rdquo; menu", "body": "CommSec Pocket lists ten flat options side by side with no default and no grouping. A first-time investor wanting &ldquo;a spread&rdquo; who taps four or five of them never notices that one option, Diversified Equities, already holds hundreds of companies, while others, Tech Savvy and Emerging Markets among them, are concentrated, single-theme bets.", "cite": "This site&rsquo;s own <a href=\"principles.html#diversification-heuristic\">Diversification Heuristic</a> entry."}, {"label": "Employer retirement plans", "body": "Benartzi and Thaler found the identical pattern in real employer retirement plans: the share of an employee&rsquo;s contributions held in stock funds tracked closely with the share of stock funds among the total funds the plan happened to offer.", "cite": "Benartzi, S., &amp; Thaler, R. H. (2001). &ldquo;Naive Diversification Strategies in Defined Contribution Saving Plans.&rdquo; American Economic Review, 91(1), 79&ndash;98."}]};
+var currentSyncModeSwitch = function(){};
+
+function getGroupFromHash(){
+  var h = location.hash.replace('#','');
+  var m = h.match(/(?:^|&)g=([ab])(?:&|$)/);
+  return m ? m[1] : null;
+}
+function isReveal(){
+  return /(^|#|&)reveal(&|$)/.test(location.hash);
+}
+
+function el(tag, attrs, html){
+  var e = document.createElement(tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function render(node){
+  var app = document.getElementById('app');
+  app.innerHTML = '';
+  app.appendChild(node);
+}
+
+function renderNoGroup(){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, CONFIG.toolTitle));
+  s.appendChild(el('div', {class:'msg'},
+    '<b>This link needs to come from one of the session QR codes.</b>Ask whoever&rsquo;s running the session for the right link.'));
+  render(s);
+}
+
+function renderParticipant(group){
+  var g = CONFIG.groups[group];
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, g.label));
+  if (CONFIG.type === 'choice') {
+    s.appendChild(el('h1', {class:'q'}, g.scenarioTitle));
+    if (g.scenarioBody) s.appendChild(el('p', {class:'scenario'}, g.scenarioBody));
+    var col = el('div', {class:'choicebtn-col'}, '');
+    g.options.forEach(function(opt){
+      var btn = el('button', {class:'choicebtn', type:'button'}, (opt.tag ? '<b>' + opt.tag + '</b>' : '') + opt.label);
+      btn.addEventListener('click', function(){ renderThanks(opt.key, group, opt.label); });
+      col.appendChild(btn);
+    });
+    s.appendChild(col);
+  } else if (CONFIG.type === 'multiselect') {
+    s.appendChild(el('h1', {class:'q'}, g.scenarioTitle));
+    if (g.scenarioBody) s.appendChild(el('p', {class:'scenario'}, g.scenarioBody));
+    var list = el('div', {class:'multiselect-list'}, '');
+    g.options.forEach(function(opt){
+      var row = el('label', {class:'multiselect-row'}, '');
+      var cb = el('input', {type:'checkbox', value: opt.key});
+      row.appendChild(cb);
+      row.appendChild(el('span', {}, opt.label));
+      cb.addEventListener('change', function(){
+        row.classList.toggle('checked', cb.checked);
+        updateCounter();
+      });
+      list.appendChild(row);
+    });
+    s.appendChild(list);
+    var counter = el('div', {class:'multiselect-counter'}, '0 selected');
+    s.appendChild(counter);
+    function updateCounter(){
+      var n = list.querySelectorAll('input:checked').length;
+      counter.textContent = n + ' selected';
+    }
+    var msBtn = el('button', {class:'submitbtn', type:'button'}, 'Submit');
+    msBtn.addEventListener('click', function(){
+      var n = list.querySelectorAll('input:checked').length;
+      renderThanks(n, group, n + ' fund' + (n === 1 ? '' : 's'));
+    });
+    s.appendChild(msBtn);
+  } else {
+    s.appendChild(el('h1', {class:'q'}, g.scenarioTitle));
+    if (g.scenarioBody) s.appendChild(el('p', {class:'scenario'}, g.scenarioBody));
+    var wrap = el('div', {class:'numwrap'}, '');
+    var input = el('input', {class:'numinput', type:'number', inputmode:'numeric', min:String(CONFIG.number.min), max:String(CONFIG.number.max), placeholder: g.placeholder || '?'});
+    wrap.appendChild(input);
+    wrap.appendChild(el('span', {class:'suffix'}, CONFIG.number.suffix));
+    s.appendChild(wrap);
+    var btn = el('button', {class:'submitbtn', type:'button'}, 'Submit');
+    btn.disabled = true;
+    input.addEventListener('input', function(){
+      var v = parseFloat(input.value);
+      btn.disabled = !(isFinite(v) && v >= CONFIG.number.min && v <= CONFIG.number.max);
+    });
+    btn.addEventListener('click', function(){
+      var v = parseFloat(input.value);
+      if (!isFinite(v)) return;
+      renderThanks(v, group, (CONFIG.number.suffix === '$' ? '$' : '') + v + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix));
+    });
+    s.appendChild(btn);
+    render(s);
+    input.focus();
+    return;
+  }
+  render(s);
+}
+
+function renderThanks(val, g, displayLabel){
+  addEntry(g, val);
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'msg'},
+    '<b>Thanks, you picked: ' + displayLabel + '.</b>' +
+    'If the presenter is running this on the same screen as you, it&rsquo;s already logged. Otherwise, call out your answer (or put your hand up when asked) so it can be added to the results.' +
+    '<div class="ps">Phones don&rsquo;t automatically share answers with each other, only with this same browser, that&rsquo;s why the room comparison usually happens out loud.</div>'));
+  render(s);
+}
+
+/* ---------------- shared, persistent log (localStorage) ---------------- */
+
+var LS_LOG = CONFIG.toolId + '_log';
+var LS_SESSION = CONFIG.toolId + '_session';
+
+function uid(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'r' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
+
+function readLog(){
+  try {
+    var raw = localStorage.getItem(LS_LOG);
+    var arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch(e){ return []; }
+}
+function writeLog(arr){
+  try { localStorage.setItem(LS_LOG, JSON.stringify(arr)); } catch(e){}
+}
+
+function getSession(){
+  try {
+    var raw = localStorage.getItem(LS_SESSION);
+    var s = raw ? JSON.parse(raw) : null;
+    if (s && s.id && s.startedAt) return s;
+  } catch(e){}
+  var fresh = { id: uid(), startedAt: Date.now() };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(fresh)); } catch(e){}
+  return fresh;
+}
+
+function startNewSession(){
+  var fresh = { id: uid(), startedAt: Date.now() };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(fresh)); } catch(e){}
+  return fresh;
+}
+
+function addEntry(g, val){
+  var session = getSession();
+  var log = readLog();
+  log.push({ id: uid(), g: g, v: val, t: Date.now(), sessionId: session.id });
+  writeLog(log);
+}
+
+function removeEntry(id){
+  writeLog(readLog().filter(function(e){ return e.id !== id; }));
+}
+
+function median(nums){
+  if (!nums.length) return null;
+  var s = nums.slice().sort(function(a,b){ return a-b; });
+  var mid = Math.floor(s.length/2);
+  return s.length % 2 ? s[mid] : (s[mid-1]+s[mid])/2;
+}
+
+function mean(nums){
+  if (!nums.length) return null;
+  var sum = nums.reduce(function(a,b){ return a+b; }, 0);
+  return sum / nums.length;
+}
+
+function formatDateTime(t){
+  var d = new Date(t);
+  return d.toLocaleDateString(undefined, {month:'short', day:'numeric'}) + ', ' +
+    d.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'});
+}
+
+function displayVal(g, v){
+  if (CONFIG.type === 'number') return (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(v) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix);
+  if (CONFIG.type === 'multiselect') return Math.round(v) + ' fund' + (Math.round(v) === 1 ? '' : 's');
+  var opt = null;
+  CONFIG.groups[g].options.forEach(function(o){ if (o.key === v) opt = o; });
+  if (!opt) {
+    var other = g === 'a' ? 'b' : 'a';
+    CONFIG.groups[other].options.forEach(function(o){ if (o.key === v) opt = o; });
+  }
+  return opt ? opt.short || opt.label : v;
+}
+
+/* ---------------- narrative write-up ---------------- */
+
+function groupMetric(entries, g){
+  var vals = entries.filter(function(e){ return e.g === g; });
+  if (CONFIG.type === 'number') {
+    var nums = vals.map(function(e){ return e.v; });
+    return { n: nums.length, value: median(nums), isPct: false, isCount: false };
+  } else if (CONFIG.type === 'multiselect') {
+    var counts = vals.map(function(e){ return e.v; });
+    return { n: counts.length, value: mean(counts), isPct: false, isCount: true };
+  } else {
+    var n = vals.length;
+    var targetCount = vals.filter(function(e){ return e.v === CONFIG.targetKey; }).length;
+    var pct = n ? (targetCount / n) * 100 : null;
+    return { n: n, value: pct, isPct: true, isCount: false };
+  }
+}
+
+function fmtMetric(m){
+  if (m.value === null) return '&ndash;';
+  if (m.isPct) return Math.round(m.value) + '%';
+  if (m.isCount) return m.value.toFixed(1) + ' funds';
+  return (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(m.value) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix);
+}
+
+function renderNarrative(currentEntries){
+  var section = el('div', {class:'narrative-section'}, '');
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+
+  var hi = CONFIG.targetHigherGroup;
+  var lo = hi === 'a' ? 'b' : 'a';
+  var mHi = groupMetric(currentEntries, hi);
+  var mLo = groupMetric(currentEntries, lo);
+
+  var tag, tagClass, verdictHtml;
+  var hiLabel = CONFIG.groups[hi].label;
+  var loLabel = CONFIG.groups[lo].label;
+
+  if (mHi.n === 0 && mLo.n === 0) {
+    tag = 'Waiting for answers'; tagClass = 'wait';
+    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic pattern, or not.';
+  } else if (mHi.n === 0 || mLo.n === 0) {
+    var emptyLabel = mHi.n === 0 ? hiLabel : loLabel;
+    tag = 'Waiting for answers'; tagClass = 'wait';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the effect.';
+  } else {
+    var diff = mHi.value - mLo.value;
+    var smallN = (mHi.n < 5 || mLo.n < 5);
+    if (diff > 0) {
+      tag = 'Lined up with the effect'; tagClass = 'aligned';
+      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group came in at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '), higher than the &ldquo;' + loLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '). That&rsquo;s the same direction the original study found.';
+      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, treat this as a live demonstration rather than a controlled study. The direction is still the one the real research would predict.';
+    } else if (diff === 0) {
+      tag = 'Too close to call'; tagClass = 'tie';
+      verdictHtml = 'Both groups landed on exactly the same figure, <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly. Add more answers and check back.';
+    } else {
+      tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
+      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group came in at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '). The original study, and the real replications since, are among the more reliable findings in behavioural science, so one reversed session doesn&rsquo;t undo that. What it usually means at this size is noise: a handful of people per side is a small enough sample that one or two unusual answers can flip the result entirely, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+    }
+  }
+
+  var verdict = el('div', {class:'narrative-verdict ' + tagClass}, '');
+  verdict.appendChild(el('span', {class:'narrative-tag ' + tagClass}, tag));
+  verdict.appendChild(el('p', {}, verdictHtml));
+  section.appendChild(verdict);
+
+  section.appendChild(el('div', {class:'narrative-block'},
+    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+
+  if (CONFIG.illustrativeNote) {
+    section.appendChild(el('p', {class:'also-illustrative'}, CONFIG.illustrativeNote));
+  }
+
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var list = el('ul', {class:'example-list'}, '');
+  CONFIG.examples.forEach(function(ex){
+    var li = el('li', {class:'example-item'}, '');
+    li.appendChild(el('div', {class:'example-label'}, ex.label));
+    li.appendChild(el('p', {}, ex.body));
+    li.appendChild(el('div', {class:'example-cite'}, ex.cite));
+    list.appendChild(li);
+  });
+  examplesBlock.appendChild(list);
+  section.appendChild(examplesBlock);
+
+  return section;
+}
+
+/* ---------------- presenter session / tally / history screen ---------------- */
+
+function renderReveal(){
+  var session = getSession();
+  var log = readLog();
+  var currentEntries = log.filter(function(e){ return e.sessionId === session.id; });
+  var byGroup = { a: [], b: [] };
+  currentEntries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
+
+  var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
+  wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
+  wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their answer, and log each one as you hear it.'));
+
+  var sessionRow = el('div', {class:'session-row'}, '');
+  sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + currentEntries.length + ' answer' + (currentEntries.length===1?'':'s')));
+  var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
+  newSessionBtn.addEventListener('click', function(){
+    if (currentEntries.length && !confirm('Start a new session? Today&rsquo;s ' + currentEntries.length + ' answer(s) move into history, the live tally resets to zero.')) return;
+    startNewSession();
+    renderReveal();
+  });
+  sessionRow.appendChild(newSessionBtn);
+  wrap.appendChild(sessionRow);
+
+  var qrSection = el('div', {class:'qr-section'}, '');
+  qrSection.appendChild(el('div', {class:'qr-heading'}, 'Session QR codes'));
+  var qrGrid = el('div', {class:'qr-grid'}, '');
+  ['a','b'].forEach(function(g){
+    var card = el('div', {class:'qr-card'}, '');
+    card.appendChild(el('img', {src:'images/qr-' + CONFIG.toolId + '-' + g + '.png', alt:'QR code for ' + CONFIG.groups[g].label, loading:'lazy'}));
+    card.appendChild(el('div', {class:'qr-label'}, CONFIG.groups[g].label));
+    card.appendChild(el('div', {class:'qr-link'}, location.origin + location.pathname + '#g=' + g));
+    qrGrid.appendChild(card);
+  });
+  qrSection.appendChild(qrGrid);
+  qrSection.appendChild(el('div', {class:'qr-note'}, 'These two codes are permanent, print them once and reuse them for every future session. &ldquo;Start new session&rdquo; resets the tally, not the codes.'));
+  wrap.appendChild(qrSection);
+
+  /* ---- the big head-to-head scoreboard: the room-scale focal point ---- */
+  var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
+  function groupValue(g){
+    if (CONFIG.type === 'number') {
+      var vals = byGroup[g].map(function(e){ return e.v; });
+      return { n: vals.length, value: median(vals), isPct: false, isCount: false };
+    }
+    return groupMetric(currentEntries, g);
+  }
+  var mA = groupValue('a'), mB = groupValue('b');
+  var maxVal = Math.max(1, mA.value || 0, mB.value || 0);
+
+  var scoreboard = el('div', {class:'scoreboard'}, '');
+  var grid = el('div', {class:'scoreboard-grid'}, '');
+  ['a','b'].forEach(function(g){
+    var m = g === 'a' ? mA : mB;
+    var card = el('div', {class:'scoreboard-card'}, '');
+    card.appendChild(el('div', {class:'sc-label'}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
+    card.appendChild(el('div', {class:'scoreboard-number' + (m.value === null ? ' empty' : ' pop')}, m.value === null ? 'No answers yet' : fmtMetric(m)));
+    card.appendChild(el('div', {class:'scoreboard-n'}, m.n + ' answer' + (m.n===1?'':'s')));
+    if (CONFIG.type === 'choice') card.appendChild(el('div', {class:'scoreboard-sub'}, '% choosing ' + (CONFIG.targetShortLabel || 'the target option')));
+    var track = el('div', {class:'scoreboard-bar-track'}, '');
+    var fill = null;
+    if (m.value !== null){
+      fill = el('div', {class:'scoreboard-bar-fill'}, '');
+      fill.style.background = colors[g];
+      track.appendChild(fill);
+    }
+    card.appendChild(track);
+    grid.appendChild(card);
+    if (g === 'a') grid.appendChild(el('div', {class:'scoreboard-vs'}, 'VS'));
+    if (fill){
+      requestAnimationFrame(function(){
+        var pct = Math.max(4, Math.min(100, (m.value / maxVal) * 100));
+        fill.style.width = pct + '%';
+      });
+    }
+  });
+  scoreboard.appendChild(grid);
+
+  var gapEl = el('div', {class:'scoreboard-gap'}, '');
+  if (mA.value !== null && mB.value !== null){
+    var diff = Math.abs(mA.value - mB.value);
+    var diffText = mA.isPct ? Math.round(diff) + ' percentage points'
+      : mA.isCount ? diff.toFixed(1) + ' funds'
+      : (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(diff) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix);
+    gapEl.innerHTML = Math.round(diff) === 0 ? 'Both groups landed on the exact same number, <b>too close to call yet</b>.'
+      : '<b>' + diffText + '</b> apart between the two groups, same real choice, same room.';
+  } else {
+    gapEl.innerHTML = 'Waiting on answers from both groups to show the gap.';
+  }
+  scoreboard.appendChild(gapEl);
+  wrap.appendChild(scoreboard);
+
+  /* ---- presenter-only controls: quieter, for whoever is typing in called-out numbers ---- */
+  var controls = el('div', {class:'presenter-controls'}, '');
+  controls.appendChild(el('div', {class:'presenter-eyebrow'}, 'Presenter controls'));
+  controls.appendChild(el('div', {class:'presenter-note'}, CONFIG.type === 'number'
+    ? 'Type in a number as the room calls it out, or tap &times; to remove a mistaken entry. This box is for whoever is running the session, not for the projector.'
+    : CONFIG.type === 'multiselect'
+    ? 'Type in how many funds each person says they&rsquo;d invest in, as they call it out, or tap &times; to remove a mistaken entry. This box is for whoever is running the session, not for the projector.'
+    : 'Tap the option each person calls out, or add it from their own scan. This box is for whoever is running the session, not for the projector.'));
+  var cols = el('div', {class:'tally-cols'}, '');
+  ['a','b'].forEach(function(g){
+    var col = el('div', {class:'tally-col'}, '');
+    col.appendChild(el('h3', {}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
+
+    if (CONFIG.type === 'number' || CONFIG.type === 'multiselect') {
+      var inputRow = el('div', {class:'tally-input-row'}, '');
+      var input = el('input', {type:'number', inputmode:'numeric', placeholder: CONFIG.groups[g].placeholder || 'e.g. 10'});
+      var addBtn = el('button', {type:'button'}, 'Add');
+      function add(){
+        var v = parseFloat(input.value);
+        if (!isFinite(v)) return;
+        addEntry(g, v);
+        input.value = '';
+        renderReveal();
+      }
+      addBtn.addEventListener('click', add);
+      input.addEventListener('keydown', function(e){ if (e.key === 'Enter') add(); });
+      inputRow.appendChild(input); inputRow.appendChild(addBtn);
+      col.appendChild(inputRow);
+
+      var chips = el('div', {class:'tally-chips'}, '');
+      byGroup[g].forEach(function(e){
+        var chipLabel = CONFIG.type === 'multiselect'
+          ? e.v + ' fund' + (e.v === 1 ? '' : 's') + ' '
+          : (CONFIG.number.suffix === '$' ? '$' : '') + e.v + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix) + ' ';
+        var chip = el('span', {class:'tally-chip'}, chipLabel);
+        var rm = el('button', {type:'button', 'aria-label':'Remove'}, '&times;');
+        rm.addEventListener('click', function(){ removeEntry(e.id); renderReveal(); });
+        chip.appendChild(rm);
+        chips.appendChild(chip);
+      });
+      col.appendChild(chips);
+    } else {
+      var choiceRow = el('div', {class:'tally-choice-row'}, '');
+      CONFIG.groups[g].options.forEach(function(opt){
+        var count = byGroup[g].filter(function(e){ return e.v === opt.key; }).length;
+        var btn = el('button', {type:'button'}, opt.short || opt.label);
+        btn.appendChild(el('span', {class:'n'}, '+1 (' + count + ')'));
+        btn.addEventListener('click', function(){ addEntry(g, opt.key); renderReveal(); });
+        choiceRow.appendChild(btn);
+      });
+      col.appendChild(choiceRow);
+    }
+    cols.appendChild(col);
+  });
+  controls.appendChild(cols);
+  wrap.appendChild(controls);
+
+  var histSection = el('div', {class:'historical'}, '');
+  var histCard = el('div', {class:'historical-card'}, '');
+  histCard.appendChild(el('div', {class:'hc-eyebrow'}, 'For comparison'));
+  histCard.appendChild(el('p', {}, CONFIG.historicalText));
+  histSection.appendChild(histCard);
+  wrap.appendChild(histSection);
+
+  wrap.appendChild(renderNarrative(currentEntries));
+
+  /* ---- full history, every session ever recorded on this device ---- */
+  var historySection = el('div', {class:'history-section'}, '');
+  historySection.appendChild(el('div', {class:'history-heading'}, 'Session history (this device)'));
+  if (!log.length) {
+    historySection.appendChild(el('div', {class:'history-empty'}, 'No sessions recorded yet on this device.'));
+  } else {
+    var bySession = {};
+    var order = [];
+    log.forEach(function(e){
+      if (!bySession[e.sessionId]) { bySession[e.sessionId] = []; order.push(e.sessionId); }
+      bySession[e.sessionId].push(e);
+    });
+    order.slice().reverse().forEach(function(sid){
+      var entries = bySession[sid].slice().sort(function(a,b){ return a.t - b.t; });
+      var startedAt = entries[0].t;
+      var block = el('div', {class:'history-session'}, '');
+      block.appendChild(el('div', {class:'history-session-head'},
+        formatDateTime(startedAt) + (sid === session.id ? ' (current)' : '') +
+        ' <span class="n">&middot; ' + entries.length + ' answer' + (entries.length===1?'':'s') + '</span>'));
+      var table = el('table', {class:'history-table'}, '');
+      table.innerHTML = '<tr><th>Time</th><th>Group</th><th>Answer</th><th></th></tr>';
+      entries.forEach(function(e){
+        var tr = el('tr', {}, '');
+        tr.appendChild(el('td', {}, formatDateTime(e.t).split(', ')[1]));
+        tr.appendChild(el('td', {class: e.g === 'a' ? 'g-a' : 'g-b'}, CONFIG.groups[e.g].shortLabel || CONFIG.groups[e.g].label));
+        tr.appendChild(el('td', {}, displayVal(e.g, e.v)));
+        var rmTd = el('td', {class:'rm'}, '');
+        var rmBtn = el('button', {type:'button', 'aria-label':'Delete entry'}, '&times;');
+        rmBtn.addEventListener('click', function(){ removeEntry(e.id); renderReveal(); });
+        rmTd.appendChild(rmBtn);
+        tr.appendChild(rmTd);
+        table.appendChild(tr);
+      });
+      block.appendChild(table);
+      historySection.appendChild(block);
+    });
+  }
+  wrap.appendChild(historySection);
+
+  var resetRow = el('div', {class:'reset-row'}, '');
+  var clearAllBtn = el('button', {class:'session-btn danger', type:'button'}, 'Clear all history');
+  clearAllBtn.addEventListener('click', function(){
+    if (!confirm('Permanently delete all ' + log.length + ' recorded answer(s) across every session on this device? This can&rsquo;t be undone.')) return;
+    writeLog([]);
+    startNewSession();
+    renderReveal();
+  });
+  resetRow.appendChild(clearAllBtn);
+  wrap.appendChild(resetRow);
+
+  render(wrap);
+}
+
+function boot(){
+  if (isReveal()) { renderReveal(); return; }
+  var group = getGroupFromHash();
+  if (!group || !CONFIG.groups[group]) { renderNoGroup(); return; }
+  renderParticipant(group);
+}
+
+boot();
+window.addEventListener('hashchange', boot);
+document.addEventListener('fullscreenchange', function(){
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
+});
+})();
+</script>
+</body>
+</html>
