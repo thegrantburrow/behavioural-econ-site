@@ -1860,11 +1860,12 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 }
 .funnel-stage-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   flex-wrap: wrap;
   gap: 4px 10px;
   margin-bottom: 6px;
 }
+.funnel-stage-icon { width: 18px; height: 18px; color: var(--ink); flex-shrink: 0; }
 .funnel-stage-num {
   display: inline-flex;
   align-items: center;
@@ -1935,6 +1936,45 @@ a.funnel-stage-name:hover { border-bottom-color: var(--teal); }
   line-height: 1.5;
 }
 .funnel-close b { color: var(--terracotta); }
+
+.funnel-substep-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 10px 0 0 30px;
+  padding: 2px 0;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--teal);
+  cursor: pointer;
+}
+.funnel-substep-toggle:hover { text-decoration: underline; }
+.funnel-substep-toggle svg { width: 11px; height: 11px; flex-shrink: 0; transition: transform 0.2s ease; }
+.funnel-substep-toggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+
+.funnel-substeps {
+  margin: 10px 0 0 30px;
+  padding: 13px 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--teal);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.funnel-substeps[hidden] { display: none; }
+.funnel-substep { display: flex; align-items: flex-start; gap: 9px; }
+.funnel-substep-icon { width: 17px; height: 17px; color: var(--ink); flex-shrink: 0; margin-top: 1px; }
+.funnel-substep-label { font-size: 0.78rem; line-height: 1.45; color: rgba(30, 27, 22, 0.85); }
+.funnel-substep-label b { color: var(--ink); }
+
+@media (max-width: 520px) {
+  .funnel-substep-toggle, .funnel-substeps { margin-left: 0; }
+}
 
 @media (max-width: 520px) {
   .funnel-stage-task { margin-left: 0; flex-basis: 100%; }
