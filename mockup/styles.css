@@ -2026,6 +2026,29 @@ a.funnel-stage-name:hover { border-bottom-color: var(--teal); }
   .chain-sep { font-size: 0.85rem; margin: 0 11px; }
 }
 
+/* ---------- thesis callout (the report's hero message, top and close) ---------- */
+.thesis-callout {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--terracotta);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 18px 0;
+}
+.thesis-icon { width: 28px; height: 28px; color: var(--ink); flex-shrink: 0; margin-top: 2px; }
+.thesis-callout h4 { font-family: Georgia, "Times New Roman", serif; font-size: 1rem; margin: 0 0 8px; }
+.thesis-callout p { font-size: 0.86rem; line-height: 1.55; color: rgba(27, 30, 36, 0.85); margin: 0 0 9px; }
+.thesis-callout p:last-child { margin-bottom: 0; }
+.thesis-callout p b { color: var(--ink); }
+
+@media (min-width: 480px) {
+  .thesis-callout h4 { font-size: 1.08rem; }
+  .thesis-callout p { font-size: 0.9rem; }
+}
+
 .study-card .citation { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
 .study-card .citation a { color: var(--terracotta); text-decoration: underline; }
 .study-card .journal { font-size: 0.78rem; color: var(--muted); margin-bottom: 10px; }
