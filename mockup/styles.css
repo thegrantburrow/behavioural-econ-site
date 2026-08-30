@@ -2887,6 +2887,9 @@ a.funnel-stage-name:hover { border-bottom-color: var(--teal); }
 }
 .app-mock-callout b { color: var(--ink); }
 
+.app-mock-microcopy { font-size: 0.78rem; color: var(--ink); margin: 0 0 6px; line-height: 1.4; font-weight: 600; }
+.app-mock-why { font-size: 0.72rem; color: var(--muted); font-style: italic; margin: 0 0 12px; line-height: 1.4; }
+
 .app-cta {
   display: block;
   width: 100%;
