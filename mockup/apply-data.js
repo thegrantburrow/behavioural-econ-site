@@ -75,7 +75,9 @@ var APPLY_PRINCIPLES = [
   {id:"diversification-heuristic", title:"Diversification Heuristic", cat:"judgment", blurb:"Asked to split money or attention across several options, people default to dividing it evenly by how many there are, not by what each one actually contains."},
   {id:"ambiguity-aversion", title:"Ambiguity Aversion", cat:"judgment", blurb:"Given a choice between a risk with known odds and an otherwise identical risk with hidden odds, most people pick the known one, even when the hidden odds could be just as good or better."},
   {id:"risk-aversion", title:"Risk Aversion", cat:"judgment", blurb:"Given a choice between a certain amount and a gamble worth the same or more on average, most people take the certain amount, giving up expected value in exchange for certainty."},
-  {id:"positional-concern", title:"Positional Concern", cat:"social", blurb:"Given a choice between an absolute amount of money and a smaller amount that still ranks above everyone else's, many people pick the smaller amount, valuing relative standing as much as, or more than, the amount itself."}
+  {id:"positional-concern", title:"Positional Concern", cat:"social", blurb:"Given a choice between an absolute amount of money and a smaller amount that still ranks above everyone else's, many people pick the smaller amount, valuing relative standing as much as, or more than, the amount itself."},
+  {id:"warm-glow-giving", title:"Warm-Glow Giving", cat:"social", blurb:"Given complete, unaccountable control over money and zero consequence for keeping all of it, most people still give some away. Giving itself feels rewarding, separate from anything the giver could get back."},
+  {id:"bulletproof-glass-effect", title:"Bulletproof Glass Effect", cat:"judgment", blurb:"A prominent, detailed privacy or security notice can lower trust instead of raising it, because explaining a protection in detail implies the danger it guards against is real."}
 ];
 
 // Category display names, reused wherever a principle's .cat needs a real
