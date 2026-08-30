@@ -1222,3 +1222,30 @@ function normalizeApostrophes(s) {
     });
   }
 })();
+
+(function () {
+  // Experiment context toggle (e.g. "Phone appointment" / "In-branch
+  // appointment"): flips visibility of every [data-context] element inside
+  // the same .experiment article to match the selected button, so a single
+  // blueprint can present the same treatments adapted to more than one
+  // real-world context without duplicating the whole article.
+  document.querySelectorAll('.context-toggle').forEach(function (toggle) {
+    var article = toggle.closest('.experiment');
+    if (!article) return;
+    var btns = Array.prototype.slice.call(toggle.querySelectorAll('.context-toggle-btn'));
+
+    function setContext(ctx) {
+      btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-context-btn') === ctx); });
+      article.querySelectorAll('[data-context]').forEach(function (el) {
+        el.hidden = el.getAttribute('data-context') !== ctx;
+      });
+    }
+
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () { setContext(btn.getAttribute('data-context-btn')); });
+    });
+
+    var initial = toggle.querySelector('.context-toggle-btn.active') || btns[0];
+    if (initial) setContext(initial.getAttribute('data-context-btn'));
+  });
+})();
