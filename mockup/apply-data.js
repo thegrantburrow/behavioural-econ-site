@@ -74,7 +74,8 @@ var APPLY_PRINCIPLES = [
   {id:"availability-heuristic", title:"Availability Heuristic", cat:"judgment", blurb:"When something is easy to picture or recall, a recent headline, a vivid story, a memory of your own, it feels more common and more likely than it actually is, simply because it comes to mind so easily."},
   {id:"diversification-heuristic", title:"Diversification Heuristic", cat:"judgment", blurb:"Asked to split money or attention across several options, people default to dividing it evenly by how many there are, not by what each one actually contains."},
   {id:"ambiguity-aversion", title:"Ambiguity Aversion", cat:"judgment", blurb:"Given a choice between a risk with known odds and an otherwise identical risk with hidden odds, most people pick the known one, even when the hidden odds could be just as good or better."},
-  {id:"risk-aversion", title:"Risk Aversion", cat:"judgment", blurb:"Given a choice between a certain amount and a gamble worth the same or more on average, most people take the certain amount, giving up expected value in exchange for certainty."}
+  {id:"risk-aversion", title:"Risk Aversion", cat:"judgment", blurb:"Given a choice between a certain amount and a gamble worth the same or more on average, most people take the certain amount, giving up expected value in exchange for certainty."},
+  {id:"positional-concern", title:"Positional Concern", cat:"social", blurb:"Given a choice between an absolute amount of money and a smaller amount that still ranks above everyone else's, many people pick the smaller amount, valuing relative standing as much as, or more than, the amount itself."}
 ];
 
 // Category display names, reused wherever a principle's .cat needs a real
