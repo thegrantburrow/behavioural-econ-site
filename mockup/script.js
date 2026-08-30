@@ -412,16 +412,26 @@ function normalizeApostrophes(s) {
     return text;
   }
 
+  // Matched to cards by the toc link's #href, not by array position: a
+  // card appended without a matching toc entry (or vice versa) must not
+  // silently shift every later pairing out of alignment.
+  var tocItemsById = {};
+  tocItems.forEach(function (li) {
+    var link = li.querySelector('a[href^="#"]');
+    if (link) tocItemsById[link.getAttribute('href').slice(1)] = li;
+  });
+
   function applyFilter() {
     var query = searchInput ? normalizeApostrophes(searchInput.value.trim().toLowerCase()) : '';
     var visibleCount = 0;
-    cards.forEach(function (card, i) {
+    cards.forEach(function (card) {
       var areas = (card.getAttribute('data-industries') || '').split(/\s+/);
       var matchesCategory = activeCategory === 'all' || areas.indexOf(activeCategory) !== -1;
       var matchesSearch = query === '' || cardText(card).indexOf(query) !== -1;
       var visible = matchesCategory && matchesSearch;
       card.hidden = !visible;
-      if (tocItems[i]) tocItems[i].hidden = !visible;
+      var tocItem = tocItemsById[card.id];
+      if (tocItem) tocItem.hidden = !visible;
       if (visible) visibleCount++;
     });
     if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
@@ -477,17 +487,27 @@ function normalizeApostrophes(s) {
     return text;
   }
 
+  // Matched to articles by the toc link's #href, not by array position:
+  // an article appended without a matching toc entry (or vice versa)
+  // must not silently shift every later pairing out of alignment.
+  var tocItemsById = {};
+  tocItems.forEach(function (li) {
+    var link = li.querySelector('a[href^="#"]');
+    if (link) tocItemsById[link.getAttribute('href').slice(1)] = li;
+  });
+
   function applyFilter() {
     var query = normalizeApostrophes(searchInput.value.trim().toLowerCase());
     var visibleCount = 0;
-    articles.forEach(function (article, i) {
+    articles.forEach(function (article) {
       var matchesAudience = activeAudience === 'all' || article.getAttribute('data-audience') === activeAudience;
       var matchesSearch = query === '' || articleText(article).indexOf(query) !== -1;
       var visible = matchesAudience && matchesSearch;
       article.hidden = !visible;
       var rule = article.nextElementSibling;
       if (rule && rule.tagName === 'HR') rule.hidden = !visible;
-      if (tocItems[i]) tocItems[i].hidden = !visible;
+      var tocItem = tocItemsById[article.id];
+      if (tocItem) tocItem.hidden = !visible;
       if (visible) visibleCount++;
     });
     if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
