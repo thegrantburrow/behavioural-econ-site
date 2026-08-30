@@ -3693,9 +3693,40 @@
           </div>
 
           <h3>Control vs. treatment</h3>
-          <p>Both arms get the identical booking, specialist and reminder call shown above. Only the call's script differs.</p>
-          <p><b>Current script (control).</b> The specialist calls &ldquo;to confirm the time and location and to ask you a couple of quick questions,&rdquo; then reads the customer the checklist: income details, other loans or accounts, an estimate of monthly expenses.</p>
-          <p><b>Proposed script (treatment).</b> The specialist asks instead of tells: &ldquo;Where will you be for our appointment on Thursday at 10:30?&rdquo; and &ldquo;Do you have your payslips and other loan details ready to bring?&rdquo;, confirming the same information but only after the customer has said it themselves.</p>
+          <p>Both arms get the identical booking, specialist and reminder call shown above. Only what the specialist says on that call differs.</p>
+          <div class="app-mock-grid">
+            <div class="app-mock-col">
+              <span class="app-mock-label">Control &middot; current script</span>
+              <div class="app-mock-phone">
+                <div class="app-mock-screen">
+                  <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="4" y="3" width="16" height="18" rx="1.5"></rect>
+                    <line x1="7.5" y1="8" x2="16.5" y2="8"></line>
+                    <line x1="7.5" y1="12" x2="16.5" y2="12" stroke="var(--teal)"></line>
+                    <line x1="7.5" y1="16" x2="13" y2="16"></line>
+                  </svg>
+                  <h4>Reminder call</h4>
+                  <p>&ldquo;Just calling to confirm the time and location, and to ask you a couple of quick questions. You'll need your payslips, details of any other loans or cards, and an estimate of your monthly expenses.&rdquo;</p>
+                  <button type="button" class="app-cta">End call</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="app-mock-col">
+              <span class="app-mock-label">Treatment &middot; customer states the plan</span>
+              <div class="app-mock-phone">
+                <div class="app-mock-screen">
+                  <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12l5 5 11-11" stroke="var(--terracotta)"></path>
+                  </svg>
+                  <h4>Reminder call</h4>
+                  <p>&ldquo;Where will you be for our appointment on Thursday at 10:30? And do you have your payslips and other loan details ready to bring?&rdquo;</p>
+                  <button type="button" class="app-cta">End call</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="app-mock-note">Both calls happen at the same point in the real flow shown above, to the same customer, about the same appointment. The control script states the checklist to the customer; the treatment script asks the customer to state it back. These are illustrative recreations of a phone call's content, not screenshots of an app screen.</p>
         </div>
 
         <div class="power-calc" data-rail-section data-rail-label="Sample size">
