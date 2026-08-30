@@ -3654,62 +3654,48 @@
         <div class="article-block" data-rail-section data-rail-label="Theory">
           <span class="k">Theory</span>
           <p><b>The study.</b> Gollwitzer and Brandst&auml;tter found that specifying exactly when and where you'll act on a goal makes you far more likely to actually follow through than holding the same goal without a specific plan.</p>
-          <p><b>The gap.</b> Commonwealth Bank's real home loan appointment booking flow (commbank.com.au/digital/homeloanappointment) lets a prospective borrower pick a lending specialist and a time slot, then confirms the booking with a date, time and contact number. That confirmation states a plan, but it's the system's plan, never one the customer put into their own words.</p>
-          <p><b>The prediction.</b> If forming the plan yourself is what creates the commitment, not just being told a time, asking the customer to actively state where they'll be and what they'll have ready for the call should reduce no-shows more than an identical booking confirmed the normal way.</p>
+          <p><b>The gap.</b> Commonwealth Bank's real home loan appointment booking flow already tells the customer everything an implementation intention would need: the confirmed time, and, ahead of a pre-appointment reminder call, exactly what to have ready (income details, other loans or accounts, a living-expenses estimate). But it's all stated to the customer. Nothing in the real flow asks the customer to say any of it back in their own words.</p>
+          <p><b>The prediction.</b> If forming the plan yourself is what creates the commitment, not just being told the details, the same reminder call should reduce no-shows more when it asks the customer to state their own plan than when it simply repeats the checklist to them.</p>
         </div>
 
         <div class="article-block" data-rail-section data-rail-label="Hypothesis">
-          <p><b>Hypothesis.</b> Among customers booking a home loan appointment through the same real digital flow, customers who are asked to type their own answer to &ldquo;Where will you be for this call, and what will you have ready?&rdquo; before their booking is confirmed show a lower no-show rate than customers who receive the standard confirmation with no such prompt.</p>
+          <p><b>Hypothesis.</b> Among customers who receive the same pre-appointment reminder call CommBank already makes, customers whose call asks them to say where they'll be and confirm out loud whether they have their documents ready show a lower no-show rate than customers whose call simply restates the time, location and document checklist to them.</p>
         </div>
 
         <div class="article-block" data-rail-section data-rail-label="Baseline">
           <span class="k">Assumed baseline</span>
-          <p><b>Illustrative, not real CommBank data.</b> Assume 22% of booked home loan appointments end in a no-show under the current confirmation flow.</p>
+          <p><b>Illustrative, not real CommBank data.</b> Assume 22% of booked home loan appointments end in a no-show under the current reminder-call script.</p>
         </div>
 
         <div class="article-block" data-rail-section data-rail-label="Ethics">
           <span class="k">Ethical guardrail</span>
-          <p><b>The risk.</b> An extra required field before a booking completes is still friction, even friction meant to help. If the prompt discourages genuinely interested customers from finishing the booking at all, the bank could end up with fewer real conversations, not more of them, a worse outcome dressed up as a behavioural win.</p>
-          <p><b>The guardrail.</b> The prompt is a short free-text field, not a hard gate. The underlying booking, specialist and time slot are identical in both arms; only whether the customer is asked to state their own plan differs, and abandoning the extra field never blocks the booking itself.</p>
-          <p><b>What's being tested.</b> Whether stating a personal plan changes follow-through on an identical appointment, not whether adding friction to a booking flow is acceptable on its own. See <a href="not-testing-is-still-a-bet.html">Not Testing Is Still a Bet</a>.</p>
+          <p><b>The risk.</b> A reminder call that quizzes the customer instead of simply informing them could land as unhelpful or presumptuous with some customers, even if it improves show-up rates on average.</p>
+          <p><b>The guardrail.</b> The appointment, the specialist, the timing of the call, and the actual information required (income details, other loans, expenses) are identical in both arms. Only whether the specialist asks the customer to state it, instead of stating it to them, differs, and the specialist still confirms every detail either way.</p>
+          <p><b>What's being tested.</b> Whether the call's script changes follow-through on an identical appointment, not whether the reminder call itself should exist. See <a href="not-testing-is-still-a-bet.html">Not Testing Is Still a Bet</a>.</p>
         </div>
 
         <div data-rail-section data-rail-label="Design">
-          <h3>Control vs. treatment</h3>
-          <p>Both arms book the identical specialist and time slot through CommBank's real appointment flow. The treatment arm adds one short prompt to the confirmation step, asking the customer to state their own plan in their own words.</p>
-          <div class="app-mock-grid">
-            <div class="app-mock-col">
-              <span class="app-mock-label">Control &middot; standard confirmation</span>
-              <div class="app-mock-phone">
-                <div class="app-mock-screen">
-                  <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <rect x="4" y="3" width="16" height="18" rx="1.5"></rect>
-                    <line x1="7.5" y1="8" x2="16.5" y2="8"></line>
-                    <line x1="7.5" y1="12" x2="16.5" y2="12" stroke="var(--teal)"></line>
-                    <line x1="7.5" y1="16" x2="13" y2="16"></line>
-                  </svg>
-                  <h4>Appointment confirmed</h4>
-                  <p>Thursday 10:30am with Home Lending Specialist Priya Nair. We'll call you on the number you provided.</p>
-                  <button type="button" class="app-cta">Add to calendar</button>
-                </div>
+          <h3>The real flow today</h3>
+          <div class="spotted-wild">
+            <span class="lbl">Spotted in the wild</span>
+            <p class="spotted-intro">Real screenshots from Commonwealth Bank's live home loan appointment booking flow (commbank.com.au/digital/homeloanappointment), captured booking a real appointment slot.</p>
+            <div class="spotted-grid">
+              <div class="spotted-item">
+                <img src="images/commbank-home-loan-appointment-confirmed.jpg" alt="Commonwealth Bank appointment confirmation screen showing the booked time and the assigned home lending specialist, with the specialist's name redacted">
+                <p class="spotted-caption">The confirmation screen: a date, time and specialist, plus &ldquo;Add to Calendar.&rdquo; The specialist's name is redacted here for their privacy.</p>
+              </div>
+              <div class="spotted-item">
+                <img src="images/commbank-home-loan-appointment-reminder-checklist.jpg" alt="Commonwealth Bank booking confirmation What's Next section, showing a reminder call step and a checklist of documents to have ready">
+                <p class="spotted-caption">Further down the same confirmation: a reminder call is already promised, &ldquo;to confirm the time and location and to ask you a couple of quick questions,&rdquo; followed by a real document checklist.</p>
               </div>
             </div>
-
-            <div class="app-mock-col">
-              <span class="app-mock-label">Treatment &middot; customer states their own plan</span>
-              <div class="app-mock-phone">
-                <div class="app-mock-screen">
-                  <svg class="app-mock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M4 12l5 5 11-11" stroke="var(--terracotta)"></path>
-                  </svg>
-                  <h4>Appointment confirmed</h4>
-                  <p>Thursday 10:30am with Home Lending Specialist Priya Nair. Where will you be, and what will you have ready (payslips, ID)? <i>[free text]</i></p>
-                  <button type="button" class="app-cta">Add to calendar</button>
-                </div>
-              </div>
-            </div>
+            <p class="spotted-disclosure">This is a real, current product flow, not a demonstration that any change to it works. The reminder call and checklist already exist; nothing here shows the proposed script change actually being tested.</p>
           </div>
-          <p class="app-mock-note">The specialist, the time slot and the underlying booking are identical in both arms. Only the treatment arm asks the customer to state the plan themselves. These are illustrative recreations of the real flow's structure, not literal screenshots: the live booking system's bot protection blocked automated capture, so nothing here is a captured image of the actual page.</p>
+
+          <h3>Control vs. treatment</h3>
+          <p>Both arms get the identical booking, specialist and reminder call shown above. Only the call's script differs.</p>
+          <p><b>Current script (control).</b> The specialist calls &ldquo;to confirm the time and location and to ask you a couple of quick questions,&rdquo; then reads the customer the checklist: income details, other loans or accounts, an estimate of monthly expenses.</p>
+          <p><b>Proposed script (treatment).</b> The specialist asks instead of tells: &ldquo;Where will you be for our appointment on Thursday at 10:30?&rdquo; and &ldquo;Do you have your payslips and other loan details ready to bring?&rdquo;, confirming the same information but only after the customer has said it themselves.</p>
         </div>
 
         <div class="power-calc" data-rail-section data-rail-label="Sample size">
@@ -3740,13 +3726,13 @@
           <ul class="doc-mock-list">
             <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Primary:</b><br>% of booked appointments ending in a no-show, control versus treatment</span></li>
             <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Secondary:</b><br>last-minute reschedule rate, a second sign of a more considered commitment</span></li>
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>booking abandonment rate between selecting a slot and completing the booking, checking the extra prompt doesn't cost more bookings than it saves in no-shows</span></li>
-            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>customer complaints or negative feedback specifically referencing the extra prompt</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>average call length, checking the treatment script doesn't meaningfully extend a call that's meant to be brief</span></li>
+            <li><span class="doc-mock-check" aria-hidden="true">&check;</span><span><b>Guardrail:</b><br>customer complaints or negative feedback specifically referencing the reminder call</span></li>
           </ul>
         </div>
 
         <div class="also-note"><b>The mechanism behind this:</b> <a href="principles.html#implementation-intentions">Implementation Intentions</a>, full study and citation on the Principles page.</div>
-        <div class="also-note"><b>Also worth citing:</b> Martin, S. J., Bassi, S., &amp; Dunbar-Rees, R. (2012). &ldquo;Commitments, Norms and Custard Creams: A Social Influence Approach to Reducing Did Not Attends (DNAs).&rdquo; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3308641/" target="_blank" rel="noopener">Journal of the Royal Society of Medicine, 105(3), 101&ndash;104</a>. A real NHS trial found asking patients to state their own appointment time back to staff, rather than simply being told it, measurably reduced missed appointments, the same self-stated-plan mechanism applied here to a booking rather than a reminder call.</div>
+        <div class="also-note"><b>Also worth citing:</b> Martin, S. J., Bassi, S., &amp; Dunbar-Rees, R. (2012). &ldquo;Commitments, Norms and Custard Creams: A Social Influence Approach to Reducing Did Not Attends (DNAs).&rdquo; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3308641/" target="_blank" rel="noopener">Journal of the Royal Society of Medicine, 105(3), 101&ndash;104</a>. A real NHS trial found asking patients to state their own appointment time back to staff, rather than simply being told it, measurably reduced missed appointments, the exact same self-stated-plan mechanism this blueprint applies to CommBank's own reminder call.</div>
       </div>
     </div>
     </div>
