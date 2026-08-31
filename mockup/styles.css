@@ -2755,20 +2755,7 @@ a.funnel-stage-name:hover { border-bottom-color: var(--teal); }
 
 .session-collage img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* warm archival duotone so five phone photos, shot at different angles
-   and in different light, read as one consistent set rather than a
-   dump of camera-roll snapshots */
-.session-photo { filter: grayscale(88%) sepia(14%) contrast(1.1) brightness(1.03); }
-
-.session-collage .photo-cell::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--ink);
-  mix-blend-mode: color;
-  opacity: 0.16;
-  pointer-events: none;
-}
+.session-photo { filter: none; }
 
 .session-collage-wrap .caption { margin-top: 10px; text-align: center; }
 
