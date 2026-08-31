@@ -78,7 +78,8 @@ var APPLY_PRINCIPLES = [
   {id:"positional-concern", title:"Positional Concern", cat:"social", blurb:"Given a choice between an absolute amount of money and a smaller amount that still ranks above everyone else's, many people pick the smaller amount, valuing relative standing as much as, or more than, the amount itself."},
   {id:"warm-glow-giving", title:"Warm-Glow Giving", cat:"social", blurb:"Given complete, unaccountable control over money and zero consequence for keeping all of it, most people still give some away. Giving itself feels rewarding, separate from anything the giver could get back."},
   {id:"bulletproof-glass-effect", title:"Bulletproof Glass Effect", cat:"judgment", blurb:"A prominent, detailed privacy or security notice can lower trust instead of raising it, because explaining a protection in detail implies the danger it guards against is real."},
-  {id:"implementation-intentions", title:"Implementation Intentions", cat:"motivation", blurb:"Deciding in advance exactly when, where and how you'll act on a goal, a specific if-then plan rather than a general intention, makes people far more likely to actually follow through."}
+  {id:"implementation-intentions", title:"Implementation Intentions", cat:"motivation", blurb:"Deciding in advance exactly when, where and how you'll act on a goal, a specific if-then plan rather than a general intention, makes people far more likely to actually follow through."},
+  {id:"reminder-fatigue", title:"Reminder Fatigue", cat:"social", blurb:"A repeated reminder raises compliance the moment it's sent, but each additional one also raises the odds the recipient opts out of all future contact for good."}
 ];
 
 // Category display names, reused wherever a principle's .cat needs a real
