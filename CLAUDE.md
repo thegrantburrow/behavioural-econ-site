@@ -8,8 +8,11 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
 - Working tree lives in `mockup/` (`index.html`, `principles.html`,
   `sessions.html`, `experiments.html`, `styles.css`, `script.js`,
   `mockup/images/`). Treat this as the site; there is no build step yet.
-- Palette: ink `#1E1B16`, terracotta `#B2472B`, mustard `#D9A441`, teal
-  `#2B6660`, paper `#FBF9F4`. Georgia/serif for headlines, system sans for
+- Palette: ink `#1B1E24`, terracotta `#C43E1F`, mustard `#E0A93A`, teal
+  `#1F7A6C`, paper `#F5F6F5`. This doc had drifted from the live tokens in
+  `mockup/styles.css`'s own `:root` block for a while before being caught
+  2026-08-31; always grep `styles.css` directly before hardcoding a hex value
+  into a standalone artifact, don't trust this line on faith. Georgia/serif for headlines, system sans for
   body — no monospace.
 - Skills exist for the site's recurring content types — use them instead of
   improvising structure: `behavioural-principle-article`, `field-session`,
