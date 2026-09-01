@@ -37,7 +37,25 @@ python3 scripts/download_reference_pdfs.py
 Most citations point at publisher landing pages or DOI resolvers. Those need a
 full PDF sourced elsewhere.
 
-### 3. Ingest a PDF Grok (or you) fetched manually
+### 3. Batch-ingest a folder of Grok PDFs
+
+Drop PDFs into `references/inbox/` (or any folder), then:
+
+```bash
+python3 scripts/batch_ingest_reference_pdfs.py
+python3 scripts/batch_ingest_reference_pdfs.py --dir ~/Downloads/grok-papers
+```
+
+Files are matched to manifest entries by exact filename, then by
+year/author/title token overlap. Unmatched files are listed at the end.
+
+### 4. Auto-fetch open-access PDFs (DOI / NBER / arxiv resolvers)
+
+```bash
+python3 scripts/fetch_reference_pdfs.py
+```
+
+### 5. Ingest a single PDF manually
 
 ```bash
 python3 scripts/ingest_reference_pdf.py \
@@ -51,7 +69,7 @@ Or match by manifest `id`:
 python3 scripts/ingest_reference_pdf.py --id a1b2c3d4e5 --file paper.pdf
 ```
 
-### 4. Check coverage
+### 6. Check coverage
 
 ```bash
 python3 scripts/extract_citations.py --check

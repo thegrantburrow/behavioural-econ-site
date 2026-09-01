@@ -2,7 +2,7 @@
   "description": "Cited studies referenced across mockup/*.html. PDFs live in papers/.",
   "generated_by": "scripts/extract_citations.py",
   "entry_count": 145,
-  "on_disk": 6,
+  "on_disk": 23,
   "entries": [
     {
       "label": "Thorndike, E. L. (1920). “A Constant Error in Psychological Ratings.” Journal of Applied Psychology, 4(1), 25–29",
@@ -154,7 +154,7 @@
       "id": "c544ff1e4b",
       "suggested_filename": "1971-tversky-belief-in-the-law-of-small-numbers.pdf",
       "pdf_path": "papers/1971-tversky-belief-in-the-law-of-small-numbers.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Tversky, A. (1972). “Elimination by Aspects: A Theory of Choice.” Psychological Review, 79(4), 281–299",
@@ -620,7 +620,7 @@
       "id": "b2be04b0ca",
       "suggested_filename": "1997-gollwitzer-implementation-intentions-and-effective-goal-pur.pdf",
       "pdf_path": "papers/1997-gollwitzer-implementation-intentions-and-effective-goal-pur.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Hand, D. J., & Henley, W. E. (1997). “Statistical Classification Methods in Consumer Credit Scoring: A Review.” Journal of the Royal Statistical Society: Series A, 160(3), 523–541",
@@ -921,7 +921,7 @@
       "id": "3abdd8a265",
       "suggested_filename": "2003-redelmeier-memories-of-colonoscopy-a-randomized-trial.pdf",
       "pdf_path": "papers/2003-redelmeier-memories-of-colonoscopy-a-randomized-trial.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Vann, M. G. (2003). “Of Rats, Rice, and Race: The Great Hanoi Rat Massacre, an Episode in French Colonial History.” French Colonial History, 4(1), 191–203",
@@ -1027,7 +1027,7 @@
       "id": "76111edaaa",
       "suggested_filename": "2006-kivetz-the-goal-gradient-hypothesis-resurrected-purchas.pdf",
       "pdf_path": "papers/2006-kivetz-the-goal-gradient-hypothesis-resurrected-purchas.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Peytchev, A., Couper, M. P., McCabe, S. E., & Crawford, S. D. (2006). “Web Survey Design: Paging versus Scrolling.” Public Opinion Quarterly, 70(4), 596–607",
@@ -1253,7 +1253,7 @@
       "id": "fdce5d1f49",
       "suggested_filename": "2010-kearney-making-savers-winners-an-overview-of-prize-linke.pdf",
       "pdf_path": "papers/2010-kearney-making-savers-winners-an-overview-of-prize-linke.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Bem, D. J. (2011). “Feeling the Future: Experimental Evidence for Anomalous Retroactive Influences on Cognition and Affect.” Journal of Personality and Social Psychology, 100(3), 407–425 . Replication: Ritchie, S. J., Wiseman, R., & French, C. C. (2012). “Failing the Future.” PLOS ONE, 7(3), e33423",
@@ -1298,7 +1298,7 @@
       "id": "d16622777c",
       "suggested_filename": "2011-bryan-motivating-voter-turnout-by-invoking-the-self.pdf",
       "pdf_path": "papers/2011-bryan-motivating-voter-turnout-by-invoking-the-self.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Buell, R. W., & Norton, M. I. (2011). \"The Labor Illusion: How Operational Transparency Increases Perceived Value.\" Management Science, 57(9), 1564–1579",
@@ -1418,7 +1418,7 @@
       "id": "79acbf6222",
       "suggested_filename": "2012-restivo-experimental-study-of-informal-rewards-in-peer-p.pdf",
       "pdf_path": "papers/2012-restivo-experimental-study-of-informal-rewards-in-peer-p.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Beshears, J., Choi, J. J., Laibson, D., & Madrian, B. C. (2013). “Simplification and Saving.” Journal of Economic Behavior & Organization, 95, 130–145",
@@ -1448,7 +1448,7 @@
       "id": "cba5ea32ba",
       "suggested_filename": "2013-crepon-do-labor-market-policies-have-displacement-effec.pdf",
       "pdf_path": "papers/2013-crepon-do-labor-market-policies-have-displacement-effec.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Mangen, A., Walgermo, B. R., & Brønnick, K. (2013). “Reading Linear Texts on Paper versus Computer Screen: Effects on Reading Comprehension.” International Journal of Educational Research, 58, 61–68",
@@ -1554,7 +1554,7 @@
       "id": "4593a77f3b",
       "suggested_filename": "2014-doorn-does-the-colour-of-the-mug-influence-the-taste-o.pdf",
       "pdf_path": "papers/2014-doorn-does-the-colour-of-the-mug-influence-the-taste-o.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Berman, E. R., & Johnson, R. K. (2015). “The Unintended Consequences of Changes in Beverage Options and the Removal of Bottled Water on a University Campus.” American Journal of Public Health, 105(7), 1404–1408",
@@ -1584,7 +1584,7 @@
       "id": "513f07d1a0",
       "suggested_filename": "2015-blake-consumer-heterogeneity-and-paid-search-effective.pdf",
       "pdf_path": "papers/2015-blake-consumer-heterogeneity-and-paid-search-effective.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Dietvorst, B. J., Simmons, J. P., & Massey, C. (2015). “Algorithm Aversion: People Erroneously Avoid Algorithms After Seeing Them Err.” Journal of Experimental Psychology: General, 144(1), 114–126",
@@ -1599,7 +1599,7 @@
       "id": "b80874dddd",
       "suggested_filename": "2015-dietvorst-algorithm-aversion-people-erroneously-avoid-algo.pdf",
       "pdf_path": "papers/2015-dietvorst-algorithm-aversion-people-erroneously-avoid-algo.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Filiz-Ozbay, E., Guryan, J., Hyndman, K., Kearney, M., & Ozbay, E. Y. (2015). “Do Lottery Payments Induce Savings Behavior? Evidence from the Lab.” Journal of Public Economics, 126, 1–24",
@@ -1915,7 +1915,7 @@
       "id": "4288e9e8b2",
       "suggested_filename": "2021-blake-price-salience-and-product-choice.pdf",
       "pdf_path": "papers/2021-blake-price-salience-and-product-choice.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Einfeldt, L., & Degbelo, A. (2021). “User Interface Factors of Mobile UX: A Study with an Incident Reporting Application.” HUCAPP 2021 (VISIGRAPP)",
@@ -1945,7 +1945,7 @@
       "id": "f8dad7cd34",
       "suggested_filename": "2021-gaube-do-as-ai-say-susceptibility-in-deployment-of-cli.pdf",
       "pdf_path": "papers/2021-gaube-do-as-ai-say-susceptibility-in-deployment-of-cli.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Iftikhar, A., Bond, R., McGilligan, V., et al. (2021). “Comparing Single-Page, Multipage, and Conversational Digital Forms in Health Care: Usability Study.” JMIR Human Factors, 8(2), e25787",
@@ -1960,7 +1960,7 @@
       "id": "69074deb98",
       "suggested_filename": "2021-iftikhar-comparing-single-page-multipage-and-conversation.pdf",
       "pdf_path": "papers/2021-iftikhar-comparing-single-page-multipage-and-conversation.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Jacobs, M., Pradier, M. F., McCoy, T. H., Perlis, R. H., Doshi-Velez, F., & Gajos, K. Z. (2021). “How Machine-Learning Recommendations Influence Clinician Treatment Selections: The Example of Antidepressant Selection.” Translational Psychiatry, 11, Article 108",
@@ -1975,7 +1975,7 @@
       "id": "a24140ce3a",
       "suggested_filename": "2021-jacobs-how-machine-learning-recommendations-influence-c.pdf",
       "pdf_path": "papers/2021-jacobs-how-machine-learning-recommendations-influence-c.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Ahmadi, M., Durst, N., Lachman, J., List, J. A., List, M., List, N., & Vayalinkal, A. (2022). “Nothing Propinks Like Propinquity: Using Machine Learning to Estimate the Effects of Spatial Proximity in the Major League Baseball Draft.” NBER Working Paper No. 30786 . Still a working paper rather than a peer-reviewed publication at time of writing. The paper itself sat behind this site's network restrictions, so every number above is paraphrased from its own public summary, not quoted from the full text.",
@@ -1990,7 +1990,7 @@
       "id": "6f1f789898",
       "suggested_filename": "2022-ahmadi-nothing-propinks-like-propinquity-using-machine.pdf",
       "pdf_path": "papers/2022-ahmadi-nothing-propinks-like-propinquity-using-machine.pdf",
-      "status": "missing"
+      "status": "on_disk"
     },
     {
       "label": "Brough, A. R., Norton, D. A., Sciarappa, S. L., & John, L. K. (2022). “The Bulletproof Glass Effect: Unintended Consequences of Privacy Notices.” Journal of Marketing Research, 59(4), 739–754",
@@ -2186,7 +2186,7 @@
       "id": "8329c6f8ac",
       "suggested_filename": "list-list-j-a-fryer-r-g-levitt-s-d-samek-a-the-chicag.pdf",
       "pdf_path": "papers/list-list-j-a-fryer-r-g-levitt-s-d-samek-a-the-chicag.pdf",
-      "status": "missing"
+      "status": "on_disk"
     }
   ]
 }
