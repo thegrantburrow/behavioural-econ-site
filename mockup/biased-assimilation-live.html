@@ -346,10 +346,9 @@ function renderRating(group, scenarioId, round){
 }
 
 function renderExcuse(group, scenarioId, rating){
-  var sc = scenarioById(scenarioId);
   var s = el('div', {class:'screen'}, '');
   s.appendChild(el('div', {class:'eyebrow'}, 'One more thing'));
-  s.appendChild(el('h1', {class:'q'}, 'You rated it ' + rating + '/10. Someone else in the room saw the exact same ' + sc.metricLabel.toLowerCase() + ' number and thinks your rating is off. What would you tell them?'));
+  s.appendChild(el('h1', {class:'q'}, 'You rated it ' + rating + '/10. Someone in the room isn’t convinced: &ldquo;That may look like it worked, but how do you know it wasn’t something else?&rdquo; What would you tell them?'));
   var col = el('div', {class:'excusebtn-col'}, '');
   CONFIG.excuses.forEach(function(ex){
     var btn = el('button', {class:'excusebtn', type:'button'}, ex.label);
