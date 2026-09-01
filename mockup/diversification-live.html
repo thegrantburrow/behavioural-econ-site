@@ -118,6 +118,10 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 .qr-card img{width:100%;max-width:260px;height:auto;margin:0 auto 12px;display:block;border-radius:8px;}
 .qr-card .qr-label{font-size:clamp(13px,1.3vw,15px);font-weight:700;margin-bottom:4px;}
 .qr-card .qr-link{font-size:10.5px;color:var(--ink-soft);word-break:break-all;}
+.qr-explainer{text-align:center;font-size:12.5px;color:var(--ink-soft);line-height:1.6;margin:0 0 16px;max-width:52ch;margin-left:auto;margin-right:auto;}
+.qr-card .qr-link{display:block;font-size:10.5px;color:var(--terracotta);word-break:break-all;text-decoration:underline;margin-bottom:8px;}
+.qr-copy-btn{font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:7px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit;}
+.qr-copy-btn[data-copied="true"]{background:var(--terracotta);color:#fff;border-color:var(--terracotta);}
 .qr-note{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;}
 
 .reset-row{text-align:center;}
@@ -458,6 +462,27 @@ function renderNarrative(currentEntries){
 
 /* ---------------- presenter session / tally / history screen ---------------- */
 
+function copyQrLink(text, btn){
+  function done(){
+    btn.textContent = 'Copied ✓';
+    btn.setAttribute('data-copied', 'true');
+    setTimeout(function(){ btn.textContent = 'Copy link'; btn.removeAttribute('data-copied'); }, 1800);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopyQr(text, done); });
+  } else {
+    fallbackCopyQr(text, done);
+  }
+}
+function fallbackCopyQr(text, cb){
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch(e){}
+  document.body.removeChild(ta);
+  cb();
+}
+
 function renderReveal(){
   var session = getSession();
   var log = readLog();
@@ -509,12 +534,17 @@ function renderReveal(){
 
   var qrSection = el('div', {class:'qr-section'}, '');
   qrSection.appendChild(el('div', {class:'qr-heading'}, 'Session QR codes'));
+  qrSection.appendChild(el('div', {class:'qr-explainer'}, 'Split your room in two. Print or send each code below to one half, whichever one someone opens or scans decides which version they get, the page tells them what to do from there.'));
   var qrGrid = el('div', {class:'qr-grid'}, '');
   ['a','b'].forEach(function(g){
     var card = el('div', {class:'qr-card'}, '');
     card.appendChild(el('img', {src:'images/qr-' + CONFIG.toolId + '-' + g + '.png', alt:'QR code for ' + CONFIG.groups[g].label, loading:'lazy'}));
     card.appendChild(el('div', {class:'qr-label'}, CONFIG.groups[g].label));
-    card.appendChild(el('div', {class:'qr-link'}, location.origin + location.pathname + '#g=' + g));
+    var linkUrl = location.origin + location.pathname + '#g=' + g;
+    card.appendChild(el('a', {class:'qr-link', href:linkUrl, target:'_blank', rel:'noopener'}, linkUrl));
+    var copyBtn = el('button', {class:'qr-copy-btn', type:'button'}, 'Copy link');
+    copyBtn.addEventListener('click', function(){ copyQrLink(linkUrl, copyBtn); });
+    card.appendChild(copyBtn);
     qrGrid.appendChild(card);
   });
   qrSection.appendChild(qrGrid);
