@@ -79,7 +79,8 @@ var APPLY_PRINCIPLES = [
   {id:"warm-glow-giving", title:"Warm-Glow Giving", cat:"social", blurb:"Given complete, unaccountable control over money and zero consequence for keeping all of it, most people still give some away. Giving itself feels rewarding, separate from anything the giver could get back."},
   {id:"bulletproof-glass-effect", title:"Bulletproof Glass Effect", cat:"judgment", blurb:"A prominent, detailed privacy or security notice can lower trust instead of raising it, because explaining a protection in detail implies the danger it guards against is real."},
   {id:"implementation-intentions", title:"Implementation Intentions", cat:"motivation", blurb:"Deciding in advance exactly when, where and how you'll act on a goal, a specific if-then plan rather than a general intention, makes people far more likely to actually follow through."},
-  {id:"reminder-fatigue", title:"Reminder Fatigue", cat:"social", blurb:"A repeated reminder raises compliance the moment it's sent, but each additional one also raises the odds the recipient opts out of all future contact for good."}
+  {id:"reminder-fatigue", title:"Reminder Fatigue", cat:"social", blurb:"A repeated reminder raises compliance the moment it's sent, but each additional one also raises the odds the recipient opts out of all future contact for good."},
+  {id:"biased-assimilation", title:"Biased Assimilation", cat:"judgment", blurb:"Shown the same mixed evidence, people accept whatever confirms their existing belief, pick apart whatever contradicts it, and end up more certain of their original view than when they started."}
 ];
 
 // Category display names, reused wherever a principle's .cat needs a real
