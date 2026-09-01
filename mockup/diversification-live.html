@@ -172,6 +172,17 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 .multiselect-row input{width:18px;height:18px;flex-shrink:0;accent-color:var(--terracotta);}
 .multiselect-row.checked{border-color:var(--terracotta);background:rgba(196,62,31,0.06);}
 .multiselect-counter{text-align:center;font-size:13px;color:var(--ink-soft);margin:0 0 16px;font-weight:600;}
+
+.fictional-note{font-size:11px;color:var(--ink-soft);font-style:italic;text-align:center;margin:0 0 18px;}
+.alloc-total{text-align:center;font-size:13px;color:var(--ink-soft);margin:0 0 14px;font-weight:600;}
+.alloc-total b{color:var(--ink);font-family:Georgia,serif;font-size:15px;}
+.alloc-list{display:flex;flex-direction:column;gap:16px;margin-bottom:22px;}
+.alloc-row{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;}
+.alloc-row-head{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;font-weight:700;margin-bottom:2px;}
+.alloc-row-head .cls{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;margin-left:6px;}
+.alloc-row-pct{font-family:Georgia,serif;font-weight:700;font-size:18px;color:var(--terracotta);}
+.alloc-row-dollar{font-size:11.5px;color:var(--ink-soft);margin-bottom:8px;}
+.alloc-slider{width:100%;height:26px;accent-color:var(--terracotta);cursor:pointer;}
 </style>
 </head>
 <body>
@@ -181,7 +192,46 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 (function(){
 "use strict";
 
-var CONFIG = {"toolId": "div", "type": "multiselect", "toolTitle": "Live Diversification Heuristic", "targetHigherGroup": "a", "groups": {"a": {"label": "Flat 10-option menu", "shortLabel": "Flat 10-menu", "scenarioTitle": "Tap every fund you&rsquo;d actually invest in today", "scenarioBody": "This is CommSec Pocket&rsquo;s real &ldquo;Invest in&rdquo; menu: ten flat options, no default, no grouping.", "placeholder": "e.g. 4", "options": [{"key": "top200", "label": "Aussie Top 200"}, {"key": "dividends", "label": "Aussie Dividends"}, {"key": "sustainability", "label": "Aussie Sustainability"}, {"key": "bonds", "label": "Aussie Corporate Bonds"}, {"key": "global100", "label": "Global 100"}, {"key": "diversified", "label": "Diversified Equities"}, {"key": "emerging", "label": "Emerging Markets"}, {"key": "health", "label": "Health Wise"}, {"key": "sustleaders", "label": "Sustainability Leaders"}, {"key": "tech", "label": "Tech Savvy"}]}, "b": {"label": "Curated 3-option menu", "shortLabel": "Curated 3-menu", "scenarioTitle": "Tap every fund you&rsquo;d actually invest in today", "scenarioBody": "A redesigned menu offering three curated options instead of the same ten flat ones.", "placeholder": "e.g. 1", "options": [{"key": "balanced", "label": "Balanced Starter"}, {"key": "aussie", "label": "Aussie Shares"}, {"key": "seeall", "label": "None of these, I'd rather see all 10 first", "short": "Wanted to see all 10"}]}}, "historicalText": "This site&rsquo;s own Diversification Heuristic entry cites Benartzi &amp; Thaler&rsquo;s 2001 finding that retirement savers roughly split their contributions evenly across however many funds a plan happened to offer, the &ldquo;1/n&rdquo; pattern: a plan listing mostly stock funds ended up with mostly-stock participant portfolios, almost independent of what savers said about their own risk tolerance. This room&rsquo;s version swaps allocation percentages for a simpler live proxy, how many funds each group taps on CommSec Pocket&rsquo;s own real menu, already documented on the Principles page.", "mechanismHtml": "This is the diversification heuristic, sometimes called naive or &ldquo;1/n&rdquo; diversification. Weighing what each option actually contains, its real risk, how much it overlaps with everything else on the list, takes more effort than most people have on hand in the moment. Instead, <b>the mind substitutes an easier question: how many options are there, so what&rsquo;s one divided by that?</b> <b>A menu offering ten options invites picking several of them; a menu offering three invites picking fewer</b>, almost regardless of what&rsquo;s actually inside each one. <a href=\"principles.html#diversification-heuristic\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "CommSec Pocket&rsquo;s real &ldquo;Invest in&rdquo; menu", "body": "CommSec Pocket lists ten flat options side by side with no default and no grouping. A first-time investor wanting &ldquo;a spread&rdquo; who taps four or five of them never notices that one option, Diversified Equities, already holds hundreds of companies, while others, Tech Savvy and Emerging Markets among them, are concentrated, single-theme bets.", "cite": "This site&rsquo;s own <a href=\"principles.html#diversification-heuristic\">Diversification Heuristic</a> entry."}, {"label": "Employer retirement plans", "body": "Benartzi and Thaler found the identical pattern in real employer retirement plans: the share of an employee&rsquo;s contributions held in stock funds tracked closely with the share of stock funds among the total funds the plan happened to offer.", "cite": "Benartzi, S., &amp; Thaler, R. H. (2001). &ldquo;Naive Diversification Strategies in Defined Contribution Saving Plans.&rdquo; American Economic Review, 91(1), 79&ndash;98."}]};
+var CONFIG = {
+  toolId: "div",
+  type: "allocate",
+  toolTitle: "Live Diversification Heuristic",
+  targetHigherGroup: "a",
+  potTotal: 300,
+  groups: {
+    a: {
+      label: "Stock-heavy lineup",
+      shortLabel: "Stock-heavy lineup",
+      scenarioTitle: "Split $300 across this plan&rsquo;s three funds",
+      scenarioBody: "A workplace retirement plan offering just three investment options.",
+      placeholder: "e.g. 67",
+      funds: [
+        { key: "aus-a", label: "Australian Shares", assetClass: "stock" },
+        { key: "intl-a", label: "International Shares", assetClass: "stock" },
+        { key: "bonds-a", label: "Fixed Interest", assetClass: "bond" }
+      ]
+    },
+    b: {
+      label: "Bond-heavy lineup",
+      shortLabel: "Bond-heavy lineup",
+      scenarioTitle: "Split $300 across this plan&rsquo;s three funds",
+      scenarioBody: "A different plan, same $300, same three-fund format, a different mix of funds on offer.",
+      placeholder: "e.g. 33",
+      funds: [
+        { key: "aus-b", label: "Australian Shares", assetClass: "stock" },
+        { key: "bonds-b", label: "Fixed Interest", assetClass: "bond" },
+        { key: "bonds2-b", label: "Diversified Bonds", assetClass: "bond" }
+      ]
+    }
+  },
+  historicalText: "Benartzi &amp; Thaler&rsquo;s 2001 study compared real employer retirement plans with different fund lineups and found employees roughly split their contributions evenly across however many funds a plan happened to offer, the &ldquo;1/n&rdquo; pattern: a plan listing mostly stock funds ended up with mostly-stock participant portfolios, almost independent of what savers said about their own risk tolerance. This room&rsquo;s version runs the identical manipulation: two plans, three funds each, a different stock-to-bond mix on the menu.",
+  mechanismHtml: "This is the diversification heuristic, sometimes called naive or &ldquo;1/n&rdquo; diversification. Weighing what each fund actually holds, its real risk, how much it overlaps with everything else on the list, takes more effort than most people have on hand in the moment. Instead, <b>the mind substitutes an easier question: how many funds are there, so what&rsquo;s an even split across them?</b> <b>A lineup weighted toward stock funds pulls the average allocation toward stock; a lineup weighted toward bond funds pulls it toward bonds</b>, almost regardless of what any one saver actually wanted their own mix to be. <a href=\"principles.html#diversification-heuristic\">Read the full write-up on the Principles page.</a>",
+  illustrativeNote: "The two fund lineups above are fictional, built to match Benartzi &amp; Thaler&rsquo;s own study design (a real retirement plan's fund count and stock/bond mix), not a screenshot of one specific live product.",
+  examples: [
+    { label: "CommSec Pocket&rsquo;s real &ldquo;Invest in&rdquo; menu", body: "CommSec Pocket lists ten flat fund options side by side with no default and no grouping, nine of them equity funds and only one, Aussie Corporate Bonds, fixed income. A first-time investor wanting &ldquo;a spread&rdquo; who taps a handful of them ends up overwhelmingly in stock funds simply because that&rsquo;s almost everything on the menu, the same real-world version of this room&rsquo;s own manipulation.", cite: "This site&rsquo;s own <a href=\"principles.html#diversification-heuristic\">Diversification Heuristic</a> entry." },
+    { label: "Employer retirement plans", body: "Benartzi and Thaler found the identical pattern in real employer retirement plans: the share of an employee&rsquo;s contributions held in stock funds tracked closely with the share of stock funds among the total funds the plan happened to offer.", cite: "Benartzi, S., &amp; Thaler, R. H. (2001). &ldquo;Naive Diversification Strategies in Defined Contribution Saving Plans.&rdquo; American Economic Review, 91(1), 79&ndash;98." }
+  ]
+};
 var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
@@ -227,6 +277,77 @@ function renderParticipant(group){
       col.appendChild(btn);
     });
     s.appendChild(col);
+  } else if (CONFIG.type === 'allocate') {
+    s.appendChild(el('h1', {class:'q'}, g.scenarioTitle));
+    if (g.scenarioBody) s.appendChild(el('p', {class:'scenario'}, g.scenarioBody));
+    s.appendChild(el('p', {class:'fictional-note'}, 'A fictional plan, built to match a real study&rsquo;s design, not a real product&rsquo;s current lineup.'));
+
+    var values = [];
+    var fn = g.funds.length;
+    var base = Math.floor(100 / fn);
+    for (var vi = 0; vi < fn; vi++) values.push(vi === fn - 1 ? 100 - base * (fn - 1) : base);
+
+    var totalEl = el('div', {class:'alloc-total'}, '');
+    var list2 = el('div', {class:'alloc-list'}, '');
+    var rows = [];
+
+    function normalize(changedIndex, newValue){
+      newValue = Math.max(0, Math.min(100, Math.round(newValue)));
+      var others = [];
+      for (var j = 0; j < values.length; j++) if (j !== changedIndex) others.push(j);
+      var remaining = 100 - newValue;
+      var otherSum = values[others[0]] + values[others[1]];
+      var updated = values.slice();
+      updated[changedIndex] = newValue;
+      if (otherSum <= 0) {
+        updated[others[0]] = Math.round(remaining / 2);
+        updated[others[1]] = remaining - updated[others[0]];
+      } else {
+        updated[others[0]] = Math.round(remaining * (values[others[0]] / otherSum));
+        updated[others[1]] = remaining - updated[others[0]];
+      }
+      values = updated;
+    }
+
+    function syncUI(){
+      var sum = values.reduce(function(a,b){ return a+b; }, 0);
+      totalEl.innerHTML = 'Total: <b>' + sum + '%</b> of $' + CONFIG.potTotal;
+      rows.forEach(function(row, idx){
+        row.pct.textContent = values[idx] + '%';
+        row.dollar.textContent = '$' + Math.round(CONFIG.potTotal * values[idx] / 100);
+        row.slider.value = values[idx];
+      });
+    }
+
+    g.funds.forEach(function(fund, idx){
+      var row = el('div', {class:'alloc-row'}, '');
+      var head = el('div', {class:'alloc-row-head'}, '');
+      head.appendChild(el('span', {}, fund.label + '<span class="cls">' + (fund.assetClass === 'stock' ? 'Stock' : 'Bond') + '</span>'));
+      var pctEl = el('span', {class:'alloc-row-pct'}, values[idx] + '%');
+      head.appendChild(pctEl);
+      row.appendChild(head);
+      var dollarEl = el('div', {class:'alloc-row-dollar'}, '$' + Math.round(CONFIG.potTotal * values[idx] / 100));
+      row.appendChild(dollarEl);
+      var slider = el('input', {class:'alloc-slider', type:'range', min:'0', max:'100', step:'1', value:String(values[idx])});
+      slider.addEventListener('input', function(){
+        normalize(idx, parseInt(slider.value, 10));
+        syncUI();
+      });
+      row.appendChild(slider);
+      rows.push({ pct: pctEl, dollar: dollarEl, slider: slider });
+      list2.appendChild(row);
+    });
+    s.appendChild(totalEl);
+    s.appendChild(list2);
+    syncUI();
+
+    var allocBtn = el('button', {class:'submitbtn', type:'button'}, 'Submit');
+    allocBtn.addEventListener('click', function(){
+      var stockPct = 0;
+      g.funds.forEach(function(fund, idx){ if (fund.assetClass === 'stock') stockPct += values[idx]; });
+      renderThanks(stockPct, group, Math.round(stockPct) + '% in stock funds');
+    });
+    s.appendChild(allocBtn);
   } else if (CONFIG.type === 'multiselect') {
     s.appendChild(el('h1', {class:'q'}, g.scenarioTitle));
     if (g.scenarioBody) s.appendChild(el('p', {class:'scenario'}, g.scenarioBody));
@@ -363,6 +484,7 @@ function formatDateTime(t){
 function displayVal(g, v){
   if (CONFIG.type === 'number') return (CONFIG.number.suffix === '$' ? '$' : '') + Math.round(v) + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix);
   if (CONFIG.type === 'multiselect') return Math.round(v) + ' fund' + (Math.round(v) === 1 ? '' : 's');
+  if (CONFIG.type === 'allocate') return Math.round(v) + '% in stock';
   var opt = null;
   CONFIG.groups[g].options.forEach(function(o){ if (o.key === v) opt = o; });
   if (!opt) {
@@ -382,6 +504,9 @@ function groupMetric(entries, g){
   } else if (CONFIG.type === 'multiselect') {
     var counts = vals.map(function(e){ return e.v; });
     return { n: counts.length, value: mean(counts), isPct: false, isCount: true };
+  } else if (CONFIG.type === 'allocate') {
+    var pcts = vals.map(function(e){ return e.v; });
+    return { n: pcts.length, value: mean(pcts), isPct: true, isCount: false };
   } else {
     var n = vals.length;
     var targetCount = vals.filter(function(e){ return e.v === CONFIG.targetKey; }).length;
@@ -612,13 +737,15 @@ function renderReveal(){
     ? 'Type in a number as the room calls it out, or tap &times; to remove a mistaken entry. This box is for whoever is running the session, not for the projector.'
     : CONFIG.type === 'multiselect'
     ? 'Type in how many funds each person says they&rsquo;d invest in, as they call it out, or tap &times; to remove a mistaken entry. This box is for whoever is running the session, not for the projector.'
+    : CONFIG.type === 'allocate'
+    ? 'Type in what % each person put in stock funds, as they call it out, or tap &times; to remove a mistaken entry. This box is for whoever is running the session, not for the projector.'
     : 'Tap the option each person calls out, or add it from their own scan. This box is for whoever is running the session, not for the projector.'));
   var cols = el('div', {class:'tally-cols'}, '');
   ['a','b'].forEach(function(g){
     var col = el('div', {class:'tally-col'}, '');
     col.appendChild(el('h3', {}, CONFIG.groups[g].shortLabel || CONFIG.groups[g].label));
 
-    if (CONFIG.type === 'number' || CONFIG.type === 'multiselect') {
+    if (CONFIG.type === 'number' || CONFIG.type === 'multiselect' || CONFIG.type === 'allocate') {
       var inputRow = el('div', {class:'tally-input-row'}, '');
       var input = el('input', {type:'number', inputmode:'numeric', placeholder: CONFIG.groups[g].placeholder || 'e.g. 10'});
       var addBtn = el('button', {type:'button'}, 'Add');
@@ -638,6 +765,8 @@ function renderReveal(){
       byGroup[g].forEach(function(e){
         var chipLabel = CONFIG.type === 'multiselect'
           ? e.v + ' fund' + (e.v === 1 ? '' : 's') + ' '
+          : CONFIG.type === 'allocate'
+          ? Math.round(e.v) + '% stock '
           : (CONFIG.number.suffix === '$' ? '$' : '') + e.v + (CONFIG.number.suffix === '$' ? '' : CONFIG.number.suffix) + ' ';
         var chip = el('span', {class:'tally-chip'}, chipLabel);
         var rm = el('button', {type:'button', 'aria-label':'Remove'}, '&times;');
