@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Live Biased Assimilation | What Works &amp; Why</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{
+  --paper:#F5F6F5; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.62);
+  --terracotta:#C43E1F; --mustard:#E0A93A; --teal:#1F7A6C;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-direction:column;min-height:100vh;}
+#app{display:flex;flex-direction:column;flex:1;min-height:0;}
+.screen{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 22px 40px;max-width:460px;margin:0 auto;width:100%;}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:10px;}
+.scenario-cat{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700;text-align:center;margin-bottom:6px;}
+.fictional-note{font-size:11px;color:var(--ink-soft);font-style:italic;text-align:center;margin:0 0 18px;}
+h1.q{font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.4;text-align:center;margin:0 0 16px;text-wrap:balance;}
+.scenario{font-size:14px;line-height:1.6;color:var(--ink-soft);text-align:center;margin:0 0 22px;}
+.result-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center;margin:0 0 24px;box-shadow:var(--shadow);}
+.result-metric{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;margin:0 0 10px;}
+.result-nums{font-family:Georgia,serif;font-size:28px;font-weight:700;}
+.result-nums .arrow{color:var(--ink-soft);font-size:20px;margin:0 8px;}
+.primarybtn{background:var(--terracotta);color:#fff;border:none;border-radius:12px;padding:16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;}
+.primarybtn:disabled{opacity:.5;cursor:default;}
+.numwrap{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:22px;}
+.numinput{width:150px;font-size:32px;font-weight:700;text-align:center;padding:10px 8px;border-radius:12px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font-family:inherit;}
+.numinput:focus{outline:2px solid var(--terracotta);outline-offset:1px;}
+.suffix{font-size:26px;font-weight:700;color:var(--ink-soft);}
+.excusebtn-col{display:flex;flex-direction:column;gap:12px;}
+.excusebtn{text-align:left;font-size:14.5px;font-weight:600;padding:16px 18px;border-radius:12px;border:1.5px solid var(--ink);background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit;line-height:1.4;}
+.excusebtn:active{transform:scale(.98);}
+.msg{text-align:center;font-size:14px;line-height:1.6;color:var(--ink-soft);}
+.msg b{display:block;color:var(--ink);font-size:19px;font-family:Georgia,serif;margin-bottom:10px;}
+.msg .ps{margin-top:14px;font-size:12.5px;}
+.msg .secondary{margin-top:20px;}
+.linkbtn{background:none;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;}
+
+.reveal-wrap{max-width:1080px;margin:0 auto;padding:36px 22px 48px;width:100%;}
+.reveal-title{font-family:Georgia,serif;font-weight:700;font-size:clamp(26px,4vw,46px);text-align:center;margin:0 0 6px;text-wrap:balance;}
+.reveal-sub{text-align:center;font-size:clamp(13px,1.3vw,16px);color:var(--ink-soft);margin:0 0 24px;max-width:64ch;margin-left:auto;margin-right:auto;line-height:1.6;}
+
+.scenario-tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 0 8px;}
+.scenario-tab{border:1.5px solid var(--line);background:var(--panel);color:var(--ink-soft);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;}
+.scenario-tab.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.scenario-blurb{text-align:center;font-size:12.5px;color:var(--ink-soft);margin:0 0 22px;font-style:italic;}
+
+.lens-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 22px;}
+.lens-switch button{border:none;background:transparent;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.lens-switch button.active{background:var(--terracotta);color:#fff;}
+
+.scoreboard{margin:0 0 20px;}
+.scoreboard-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:22px;}
+@media (max-width:760px){ .scoreboard-grid{grid-template-columns:1fr;gap:16px;} .scoreboard-vs{order:2;margin:-4px auto;} }
+.scoreboard-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,2.6vw,34px) clamp(16px,2.2vw,30px);text-align:center;box-shadow:var(--shadow);}
+.scoreboard-card .sc-label{font-size:clamp(12px,1.3vw,15px);font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);margin:0 0 16px;}
+.scoreboard-number{font-family:Georgia,serif;font-weight:700;font-size:clamp(52px,8.5vw,104px);line-height:1;margin:0 0 4px;}
+.scoreboard-number.empty{color:var(--ink-soft);font-size:clamp(28px,4.6vw,46px);}
+.scoreboard-number.pop{animation:scPop .55s cubic-bezier(.22,.9,.3,1.25);}
+@keyframes scPop{0%{transform:scale(.7);opacity:0;}65%{transform:scale(1.07);opacity:1;}100%{transform:scale(1);}}
+.scoreboard-n{font-size:clamp(12px,1.2vw,14px);color:var(--ink-soft);margin:0 0 18px;}
+.scoreboard-bar-track{position:relative;height:22px;border-radius:11px;background:var(--line);}
+.scoreboard-bar-fill{position:absolute;left:0;top:0;height:100%;border-radius:11px;width:0;transition:width .9s cubic-bezier(.16,.85,.32,1);}
+.scoreboard-vs{width:60px;height:60px;border-radius:50%;background:var(--terracotta);color:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:16px;margin:0 auto;box-shadow:var(--shadow);flex-shrink:0;}
+@media (max-width:760px){ .scoreboard-vs{width:42px;height:42px;font-size:12px;} }
+.scoreboard-gap{text-align:center;margin-top:22px;font-size:clamp(14px,1.6vw,19px);color:var(--ink-soft);}
+.scoreboard-gap b{color:var(--terracotta);font-family:Georgia,serif;}
+.scoreboard-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:700;margin:0 0 12px;}
+
+.excuse-panel{margin:0 0 30px;}
+.excuse-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media (max-width:640px){ .excuse-cols{grid-template-columns:1fr;} }
+.excuse-col{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);}
+.excuse-col h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px;color:var(--ink-soft);}
+.excuse-col .n{font-size:11.5px;color:var(--ink-soft);margin:0 0 14px;}
+.excusebar-row{margin-bottom:10px;}
+.excusebar-row:last-child{margin-bottom:0;}
+.excusebar-label{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px;}
+.excusebar-label b{font-weight:700;}
+.excusebar-track{position:relative;height:14px;border-radius:7px;background:var(--line);}
+.excusebar-fill{position:absolute;left:0;top:0;height:100%;border-radius:7px;width:0;transition:width .7s cubic-bezier(.16,.85,.32,1);background:var(--terracotta);}
+.excuse-col.b .excusebar-fill{background:var(--teal);}
+.excuse-top-note{grid-column:1/-1;text-align:center;font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+
+.revise-panel{margin:0 0 30px;}
+.revise-note{text-align:center;font-size:12.5px;color:var(--ink-soft);margin:8px 0 0;}
+
+.presenter-controls{margin:0 0 30px;background:var(--paper);border:1px dashed var(--line);border-radius:14px;padding:18px 18px 14px;}
+.presenter-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:700;text-align:center;margin:0 0 4px;}
+.presenter-note{font-size:11.5px;color:var(--ink-soft);text-align:center;margin:0 0 14px;}
+.tally-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:600px){ .tally-cols{grid-template-columns:1fr;} }
+.tally-col{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.tally-col h3{font-size:12px;text-transform:uppercase;letter-spacing:.03em;margin:0 0 10px;color:var(--ink-soft);}
+.tally-input-row{display:flex;gap:6px;margin-bottom:10px;}
+.tally-input-row input{flex:1;min-width:0;font-size:16px;padding:9px 10px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;}
+.tally-input-row button{background:var(--ink);color:var(--paper);border:none;border-radius:8px;padding:0 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+.tally-excuse-row{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+.tally-excuse-row button{background:var(--panel);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:7px 9px;font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left;}
+.tally-excuse-row button.active{border-color:var(--terracotta);background:rgba(196,62,31,0.08);}
+.tally-round2-row{display:flex;gap:6px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);}
+.tally-round2-row label{font-size:11px;color:var(--ink-soft);white-space:nowrap;}
+.tally-round2-row input{flex:1;min-width:0;font-size:14px;padding:7px 9px;border-radius:8px;border:1.5px solid var(--line);font-family:inherit;}
+.tally-round2-row button{background:var(--ink);color:var(--paper);border:none;border-radius:8px;padding:0 12px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+
+.historical{border-top:1px solid var(--line);margin-top:8px;padding-top:clamp(28px,3.5vw,44px);}
+.historical-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3.2vw,40px);max-width:74ch;margin:0 auto;text-align:center;box-shadow:var(--shadow);}
+.historical-card .hc-eyebrow{font-size:clamp(13px,1.5vw,17px);text-transform:uppercase;letter-spacing:.06em;color:var(--terracotta);font-weight:800;margin:0 0 clamp(12px,1.6vw,18px);}
+.historical-card p{margin:0;font-size:clamp(16px,2vw,23px);line-height:1.6;color:var(--ink);font-weight:500;}
+body.presenting .historical-card{max-width:1300px;padding:clamp(30px,4vw,52px);}
+body.presenting .historical-card .hc-eyebrow{font-size:clamp(16px,2vw,22px);}
+body.presenting .historical-card p{font-size:clamp(20px,2.6vw,30px);}
+.session-row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;}
+.session-info{font-size:12px;color:var(--ink-soft);}
+.session-info b{color:var(--ink);}
+.session-btn{font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);}
+.session-btn.danger{border-color:var(--terracotta);background:none;color:var(--terracotta);}
+.mode-switch{display:flex;gap:2px;background:var(--line);border-radius:999px;padding:3px;width:fit-content;margin:0 auto 18px;}
+.mode-switch button{border:none;background:transparent;border-radius:999px;padding:8px 20px;font-size:13px;font-weight:700;color:var(--ink-soft);cursor:pointer;font-family:inherit;}
+.mode-switch button.active{background:var(--ink);color:var(--paper);}
+@media (max-width:760px){ .mode-switch{display:none;} }
+
+body.presenting .reveal-sub,
+body.presenting .manage-only,
+body.presenting .presenter-controls,
+body.presenting .narrative-block,
+body.presenting .history-section,
+body.presenting .reset-row,
+body.presenting .scenario-tabs,
+body.presenting .lens-switch-note{display:none;}
+body.presenting .reveal-wrap{max-width:1600px;}
+body.presenting .reveal-title{font-size:clamp(32px,5.5vw,68px);}
+body.presenting .scoreboard-number{font-size:clamp(64px,11vw,180px);}
+body.presenting .scoreboard-number.empty{font-size:clamp(24px,3.6vw,40px);}
+body.presenting .scoreboard-gap{font-size:clamp(18px,2.4vw,30px);}
+body.presenting .narrative-verdict{padding:clamp(20px,2.4vw,34px);}
+body.presenting .narrative-verdict p{font-size:clamp(15px,1.8vw,22px);}
+body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
+
+.qr-section{margin:0 0 30px;}
+.qr-heading{text-align:center;font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 14px;}
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:16px;}
+.qr-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;}
+.qr-card img{width:100%;max-width:260px;height:auto;margin:0 auto 12px;display:block;border-radius:8px;}
+.qr-card .qr-label{font-size:clamp(13px,1.3vw,15px);font-weight:700;margin-bottom:4px;}
+.qr-card .qr-link{font-size:10.5px;color:var(--ink-soft);word-break:break-all;}
+.qr-note{text-align:center;font-size:11.5px;color:var(--ink-soft);margin:10px 0 0;}
+
+.reset-row{text-align:center;}
+.reset-btn{font-size:12px;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;font-family:inherit;}
+
+.history-section{border-top:1px solid var(--line);margin-top:30px;padding-top:20px;}
+.history-heading{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin:0 0 12px;text-align:center;}
+.history-empty{text-align:center;font-size:12.5px;color:var(--ink-soft);}
+.history-session{margin-bottom:16px;}
+.history-session-head{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.history-session-head .n{font-weight:400;color:var(--ink-soft);}
+.history-table{width:100%;border-collapse:collapse;font-size:12px;}
+.history-table th{text-align:left;color:var(--ink-soft);font-weight:600;padding:4px 8px;border-bottom:1px solid var(--line);}
+.history-table td{padding:4px 8px;border-bottom:1px solid var(--line);}
+.history-table .g-a{color:var(--terracotta);font-weight:700;}
+.history-table .g-b{color:var(--teal);font-weight:700;}
+.history-table td.rm{text-align:right;}
+.history-table td.rm button{background:none;border:none;color:var(--ink-soft);cursor:pointer;font-size:13px;}
+
+.narrative-section{border-top:1px solid var(--line);margin-top:8px;padding-top:26px;}
+.narrative-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--terracotta);font-weight:700;text-align:center;margin-bottom:14px;}
+.narrative-verdict{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--ink-soft);border-radius:10px;padding:16px 18px;margin-bottom:22px;}
+.narrative-verdict.aligned{border-left-color:var(--teal);}
+.narrative-verdict.reversed{border-left-color:var(--terracotta);}
+.narrative-verdict.tie{border-left-color:var(--mustard);}
+.narrative-verdict.wait{border-left-color:var(--mustard);}
+.narrative-tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+.narrative-tag.aligned{color:var(--teal);}
+.narrative-tag.reversed{color:var(--terracotta);}
+.narrative-tag.tie{color:#a3821f;}
+.narrative-tag.wait{color:#a3821f;}
+.narrative-verdict p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink);}
+.narrative-verdict p a{color:inherit;}
+.narrative-block{margin-bottom:22px;}
+.narrative-block h4{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px;color:var(--ink);}
+.narrative-block > p{font-size:13.5px;line-height:1.65;color:var(--ink-soft);margin:0;}
+.narrative-block p a{color:var(--terracotta);}
+.example-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+.example-item{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+.example-label{font-size:13.5px;font-weight:700;margin-bottom:5px;}
+.example-item p{font-size:13px;line-height:1.6;color:var(--ink-soft);margin:0 0 6px;}
+.example-cite{font-size:11px;color:var(--ink-soft);opacity:.75;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+(function(){
+"use strict";
+
+var CONFIG = {
+  toolId: "ba",
+  toolTitle: "Live Biased Assimilation",
+  groups: {
+    a: { label: "Went in confident", shortLabel: "Confident prior", primeText: "Before this went live, the team behind it was confident it would work." },
+    b: { label: "Went in doubtful", shortLabel: "Doubtful prior", primeText: "Before this went live, the team behind it doubted it would make much difference." }
+  },
+  expectedHigherGroup: "a",
+  excuses: [
+    { key: "external", label: "External factors changed the result", short: "External factors" },
+    { key: "subset", label: "A subset moved even if the headline number didn't", short: "A subset moved" },
+    { key: "othermetric", label: "A different metric improved instead", short: "Different metric" },
+    { key: "backfire", label: "There's a backfire we haven't seen yet", short: "Hidden backfire" }
+  ],
+  scenarios: [
+    { id: "loan", category: "Financial services", title: "A redesigned “what happens next” screen", blurb: "A bank's home loan application flow gets a redesigned confirmation screen.", metricLabel: "Application conversion rate", before: "4.2%", after: "4.3%" },
+    { id: "checkout", category: "Retail / e-commerce", title: "A one-page checkout redesign", blurb: "An online store collapses its multi-step checkout into a single page.", metricLabel: "Cart abandonment rate", before: "68.4%", after: "65.9%" },
+    { id: "onboarding", category: "Subscription app", title: "A redesigned first-run tutorial", blurb: "A subscription app rebuilds the tutorial new users see on first open.", metricLabel: "Share of new users still active a week later", before: "41.0%", after: "42.1%" },
+    { id: "renewal", category: "Insurance / telco", title: "A redesigned renewal reminder email", blurb: "An insurer rewrites the email reminding customers their policy is due.", metricLabel: "Renewal rate", before: "82.1%", after: "84.6%" },
+    { id: "meeting", category: "Any workplace", title: "A weekly team meeting cut from 60 to 30 minutes", blurb: "A team halves the length of its recurring weekly meeting.", metricLabel: "Self-reported meeting usefulness (1–10 average)", before: "6.1", after: "6.9" }
+  ],
+  mechanismHtml: "People don't apply one consistent standard when judging evidence. Evidence that lines up with what they already believed gets accepted close to at face value; evidence that contradicts it gets picked apart for its methodology instead. Read a genuinely mixed or ambiguous result through that lens, and two people who started out disagreeing don't converge. They each keep the half that suits them and end up more certain of their original view than before. <a href=\"principles.html#biased-assimilation\">Read the full write-up on the Principles page.</a>",
+  examples: [
+    { label: "The death penalty deterrence debate", body: "Decades of genuinely mixed research on whether the death penalty deters murder has done almost nothing to close the gap between supporters and opponents, because each side keeps citing whichever studies confirm what they already believed.", cite: "Lord, C. G., Ross, L., &amp; Lepper, M. R. (1979). <a href=\"principles.html#biased-assimilation\">Read this site's full write-up</a>." },
+    { label: "Partisans rating the identical news broadcast as biased against them", body: "Students who identified as pro-Israeli or pro-Arab watched the exact same network news coverage of a real 1982 massacre. Both sides rated the coverage, and the people who made it, as unfairly biased against their own side.", cite: "Vallone, R. P., Ross, L., &amp; Lepper, M. R. (1985). “The Hostile Media Phenomenon.” <a href=\"https://doi.org/10.1037/0022-3514.49.3.577\" target=\"_blank\" rel=\"noopener\">Journal of Personality and Social Psychology, 49(3), 577–585</a>" },
+    { label: "An ambiguous internal dashboard", body: "Two people looking at the same noisy sales figures, survey scores, or test results can each walk away more convinced their own prior read was right, grading the noisy parts of the data by the same rule this session just showed: convincing if it agrees, flawed if it doesn't.", cite: "See this site's own <a href=\"principles.html#biased-assimilation\">Biased Assimilation</a> entry." }
+  ]
+};
+
+function scenarioById(id){
+  var found = null;
+  CONFIG.scenarios.forEach(function(s){ if (s.id === id) found = s; });
+  return found;
+}
+
+function getGroupFromHash(){
+  var h = location.hash.replace('#','');
+  var m = h.match(/(?:^|&)g=([ab])(?:&|$)/);
+  return m ? m[1] : null;
+}
+function getScenarioFromHash(){
+  var h = location.hash.replace('#','');
+  var m = h.match(/(?:^|&)s=([a-z]+)(?:&|$)/);
+  return m ? m[1] : null;
+}
+function isReveal(){
+  return /(^|#|&)reveal(&|$)/.test(location.hash);
+}
+
+function el(tag, attrs, html){
+  var e = document.createElement(tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function render(node){
+  var app = document.getElementById('app');
+  app.innerHTML = '';
+  app.appendChild(node);
+}
+
+function renderNoGroup(){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, CONFIG.toolTitle));
+  s.appendChild(el('div', {class:'msg'},
+    '<b>This link needs to come from one of the session QR codes.</b>Ask whoever&rsquo;s running the session for the right link.'));
+  render(s);
+}
+
+/* ---------------- participant flow ---------------- */
+
+function renderPrime(group, scenarioId){
+  var g = CONFIG.groups[group];
+  var sc = scenarioById(scenarioId);
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, g.label));
+  s.appendChild(el('div', {class:'scenario-cat'}, sc.category));
+  s.appendChild(el('h1', {class:'q'}, sc.title));
+  s.appendChild(el('p', {class:'fictional-note'}, 'A fictional example, built to illustrate the mechanism, not a real company’s data.'));
+  s.appendChild(el('p', {class:'scenario'}, g.primeText));
+  var btn = el('button', {class:'primarybtn', type:'button'}, 'See what happened');
+  btn.addEventListener('click', function(){ renderResult(group, scenarioId); });
+  s.appendChild(btn);
+  render(s);
+}
+
+function renderResult(group, scenarioId){
+  var sc = scenarioById(scenarioId);
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, "Here's the real number"));
+  var card = el('div', {class:'result-card'}, '');
+  card.appendChild(el('div', {class:'result-metric'}, sc.metricLabel));
+  card.appendChild(el('div', {class:'result-nums'}, sc.before + '<span class="arrow">&rarr;</span>' + sc.after));
+  s.appendChild(card);
+  s.appendChild(el('p', {class:'scenario'}, 'Everyone in this room, whichever group you’re in, is looking at this exact same number.'));
+  var btn = el('button', {class:'primarybtn', type:'button'}, 'Rate it');
+  btn.addEventListener('click', function(){ renderRating(group, scenarioId, 1); });
+  s.appendChild(btn);
+  render(s);
+}
+
+function renderRating(group, scenarioId, round){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, round === 1 ? 'Rate the evidence' : 'Rate it again'));
+  s.appendChild(el('h1', {class:'q'}, round === 1
+    ? 'How convincing is this as evidence the change worked?'
+    : 'Now that you’ve seen how the room split, rate it again.'));
+  s.appendChild(el('p', {class:'scenario'}, '1 means not convincing at all. 10 means completely convincing.'));
+  var wrap = el('div', {class:'numwrap'}, '');
+  var input = el('input', {class:'numinput', type:'number', inputmode:'numeric', min:'1', max:'10', placeholder:'?'});
+  wrap.appendChild(input);
+  wrap.appendChild(el('span', {class:'suffix'}, '/10'));
+  s.appendChild(wrap);
+  var btn = el('button', {class:'primarybtn', type:'button'}, 'Submit');
+  btn.disabled = true;
+  input.addEventListener('input', function(){
+    var v = parseFloat(input.value);
+    btn.disabled = !(isFinite(v) && v >= 1 && v <= 10);
+  });
+  function submit(){
+    var v = parseFloat(input.value);
+    if (!isFinite(v) || v < 1 || v > 10) return;
+    if (round === 1) {
+      renderExcuse(group, scenarioId, v);
+    } else {
+      addEntry(group, scenarioId, 2, v, null);
+      renderThanksRound2();
+    }
+  }
+  btn.addEventListener('click', submit);
+  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') submit(); });
+  s.appendChild(btn);
+  render(s);
+  input.focus();
+}
+
+function renderExcuse(group, scenarioId, rating){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'eyebrow'}, 'One more thing'));
+  s.appendChild(el('h1', {class:'q'}, 'If someone pushed back on your rating, which explanation would you reach for?'));
+  var col = el('div', {class:'excusebtn-col'}, '');
+  CONFIG.excuses.forEach(function(ex){
+    var btn = el('button', {class:'excusebtn', type:'button'}, ex.label);
+    btn.addEventListener('click', function(){
+      addEntry(group, scenarioId, 1, rating, ex.key);
+      renderThanksRound1(group, scenarioId);
+    });
+    col.appendChild(btn);
+  });
+  s.appendChild(col);
+  render(s);
+}
+
+function renderThanksRound1(group, scenarioId){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'msg'},
+    '<b>Thanks, that’s logged.</b>' +
+    'If the presenter is running this on the same screen as you, it’s already counted. Otherwise, call out your rating so it can be added.' +
+    '<div class="ps">Phones don’t automatically share answers with each other, only with this same browser, that’s why the room comparison usually happens out loud.</div>'));
+  var secondary = el('div', {class:'secondary'}, '');
+  var btn = el('button', {class:'linkbtn', type:'button'}, 'The presenter just showed the room’s split, rate again');
+  btn.addEventListener('click', function(){ renderRating(group, scenarioId, 2); });
+  secondary.appendChild(btn);
+  s.appendChild(secondary);
+  render(s);
+}
+
+function renderThanksRound2(){
+  var s = el('div', {class:'screen'}, '');
+  s.appendChild(el('div', {class:'msg'},
+    '<b>Thanks, your second rating is logged too.</b>' +
+    'That’s everything for this round. If the presenter runs another scenario, they’ll hand out a new code.'));
+  render(s);
+}
+
+/* ---------------- shared, persistent log (localStorage) ---------------- */
+
+var LS_LOG = CONFIG.toolId + '_log';
+var LS_SESSION = CONFIG.toolId + '_session';
+
+function uid(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'r' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
+
+function readLog(){
+  try {
+    var raw = localStorage.getItem(LS_LOG);
+    var arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch(e){ return []; }
+}
+function writeLog(arr){
+  try { localStorage.setItem(LS_LOG, JSON.stringify(arr)); } catch(e){}
+}
+
+function getSession(){
+  try {
+    var raw = localStorage.getItem(LS_SESSION);
+    var s = raw ? JSON.parse(raw) : null;
+    if (s && s.id && s.startedAt) return s;
+  } catch(e){}
+  var fresh = { id: uid(), startedAt: Date.now() };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(fresh)); } catch(e){}
+  return fresh;
+}
+
+function startNewSession(){
+  var fresh = { id: uid(), startedAt: Date.now() };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(fresh)); } catch(e){}
+  return fresh;
+}
+
+function addEntry(g, s, round, v, x){
+  var session = getSession();
+  var log = readLog();
+  log.push({ id: uid(), g: g, s: s, round: round, v: v, x: x || null, t: Date.now(), sessionId: session.id });
+  writeLog(log);
+}
+
+function removeEntry(id){
+  writeLog(readLog().filter(function(e){ return e.id !== id; }));
+}
+
+function median(nums){
+  if (!nums.length) return null;
+  var s = nums.slice().sort(function(a,b){ return a-b; });
+  var mid = Math.floor(s.length/2);
+  return s.length % 2 ? s[mid] : (s[mid-1]+s[mid])/2;
+}
+
+function formatDateTime(t){
+  var d = new Date(t);
+  return d.toLocaleDateString(undefined, {month:'short', day:'numeric'}) + ', ' +
+    d.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'});
+}
+
+function fmtRating(v){
+  if (v === null) return '&ndash;';
+  var r = Math.round(v*10)/10;
+  return (r % 1 === 0 ? r.toFixed(0) : r.toFixed(1)) + '/10';
+}
+
+function excuseLabel(key){
+  var found = null;
+  CONFIG.excuses.forEach(function(e){ if (e.key === key) found = e; });
+  return found ? found.short : key;
+}
+
+/* ---------------- reveal / presenter view ---------------- */
+
+var currentSyncModeSwitch = function(){};
+
+function getLensFromHash(){
+  var h = location.hash.replace('#','');
+  var m = h.match(/(?:^|&)lens=(excuses|revise)(?:&|$)/);
+  return m ? m[1] : 'excuses';
+}
+function setHashParam(key, value){
+  var h = location.hash.replace('#','');
+  var parts = h.split('&').filter(function(p){ return p && p.indexOf(key + '=') !== 0; });
+  parts.push(key + '=' + value);
+  if (parts.indexOf('reveal') === -1) parts.unshift('reveal');
+  location.hash = parts.join('&');
+}
+
+function round1Metric(entries, g){
+  var vals = entries.filter(function(e){ return e.g === g && e.round === 1; }).map(function(e){ return e.v; });
+  return { n: vals.length, value: median(vals) };
+}
+function round2Metric(entries, g){
+  var vals = entries.filter(function(e){ return e.g === g && e.round === 2; }).map(function(e){ return e.v; });
+  return { n: vals.length, value: median(vals) };
+}
+function excuseCounts(entries, g){
+  var counts = {};
+  CONFIG.excuses.forEach(function(ex){ counts[ex.key] = 0; });
+  entries.filter(function(e){ return e.g === g && e.round === 1 && e.x; }).forEach(function(e){
+    counts[e.x] = (counts[e.x] || 0) + 1;
+  });
+  return counts;
+}
+
+function renderNarrative(entries){
+  var section = el('div', {class:'narrative-section'}, '');
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+
+  var hi = CONFIG.expectedHigherGroup;
+  var lo = hi === 'a' ? 'b' : 'a';
+  var mHi = round1Metric(entries, hi);
+  var mLo = round1Metric(entries, lo);
+  var hiLabel = CONFIG.groups[hi].label;
+  var loLabel = CONFIG.groups[lo].label;
+
+  var tag, tagClass, verdictHtml;
+  if (mHi.n === 0 && mLo.n === 0) {
+    tag = 'Waiting for answers'; tagClass = 'wait';
+    verdictHtml = 'Nobody in either group has rated yet. Once at least one rating lands on each side, this box explains whether your room’s results lined up with the classic pattern, or not.';
+  } else if (mHi.n === 0 || mLo.n === 0) {
+    var emptyLabel = mHi.n === 0 ? hiLabel : loLabel;
+    tag = 'Waiting for answers'; tagClass = 'wait';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero ratings. Add at least one to each side to see whether this room’s results lined up with the effect.';
+  } else {
+    var diff = mHi.value - mLo.value;
+    var smallN = (mHi.n < 5 || mLo.n < 5);
+    if (diff >= 1) {
+      tag = 'Lined up with the effect'; tagClass = 'aligned';
+      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group rated the identical evidence <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '), well above the &ldquo;' + loLabel + '&rdquo; group’s <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). Same number, same room, two different verdicts, exactly the pattern Lord, Ross &amp; Lepper found.';
+      if (smallN) verdictHtml += ' With well under a dozen ratings on the smaller side, treat this as a live demonstration rather than a controlled study. The direction is still the one the real research would predict.';
+    } else if (diff > -1) {
+      tag = 'Too close to call'; tagClass = 'tie';
+      verdictHtml = 'Both groups rated the evidence within a point of each other, <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + ') versus <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). At this sample size that’s close enough to be noise either way. It isn’t evidence the effect is missing, just too little data yet to see it clearly. Add more ratings and check back.';
+    } else {
+      tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
+      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group rated the evidence <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group’s <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '). The original study, and the real replications since, are among the more reliable findings in behavioural science, so one reversed session doesn’t undo that. At this size, a handful of ratings per side is a small enough sample that one or two unusual answers can flip the result entirely, even when the underlying effect is real. <a href="small-sample-big-claim.html">This site’s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+    }
+  }
+
+  var verdict = el('div', {class:'narrative-verdict ' + tagClass}, '');
+  verdict.appendChild(el('span', {class:'narrative-tag ' + tagClass}, tag));
+  verdict.appendChild(el('p', {}, verdictHtml));
+  section.appendChild(verdict);
+
+  section.appendChild(el('div', {class:'narrative-block'},
+    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var list = el('ul', {class:'example-list'}, '');
+  CONFIG.examples.forEach(function(ex){
+    var li = el('li', {class:'example-item'}, '');
+    li.appendChild(el('div', {class:'example-label'}, ex.label));
+    li.appendChild(el('p', {}, ex.body));
+    li.appendChild(el('div', {class:'example-cite'}, ex.cite));
+    list.appendChild(li);
+  });
+  examplesBlock.appendChild(list);
+  section.appendChild(examplesBlock);
+
+  return section;
+}
+
+function renderReveal(){
+  var session = getSession();
+  var log = readLog();
+  var currentAllScenario = log.filter(function(e){ return e.sessionId === session.id; });
+
+  var selectedScenario = getScenarioFromHash();
+  if (!selectedScenario || !scenarioById(selectedScenario)) {
+    var counts = {};
+    currentAllScenario.forEach(function(e){ counts[e.s] = (counts[e.s]||0) + 1; });
+    var best = null, bestN = -1;
+    CONFIG.scenarios.forEach(function(sc){ var n = counts[sc.id] || 0; if (n > bestN) { bestN = n; best = sc.id; } });
+    selectedScenario = best || CONFIG.scenarios[0].id;
+  }
+  var lens = getLensFromHash();
+  var sc = scenarioById(selectedScenario);
+  var entries = currentAllScenario.filter(function(e){ return e.s === selectedScenario; });
+  var byGroup = { a: [], b: [] };
+  entries.forEach(function(e){ if (byGroup[e.g]) byGroup[e.g].push(e); });
+
+  var wrap = el('div', {class:'reveal-wrap'}, '');
+
+  var modeSwitch = el('div', {class:'mode-switch'}, '');
+  var stdBtn = el('button', {type:'button'}, 'Standard');
+  var presBtn = el('button', {type:'button'}, 'Presentation');
+  function syncModeSwitch(){
+    var presenting = document.body.classList.contains('presenting');
+    stdBtn.classList.toggle('active', !presenting);
+    presBtn.classList.toggle('active', presenting);
+  }
+  syncModeSwitch();
+  currentSyncModeSwitch = syncModeSwitch;
+  stdBtn.addEventListener('click', function(){
+    if (!document.body.classList.contains('presenting')) return;
+    document.body.classList.remove('presenting');
+    syncModeSwitch();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function(){});
+  });
+  presBtn.addEventListener('click', function(){
+    if (document.body.classList.contains('presenting')) return;
+    document.body.classList.add('presenting');
+    syncModeSwitch();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+  });
+  modeSwitch.appendChild(stdBtn);
+  modeSwitch.appendChild(presBtn);
+  wrap.appendChild(modeSwitch);
+
+  wrap.appendChild(el('h1', {class:'reveal-title'}, CONFIG.toolTitle + ': session'));
+  wrap.appendChild(el('p', {class:'reveal-sub'}, 'Scan-and-answer entries from this same browser log automatically. For separate phones in the room, ask a show of hands, or a few people per side to call out their rating, and log each one as you hear it.'));
+
+  var tabs = el('div', {class:'scenario-tabs'}, '');
+  CONFIG.scenarios.forEach(function(s){
+    var t = el('button', {type:'button', class:'scenario-tab' + (s.id === selectedScenario ? ' active' : '')}, s.title);
+    t.addEventListener('click', function(){ setHashParam('s', s.id); });
+    tabs.appendChild(t);
+  });
+  wrap.appendChild(tabs);
+  wrap.appendChild(el('p', {class:'scenario-blurb'}, sc.category + ' · ' + sc.blurb + ' · ' + sc.metricLabel + ' ' + sc.before + ' → ' + sc.after));
+
+  var lensSwitch = el('div', {class:'lens-switch'}, '');
+  var excusesBtn = el('button', {type:'button', class: lens === 'excuses' ? 'active' : ''}, 'Excuses');
+  var reviseBtn = el('button', {type:'button', class: lens === 'revise' ? 'active' : ''}, 'Revise');
+  excusesBtn.addEventListener('click', function(){ setHashParam('lens', 'excuses'); });
+  reviseBtn.addEventListener('click', function(){ setHashParam('lens', 'revise'); });
+  lensSwitch.appendChild(excusesBtn);
+  lensSwitch.appendChild(reviseBtn);
+  wrap.appendChild(lensSwitch);
+
+  var sessionRow = el('div', {class:'session-row'}, '');
+  sessionRow.appendChild(el('div', {class:'session-info manage-only'}, 'Current session started <b>' + formatDateTime(session.startedAt) + '</b> &middot; ' + entries.length + ' answer' + (entries.length===1?'':'s') + ' for this scenario'));
+  var newSessionBtn = el('button', {class:'session-btn manage-only', type:'button'}, 'Start new session');
+  newSessionBtn.addEventListener('click', function(){
+    if (currentAllScenario.length && !confirm('Start a new session? Today’s ' + currentAllScenario.length + ' answer(s) across every scenario move into history, the live tally resets to zero.')) return;
+    startNewSession();
+    renderReveal();
+  });
+  sessionRow.appendChild(newSessionBtn);
+  wrap.appendChild(sessionRow);
+
+  var qrSection = el('div', {class:'qr-section'}, '');
+  qrSection.appendChild(el('div', {class:'qr-heading'}, 'Session QR codes · ' + sc.title));
+  var qrGrid = el('div', {class:'qr-grid'}, '');
+  ['a','b'].forEach(function(g){
+    var card = el('div', {class:'qr-card'}, '');
+    card.appendChild(el('img', {src:'images/qr-' + CONFIG.toolId + '-' + selectedScenario + '-' + g + '.png', alt:'QR code for ' + CONFIG.groups[g].label, loading:'lazy'}));
+    card.appendChild(el('div', {class:'qr-label'}, CONFIG.groups[g].label));
+    card.appendChild(el('div', {class:'qr-link'}, location.origin + location.pathname + '#g=' + g + '&s=' + selectedScenario));
+    qrGrid.appendChild(card);
+  });
+  qrSection.appendChild(qrGrid);
+  qrSection.appendChild(el('div', {class:'qr-note'}, 'Every scenario has its own permanent pair of codes, print the set you’re running and reuse them for every future session. &ldquo;Start new session&rdquo; resets the tally, not the codes.'));
+  wrap.appendChild(qrSection);
+
+  /* ---- round-1 scoreboard: the room-scale focal point ---- */
+  var colors = { a: 'var(--terracotta)', b: 'var(--teal)' };
+  var mA = round1Metric(entries, 'a'), mB = round1Metric(entries, 'b');
+  var maxVal = 10;
+
+  wrap.appendChild(el('div', {class:'scoreboard-heading'}, 'First rating, right after seeing the number'));
+  var scoreboard = el('div', {class:'scoreboard'}, '');
+  var grid = el('div', {class:'scoreboard-grid'}, '');
+  ['a','b'].forEach(function(g){
+    var m = g === 'a' ? mA : mB;
+    var card = el('div', {class:'scoreboard-card'}, '');
+    card.appendChild(el('div', {class:'sc-label'}, CONFIG.groups[g].shortLabel));
+    card.appendChild(el('div', {class:'scoreboard-number' + (m.value === null ? ' empty' : ' pop')}, m.value === null ? 'No ratings yet' : fmtRating(m.value)));
+    card.appendChild(el('div', {class:'scoreboard-n'}, m.n + ' rating' + (m.n===1?'':'s')));
+    var track = el('div', {class:'scoreboard-bar-track'}, '');
+    var fill = null;
+    if (m.value !== null){
+      fill = el('div', {class:'scoreboard-bar-fill'}, '');
+      fill.style.background = colors[g];
+      track.appendChild(fill);
+    }
+    card.appendChild(track);
+    grid.appendChild(card);
+    if (g === 'a') grid.appendChild(el('div', {class:'scoreboard-vs'}, 'VS'));
+    if (fill){
+      requestAnimationFrame(function(){
+        var pct = Math.max(4, Math.min(100, (m.value / maxVal) * 100));
+        fill.style.width = pct + '%';
+      });
+    }
+  });
+  scoreboard.appendChild(grid);
+
+  var gapEl = el('div', {class:'scoreboard-gap'}, '');
+  if (mA.value !== null && mB.value !== null){
+    var diff = Math.abs(mA.value - mB.value);
+    gapEl.innerHTML = Math.round(diff*10)/10 === 0 ? 'Both groups landed on the exact same rating, <b>too close to call yet</b>.'
+      : '<b>' + (Math.round(diff*10)/10) + ' points</b> apart on a 10-point scale, same identical number, same room.';
+  } else {
+    gapEl.innerHTML = 'Waiting on ratings from both groups to show the gap.';
+  }
+  scoreboard.appendChild(gapEl);
+  wrap.appendChild(scoreboard);
+
+  /* ---- secondary lens: excuses cross-tab, or round-2 revise comparison ---- */
+  if (lens === 'excuses') {
+    var excusePanel = el('div', {class:'excuse-panel'}, '');
+    var cols = el('div', {class:'excuse-cols'}, '');
+    ['a','b'].forEach(function(g){
+      var counts = excuseCounts(entries, g);
+      var total = CONFIG.excuses.reduce(function(sum, ex){ return sum + counts[ex.key]; }, 0);
+      var col = el('div', {class:'excuse-col ' + g}, '');
+      col.appendChild(el('h3', {}, CONFIG.groups[g].shortLabel + '’s excuse, if pushed back on'));
+      col.appendChild(el('div', {class:'n'}, total + ' pick' + (total===1?'':'s')));
+      CONFIG.excuses.forEach(function(ex){
+        var count = counts[ex.key];
+        var pct = total ? Math.round((count/total)*100) : 0;
+        var row = el('div', {class:'excusebar-row'}, '');
+        row.appendChild(el('div', {class:'excusebar-label'}, '<span>' + ex.short + '</span><b>' + count + '</b>'));
+        var track = el('div', {class:'excusebar-track'}, '');
+        var fill = el('div', {class:'excusebar-fill'}, '');
+        track.appendChild(fill);
+        row.appendChild(track);
+        col.appendChild(row);
+        requestAnimationFrame(function(){ fill.style.width = Math.max(total ? 3 : 0, pct) + '%'; });
+      });
+      cols.appendChild(col);
+    });
+    excusePanel.appendChild(cols);
+    excusePanel.appendChild(el('div', {class:'excuse-top-note'}, 'The classic pattern: the confident-primed group reaches for &ldquo;external factors&rdquo; or &ldquo;a subset moved&rdquo;, the doubt-primed group reaches for &ldquo;there’s a backfire we haven’t seen yet&rdquo;, on the exact same number.'));
+    wrap.appendChild(excusePanel);
+  } else {
+    var revisePanel = el('div', {class:'revise-panel'}, '');
+    wrap.appendChild(el('div', {class:'scoreboard-heading'}, 'Second rating, after the room saw the split above'));
+    var r2A = round2Metric(entries, 'a'), r2B = round2Metric(entries, 'b');
+    var grid2 = el('div', {class:'scoreboard-grid'}, '');
+    ['a','b'].forEach(function(g){
+      var m = g === 'a' ? r2A : r2B;
+      var card = el('div', {class:'scoreboard-card'}, '');
+      card.appendChild(el('div', {class:'sc-label'}, CONFIG.groups[g].shortLabel));
+      card.appendChild(el('div', {class:'scoreboard-number' + (m.value === null ? ' empty' : ' pop')}, m.value === null ? 'No re-rates yet' : fmtRating(m.value)));
+      card.appendChild(el('div', {class:'scoreboard-n'}, m.n + ' re-rate' + (m.n===1?'':'s')));
+      grid2.appendChild(card);
+      if (g === 'a') grid2.appendChild(el('div', {class:'scoreboard-vs'}, 'VS'));
+    });
+    revisePanel.appendChild(grid2);
+    var moveText = 'Waiting on second ratings to compare.';
+    if (r2A.value !== null && mA.value !== null && r2B.value !== null && mB.value !== null) {
+      var moveA = r2A.value - mA.value, moveB = r2B.value - mB.value;
+      moveText = CONFIG.groups.a.shortLabel + ' moved from ' + fmtRating(mA.value) + ' to ' + fmtRating(r2A.value) +
+        ' (' + (moveA >= 0 ? '+' : '') + (Math.round(moveA*10)/10) + '). ' +
+        CONFIG.groups.b.shortLabel + ' moved from ' + fmtRating(mB.value) + ' to ' + fmtRating(r2B.value) +
+        ' (' + (moveB >= 0 ? '+' : '') + (Math.round(moveB*10)/10) + ').';
+    }
+    revisePanel.appendChild(el('div', {class:'revise-note'}, moveText + ' Each re-rate is a fresh, anonymous answer, not the same phone tracked over time, so this compares the room’s two aggregate moods, not individual minds changing.'));
+    wrap.appendChild(revisePanel);
+  }
+
+  /* ---- presenter-only controls ---- */
+  var controls = el('div', {class:'presenter-controls'}, '');
+  controls.appendChild(el('div', {class:'presenter-eyebrow'}, 'Presenter controls'));
+  controls.appendChild(el('div', {class:'presenter-note'}, 'Type in a rating as the room calls it out, tap an excuse if they give one, or log a round-2 re-rate below. This box is for whoever is running the session, not for the projector.'));
+  var tcols = el('div', {class:'tally-cols'}, '');
+  ['a','b'].forEach(function(g){
+    var col = el('div', {class:'tally-col'}, '');
+    col.appendChild(el('h3', {}, CONFIG.groups[g].shortLabel));
+
+    var pendingExcuse = { key: null };
+    var inputRow = el('div', {class:'tally-input-row'}, '');
+    var input = el('input', {type:'number', inputmode:'numeric', min:'1', max:'10', placeholder:'1–10'});
+    var addBtn = el('button', {type:'button'}, 'Add');
+    function addRound1(){
+      var v = parseFloat(input.value);
+      if (!isFinite(v) || v < 1 || v > 10) return;
+      addEntry(g, selectedScenario, 1, v, pendingExcuse.key);
+      input.value = '';
+      pendingExcuse.key = null;
+      renderReveal();
+    }
+    addBtn.addEventListener('click', addRound1);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') addRound1(); });
+    inputRow.appendChild(input); inputRow.appendChild(addBtn);
+    col.appendChild(inputRow);
+
+    var excuseRow = el('div', {class:'tally-excuse-row'}, '');
+    CONFIG.excuses.forEach(function(ex){
+      var b = el('button', {type:'button'}, ex.short + ' (optional)');
+      b.addEventListener('click', function(){
+        pendingExcuse.key = pendingExcuse.key === ex.key ? null : ex.key;
+        excuseRow.querySelectorAll('button').forEach(function(bb){ bb.classList.remove('active'); });
+        if (pendingExcuse.key) b.classList.add('active');
+      });
+      excuseRow.appendChild(b);
+    });
+    col.appendChild(excuseRow);
+
+    var round2Row = el('div', {class:'tally-round2-row'}, '');
+    round2Row.appendChild(el('label', {}, 'Round 2'));
+    var input2 = el('input', {type:'number', inputmode:'numeric', min:'1', max:'10', placeholder:'1–10'});
+    var add2Btn = el('button', {type:'button'}, 'Add');
+    function addRound2(){
+      var v = parseFloat(input2.value);
+      if (!isFinite(v) || v < 1 || v > 10) return;
+      addEntry(g, selectedScenario, 2, v, null);
+      input2.value = '';
+      renderReveal();
+    }
+    add2Btn.addEventListener('click', addRound2);
+    input2.addEventListener('keydown', function(e){ if (e.key === 'Enter') addRound2(); });
+    round2Row.appendChild(input2); round2Row.appendChild(add2Btn);
+    col.appendChild(round2Row);
+
+    tcols.appendChild(col);
+  });
+  controls.appendChild(tcols);
+  wrap.appendChild(controls);
+
+  var histSection = el('div', {class:'historical'}, '');
+  var histCard = el('div', {class:'historical-card'}, '');
+  histCard.appendChild(el('div', {class:'hc-eyebrow'}, 'For comparison'));
+  histCard.appendChild(el('p', {}, 'Lord, Ross &amp; Lepper’s original study found the identical pattern with real study summaries on the death penalty: both sides rated whichever summary matched their existing belief as more convincing and better conducted than the one that contradicted it, and both ended up more certain of their original view than before they read anything.'));
+  histSection.appendChild(histCard);
+  wrap.appendChild(histSection);
+
+  wrap.appendChild(renderNarrative(entries));
+
+  /* ---- full history, this scenario, every session ever recorded on this device ---- */
+  var historySection = el('div', {class:'history-section'}, '');
+  historySection.appendChild(el('div', {class:'history-heading'}, 'Session history, this scenario (this device)'));
+  var scenarioLog = log.filter(function(e){ return e.s === selectedScenario; });
+  if (!scenarioLog.length) {
+    historySection.appendChild(el('div', {class:'history-empty'}, 'No sessions recorded yet for this scenario on this device.'));
+  } else {
+    var bySession = {};
+    var order = [];
+    scenarioLog.forEach(function(e){
+      if (!bySession[e.sessionId]) { bySession[e.sessionId] = []; order.push(e.sessionId); }
+      bySession[e.sessionId].push(e);
+    });
+    order.slice().reverse().forEach(function(sid){
+      var sessEntries = bySession[sid].slice().sort(function(a,b){ return a.t - b.t; });
+      var startedAt = sessEntries[0].t;
+      var block = el('div', {class:'history-session'}, '');
+      block.appendChild(el('div', {class:'history-session-head'},
+        formatDateTime(startedAt) + (sid === session.id ? ' (current)' : '') +
+        ' <span class="n">&middot; ' + sessEntries.length + ' answer' + (sessEntries.length===1?'':'s') + '</span>'));
+      var table = el('table', {class:'history-table'}, '');
+      table.innerHTML = '<tr><th>Time</th><th>Group</th><th>Round</th><th>Rating</th><th>Excuse</th><th></th></tr>';
+      sessEntries.forEach(function(e){
+        var tr = el('tr', {}, '');
+        tr.appendChild(el('td', {}, formatDateTime(e.t).split(', ')[1]));
+        tr.appendChild(el('td', {class: e.g === 'a' ? 'g-a' : 'g-b'}, CONFIG.groups[e.g].shortLabel));
+        tr.appendChild(el('td', {}, String(e.round)));
+        tr.appendChild(el('td', {}, fmtRating(e.v)));
+        tr.appendChild(el('td', {}, e.x ? excuseLabel(e.x) : '&ndash;'));
+        var rmTd = el('td', {class:'rm'}, '');
+        var rmBtn = el('button', {type:'button', 'aria-label':'Delete entry'}, '&times;');
+        rmBtn.addEventListener('click', function(){ removeEntry(e.id); renderReveal(); });
+        rmTd.appendChild(rmBtn);
+        tr.appendChild(rmTd);
+        table.appendChild(tr);
+      });
+      block.appendChild(table);
+      historySection.appendChild(block);
+    });
+  }
+  wrap.appendChild(historySection);
+
+  var resetRow = el('div', {class:'reset-row'}, '');
+  var clearAllBtn = el('button', {class:'session-btn danger', type:'button'}, 'Clear all history');
+  clearAllBtn.addEventListener('click', function(){
+    if (!confirm('Permanently delete all ' + log.length + ' recorded answer(s), across every scenario and every session on this device? This can’t be undone.')) return;
+    writeLog([]);
+    startNewSession();
+    renderReveal();
+  });
+  resetRow.appendChild(clearAllBtn);
+  wrap.appendChild(resetRow);
+
+  render(wrap);
+}
+
+function boot(){
+  if (isReveal()) { renderReveal(); return; }
+  var group = getGroupFromHash();
+  var scenario = getScenarioFromHash();
+  if (!group || !CONFIG.groups[group] || !scenario || !scenarioById(scenario)) { renderNoGroup(); return; }
+  renderPrime(group, scenario);
+}
+
+boot();
+window.addEventListener('hashchange', boot);
+document.addEventListener('fullscreenchange', function(){
+  if (!document.fullscreenElement) {
+    document.body.classList.remove('presenting');
+    currentSyncModeSwitch();
+  }
+});
+})();
+</script>
+</body>
+</html>
