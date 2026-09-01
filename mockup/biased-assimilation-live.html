@@ -216,10 +216,10 @@ var CONFIG = {
   },
   expectedHigherGroup: "a",
   excuses: [
-    { key: "external", label: "External factors changed the result", short: "External factors" },
-    { key: "subset", label: "A subset moved even if the headline number didn't", short: "A subset moved" },
-    { key: "othermetric", label: "A different metric improved instead", short: "Different metric" },
-    { key: "backfire", label: "There's a backfire we haven't seen yet", short: "Hidden backfire" }
+    { key: "external", label: "Something outside the change was actually responsible", short: "Something else caused it" },
+    { key: "subset", label: "It worked for some people, even though the overall number didn't move", short: "Worked for some people" },
+    { key: "othermetric", label: "It helped, just not in the way we were measuring", short: "Helped a different way" },
+    { key: "backfire", label: "It might be quietly causing a problem we haven't noticed yet", short: "A hidden problem" }
   ],
   scenarios: [
     { id: "loan", category: "Financial services", title: "A redesigned “what happens next” screen", blurb: "A bank's home loan application flow gets a redesigned confirmation screen.", metricLabel: "Application conversion rate", before: "4.2%", after: "4.3%" },
@@ -346,7 +346,7 @@ function renderRating(group, scenarioId, round){
 function renderExcuse(group, scenarioId, rating){
   var s = el('div', {class:'screen'}, '');
   s.appendChild(el('div', {class:'eyebrow'}, 'One more thing'));
-  s.appendChild(el('h1', {class:'q'}, 'If someone pushed back on your rating, which explanation would you reach for?'));
+  s.appendChild(el('h1', {class:'q'}, 'Imagine someone says your rating is wrong. What would you tell them?'));
   var col = el('div', {class:'excusebtn-col'}, '');
   CONFIG.excuses.forEach(function(ex){
     var btn = el('button', {class:'excusebtn', type:'button'}, ex.label);
@@ -637,7 +637,7 @@ function renderReveal(){
   lensSwitch.appendChild(reviseBtn);
   wrap.appendChild(lensSwitch);
   wrap.appendChild(el('p', {class:'lens-switch-note'}, lens === 'excuses'
-    ? 'Excuses shows which explanation each side reached for when someone pushed back on their rating.'
+    ? 'Excuses shows what each side would say if someone told them their rating was wrong.'
     : 'Revise shows whether ratings actually moved once the room saw how the other side rated the exact same number.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
@@ -722,7 +722,7 @@ function renderReveal(){
       var counts = excuseCounts(entries, g);
       var total = CONFIG.excuses.reduce(function(sum, ex){ return sum + counts[ex.key]; }, 0);
       var col = el('div', {class:'excuse-col ' + g}, '');
-      col.appendChild(el('h3', {}, CONFIG.groups[g].shortLabel + '’s excuse, if pushed back on'));
+      col.appendChild(el('h3', {}, CONFIG.groups[g].shortLabel + '’s excuse'));
       col.appendChild(el('div', {class:'n'}, total + ' pick' + (total===1?'':'s')));
       CONFIG.excuses.forEach(function(ex){
         var count = counts[ex.key];
@@ -739,7 +739,7 @@ function renderReveal(){
       cols.appendChild(col);
     });
     excusePanel.appendChild(cols);
-    excusePanel.appendChild(el('div', {class:'excuse-top-note'}, 'The classic pattern: the confident-primed group reaches for &ldquo;external factors&rdquo; or &ldquo;a subset moved&rdquo;, the doubt-primed group reaches for &ldquo;there’s a backfire we haven’t seen yet&rdquo;, on the exact same number.'));
+    excusePanel.appendChild(el('div', {class:'excuse-top-note'}, 'The classic pattern: the confident-primed group says &ldquo;something else caused it&rdquo; or &ldquo;it worked for some people&rdquo;, the doubt-primed group says &ldquo;there’s a hidden problem&rdquo;, on the exact same number.'));
     wrap.appendChild(excusePanel);
   } else {
     var revisePanel = el('div', {class:'revise-panel'}, '');
