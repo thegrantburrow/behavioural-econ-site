@@ -117,6 +117,7 @@ body.presenting .historical-bar-fill span{font-size:clamp(18px,2.2vw,28px);}
 .narrative-tag.tie{color:#a3821f;}
 .narrative-tag.wait{color:#a3821f;}
 .narrative-verdict p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink);}
+.narrative-verdict p+p{margin-top:10px;}
 .narrative-verdict p a{color:inherit;}
 .narrative-block{margin-bottom:22px;}
 .narrative-block h4{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px;color:var(--ink);}
@@ -409,14 +410,14 @@ function renderNarrative(byGroup){
     var smallN = (nA < 5 || nB < 5);
     if (diff > 0) {
       tag = 'Lined up with anchoring'; tagClass = 'aligned';
-      verdictHtml = 'The high-anchor group&rsquo;s median guess, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '), came in higher than the low-anchor group&rsquo;s, <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '). That&rsquo;s the same direction Tversky and Kahneman found with their rigged wheel in 1974: whichever number people heard first, even one they knew was random, pulled their guess toward it.';
-      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, treat this as a live demonstration rather than a controlled study. The direction is still the one decades of replication would predict.';
+      verdictHtml = 'The high-anchor group&rsquo;s median guess, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '), came in higher than the low-anchor group&rsquo;s, <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '). <b>That&rsquo;s the same direction Tversky and Kahneman found with their rigged wheel in 1974</b>: whichever number people heard first, even one they knew was random, pulled their guess toward it.';
+      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, <b>treat this as a live demonstration rather than a controlled study</b>. The direction is still the one decades of replication would predict.';
     } else if (diff === 0) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups landed on the exact same median guess, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + ' and n=' + nB + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly. Add more answers and check back.';
+      verdictHtml = 'Both groups landed on the exact same median guess, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + ' and n=' + nB + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. <b>It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more answers and check back.';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the low-anchor group&rsquo;s median guess, <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '), came in higher than the high-anchor group&rsquo;s, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '). Tversky and Kahneman&rsquo;s own version, and dozens of replications since, are among the most reliable findings in behavioural science, so one reversed session doesn&rsquo;t undo that. What it usually means at this size is noise: a handful of people per side is a small enough sample that one or two unusual guesses can flip the median entirely, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'This time it ran the other way: the low-anchor group&rsquo;s median guess, <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '), came in higher than the high-anchor group&rsquo;s, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '). <b>Tversky and Kahneman&rsquo;s own version, and dozens of replications since, are among the most reliable findings in behavioural science</b>, so one reversed session doesn&rsquo;t undo that.</p><p>What it usually means at this size is noise: <b>a handful of people per side is a small enough sample that one or two unusual guesses can flip the median entirely</b>, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
     }
   }
 
@@ -426,7 +427,7 @@ function renderNarrative(byGroup){
   section.appendChild(verdict);
 
   section.appendChild(el('div', {class:'narrative-block'},
-    '<h4>The mechanism, in one paragraph</h4><p>This is the &ldquo;anchoring-and-adjustment&rdquo; heuristic. Instead of estimating from scratch, people start from whatever number they heard most recently, even an arbitrary one like a rigged wheel or this page&rsquo;s own comparative question, and adjust away from it. That adjustment reliably stops too early, as soon as the number feels plausible, not when it&rsquo;s actually correct. The result: two groups shown the identical real question end up with different guesses, each pulled toward whichever starting number it happened to hear. <a href="principles.html#anchoring">Read the full write-up, including the original study, on the Principles page.</a></p>'));
+    '<h4>The mechanism, in one paragraph</h4><p>This is the &ldquo;anchoring-and-adjustment&rdquo; heuristic. Instead of estimating from scratch, people start from whatever number they heard most recently, even an arbitrary one like a rigged wheel or this page&rsquo;s own comparative question, and adjust away from it. <b>That adjustment reliably stops too early, as soon as the number feels plausible, not when it&rsquo;s actually correct.</b> The result: <b>two groups shown the identical real question end up with different guesses</b>, each pulled toward whichever starting number it happened to hear. <a href="principles.html#anchoring">Read the full write-up, including the original study, on the Principles page.</a></p>'));
 
   var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
   var list = el('ul', {class:'example-list'}, '');

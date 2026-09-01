@@ -182,6 +182,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 .narrative-tag.tie{color:#a3821f;}
 .narrative-tag.wait{color:#a3821f;}
 .narrative-verdict p{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink);}
+.narrative-verdict p+p{margin-top:10px;}
 .narrative-verdict p a{color:inherit;}
 .narrative-block{margin-bottom:22px;}
 .narrative-block h4{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px;color:var(--ink);}
@@ -222,7 +223,7 @@ var CONFIG = {
     { id: "renewal", category: "Insurance / telco", title: "A redesigned renewal reminder email", blurb: "An insurer rewrites the email reminding customers their policy is due.", metricLabel: "Renewal rate", before: "82.1%", after: "84.6%" },
     { id: "meeting", category: "Any workplace", title: "A weekly team meeting cut from 60 to 30 minutes", blurb: "A team halves the length of its recurring weekly meeting.", metricLabel: "Self-reported meeting usefulness (1–10 average)", before: "6.1", after: "6.9" }
   ],
-  mechanismHtml: "People don't apply one consistent standard when judging evidence. Evidence that lines up with what they already believed gets accepted close to at face value; evidence that contradicts it gets picked apart for its methodology instead. Read a genuinely mixed or ambiguous result through that lens, and two people who started out disagreeing don't converge. They each keep the half that suits them and end up more certain of their original view than before. <a href=\"principles.html#biased-assimilation\">Read the full write-up on the Principles page.</a>",
+  mechanismHtml: "People don't apply one consistent standard when judging evidence. <b>Evidence that lines up with what they already believed gets accepted close to at face value; evidence that contradicts it gets picked apart for its methodology instead.</b> Read a genuinely mixed or ambiguous result through that lens, and two people who started out disagreeing don't converge. <b>They each keep the half that suits them and end up more certain of their original view than before.</b> <a href=\"principles.html#biased-assimilation\">Read the full write-up on the Principles page.</a>",
   examples: [
     { label: "The death penalty deterrence debate", body: "Decades of genuinely mixed research on whether the death penalty deters murder has done almost nothing to close the gap between supporters and opponents, because each side keeps citing whichever studies confirm what they already believed.", cite: "Lord, C. G., Ross, L., &amp; Lepper, M. R. (1979). <a href=\"principles.html#biased-assimilation\">Read this site's full write-up</a>." },
     { label: "Partisans rating the identical news broadcast as biased against them", body: "Students who identified as pro-Israeli or pro-Arab watched the exact same network news coverage of a real 1982 massacre. Both sides rated the coverage, and the people who made it, as unfairly biased against their own side.", cite: "Vallone, R. P., Ross, L., &amp; Lepper, M. R. (1985). “The Hostile Media Phenomenon.” <a href=\"https://doi.org/10.1037/0022-3514.49.3.577\" target=\"_blank\" rel=\"noopener\">Journal of Personality and Social Psychology, 49(3), 577–585</a>" },
@@ -508,14 +509,14 @@ function renderNarrative(entries){
     var smallN = (mHi.n < 5 || mLo.n < 5);
     if (diff >= 1) {
       tag = 'Lined up with the effect'; tagClass = 'aligned';
-      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group rated the identical evidence <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '), well above the &ldquo;' + loLabel + '&rdquo; group’s <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). Same number, same room, two different verdicts, exactly the pattern Lord, Ross &amp; Lepper found.';
+      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group rated the identical evidence <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '), well above the &ldquo;' + loLabel + '&rdquo; group’s <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). <b>Same number, same room, two different verdicts, exactly the pattern Lord, Ross &amp; Lepper found.</b>';
       if (smallN) verdictHtml += ' With well under a dozen ratings on the smaller side, treat this as a live demonstration rather than a controlled study. The direction is still the one the real research would predict.';
     } else if (diff > -1) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups rated the evidence within a point of each other, <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + ') versus <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). At this sample size that’s close enough to be noise either way. It isn’t evidence the effect is missing, just too little data yet to see it clearly. Add more ratings and check back.';
+      verdictHtml = 'Both groups rated the evidence within a point of each other, <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + ') versus <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). At this sample size that’s close enough to be noise either way. <b>It isn’t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more ratings and check back.';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group rated the evidence <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group’s <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '). The original study, and the real replications since, are among the more reliable findings in behavioural science, so one reversed session doesn’t undo that. At this size, a handful of ratings per side is a small enough sample that one or two unusual answers can flip the result entirely, even when the underlying effect is real. <a href="small-sample-big-claim.html">This site’s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group rated the evidence <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group’s <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '). <b>The original study, and the real replications since, are among the more reliable findings in behavioural science</b>, so one reversed session doesn’t undo that.</p><p>At this size, <b>a handful of ratings per side is a small enough sample that one or two unusual answers can flip the result entirely</b>, even when the underlying effect is real. <a href="small-sample-big-claim.html">This site’s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
     }
   }
 
