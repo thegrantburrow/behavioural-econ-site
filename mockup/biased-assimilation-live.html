@@ -24,7 +24,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system
 h1.q{font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.4;text-align:center;margin:0 0 16px;text-wrap:balance;}
 .scenario{font-size:14px;line-height:1.6;color:var(--ink-soft);text-align:center;margin:0 0 22px;}
 .result-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center;margin:0 0 24px;box-shadow:var(--shadow);}
-.result-metric{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;margin:0 0 10px;}
+.result-metric{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);font-weight:700;margin:0 0 4px;}
+.result-metric-detail{font-size:12.5px;color:var(--ink-soft);font-style:italic;margin:0 0 10px;}
 .result-nums{font-family:Georgia,serif;font-size:28px;font-weight:700;}
 .result-nums .arrow{color:var(--ink-soft);font-size:20px;margin:0 8px;}
 .primarybtn{background:var(--terracotta);color:#fff;border:none;border-radius:12px;padding:16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;width:100%;}
@@ -222,11 +223,11 @@ var CONFIG = {
     { key: "backfire", label: "It might be quietly causing a problem we haven't noticed yet", short: "A hidden problem" }
   ],
   scenarios: [
-    { id: "loan", category: "Financial services", title: "A redesigned “what happens next” screen", blurb: "A bank's home loan application flow gets a redesigned confirmation screen.", metricLabel: "Application conversion rate", before: "4.2%", after: "4.3%" },
-    { id: "checkout", category: "Retail / e-commerce", title: "A one-page checkout redesign", blurb: "An online store collapses its multi-step checkout into a single page.", metricLabel: "Cart abandonment rate", before: "68.4%", after: "65.9%" },
-    { id: "onboarding", category: "Subscription app", title: "A redesigned first-run tutorial", blurb: "A subscription app rebuilds the tutorial new users see on first open.", metricLabel: "Share of new users still active a week later", before: "41.0%", after: "42.1%" },
-    { id: "renewal", category: "Insurance / telco", title: "A redesigned renewal reminder email", blurb: "An insurer rewrites the email reminding customers their policy is due.", metricLabel: "Renewal rate", before: "82.1%", after: "84.6%" },
-    { id: "meeting", category: "Any workplace", title: "A weekly team meeting cut from 60 to 30 minutes", blurb: "A team halves the length of its recurring weekly meeting.", metricLabel: "Self-reported meeting usefulness (1–10 average)", before: "6.1", after: "6.9" }
+    { id: "loan", category: "Financial services", title: "A redesigned “what happens next” screen", blurb: "A bank's home loan application flow gets a redesigned confirmation screen.", metricLabel: "Application conversion rate", metricDetail: "the share of people who started an application and went on to submit it", before: "4.2%", after: "4.3%" },
+    { id: "checkout", category: "Retail / e-commerce", title: "A one-page checkout redesign", blurb: "An online store collapses its multi-step checkout into a single page.", metricLabel: "Cart abandonment rate", metricDetail: "the share who added something to their cart, then left without buying", before: "68.4%", after: "65.9%" },
+    { id: "onboarding", category: "Subscription app", title: "A redesigned first-run tutorial", blurb: "A subscription app rebuilds the tutorial new users see on first open.", metricLabel: "Share of new users still active a week later", metricDetail: null, before: "41.0%", after: "42.1%" },
+    { id: "renewal", category: "Insurance / telco", title: "A redesigned renewal reminder email", blurb: "An insurer rewrites the email reminding customers their policy is due.", metricLabel: "Renewal rate", metricDetail: "the share of customers whose policy was due, who renewed it", before: "82.1%", after: "84.6%" },
+    { id: "meeting", category: "Any workplace", title: "A weekly team meeting cut from 60 to 30 minutes", blurb: "A team halves the length of its recurring weekly meeting.", metricLabel: "Self-reported meeting usefulness (1–10 average)", metricDetail: null, before: "6.1", after: "6.9" }
   ],
   mechanismHtml: "People don't apply one consistent standard when judging evidence. <b>Evidence that lines up with what they already believed gets accepted close to at face value; evidence that contradicts it gets picked apart for its methodology instead.</b> Read a genuinely mixed or ambiguous result through that lens, and two people who started out disagreeing don't converge. <b>They each keep the half that suits them and end up more certain of their original view than before.</b> <a href=\"principles.html#biased-assimilation\">Read the full write-up on the Principles page.</a>",
   examples: [
@@ -299,6 +300,7 @@ function renderResult(group, scenarioId){
   s.appendChild(el('div', {class:'eyebrow'}, "Here's the real number"));
   var card = el('div', {class:'result-card'}, '');
   card.appendChild(el('div', {class:'result-metric'}, sc.metricLabel));
+  if (sc.metricDetail) card.appendChild(el('div', {class:'result-metric-detail'}, sc.metricDetail));
   card.appendChild(el('div', {class:'result-nums'}, sc.before + '<span class="arrow">&rarr;</span>' + sc.after));
   s.appendChild(card);
   s.appendChild(el('p', {class:'scenario'}, 'Everyone in this room, whichever group you’re in, is looking at this exact same number.'));
@@ -344,9 +346,10 @@ function renderRating(group, scenarioId, round){
 }
 
 function renderExcuse(group, scenarioId, rating){
+  var sc = scenarioById(scenarioId);
   var s = el('div', {class:'screen'}, '');
   s.appendChild(el('div', {class:'eyebrow'}, 'One more thing'));
-  s.appendChild(el('h1', {class:'q'}, 'Imagine someone says your rating is wrong. What would you tell them?'));
+  s.appendChild(el('h1', {class:'q'}, 'You rated it ' + rating + '/10. Someone else in the room saw the exact same ' + sc.metricLabel.toLowerCase() + ' number and thinks your rating is off. What would you tell them?'));
   var col = el('div', {class:'excusebtn-col'}, '');
   CONFIG.excuses.forEach(function(ex){
     var btn = el('button', {class:'excusebtn', type:'button'}, ex.label);
@@ -626,7 +629,7 @@ function renderReveal(){
     tabs.appendChild(t);
   });
   wrap.appendChild(tabs);
-  wrap.appendChild(el('p', {class:'scenario-blurb'}, sc.category + ' · ' + sc.blurb + ' · ' + sc.metricLabel + ' ' + sc.before + ' → ' + sc.after));
+  wrap.appendChild(el('p', {class:'scenario-blurb'}, sc.category + ' · ' + sc.blurb + ' · ' + sc.metricLabel + (sc.metricDetail ? ' (' + sc.metricDetail + ')' : '') + ' ' + sc.before + ' → ' + sc.after));
 
   var lensSwitch = el('div', {class:'lens-switch'}, '');
   var excusesBtn = el('button', {type:'button', class: lens === 'excuses' ? 'active' : ''}, 'Excuses');
@@ -637,7 +640,7 @@ function renderReveal(){
   lensSwitch.appendChild(reviseBtn);
   wrap.appendChild(lensSwitch);
   wrap.appendChild(el('p', {class:'lens-switch-note'}, lens === 'excuses'
-    ? 'Excuses shows what each side would say if someone told them their rating was wrong.'
+    ? 'Excuses shows what each side would say if someone challenged their rating of the exact same number.'
     : 'Revise shows whether ratings actually moved once the room saw how the other side rated the exact same number.'));
 
   var sessionRow = el('div', {class:'session-row'}, '');
