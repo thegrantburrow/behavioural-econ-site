@@ -3715,8 +3715,11 @@ footer a:hover { color: var(--terracotta); }
 .scenario-quicklinks { display: flex; flex-direction: column; gap: 6px; margin: 14px 0 4px; padding: 12px 14px; background: var(--paper-alt, var(--card)); border: 1px solid var(--line); border-radius: 10px; }
 .scenario-quicklink { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.82rem; }
 .scenario-quicklink .sq-title { color: var(--ink); }
-.scenario-quicklink .sq-links { display: flex; gap: 8px; flex-shrink: 0; }
+.scenario-quicklink .sq-links { display: flex; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+.sq-linkpair { display: inline-flex; align-items: center; gap: 4px; }
 .scenario-quicklink .sq-links a { font-size: 0.76rem; font-weight: 700; color: var(--terracotta); text-decoration: none; border: 1px solid var(--line); border-radius: 6px; padding: 3px 9px; }
+.sq-copy { font-size: 0.68rem; font-weight: 700; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; cursor: pointer; font-family: inherit; }
+.sq-copy[data-copied="true"] { background: var(--terracotta); color: #fff; border-color: var(--terracotta); }
 .live-howitworks { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
 .live-howitworks h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px; color: var(--ink); }
 .live-howitworks ol { margin: 0; padding-left: 20px; font-size: 0.88rem; line-height: 1.6; color: var(--muted); }
