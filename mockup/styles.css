@@ -3679,7 +3679,32 @@ footer a:hover { color: var(--terracotta); }
 .live-session-eyebrow { display: inline-block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--terracotta); font-weight: 700; margin-bottom: 8px; }
 .live-session-card h2 { font-family: Georgia, "Times New Roman", serif; font-size: 1.5rem; margin: 0 0 6px; }
 .live-session-dek { font-size: 0.95rem; color: var(--muted); margin: 0 0 16px; max-width: 60ch; }
-.live-session-card .mechanism-note { margin-bottom: 16px; }
+.live-session-card .mechanism-note { margin-bottom: 0; }
+
+/* collapsed by default, matching principles.html's own accordion pattern —
+   eyebrow, title, one-line dek and the mechanism-note stay visible; the
+   full write-up, try-it links, and how-it-works steps only take up real
+   space once clicked open. */
+.live-session-details summary.live-session-summary {
+  cursor: pointer;
+  list-style: none;
+  display: block;
+  position: relative;
+  padding-right: 32px;
+}
+.live-session-summary::-webkit-details-marker { display: none; }
+.live-session-summary::marker { content: ""; }
+.live-session-summary:hover h2 { color: var(--terracotta); }
+.live-session-chev {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  color: var(--terracotta);
+  font-size: 1.3rem;
+  transition: transform 0.2s ease;
+}
+.live-session-details[open] .live-session-chev { transform: rotate(90deg); }
+.live-session-body { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
 .live-session-card p.body-text { font-size: 0.92rem; line-height: 1.65; margin: 0 0 14px; max-width: 62ch; }
 .live-try-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 6px; }
 .live-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; padding: 11px 18px; border-radius: 10px; text-decoration: none; }
