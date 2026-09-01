@@ -8,6 +8,10 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
 - Working tree lives in `mockup/` (`index.html`, `principles.html`,
   `sessions.html`, `experiments.html`, `styles.css`, `script.js`,
   `mockup/images/`). Treat this as the site; there is no build step yet.
+- Cited study PDFs live in `references/` (`manifest.json` + `papers/`).
+  Not deployed to Pages. Refresh with `python3 scripts/extract_citations.py`;
+  ingest Grok-sourced PDFs with `python3 scripts/ingest_reference_pdf.py`.
+  See `references/README.md`.
 - Palette: ink `#1B1E24`, terracotta `#C43E1F`, mustard `#E0A93A`, teal
   `#1F7A6C`, paper `#F5F6F5`. This doc had drifted from the live tokens in
   `mockup/styles.css`'s own `:root` block for a while before being caught
