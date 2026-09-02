@@ -7,6 +7,9 @@ Primary-source PDFs for studies cited across `mockup/*.html`. These files are
 
 - `manifest.json` — one row per unique academic citation (re-run extract for current count)
 - `papers/` — the PDF files themselves
+- `inbox/` — drop folder for Grok-sourced PDFs before ingest
+- `grok-fetch-list.md` / `grok-fetch-list.json` — handoff list of citations still
+  missing from disk (regenerate with `export_grok_fetch_list.py`)
 
 ## Filename convention
 
@@ -37,7 +40,17 @@ python3 scripts/download_reference_pdfs.py
 Most citations point at publisher landing pages or DOI resolvers. Those need a
 full PDF sourced elsewhere.
 
-### 3. Batch-ingest a folder of Grok PDFs
+### 3. Export the Grok fetch list (papers still missing)
+
+```bash
+python3 scripts/export_grok_fetch_list.py
+```
+
+Writes `grok-fetch-list.md` and `grok-fetch-list.json` with every `missing`
+manifest entry: citation label, URL, `suggested_filename`, manifest `id`, and
+which site pages cite it. Hand that file to Grok (or any human) to source PDFs.
+
+### 4. Batch-ingest a folder of Grok PDFs
 
 Drop PDFs into `references/inbox/` (or any folder), then:
 
@@ -49,13 +62,13 @@ python3 scripts/batch_ingest_reference_pdfs.py --dir ~/Downloads/grok-papers
 Files are matched to manifest entries by exact filename, then by
 year/author/title token overlap. Unmatched files are listed at the end.
 
-### 4. Auto-fetch open-access PDFs (DOI / NBER / arxiv resolvers)
+### 5. Auto-fetch open-access PDFs (DOI / NBER / arxiv resolvers)
 
 ```bash
 python3 scripts/fetch_reference_pdfs.py
 ```
 
-### 5. Ingest a single PDF manually
+### 6. Ingest a single PDF manually
 
 ```bash
 python3 scripts/ingest_reference_pdf.py \
@@ -69,7 +82,7 @@ Or match by manifest `id`:
 python3 scripts/ingest_reference_pdf.py --id a1b2c3d4e5 --file paper.pdf
 ```
 
-### 6. Check coverage
+### 7. Check coverage
 
 ```bash
 python3 scripts/extract_citations.py --check
