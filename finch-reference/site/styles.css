@@ -1,0 +1,183 @@
+/*
+ * The chrome is deliberately almost colourless. This is a tool for judging the
+ * colour in a photograph, and a terracotta panel beside a photograph changes
+ * how that photograph reads. Terracotta appears once, on the active state, and
+ * nowhere else.
+ */
+:root{
+  --paper:#F4F4F3; --panel:#FFFFFF; --sink:#EAEAE8; --line:rgba(27,30,36,.13);
+  --ink:#1B1E24; --soft:rgba(27,30,36,.62); --faint:rgba(27,30,36,.4);
+  --accent:#C43E1F; --accent-ink:#FFFFFF;
+  --ok:#1F7A6C;
+  --shadow:0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.09);
+  --rail:264px;
+  --s1:4px; --s2:8px; --s3:14px; --s4:22px; --s5:34px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#141516; --panel:#1E2022; --sink:#191B1C; --line:rgba(238,234,226,.15);
+    --ink:#EDEAE4; --soft:rgba(237,234,228,.62); --faint:rgba(237,234,228,.4);
+    --accent:#D9784F; --accent-ink:#17110E;
+    --ok:#5FA89A;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141516; --panel:#1E2022; --sink:#191B1C; --line:rgba(238,234,226,.15);
+  --ink:#EDEAE4; --soft:rgba(237,234,228,.62); --faint:rgba(237,234,228,.4);
+  --accent:#D9784F; --accent-ink:#17110E;
+  --ok:#5FA89A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --paper:#F4F4F3; --panel:#FFFFFF; --sink:#EAEAE8; --line:rgba(27,30,36,.13);
+  --ink:#1B1E24; --soft:rgba(27,30,36,.62); --faint:rgba(27,30,36,.4);
+  --accent:#C43E1F; --accent-ink:#FFFFFF;
+  --ok:#1F7A6C;
+  --shadow:0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.09);
+  color-scheme:light;
+}
+
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;}
+button,input,select,textarea{font:inherit;color:inherit;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;}}
+
+/* ---------- shell ---------- */
+.app{display:grid;grid-template-columns:var(--rail) 1fr;min-height:100%;}
+.rail{background:var(--panel);border-right:1px solid var(--line);padding:var(--s4) var(--s3) var(--s5);
+  overflow-y:auto;max-height:100vh;position:sticky;top:0;display:flex;flex-direction:column;gap:var(--s4);}
+.main{padding:var(--s4) var(--s4) 80px;min-width:0;}
+
+.brand{display:flex;align-items:center;gap:var(--s2);}
+.brand h1{font-family:Georgia,ui-serif,serif;font-size:19px;margin:0;letter-spacing:-.01em;}
+.brand .n{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums;}
+
+/* ---------- filter groups ---------- */
+.grp{display:flex;flex-direction:column;gap:var(--s2);}
+.grp > h2{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);
+  margin:0;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:6px;}
+.chips{display:flex;flex-wrap:wrap;gap:5px;}
+.chip{border:1px solid var(--line);background:transparent;color:var(--soft);
+  font-size:12.5px;padding:3px 9px;border-radius:999px;cursor:pointer;line-height:1.45;transition:.12s;}
+.chip:hover{border-color:var(--accent);color:var(--ink);}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600;}
+.chip .c{font-variant-numeric:tabular-nums;opacity:.65;margin-left:4px;font-size:11px;}
+.chip[aria-pressed="true"] .c{opacity:.8;}
+.chip.dim{opacity:.35;}
+
+.swatches{display:flex;flex-wrap:wrap;gap:6px;}
+.sw{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0;
+  position:relative;transition:.12s;}
+.sw:hover{transform:scale(1.09);}
+.sw[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--ink);}
+.sw.dim{opacity:.3;}
+
+.srch{width:100%;border:1px solid var(--line);background:var(--sink);border-radius:8px;
+  padding:7px 10px;font-size:13.5px;}
+
+/* ---------- toolbar ---------- */
+.bar{display:flex;gap:var(--s2);align-items:center;flex-wrap:wrap;margin-bottom:var(--s3);}
+.bar .sp{flex:1;}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 12px;
+  font-size:13px;cursor:pointer;transition:.12s;}
+.btn:hover{border-color:var(--accent);}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600;}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600;}
+.count{font-size:13px;color:var(--soft);font-variant-numeric:tabular-nums;}
+
+/* ---------- notices ---------- */
+.notice{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--panel);
+  border-radius:10px;padding:var(--s3) var(--s3);margin-bottom:var(--s4);box-shadow:var(--shadow);}
+.notice h3{font-family:Georgia,ui-serif,serif;font-size:16px;margin:0 0 6px;}
+.notice p{margin:0 0 6px;font-size:13.5px;color:var(--soft);max-width:60ch;}
+.notice p:last-child{margin-bottom:0;}
+.notice code{background:var(--sink);padding:1px 5px;border-radius:4px;font-size:12.5px;}
+
+/* ---------- grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s3);}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  cursor:pointer;display:flex;flex-direction:column;transition:.12s;padding:0;text-align:left;}
+.tile:hover{border-color:var(--accent);}
+.tile[data-sel="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent);}
+.tile .im{aspect-ratio:1;background:var(--sink);position:relative;overflow:hidden;}
+.tile .im img{width:100%;height:100%;object-fit:cover;display:block;}
+.tile .pal{display:flex;height:4px;}
+.tile .pal i{flex:1;}
+.tile .m{padding:7px 9px 9px;font-size:11.5px;color:var(--soft);line-height:1.4;}
+.tile .m b{display:block;color:var(--ink);font-size:12.5px;font-weight:600;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tile .badge{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.62);color:#fff;
+  font-size:10px;padding:2px 6px;border-radius:999px;backdrop-filter:blur(3px);}
+.tile .untag{position:absolute;top:6px;left:6px;width:8px;height:8px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 0 2px rgba(0,0,0,.35);}
+.empty{grid-column:1/-1;text-align:center;color:var(--soft);padding:60px 20px;font-size:14px;}
+
+/* ---------- viewer ---------- */
+.viewer{position:fixed;inset:0;z-index:50;background:var(--paper);display:none;
+  grid-template-columns:1fr 340px;}
+.viewer[data-open="true"]{display:grid;}
+.stagecol{display:flex;flex-direction:column;min-width:0;background:#0E0F10;}
+.stage{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:0;}
+.stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;transition:filter .12s;}
+.stage.grey img{filter:grayscale(1) contrast(1.12);}
+.stage.flip img{transform:scaleX(-1);}
+.stage .gl{position:absolute;inset:0;pointer-events:none;opacity:0;transition:.12s;
+  background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+  background-size:33.333% 33.333%;}
+.stage.gridon .gl{opacity:1;}
+.stagebar{display:flex;gap:6px;padding:10px;flex-wrap:wrap;justify-content:center;
+  background:#17191A;border-top:1px solid rgba(255,255,255,.1);}
+.stagebar .btn{background:transparent;border-color:rgba(255,255,255,.2);color:#EDEAE4;}
+.stagebar .btn:hover{border-color:#D9784F;}
+.stagebar .btn[aria-pressed="true"]{background:#D9784F;border-color:#D9784F;color:#17110E;}
+/* Two rows, not a scrolling column with a sticky footer. As a sticky element the
+   save bar was painted under the chips that scrolled past it, so Save sat on top
+   of all ten colour chips and there was no way to tell what you were tapping. */
+.side{background:var(--panel);border-left:1px solid var(--line);
+  display:grid;grid-template-rows:1fr auto;overflow:hidden;min-height:0;}
+.sidescroll{overflow-y:auto;padding:var(--s4) var(--s3);
+  display:flex;flex-direction:column;gap:var(--s3);min-height:0;}
+.side h2{font-family:Georgia,ui-serif,serif;font-size:17px;margin:0;word-break:break-word;}
+.side .facts{font-size:12.5px;color:var(--soft);display:flex;flex-direction:column;gap:2px;}
+.side .facts span{font-variant-numeric:tabular-nums;}
+.side label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);font-weight:700;}
+.side textarea{width:100%;min-height:74px;border:1px solid var(--line);background:var(--sink);
+  border-radius:8px;padding:8px 10px;font-size:13.5px;resize:vertical;}
+.side input[type=text]{width:100%;border:1px solid var(--line);background:var(--sink);
+  border-radius:8px;padding:7px 10px;font-size:13.5px;}
+.stars{display:flex;gap:3px;}
+.star{background:none;border:none;cursor:pointer;font-size:19px;line-height:1;padding:0;color:var(--faint);}
+.star[data-on="true"]{color:var(--accent);}
+.savebar{background:var(--panel);border-top:1px solid var(--line);
+  padding:12px var(--s3);display:flex;gap:8px;align-items:center;}
+.saved{font-size:12.5px;color:var(--ok);opacity:0;transition:.2s;}
+.saved[data-on="true"]{opacity:1;}
+.closeb{position:absolute;top:10px;left:10px;z-index:2;background:rgba(0,0,0,.55);border:none;
+  color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:17px;}
+
+/* In the rail rather than floating in a corner. As a fixed bottom-left control
+   it sat on top of whatever the rail happened to be scrolled to, and on a phone
+   it covered the viewer's Save button so the button could not be tapped. */
+.theme{margin-left:auto;width:30px;height:30px;border-radius:50%;flex:0 0 auto;
+  border:1px solid var(--line);background:var(--panel);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:14px;padding:0;transition:.12s;}
+.theme:hover{border-color:var(--accent);}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;}
+  .rail{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);}
+  .rail[data-collapsed="true"] .grp,.rail[data-collapsed="true"] .srch{display:none;}
+  .viewer{grid-template-columns:1fr;grid-template-rows:1fr auto;}
+  .side{border-left:none;border-top:1px solid var(--line);max-height:46vh;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+}

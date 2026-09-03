@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Reference Library</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="rail" id="rail">
+    <div class="brand">
+      <h1>Reference</h1>
+      <span class="n" id="brandcount"></span>
+      <button class="theme" id="theme" type="button" aria-label="Toggle light and dark">&#9789;</button>
+    </div>
+    <input class="srch" id="search" type="search" placeholder="Search names and notes" autocomplete="off">
+    <div id="filters"></div>
+  </aside>
+
+  <main class="main">
+    <div id="notices"></div>
+    <div class="bar">
+      <span class="count" id="count"></span>
+      <span class="sp"></span>
+      <button class="btn" id="f-untagged" aria-pressed="false" type="button">Untagged only</button>
+      <button class="btn" id="f-unused" aria-pressed="false" type="button">Not drawn yet</button>
+      <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </main>
+</div>
+
+<div class="viewer" id="viewer" data-open="false" role="dialog" aria-modal="true" aria-label="Photo">
+  <div class="stagecol">
+    <div class="stage" id="stage">
+      <button class="closeb" id="close" type="button" aria-label="Close">&times;</button>
+      <img id="stageimg" alt="">
+      <div class="gl"></div>
+    </div>
+    <div class="stagebar">
+      <button class="btn" id="v-grey" aria-pressed="false" type="button">Values only</button>
+      <button class="btn" id="v-grid" aria-pressed="false" type="button">Grid</button>
+      <button class="btn" id="v-flip" aria-pressed="false" type="button">Flip</button>
+      <button class="btn" id="v-full" type="button">Full size</button>
+      <button class="btn" id="v-prev" type="button">Previous</button>
+      <button class="btn" id="v-next" type="button">Next</button>
+    </div>
+  </div>
+  <div class="side" id="side"></div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
