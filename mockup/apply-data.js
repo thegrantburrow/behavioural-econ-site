@@ -80,7 +80,8 @@ var APPLY_PRINCIPLES = [
   {id:"bulletproof-glass-effect", title:"Bulletproof Glass Effect", cat:"judgment", blurb:"A prominent, detailed privacy or security notice can lower trust instead of raising it, because explaining a protection in detail implies the danger it guards against is real."},
   {id:"implementation-intentions", title:"Implementation Intentions", cat:"motivation", blurb:"Deciding in advance exactly when, where and how you'll act on a goal, a specific if-then plan rather than a general intention, makes people far more likely to actually follow through."},
   {id:"reminder-fatigue", title:"Reminder Fatigue", cat:"social", blurb:"A repeated reminder raises compliance the moment it's sent, but each additional one also raises the odds the recipient opts out of all future contact for good."},
-  {id:"biased-assimilation", title:"Biased Assimilation", cat:"judgment", blurb:"Shown the same mixed evidence, people accept whatever confirms their existing belief, pick apart whatever contradicts it, and end up more certain of their original view than when they started."}
+  {id:"biased-assimilation", title:"Biased Assimilation", cat:"judgment", blurb:"Shown the same mixed evidence, people accept whatever confirms their existing belief, pick apart whatever contradicts it, and end up more certain of their original view than when they started."},
+  {id:"probability-weighting", title:"Probability Weighting", cat:"judgment", blurb:"A very small chance of a big prize gets treated as far more likely than it really is, which is why a long-shot gamble can feel more compelling than its real odds justify."}
 ];
 
 // Category display names, reused wherever a principle's .cat needs a real
