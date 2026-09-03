@@ -31,6 +31,7 @@ having an archive that outlives any one service.
 | `worker/wrangler.toml` | Deployment config. Every secret is a placeholder. |
 | `site/` | The library itself: `index.html`, `app.js`, `styles.css`. No build step. |
 | `scripts/export-archive.mjs` | Pulls the live tags into `library.json` so git has a copy. |
+| `taxonomy-map.json` | Where each of the store's 46 product tags went, and why thirteen were left out. |
 | `_check.mjs` | The checks. Run before every commit. |
 
 ## Two rules this is built on
@@ -152,10 +153,44 @@ in the photograph. Every chip carries the number of photographs it would leave
 you with, counted against everything else already selected, so a chip showing
 zero really would empty the grid.
 
-The taxonomy is yours. It lives in KV under the key `taxonomy` and the Worker
-serves whatever is there, falling back to a starting set. `PUT /api/taxonomy`
-replaces it. The starting set is a guess at what an illustrator wants and it is
-meant to be rewritten once you have tagged fifty photographs and know.
+### The vocabulary is the shop's own
+
+The starting taxonomy is not invented. It is the live product tags from the
+OscarFinch Shopify store, read on 2026-09-03, split into the parts that describe
+a photograph:
+
+| Group | Where it comes from |
+| --- | --- |
+| Subject | Store tags: People, Watches, Pens, Vehicles, Footwear and the rest. |
+| Theme | Store tags: Status & Power, Fate, Fortune & Irony, Wealth, Work. |
+| Series | Store tags: Time Traveller, Rocket Espresso, Collaboration. |
+| Saved for, Angle, Light, Source | Not in the shop. These describe a photograph, not an artwork. |
+
+So a reference tagged **Watches** and **Status & Power** is filed in the same
+words the finished print will be, and the library and the shop never need
+translating between them.
+
+`taxonomy-map.json` records where all 46 store tags went, including the thirteen
+deliberately left out with the reason for each. Open Edition and Small Format
+Only describe how a print is sold. Newer Work and Earlier Era date the artwork,
+and the photograph carries its own date. Leaving them listed means re-syncing
+after you add a tag is mechanical rather than a fresh judgement call.
+
+The taxonomy is still yours. It lives in KV under the key `taxonomy`, the Worker
+serves whatever is there and falls back to the set above, and `PUT /api/taxonomy`
+replaces it. Rewrite it once you have tagged fifty photographs and know.
+
+### Which piece a reference fed
+
+The **Drawn from this** field takes the title of the artwork, and the panel then
+links straight to it on the shop. Handles are the title slugified, so nothing is
+typed twice.
+
+One rule caught by checking against the live store rather than assuming: an
+ampersand is **dropped**, not spelled out. "The Time Traveller & The Homo Sapiens
+Pen" is `/products/the-time-traveller-the-homo-sapiens-pen`, while "The Heart and
+the Wattle" keeps its written "and". All twelve handles on the store were tested
+against the rule. Paste a handle in directly and it passes through unchanged.
 
 ## The archive
 
@@ -178,9 +213,14 @@ node _check.mjs
 ```
 
 Four things, each there because of a way this could break quietly rather than
-loudly: no em dashes in any prose, no third party requests from the page, every
-route the page calls is a route the Worker answers, and the gate genuinely
-refuses to serve when it is not configured.
+loudly: no em dashes in any prose, nothing the page loads comes from somewhere
+else, every route the page calls is a route the Worker answers, and the gate
+genuinely refuses to serve when it is not configured.
+
+The second one allows exactly one outside address, `www.oscarfinch.com`, and
+only as somewhere to navigate on a link you click. A link is not the browser
+fetching a third party. The moment that address appears anywhere a browser would
+load rather than follow, the check fails.
 
 ## What is deliberately not here
 

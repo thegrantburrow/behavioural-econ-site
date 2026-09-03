@@ -30,17 +30,35 @@ const allFiles = siteFiles.concat(['worker/index.js', 'README.md', 'scripts/expo
 }
 
 /* 2. The browser talks to this site and nobody else. No CDN, no font host, no
-      analytics, no embedded widget. Everything the page needs ships with it. */
+      analytics, no embedded widget: nothing the page LOADS may come from
+      somewhere else.
+
+      One address is allowed and only as a place to navigate to: the shop, on a
+      link the reader clicks. A link is not the browser fetching a third party,
+      and naming the piece a reference fed is the whole point of the field it
+      sits under. Any other absolute URL fails, and so does this one the moment
+      it appears anywhere a browser would load rather than follow. */
 {
+  const NAV_ALLOWED = 'https://www.oscarfinch.com';
+  /* An XML namespace is an identifier, not an address. No browser has ever
+     fetched it, and a data: URI SVG is invalid without it. */
+  const NOT_AN_ADDRESS = ['http://www.w3.org/2000/svg'];
   const hits = [];
   for (const f of siteFiles) {
     const text = readFileSync(f, 'utf8');
-    const m = text.match(/(?:src|href)\s*=\s*["']https?:\/\/[^"']+/gi) || [];
-    m.forEach(s => hits.push(f + '  ' + s.slice(0, 70)));
-    (text.match(/fetch\(\s*["']https?:\/\/[^"']+/gi) || []).forEach(s => hits.push(f + '  ' + s.slice(0, 70)));
+    text.split('\n').forEach((line, i) => {
+      const urls = line.match(/https?:\/\/[^"'`\s)]+/g) || [];
+      for (const u of urls) {
+        const where = f + ':' + (i + 1);
+        if (NOT_AN_ADDRESS.indexOf(u) !== -1) continue;
+        const loads = /(?:\bsrc\b|<script|<link|<img|<iframe|fetch\(|import\(|url\()/i.test(line);
+        if (u.startsWith(NAV_ALLOWED) && !loads) continue;   /* a link, allowed */
+        hits.push(where + '  ' + (loads ? 'LOADS ' : '') + u.slice(0, 60));
+      }
+    });
   }
-  if (hits.length) bad('no third party requests from the page', '\n        ' + hits.join('\n        '));
-  else ok('no third party requests from the page');
+  if (hits.length) bad('nothing the page loads comes from somewhere else', '\n        ' + hits.join('\n        '));
+  else ok('nothing the page loads comes from somewhere else', 'links to ' + NAV_ALLOWED + ' allowed');
 }
 
 /* 3. Every route the page asks for is a route the Worker answers. A renamed

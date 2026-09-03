@@ -152,6 +152,28 @@ var el = {
   side: document.getElementById('side')
 };
 
+/*
+ * Product handles on the store are the title slugified, so naming the piece a
+ * reference fed is enough to reach it and there is no id to copy around. Paste
+ * a handle straight in and it survives unchanged.
+ *
+ * An ampersand is DROPPED, not spelled out. Checked against the live store:
+ * "The Time Traveller & The Homo Sapiens Pen" is
+ * /products/the-time-traveller-the-homo-sapiens-pen, while "The Heart and the
+ * Wattle" keeps its written "and". Expanding & to "and" produced a handle that
+ * looked plausible and 404ed.
+ */
+var STORE = 'https://www.oscarfinch.com';
+function handleOf(text) {
+  return String(text || '').toLowerCase().trim()
+    .replace(/['\u2019]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+function productUrl(text) {
+  var h = handleOf(text);
+  return h ? STORE + '/products/' + h : '';
+}
+
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
@@ -441,7 +463,9 @@ function renderSide(p) {
 
   html += '<div><label>Drawn from this</label><div class="chips" style="margin-top:5px;">' +
     '<button class="chip" type="button" id="usedbtn" aria-pressed="' + (p.used ? 'true' : 'false') + '">Used</button>' +
-    '</div><input type="text" id="usedin" style="margin-top:6px;" placeholder="Which piece" value="' + esc(p.usedIn) + '"></div>';
+    '</div><input type="text" id="usedin" style="margin-top:6px;" placeholder="Which piece, by its title" value="' + esc(p.usedIn) + '">' +
+    '<a class="prodlink" id="prodlink" target="_blank" rel="noopener"' +
+      (p.usedIn ? ' href="' + esc(productUrl(p.usedIn)) + '"' : ' hidden') + '>Open it on oscarfinch.com</a></div>';
 
   html += '<div><label>Notes</label><textarea id="note" placeholder="What you saved it for.">' + esc(p.note) + '</textarea></div>';
 
@@ -478,6 +502,15 @@ function renderSide(p) {
       b.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
     });
   });
+  var usedIn = document.getElementById('usedin');
+  var prodLink = document.getElementById('prodlink');
+  function syncLink() {
+    var u = productUrl(usedIn.value);
+    if (u) { prodLink.href = u; prodLink.hidden = false; }
+    else { prodLink.removeAttribute('href'); prodLink.hidden = true; }
+  }
+  usedIn.addEventListener('input', syncLink);
+
   var usedBtn = document.getElementById('usedbtn');
   usedBtn.addEventListener('click', function () {
     p.used = !p.used;

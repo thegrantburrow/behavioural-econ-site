@@ -184,13 +184,29 @@ async function driveList(env) {
 /* API                                                                     */
 /* ---------------------------------------------------------------------- */
 
+/*
+ * The starting vocabulary is the store's own, not a guess. These are the live
+ * product tags from the OscarFinch Shopify store, split into the parts that
+ * describe a photograph you might draw from. taxonomy-map.json records where
+ * every one of the store's tags went, including the ones deliberately left out
+ * because they describe how a print is sold rather than what is in a picture.
+ *
+ * Tagging a reference "Watches" and "Status & Power" therefore lands it in the
+ * same words the finished print is filed under, which is the point: the library
+ * and the shop should not need translating between them.
+ *
+ * The last four groups have no equivalent in the shop, because they are
+ * properties of a photograph rather than of an artwork.
+ */
 const DEFAULT_TAXONOMY = {
   groups: [
-    { key: 'subject', label: 'Subject', values: ['Person', 'Face', 'Hands', 'Full figure', 'Object', 'Vehicle', 'Building', 'Interior', 'Street scene', 'Landscape', 'Animal', 'Texture'] },
+    { key: 'subject', label: 'Subject',   values: ['People', 'Places & Scenes', 'Products & Objects', 'Vehicles', 'Watches', 'Pens', 'Footwear', 'Jackets & Outerwear', 'Coins', 'Cards', 'Stamps & Collectibles', 'Food & Drink', 'Espresso Machines & Coffee', 'Everyday Household Objects'] },
+    { key: 'theme',   label: 'Theme',     values: ['Everyday Life', 'Work', 'Relationships & Family', 'Status & Power', 'Wealth', 'Treasure', 'Fate', 'Fortune & Irony', 'Appearance & Vanity', 'Inspiring', 'Amazing people', 'Amazing objects', 'Amazing places', 'Amazing tales'] },
+    { key: 'series',  label: 'Series',    values: ['Time Traveller', 'Rocket Espresso', 'Collaboration', 'Multi-vignette', 'Quotes & Typographic'] },
     { key: 'why',     label: 'Saved for', values: ['Pose', 'Expression', 'Light', 'Colour', 'Texture', 'Composition', 'Detail', 'Whole mood'] },
-    { key: 'angle',   label: 'Angle',   values: ['Front', 'Three quarter', 'Profile', 'Back', 'From above', 'From below'] },
-    { key: 'light',   label: 'Light',   values: ['Overcast', 'Golden hour', 'Backlit', 'Harsh sun', 'Indoor', 'Night', 'Studio'] },
-    { key: 'source',  label: 'Source',  values: ['My photo', 'Stock, licensed', 'Client supplied', 'Found, unlicensed'] }
+    { key: 'angle',   label: 'Angle',     values: ['Front', 'Three quarter', 'Profile', 'Back', 'From above', 'From below'] },
+    { key: 'light',   label: 'Light',     values: ['Overcast', 'Golden hour', 'Backlit', 'Harsh sun', 'Indoor', 'Night', 'Studio'] },
+    { key: 'source',  label: 'Source',    values: ['My photo', 'Stock, licensed', 'Client supplied', 'Found, unlicensed'] }
   ]
 };
 
