@@ -1,0 +1,828 @@
+<title>Finch Reference Library</title>
+<style>
+:root{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+    --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+    --accent:#D97A56; --accent-ink:#1A1310;
+    --accent2:#5FA89A; --accent2-ink:#0D1917;
+    --mustard:#E8BE63;
+    --good:#5FA89A; --good-ink:#0D1917;
+    --needs:#D97A56; --needs-ink:#1A1310;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+  --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+  --accent:#D97A56; --accent-ink:#1A1310;
+  --accent2:#5FA89A; --accent2-ink:#0D1917;
+  --mustard:#E8BE63;
+  --good:#5FA89A; --good-ink:#0D1917;
+  --needs:#D97A56; --needs-ink:#1A1310;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+}
+:root[data-theme="light"]{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.wrap{max-width:860px;margin:0 auto;padding:44px 20px 80px;}
+h1{font-family:Georgia,ui-serif,serif;font-size:30px;margin:0 0 6px;text-wrap:balance;}
+.sub{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:0 0 8px;max-width:60ch;}
+.ask{font-size:13.5px;color:var(--ink-soft);background:var(--paper-alt);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:18px 0 36px;line-height:1.55;}
+.ask b{color:var(--ink);}
+.sechead{font-family:Georgia,ui-serif,serif;font-size:15px;letter-spacing:.02em;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:14px;margin:44px 0 22px;}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:28px;overflow:hidden;}
+.card__head{padding:18px 22px 0;}
+.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px;}
+.tag.rec{color:var(--accent2);}
+.card h3{font-family:Georgia,ui-serif,serif;font-size:19px;margin:0 0 6px;}
+.card p.desc{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 16px;max-width:62ch;}
+.card p.desc b{color:var(--ink);font-weight:600;}
+.preview{background:var(--paper-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 22px;}
+.cap{font-size:12.5px;color:var(--ink-soft);line-height:1.5;margin:14px 0 0;}
+.cap b{color:var(--ink);}
+
+/* plus / minus lists */
+.pm{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 16px;}
+.pm ul{margin:0;padding:0 0 0 2px;list-style:none;flex:1 1 240px;font-size:13px;line-height:1.65;color:var(--ink-soft);}
+.pm li{padding-left:18px;position:relative;}
+.pm li::before{position:absolute;left:0;font-weight:700;}
+.pm .up li::before{content:"+";color:var(--accent2);}
+.pm .down li::before{content:"\2212";color:var(--accent);}
+
+.toggle{display:flex;gap:8px;padding:16px 22px 4px;flex-wrap:wrap;}
+.toggle-btn{border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
+.toggle-btn:hover{border-color:var(--accent);}
+.toggle-btn[data-active="true"][data-val="good"]{background:var(--good);border-color:var(--good);color:var(--good-ink);}
+.toggle-btn[data-active="true"][data-val="needs-work"]{background:var(--needs);border-color:var(--needs);color:var(--needs-ink);}
+.comment{margin:10px 22px 20px;}
+.comment textarea{width:100%;min-height:44px;resize:vertical;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:13.5px;padding:9px 11px;}
+.comment textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+
+.feedback{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;margin-top:36px;}
+.feedback h3{font-family:Georgia,ui-serif,serif;font-size:17px;margin:0 0 10px;}
+.feedback textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;background:var(--paper-alt);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical;}
+.feedback-row{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;}
+.copy-btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;}
+.copy-btn[data-copied="true"]{background:var(--accent2);color:var(--accent2-ink);}
+
+.theme-toggle{position:fixed;top:14px;right:14px;z-index:20;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;padding:0;}
+
+/* ---- shared demo furniture ---- */
+.chipbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px;}
+.chipbar .lbl{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);width:64px;flex:0 0 64px;font-weight:600;}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font-size:12px;padding:4px 10px;border-radius:999px;cursor:pointer;font-family:inherit;line-height:1.4;}
+.chip:hover{border-color:var(--accent);}
+.chip[aria-pressed="true"]{background:var(--accent2);border-color:var(--accent2);color:var(--accent2-ink);font-weight:600;}
+.sw{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0;position:relative;}
+.sw[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--paper-alt),0 0 0 4px var(--ink);}
+.demoshell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;}
+.countrow{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;color:var(--ink-soft);border-top:1px solid var(--line);margin-top:12px;padding-top:10px;flex-wrap:wrap;}
+.linkbtn{background:none;border:none;color:var(--accent);font-size:12.5px;cursor:pointer;font-family:inherit;padding:0;text-decoration:underline;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;margin-top:12px;}
+.ph{background:var(--paper-alt);border:1px solid var(--line);border-radius:9px;overflow:hidden;}
+.ph svg{display:block;width:100%;height:auto;}
+.ph .meta{padding:6px 7px 7px;font-size:10.5px;line-height:1.35;color:var(--ink-soft);}
+.ph .meta strong{display:block;color:var(--ink);font-size:11.5px;font-weight:600;}
+.ph .pal{display:flex;height:5px;}
+.ph .pal i{flex:1;}
+.empty{font-size:13px;color:var(--ink-soft);padding:22px 4px;text-align:center;}
+
+/* ---- add-flow mock ---- */
+.drop{border:2px dashed var(--line);border-radius:12px;padding:18px;text-align:center;font-size:13px;color:var(--ink-soft);background:var(--panel);cursor:pointer;}
+.drop:hover{border-color:var(--accent);color:var(--ink);}
+.drop.hot{border-color:var(--accent2);color:var(--ink);}
+.field{display:flex;gap:8px;align-items:baseline;font-size:12.5px;padding:5px 0;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.field .k{width:90px;flex:0 0 90px;color:var(--ink-soft);}
+.field .v{color:var(--ink);font-weight:600;}
+.auto{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent2);border:1px solid var(--accent2);border-radius:999px;padding:1px 6px;font-weight:600;}
+.ask2{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--mustard);border:1px solid var(--mustard);border-radius:999px;padding:1px 6px;font-weight:600;}
+
+/* ---- lightbox / drawing view mock ---- */
+.stagewrap{position:relative;border-radius:10px;overflow:hidden;background:#111;max-width:340px;margin:0 auto;}
+.stagewrap svg{display:block;width:100%;height:auto;}
+.stagewrap.grey svg{filter:grayscale(1) contrast(1.15);}
+.stagewrap.flip svg{transform:scaleX(-1);}
+.gridlay{position:absolute;inset:0;pointer-events:none;opacity:0;transition:.15s;
+  background-image:linear-gradient(rgba(255,255,255,.55) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.55) 1px,transparent 1px);
+  background-size:33.333% 33.333%;}
+.stagewrap.gridon .gridlay{opacity:1;}
+.palstrip{display:flex;gap:0;margin:10px auto 0;max-width:340px;border-radius:6px;overflow:hidden;height:26px;}
+.palstrip i{flex:1;}
+.ctrls{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px;}
+
+@media (max-width:520px){
+  .chipbar .lbl{width:100%;flex:0 0 100%;margin-bottom:2px;}
+}
+</style>
+
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">🌙</button>
+
+<div class="wrap">
+  <h1>A private reference library for your finch drawings</h1>
+  <p class="sub">Somewhere to put every photo you draw from, and a way to find the right one again. Four ways to build it, then the decisions about what it actually does.</p>
+  <div class="ask">Every demo below is <b>live, so click it</b>. The colour extractor and the drawing view both take a real photo if you drop one in, and nothing you drop leaves your browser. Toggle each card, add notes, then hit <b>Copy feedback</b> at the bottom and paste it back to me.</div>
+
+  <div class="sechead">First decision: where the library lives</div>
+
+  <!-- ============ OPTION A ============ -->
+  <div class="card" data-item data-title="Option A: private page on claude.ai, photos stored in the page">
+    <div class="card__head">
+      <span class="tag rec">Option A &middot; my recommendation</span>
+      <h3>A private page on claude.ai, with the photos stored inside it</h3>
+      <p class="desc">You get one link. Open it on the laptop while you draw, open the same link on your phone when you are out and want to add a photo you just took. The page holds the photos itself, so there is no second service to sign into and nothing to keep in sync. <b>Private by default</b>, visible only when you are signed in as you, and it has to stay private for the saving to work at all.</p>
+      <div class="pm">
+        <ul class="up">
+          <li>Nothing to install, set up or run</li>
+          <li>Same link on phone and laptop</li>
+          <li>Drag photos straight in from either</li>
+          <li>I can build it today</li>
+        </ul>
+        <ul class="down">
+          <li>There is a size ceiling, so the page shrinks each photo on the way in</li>
+          <li>Good for a few hundred references, not ten thousand</li>
+          <li>Your originals should still live somewhere else as the real backup</li>
+        </ul>
+      </div>
+    </div>
+    <div class="preview">
+      <div class="demoshell" style="text-align:center;">
+        <svg viewBox="0 0 360 132" style="width:100%;max-width:360px;height:auto;" role="img" aria-label="Phone and laptop both opening one private link">
+          <rect x="8" y="26" width="52" height="88" rx="8" fill="none" stroke="currentColor" stroke-width="2.2" opacity=".75"/>
+          <rect x="14" y="34" width="40" height="66" rx="3" fill="var(--accent2)" opacity=".18"/>
+          <text x="34" y="126" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".6" font-family="inherit">Phone</text>
+          <rect x="286" y="34" width="66" height="46" rx="4" fill="none" stroke="currentColor" stroke-width="2.2" opacity=".75"/>
+          <rect x="291" y="39" width="56" height="36" rx="2" fill="var(--accent2)" opacity=".18"/>
+          <path d="M278 86 h82 l-6 -6 h-70 z" fill="currentColor" opacity=".5"/>
+          <text x="319" y="126" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".6" font-family="inherit">Laptop</text>
+          <rect x="118" y="44" width="124" height="42" rx="11" fill="var(--accent)" opacity=".14" stroke="var(--accent)" stroke-width="1.6"/>
+          <text x="180" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)" font-family="inherit">One private link</text>
+          <text x="180" y="76" text-anchor="middle" font-size="9.5" fill="currentColor" opacity=".65" font-family="inherit">photos live in here</text>
+          <path d="M64 68 H112" stroke="currentColor" stroke-width="1.8" opacity=".45" stroke-dasharray="4 4"/>
+          <path d="M248 68 H282" stroke="currentColor" stroke-width="1.8" opacity=".45" stroke-dasharray="4 4"/>
+          <path d="M106 64 l7 4 l-7 4 z" fill="currentColor" opacity=".55"/>
+          <path d="M254 64 l-7 4 l7 4 z" fill="currentColor" opacity=".55"/>
+          <text x="180" y="20" text-anchor="middle" font-size="10" fill="currentColor" opacity=".55" font-family="inherit">Add from either. It is the same library.</text>
+        </svg>
+        <p class="cap" style="text-align:left;"><b>What adding a photo does:</b> the page resizes it to reference resolution in your browser, reads the date off the file, pulls the colours out of it, saves it into the page, and drops you on the tagging row. No upload dialog, no folder to pick.</p>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes…"></textarea></div>
+  </div>
+
+  <!-- ============ OPTION B ============ -->
+  <div class="card" data-item data-title="Option B: one HTML file on your own machine, photos never leave it">
+    <div class="card__head">
+      <span class="tag">Option B</span>
+      <h3>One file on your own machine, and the photos never leave it</h3>
+      <p class="desc">A single HTML file you keep in your Documents folder and open by double clicking. It stores photos in the browser's own database on that machine, which means <b>full resolution originals</b> and far more room than any hosted option. Nothing ever touches a network. There is an export button that writes the whole library out as one backup file you can put in iCloud or Drive.</p>
+      <div class="pm">
+        <ul class="up">
+          <li>The most private option there is, since nothing leaves the device</li>
+          <li>Room for thousands of full size photos</li>
+          <li>Works with no internet at all</li>
+          <li>Fast, because nothing is being fetched</li>
+        </ul>
+        <ul class="down">
+          <li>Tied to one machine and one browser</li>
+          <li>Photos on the laptop are not on your phone</li>
+          <li>Clearing browsing data wipes it, so the export is not optional</li>
+        </ul>
+      </div>
+    </div>
+    <div class="preview">
+      <div class="demoshell">
+        <div style="display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ink-soft);flex-wrap:wrap;">
+          <span style="font-size:19px;">📄</span>
+          <code style="font-size:12px;background:var(--paper-alt);padding:3px 7px;border-radius:5px;">finch-reference.html</code>
+          <span>double click, and it opens</span>
+        </div>
+        <div style="height:1px;background:var(--line);margin:12px 0;"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:11.5px;">
+          <span style="border:1px solid var(--accent2);color:var(--accent2);border-radius:999px;padding:3px 9px;font-weight:600;">2,140 photos</span>
+          <span style="border:1px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:3px 9px;">4.2 GB stored locally</span>
+          <span style="border:1px solid var(--line);color:var(--ink-soft);border-radius:999px;padding:3px 9px;">0 network requests</span>
+        </div>
+        <p class="cap"><b>The trade in one line:</b> Option A goes everywhere with you and holds less. Option B holds far more at full resolution and stays on one desk. If you draw at the same desk every time, this is the better tool.</p>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes…"></textarea></div>
+  </div>
+
+  <!-- ============ OPTION C ============ -->
+  <div class="card" data-item data-title="Option C: private repo, password-protected site">
+    <div class="card__head">
+      <span class="tag">Option C</span>
+      <h3>A private repository behind a password, served as a real site</h3>
+      <p class="desc">The photos live in a private GitHub repo and the site is served from Cloudflare with an access rule in front of it, the same setup already running your cricket site. Every photo is version controlled, so nothing is ever lost and you can see when each one went in. <b>This is the archive option.</b> It is the one that is still there in ten years.</p>
+      <div class="pm">
+        <ul class="up">
+          <li>A genuine backup with history, not just storage</li>
+          <li>Reachable from any device, still not public</li>
+          <li>No practical size ceiling</li>
+          <li>Nothing about it depends on claude.ai staying put</li>
+        </ul>
+        <ul class="down">
+          <li>Adding a photo means a commit, unless I also build an upload endpoint</li>
+          <li>The most setup of the four</li>
+          <li>Adding from your phone is the awkward part</li>
+        </ul>
+      </div>
+    </div>
+    <div class="preview">
+      <div class="demoshell">
+        <div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;line-height:1.9;color:var(--ink-soft);">
+          <div style="color:var(--ink);font-weight:600;">finch-reference/ <span style="font-weight:400;color:var(--ink-soft);">(private)</span></div>
+          <div>├── photos/ <span style="opacity:.7;">2026-07-14-gouldian-01.jpg …</span></div>
+          <div>├── library.json <span style="opacity:.7;">every tag, every colour</span></div>
+          <div>├── index.html <span style="opacity:.7;">the browser and filters</span></div>
+          <div>└── worker/ <span style="opacity:.7;">checks who you are</span></div>
+        </div>
+        <p class="cap"><b>Worth saying plainly:</b> this and Option A are not rivals. A sensible end state is Option A for the day to day and this underneath as the archive, which is a thing I can add later without rebuilding the front of it.</p>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes…"></textarea></div>
+  </div>
+
+  <!-- ============ OPTION D ============ -->
+  <div class="card" data-item data-title="Option D: photos stay in Google Drive, the page is only the filter">
+    <div class="card__head">
+      <span class="tag">Option D</span>
+      <h3>The photos stay in Google Drive and the page is only the filter</h3>
+      <p class="desc">You already have a phone that puts photos into Drive. So one folder becomes the library, you add to it the way you already add to it, and the page reads that folder and gives you the filtering on top. The storage problem solves itself and so does uploading from your phone.</p>
+      <div class="pm">
+        <ul class="up">
+          <li>Adding a photo is just saving to a folder, which you already do</li>
+          <li>Drive's own storage, so no ceiling worth worrying about</li>
+          <li>Drive already backs it up and syncs it</li>
+        </ul>
+        <ul class="down">
+          <li>Your tags have to live somewhere Drive will hold, which is fiddlier than it sounds</li>
+          <li>Slower, because every photo is fetched on demand</li>
+          <li>I would need to test the Drive connection before promising this one works</li>
+        </ul>
+      </div>
+    </div>
+    <div class="preview">
+      <div class="demoshell">
+        <p class="cap" style="margin:0;"><b>One honest caveat before you pick this.</b> The page would reach Drive through your Claude connector, which is real and already attached to your account. I have not yet run a single call against it in this session, and I will not build a page on a guess about how it answers. If you want Option D, say so and I will test the connection first, then tell you whether it holds up before I build anything on it.</p>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes…"></textarea></div>
+  </div>
+
+  <div class="sechead">Second decision: what it actually does</div>
+
+  <!-- ============ FILTER MODEL ============ -->
+  <div class="card" data-item data-title="The filter model: which facets the library slices by">
+    <div class="card__head">
+      <span class="tag">Filtering</span>
+      <h3>Everything you can slice by</h3>
+      <p class="desc">You asked for date, subject and colour, and then for lots of other things. Here is my proposal for what the other things should be, chosen for what actually helps when you are looking for a photo to draw from. Picking two chips in the same row widens the search, picking chips in different rows narrows it. <b>The demo is real, so try it.</b></p>
+    </div>
+    <div class="preview">
+      <div class="demoshell">
+        <div id="facets"></div>
+        <div class="countrow">
+          <span id="fcount">12 of 12</span>
+          <button class="linkbtn" id="fclear" type="button">Clear all filters</button>
+        </div>
+        <div class="grid" id="fgrid"></div>
+        <p class="cap"><b>Placeholder tiles, not photographs.</b> The twelve tiles are drawn from each entry's colour palette so the filtering is honest to look at. Your real photos go in these slots. <b>Also proposed and not shown here:</b> a free text search over your own notes, a five star quality mark, and a drawn or not yet drawn flag so the library can show you only what you have never used.</p>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Which facets are missing, and which ones would you never use?"></textarea></div>
+  </div>
+
+  <!-- ============ COLOUR ============ -->
+  <div class="card" data-item data-title="Colour filtering taken from the photo itself">
+    <div class="card__head">
+      <span class="tag">Filtering</span>
+      <h3>Colour, read out of the photo rather than typed in</h3>
+      <p class="desc">Tagging colours by hand is the sort of job you do for eleven photos and then stop doing. So the page reads them instead: it samples the photo, sorts what it finds into named colours, and files it under those. A Gouldian lands under green, purple and yellow without you saying a word. <b>Drop one of your own photos below and watch it happen.</b> It runs in your browser and the photo goes nowhere.</p>
+    </div>
+    <div class="preview">
+      <div class="demoshell">
+        <div class="drop" id="cdrop" tabindex="0" role="button">Drop a photo here, or click to choose one. It stays on your machine.</div>
+        <input type="file" id="cfile" accept="image/*" hidden>
+        <div id="cout" style="display:none;margin-top:14px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;">
+            <img id="cimg" alt="The photo you dropped" style="width:112px;height:112px;object-fit:cover;border-radius:9px;border:1px solid var(--line);">
+            <div style="flex:1 1 200px;min-width:180px;">
+              <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:6px;">Palette it pulled out</div>
+              <div class="palstrip" id="cpal" style="margin:0 0 10px;max-width:none;"></div>
+              <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:6px;">Filed under</div>
+              <div id="cbuckets" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            </div>
+          </div>
+        </div>
+        <p class="cap"><b>You can still override it.</b> The read is a starting point and it gets confused by a bright background, so every colour it assigns can be removed and you can add one it missed. It saves you the first ninety percent of a boring job rather than pretending to be right every time.</p>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes…"></textarea></div>
+  </div>
+
+  <!-- ============ ADD FLOW ============ -->
+  <div class="card" data-item data-title="What happens when you add a photo (auto-fill then a quick tagging pass)">
+    <div class="card__head">
+      <span class="tag">Adding photos</span>
+      <h3>Adding a photo should take about four seconds</h3>
+      <p class="desc">A library only works if adding to it is nearly free, because the moment it feels like admin you stop doing it and the library dies. So the page fills in everything it can read off the file, and leaves you three quick taps. You can also drop in <b>thirty photos at once</b> and tag them as a batch, since a morning's photographs are usually the same bird in the same light.</p>
+    </div>
+    <div class="preview">
+      <div class="demoshell">
+        <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:8px;">One photo, just dropped in</div>
+        <div class="field"><span class="k">Date taken</span><span class="v">14 July 2026, 8:12am</span><span class="auto">read off the file</span></div>
+        <div class="field"><span class="k">Colours</span><span class="v">Green, purple, yellow</span><span class="auto">read off the photo</span></div>
+        <div class="field"><span class="k">Orientation</span><span class="v">Portrait, 3024 × 4032</span><span class="auto">read off the file</span></div>
+        <div class="field"><span class="k">Where</span><span class="v">Home, back window</span><span class="auto">from the last one you added</span></div>
+        <div class="field"><span class="k">Species</span><span class="v" style="color:var(--ink-soft);font-weight:400;">tap one</span><span class="ask2">you</span></div>
+        <div class="field"><span class="k">Subject</span><span class="v" style="color:var(--ink-soft);font-weight:400;">tap one</span><span class="ask2">you</span></div>
+        <div class="field" style="border-bottom:none;"><span class="k">Pose</span><span class="v" style="color:var(--ink-soft);font-weight:400;">tap one</span><span class="ask2">you</span></div>
+        <p class="cap"><b>The design rule behind this card:</b> anything the file already knows, you should never be asked. Four of the seven rows fill themselves, and the location row guesses from the photo you added before it, because photos come in runs.</p>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes…"></textarea></div>
+  </div>
+
+  <!-- ============ DRAWING VIEW ============ -->
+  <div class="card" data-item data-title="The drawing view: what you see when a photo is open on the easel">
+    <div class="card__head">
+      <span class="tag">Using it</span>
+      <h3>The view you actually draw from</h3>
+      <p class="desc">Finding the photo is only half of it. Once it is open, the page should do the things you would otherwise do by hand: strip the colour out so you can read the values, lay a grid over it for proportions, flip it to catch the errors your eye has stopped seeing, and hold the palette next to it so you can mix from it. <b>All four buttons below work.</b> Drop in one of your own photos and they work on that instead.</p>
+    </div>
+    <div class="preview">
+      <div class="demoshell">
+        <div class="stagewrap" id="stage">
+          <svg viewBox="0 0 100 100" id="stagesvg" role="img" aria-label="Placeholder finch"></svg>
+          <img id="stageimg" alt="" style="display:none;width:100%;height:auto;">
+          <div class="gridlay"></div>
+        </div>
+        <div class="palstrip" id="stagepal"></div>
+        <div class="ctrls">
+          <button class="chip" type="button" id="b-grey" aria-pressed="false">Values only</button>
+          <button class="chip" type="button" id="b-grid" aria-pressed="false">Grid</button>
+          <button class="chip" type="button" id="b-flip" aria-pressed="false">Flip</button>
+          <button class="chip" type="button" id="b-own">Use my own photo</button>
+          <input type="file" id="sfile" accept="image/*" hidden>
+        </div>
+        <p class="cap"><b>Values only</b> is the one worth arguing for. Half of what makes a drawing read as solid is tone rather than colour, and colour hides tone. One tap answers the question you would otherwise squint at. <b>Flip</b> is the old trick of holding a drawing up to a mirror, which is the fastest way to see that a head is too small.</p>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes…"></textarea></div>
+  </div>
+
+  <!-- ============ SCOPE ============ -->
+  <div class="card" data-item data-title="Scope: how much to build in the first version">
+    <div class="card__head">
+      <span class="tag">Scope</span>
+      <h3>How much of this should exist by tonight</h3>
+      <p class="desc">Everything above is buildable, and building all of it at once means you wait and then review a large thing all in one go. My suggestion is the <b>lean version first</b>: upload, the automatic date and colour reads, the six filter rows, the grid, and the drawing view with values and flip. That is a tool you can start filling tonight, and filling it is what tells us which of the rest you actually want.</p>
+      <div class="pm">
+        <ul class="up">
+          <li><b>Lean first:</b> you use it this week and the next round comes from real use</li>
+        </ul>
+        <ul class="down">
+          <li><b>Everything at once:</b> batch tagging, drawn or not flags, notes, search, export, all of it before you touch it</li>
+        </ul>
+      </div>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Lean first</button>
+      <button class="toggle-btn" data-val="needs-work">Build it all</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Anything from the full list you definitely want in version one?"></textarea></div>
+  </div>
+
+  <div class="feedback">
+    <h3>Feedback</h3>
+    <textarea id="fb-output" readonly placeholder="Toggle options above. Your picks and notes will build up here."></textarea>
+    <div class="feedback-row">
+      <button class="copy-btn" id="fb-copy">Copy feedback</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------------- theme toggle (canonical, from the skill template) ---------------- */
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var KEY = 'of-fb-theme';
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch(e){}
+  if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+  function sync(){
+    var cur = root.getAttribute('data-theme');
+    var isDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  sync();
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var curDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = curDark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch(e){}
+    sync();
+  });
+})();
+
+/* ---------------- shared: a perched finch, tinted from a palette ---------------- */
+function finchSVG(pal, idAttr){
+  var bg = pal[0], body = pal[1], acc = pal[2];
+  return '<svg viewBox="0 0 100 100" ' + (idAttr||'') + ' role="img" aria-label="Placeholder finch">' +
+    '<rect width="100" height="100" fill="' + bg + '"/>' +
+    '<rect width="100" height="100" fill="#000" opacity=".07"/>' +
+    '<path d="M30 62 L8 86 L18 88 L36 70 Z" fill="' + acc + '"/>' +
+    '<ellipse cx="48" cy="55" rx="23" ry="17" fill="' + body + '" transform="rotate(-12 48 55)"/>' +
+    '<ellipse cx="45" cy="57" rx="14" ry="8.5" fill="' + acc + '" opacity=".85" transform="rotate(-20 45 57)"/>' +
+    '<circle cx="68" cy="37" r="12.5" fill="' + body + '"/>' +
+    '<path d="M78.5 31.5 L89.5 37.4 L78.5 43.5 Z" fill="' + acc + '"/>' +
+    '<circle cx="71.5" cy="34" r="2.6" fill="#1B1E24"/>' +
+    '<circle cx="72.3" cy="33.2" r=".9" fill="#fff" opacity=".9"/>' +
+    '<path d="M47 70 L45 82 M55 70 L55 82" stroke="' + acc + '" stroke-width="2.6" stroke-linecap="round" fill="none"/>' +
+    '<path d="M16 84 H88" stroke="#1B1E24" stroke-width="3" opacity=".38" stroke-linecap="round"/>' +
+  '</svg>';
+}
+
+/* ---------------- colour buckets ---------------- */
+var BUCKETS = [
+  {k:'red',    n:'Red',    hex:'#C0392B'},
+  {k:'orange', n:'Orange', hex:'#D2691E'},
+  {k:'yellow', n:'Yellow', hex:'#E0A93A'},
+  {k:'green',  n:'Green',  hex:'#4E9A5A'},
+  {k:'teal',   n:'Teal',   hex:'#1F7A6C'},
+  {k:'blue',   n:'Blue',   hex:'#4A6C99'},
+  {k:'purple', n:'Purple', hex:'#7B4FA0'},
+  {k:'pink',   n:'Pink',   hex:'#C8586B'},
+  {k:'brown',  n:'Brown',  hex:'#7A5C3E'},
+  {k:'black',  n:'Black',  hex:'#26282D'},
+  {k:'grey',   n:'Grey',   hex:'#9A9DA1'},
+  {k:'white',  n:'White',  hex:'#EFEFEA'}
+];
+var BUCKET_BY_KEY = {}; BUCKETS.forEach(function(b){ BUCKET_BY_KEY[b.k] = b; });
+
+/* ---------------- sample library ---------------- */
+var PHOTOS = [
+  {sp:'Gouldian',  su:'Whole bird',     po:'Perched',   an:'Profile',       li:'Overcast',    r:5, d:'2026-07-14', c:['green','purple','yellow'], p:['#4E9A5A','#7B4FA0','#E9C93B']},
+  {sp:'Gouldian',  su:'Head study',     po:'Singing',   an:'Three quarter', li:'Golden hour', r:4, d:'2026-07-14', c:['red','purple','black'],    p:['#C0392B','#6B4E9A','#22252B']},
+  {sp:'Zebra',     su:'Whole bird',     po:'Feeding',   an:'Profile',       li:'Indoor',      r:3, d:'2026-06-02', c:['orange','grey','white'],   p:['#D2691E','#8C8F94','#EFEFEA']},
+  {sp:'Zebra',     su:'Feet and perch', po:'Perched',   an:'Front',         li:'Indoor',      r:4, d:'2026-06-02', c:['orange','brown','grey'],   p:['#E07B39','#7A5C3E','#9A9DA1']},
+  {sp:'Goldfinch', su:'Whole bird',     po:'In flight', an:'Back',          li:'Harsh sun',   r:5, d:'2026-05-21', c:['yellow','black','white'],  p:['#E8B93A','#26282D','#F2F1EC']},
+  {sp:'Goldfinch', su:'Wing',           po:'Preening',  an:'Three quarter', li:'Backlit',     r:5, d:'2026-05-21', c:['yellow','black','brown'],  p:['#E5C04A','#2A2C31','#6E523A']},
+  {sp:'Bullfinch', su:'Whole bird',     po:'Perched',   an:'Profile',       li:'Overcast',    r:4, d:'2026-04-09', c:['pink','grey','black'],     p:['#C8586B','#9DA1A6','#23262B']},
+  {sp:'Bullfinch', su:'Head study',     po:'Perched',   an:'Front',         li:'Overcast',    r:3, d:'2026-04-09', c:['pink','black','grey'],     p:['#CF6376','#22252A','#A6AAAE']},
+  {sp:'Chaffinch', su:'Whole bird',     po:'Landing',   an:'Three quarter', li:'Golden hour', r:4, d:'2026-03-18', c:['orange','blue','brown'],   p:['#C4703F','#4A6C99','#7A5B41']},
+  {sp:'Chaffinch', su:'Feather detail', po:'Preening',  an:'From above',    li:'Indoor',      r:5, d:'2026-03-18', c:['brown','white','blue'],    p:['#6F543C','#EDEBE4','#52719C']},
+  {sp:'Java',      su:'Whole bird',     po:'Perched',   an:'Profile',       li:'Backlit',     r:3, d:'2026-02-27', c:['grey','pink','white'],     p:['#8E9298','#C97F86','#F0EEE8']},
+  {sp:'Java',      su:'Tail',           po:'In flight', an:'Back',          li:'Harsh sun',   r:4, d:'2026-02-27', c:['grey','black','white'],    p:['#979BA1','#26292E','#EFEDE7']}
+];
+
+var GROUPS = [
+  {key:'sp', label:'Species'},
+  {key:'su', label:'Subject'},
+  {key:'po', label:'Pose'},
+  {key:'an', label:'Angle'},
+  {key:'li', label:'Light'}
+];
+var active = {sp:[], su:[], po:[], an:[], li:[], c:[], r:[]};
+
+function uniq(key){
+  var seen = [];
+  PHOTOS.forEach(function(p){ if(seen.indexOf(p[key]) === -1) seen.push(p[key]); });
+  return seen;
+}
+
+function buildFacets(){
+  var host = document.getElementById('facets');
+  var html = '';
+  GROUPS.forEach(function(g){
+    html += '<div class="chipbar"><span class="lbl">' + g.label + '</span>';
+    uniq(g.key).forEach(function(v){
+      html += '<button class="chip" type="button" aria-pressed="false" data-g="' + g.key + '" data-v="' + v + '">' + v + '</button>';
+    });
+    html += '</div>';
+  });
+  /* colour swatch row */
+  var used = [];
+  PHOTOS.forEach(function(p){ p.c.forEach(function(k){ if(used.indexOf(k) === -1) used.push(k); }); });
+  html += '<div class="chipbar"><span class="lbl">Colour</span>';
+  BUCKETS.forEach(function(b){
+    if(used.indexOf(b.k) === -1) return;
+    html += '<button class="sw" type="button" aria-pressed="false" data-g="c" data-v="' + b.k + '" title="' + b.n + '" aria-label="' + b.n + '" style="background:' + b.hex + ';"></button>';
+  });
+  html += '</div>';
+  html += '<div class="chipbar"><span class="lbl">Quality</span>' +
+    '<button class="chip" type="button" aria-pressed="false" data-g="r" data-v="5">Five stars only</button>' +
+    '<button class="chip" type="button" aria-pressed="false" data-g="r" data-v="4">Four and up</button>' +
+    '</div>';
+  host.innerHTML = html;
+  host.querySelectorAll('[data-g]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var g = el.dataset.g, v = el.dataset.v;
+      var on = el.getAttribute('aria-pressed') === 'true';
+      if(g === 'r'){
+        host.querySelectorAll('[data-g="r"]').forEach(function(o){ o.setAttribute('aria-pressed','false'); });
+        active.r = on ? [] : [v];
+        if(!on) el.setAttribute('aria-pressed','true');
+      } else {
+        if(on){ active[g] = active[g].filter(function(x){ return x !== v; }); el.setAttribute('aria-pressed','false'); }
+        else { active[g].push(v); el.setAttribute('aria-pressed','true'); }
+      }
+      render();
+    });
+  });
+}
+
+function matches(p){
+  for(var i=0;i<GROUPS.length;i++){
+    var k = GROUPS[i].key;
+    if(active[k].length && active[k].indexOf(p[k]) === -1) return false;
+  }
+  if(active.c.length){
+    var hit = active.c.every(function(k){ return p.c.indexOf(k) !== -1; });
+    if(!hit) return false;
+  }
+  if(active.r.length && p.r < parseInt(active.r[0],10)) return false;
+  return true;
+}
+
+function fmtDate(iso){
+  var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var parts = iso.split('-');
+  return parseInt(parts[2],10) + ' ' + m[parseInt(parts[1],10)-1] + ' ' + parts[0];
+}
+
+function render(){
+  var grid = document.getElementById('fgrid');
+  var shown = PHOTOS.filter(matches);
+  document.getElementById('fcount').textContent = shown.length + ' of ' + PHOTOS.length + (active.c.length > 1 ? ' (colour chips stack, so all must be present)' : '');
+  if(!shown.length){
+    grid.innerHTML = '<div class="empty" style="grid-column:1/-1;">Nothing matches all of that. Drop a chip.</div>';
+    return;
+  }
+  grid.innerHTML = shown.map(function(p){
+    return '<div class="ph">' + finchSVG(p.p) +
+      '<div class="pal">' + p.p.map(function(h){ return '<i style="background:' + h + '"></i>'; }).join('') + '</div>' +
+      '<div class="meta"><strong>' + p.sp + '</strong>' + p.su + ' &middot; ' + p.po + '<br>' + fmtDate(p.d) + ' &middot; ' + '★'.repeat(p.r) + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+document.getElementById('fclear').addEventListener('click', function(){
+  active = {sp:[], su:[], po:[], an:[], li:[], c:[], r:[]};
+  document.querySelectorAll('#facets [data-g]').forEach(function(el){ el.setAttribute('aria-pressed','false'); });
+  render();
+});
+buildFacets();
+render();
+
+/* ---------------- colour extraction, the real thing ---------------- */
+function rgbToHsl(r,g,b){
+  r/=255; g/=255; b/=255;
+  var mx = Math.max(r,g,b), mn = Math.min(r,g,b), h=0, s=0, l=(mx+mn)/2, d=mx-mn;
+  if(d){
+    s = l > 0.5 ? d/(2-mx-mn) : d/(mx+mn);
+    if(mx===r) h = ((g-b)/d + (g<b?6:0));
+    else if(mx===g) h = (b-r)/d + 2;
+    else h = (r-g)/d + 4;
+    h *= 60;
+  }
+  return [h, s, l];
+}
+function bucketOf(r,g,b){
+  var hsl = rgbToHsl(r,g,b), h = hsl[0], s = hsl[1], l = hsl[2];
+  if(l < 0.16) return 'black';
+  if(l > 0.88 && s < 0.18) return 'white';
+  if(s < 0.14) return l < 0.5 ? 'black' : (l > 0.78 ? 'white' : 'grey');
+  if(h < 16 || h >= 340) return 'red';
+  if(h < 42) return (l < 0.42 && s < 0.6) ? 'brown' : 'orange';
+  if(h < 68) return (l < 0.38) ? 'brown' : 'yellow';
+  if(h < 155) return 'green';
+  if(h < 190) return 'teal';
+  if(h < 255) return 'blue';
+  if(h < 300) return 'purple';
+  return 'pink';
+}
+function hex(r,g,b){
+  return '#' + [r,g,b].map(function(v){ return ('0' + Math.round(v).toString(16)).slice(-2); }).join('');
+}
+function extract(img, cb){
+  var N = 72, cv = document.createElement('canvas');
+  cv.width = N; cv.height = N;
+  var cx = cv.getContext('2d', {willReadFrequently:true});
+  cx.drawImage(img, 0, 0, N, N);
+  var data;
+  try { data = cx.getImageData(0,0,N,N).data; } catch(e){ cb(null); return; }
+  var bins = {}, order = [];
+  for(var i=0;i<data.length;i+=4){
+    if(data[i+3] < 125) continue;
+    var r = data[i], g = data[i+1], b = data[i+2];
+    /* quantise so near-identical pixels share a bin */
+    var key = (r>>4) + '-' + (g>>4) + '-' + (b>>4);
+    if(!bins[key]){ bins[key] = {n:0, r:0, g:0, b:0}; order.push(key); }
+    var bin = bins[key];
+    bin.n++; bin.r += r; bin.g += g; bin.b += b;
+  }
+  var list = order.map(function(k){
+    var bn = bins[k];
+    return {n:bn.n, r:bn.r/bn.n, g:bn.g/bn.n, b:bn.b/bn.n};
+  }).sort(function(a,b){ return b.n - a.n; });
+  var pal = list.slice(0,6).map(function(o){ return hex(o.r,o.g,o.b); });
+  var weight = {};
+  list.forEach(function(o){
+    var k = bucketOf(o.r,o.g,o.b);
+    weight[k] = (weight[k]||0) + o.n;
+  });
+  var total = list.reduce(function(a,o){ return a + o.n; }, 0);
+  var keys = Object.keys(weight).filter(function(k){ return weight[k]/total >= 0.06; })
+    .sort(function(a,b){ return weight[b] - weight[a]; }).slice(0,5);
+  cb({pal:pal, buckets:keys});
+}
+
+function wireDrop(dropEl, fileEl, onImage){
+  dropEl.addEventListener('click', function(){ fileEl.click(); });
+  dropEl.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fileEl.click(); } });
+  ['dragenter','dragover'].forEach(function(ev){
+    dropEl.addEventListener(ev, function(e){ e.preventDefault(); dropEl.classList.add('hot'); });
+  });
+  ['dragleave','drop'].forEach(function(ev){
+    dropEl.addEventListener(ev, function(e){ e.preventDefault(); dropEl.classList.remove('hot'); });
+  });
+  dropEl.addEventListener('drop', function(e){
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if(f) handle(f);
+  });
+  fileEl.addEventListener('change', function(){ if(fileEl.files[0]) handle(fileEl.files[0]); });
+  function handle(f){
+    if(!/^image\//.test(f.type)) return;
+    var url = URL.createObjectURL(f);
+    var im = new Image();
+    im.onload = function(){ onImage(im, url); };
+    im.src = url;
+  }
+}
+
+wireDrop(document.getElementById('cdrop'), document.getElementById('cfile'), function(im, url){
+  document.getElementById('cimg').src = url;
+  extract(im, function(res){
+    var out = document.getElementById('cout');
+    out.style.display = 'block';
+    if(!res){ document.getElementById('cbuckets').innerHTML = '<span style="font-size:12px;color:var(--ink-soft);">That image could not be read here.</span>'; return; }
+    document.getElementById('cpal').innerHTML = res.pal.map(function(h){ return '<i style="background:' + h + '"></i>'; }).join('');
+    document.getElementById('cbuckets').innerHTML = res.buckets.map(function(k){
+      var b = BUCKET_BY_KEY[k];
+      return '<span class="chip" aria-pressed="true" style="background:var(--accent2);border-color:var(--accent2);color:var(--accent2-ink);font-weight:600;cursor:default;">' + (b ? b.n : k) + '</span>';
+    }).join('');
+    document.getElementById('cdrop').textContent = 'Read it. Drop another to try again.';
+  });
+});
+
+/* ---------------- drawing view ---------------- */
+(function(){
+  var stage = document.getElementById('stage');
+  var svgHost = document.getElementById('stagesvg');
+  var imgHost = document.getElementById('stageimg');
+  var demoPal = ['#4E9A5A','#7B4FA0','#E9C93B'];
+  svgHost.outerHTML = finchSVG(demoPal, 'id="stagesvg"');
+  function paintStrip(cols){
+    document.getElementById('stagepal').innerHTML = cols.map(function(h){ return '<i style="background:' + h + '"></i>'; }).join('');
+  }
+  paintStrip(demoPal);
+  function bind(id, cls){
+    var b = document.getElementById(id);
+    b.addEventListener('click', function(){
+      var on = b.getAttribute('aria-pressed') === 'true';
+      b.setAttribute('aria-pressed', on ? 'false' : 'true');
+      stage.classList.toggle(cls, !on);
+    });
+  }
+  bind('b-grey','grey'); bind('b-grid','gridon'); bind('b-flip','flip');
+  var sfile = document.getElementById('sfile');
+  document.getElementById('b-own').addEventListener('click', function(){ sfile.click(); });
+  sfile.addEventListener('change', function(){
+    var f = sfile.files[0];
+    if(!f || !/^image\//.test(f.type)) return;
+    var url = URL.createObjectURL(f);
+    var im = new Image();
+    im.onload = function(){
+      var cur = document.getElementById('stagesvg');
+      if(cur) cur.style.display = 'none';
+      imgHost.src = url;
+      imgHost.style.display = 'block';
+      extract(im, function(res){ if(res) paintStrip(res.pal.slice(0,5)); });
+      document.getElementById('b-own').textContent = 'Swap the photo';
+    };
+    im.src = url;
+  });
+  /* the greyscale and flip rules target the svg; make them cover the img too */
+  var st = document.createElement('style');
+  st.textContent = '.stagewrap.grey img{filter:grayscale(1) contrast(1.15);}.stagewrap.flip img{transform:scaleX(-1);}';
+  document.head.appendChild(st);
+})();
+
+/* ---------------- feedback compiler (canonical, from the skill template) ---------------- */
+document.querySelectorAll('[data-item]').forEach(function(item){
+  item.querySelectorAll('.toggle-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var already = btn.getAttribute('data-active') === 'true';
+      item.querySelectorAll('.toggle-btn').forEach(function(b){ b.removeAttribute('data-active'); });
+      if(!already) btn.setAttribute('data-active','true');
+      updateFeedback();
+    });
+  });
+  var ta = item.querySelector('[data-comment]');
+  if(ta) ta.addEventListener('input', updateFeedback);
+});
+
+function updateFeedback(){
+  var out = [];
+  document.querySelectorAll('[data-item]').forEach(function(item){
+    var activeBtn = item.querySelector('.toggle-btn[data-active="true"]');
+    var comment = item.querySelector('[data-comment]');
+    var commentVal = comment ? comment.value.trim() : '';
+    if(!activeBtn && !commentVal) return;
+    var title = item.getAttribute('data-title');
+    var choice = activeBtn ? activeBtn.textContent.trim() : '(no choice)';
+    out.push('• ' + title + '\n  Choice: ' + choice + (commentVal ? '\n  Comment: ' + commentVal : ''));
+  });
+  document.getElementById('fb-output').value = out.length ? out.join('\n\n') : '';
+}
+
+document.getElementById('fb-copy').addEventListener('click', function(){
+  var btn = this;
+  var text = document.getElementById('fb-output').value;
+  if(!text){ return; }
+  function done(){
+    btn.textContent = 'Copied ✓';
+    btn.setAttribute('data-copied','true');
+    setTimeout(function(){ btn.textContent = 'Copy feedback'; btn.removeAttribute('data-copied'); }, 1800);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+  } else {
+    fallbackCopy(text, done);
+  }
+});
+function fallbackCopy(text, cb){
+  var ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  cb();
+}
+</script>
