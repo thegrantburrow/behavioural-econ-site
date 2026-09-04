@@ -378,7 +378,9 @@ function normalizeApostrophes(s) {
 (function () {
   // Principle sections are collapsed by default. Jumping to one via any
   // anchor link (Contents, practice grid, "see also" cross-links) should
-  // land on it already open, not force a second click after the jump.
+  // land on it already open, not force a second click after the jump. This
+  // runs on every page (ids are unique site-wide), so it also positions
+  // anchor links into non-principle content like Science Behind entries.
   function openTargetPrinciple(hash) {
     hash = hash || window.location.hash;
     if (!hash || hash.length < 2) return;
@@ -388,7 +390,16 @@ function normalizeApostrophes(s) {
       ? target
       : target.querySelector('details.principle-details');
     if (details && !details.open) details.open = true;
-    target.scrollIntoView();
+    // `behavior: 'instant'` overrides the site's global smooth scroll-behavior
+    // deliberately. On a long page (e.g. a Science Behind entry near the
+    // bottom), the browser's own native jump-to-fragment on load and this
+    // scrollIntoView() both inherit smooth scrolling and race each other:
+    // the native jump starts animating, this call starts a second animation
+    // toward a freshly-computed target, and the two competing smooth scrolls
+    // can cancel out and leave the page stuck a full section short, still
+    // showing whatever content sat above the real target. Landing on a
+    // target should be an instant positioning, not an animated scroll.
+    target.scrollIntoView({ behavior: 'instant', block: 'start' });
   }
   // Two rAFs, not one: the initial call can otherwise fire before layout has
   // settled (web fonts, the just-opened details' own content), landing the
