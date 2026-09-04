@@ -57,6 +57,10 @@ Every experiment is an `<article class="experiment" id="some-slug" data-industri
    - **Mobile real estate is tight here on purpose — don't assume desktop-width comfort.** `.rail-content` inside `.rail-scroll` is narrow by design (the rail-nav column, though small, is permanent at every viewport), and `.doc-mock`'s own padding plus the checklist's checkbox further reduce it. On a ~390px phone the checklist text column is roughly 215px wide even after the fixes below — write outcome-variable descriptions with that in mind (they already tend to be one dense clause; that's the right length, don't pad them out). If a future change to this component is needed, the existing widths were set deliberately after measuring actual wrapped-line counts on a real mobile viewport (see the `f06206b` commit in `mockup/styles.css`) — verify any change against a 390px screenshot, not just desktop, before shipping it.
 8. **Closing `.also-note`** linking back to the Principles page mechanism(s) this experiment is built on.
 
+## Ask about real screenshots before drafting, if a real product gets named
+
+If the Theory block is going to build on a real, specific product or company's actual screen (not a hypothetical control/treatment mockup, an existing real thing the experiment extends, the way `costly-specific-apology` extends the Uber apology flow), ask the owner up front whether he has real screenshots of it, per `spotted-in-the-wild`'s "Step 0" rule. This is separate from the invented `.app-mock-screen` control/treatment mockups every experiment already builds (those stay invented, illustrating the proposed test, not real evidence), it only applies when the Theory section cites something real that already exists and could be shown, not proposed.
+
 ## Where the supporting pieces live
 
 - `mockup/experiments.html` — the page itself; append new `<article>`s after the existing ones, separated by `<hr class="rule">`, and add a matching `<li>` to the `.session-toc` list and a matching filter chip / count in `#experimentsFilterTabs` if it's a new product area.
