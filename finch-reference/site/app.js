@@ -156,6 +156,7 @@ var active = {};       /* facet key  -> [values] */
 var activeColours = [], activeFree = [];
 var onlyUntagged = false, onlyCandidates = false, onlyDupes = false, query = '';
 var expandGroups = false, selectMode = false, selected = {};
+var view = 'library';
 var viewIndex = -1, viewList = [];
 
 var el = {
@@ -166,6 +167,7 @@ var el = {
   brandcount: document.getElementById('brandcount'),
   search: document.getElementById('search'),
   viewer: document.getElementById('viewer'),
+  queue: document.getElementById('queue'),
   stage: document.getElementById('stage'),
   stageimg: document.getElementById('stageimg'),
   side: document.getElementById('side')
@@ -302,6 +304,60 @@ function groupsOf() {
 }
 var GROUPS = {};
 
+/*
+ * The list of what to draw next, in the order you mean to draw it.
+ *
+ * It holds SUBJECTS rather than photographs, because four frames of one watch
+ * display are one thing to draw. Adding any shot adds its subject, and the row
+ * carries the rest of the shots with it.
+ *
+ * Position is kept on the photograph rather than in one list document, so it
+ * survives beside everything else about that photograph and there is no second
+ * thing to keep in step. Zero means it is not on the list.
+ */
+function leaderOf(p) {
+  if (!p.group || !GROUPS[p.group]) return p;
+  return GROUPS[p.group][0];
+}
+
+function queued() {
+  return LIB.photos.filter(function (p) { return p.queue > 0; })
+    .sort(function (a, b) { return a.queue - b.queue; });
+}
+
+/* Positions are renumbered 1..N after every change, so a gap or a collision
+   from an interrupted save cannot accumulate into a wrong order. */
+function renumber(list) {
+  list.forEach(function (p, i) {
+    if (p.queue !== i + 1) { p.queue = i + 1; saveTags(p, true); }
+  });
+}
+
+function addToQueue(p) {
+  var lead = leaderOf(p);
+  if (lead.queue > 0) return false;
+  lead.queue = queued().length + 1;
+  saveTags(lead, true);
+  return true;
+}
+
+function removeFromQueue(p) {
+  var lead = leaderOf(p);
+  if (!lead.queue) return;
+  lead.queue = 0;
+  saveTags(lead, true);
+  renumber(queued());
+}
+
+function moveInQueue(p, delta) {
+  var list = queued();
+  var i = list.indexOf(p);
+  var j = i + delta;
+  if (i === -1 || j < 0 || j >= list.length) return;
+  list.splice(j, 0, list.splice(i, 1)[0]);
+  renumber(list);
+}
+
 function newGroupId() {
   return 'g' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 }
@@ -356,6 +412,7 @@ function bootEmbedded(data) {
     p.palette = t.palette || p.palette; p.rating = t.rating || 0;
     p.note = t.note || ''; p.usedIn = t.usedIn || ''; p.free = t.free || [];
     p.group = t.group || p.group; p.sig = t.sig || p.sig; p.rot = t.rot || 0;
+    p.queue = t.queue || 0;
   });
   notice('This is a preview, and it is yours alone',
     'Your actual photographs, running the real interface. Tagging is kept in this browser rather than on a server, ' +
@@ -615,6 +672,10 @@ function renderGrid() {
         (DUPES[p.id] ? '<span class="badge dupe" title="The same file is in the library ' +
           DUPES[p.id].length + ' times">' + DUPES[p.id].length + ' copies</span>' : '') +
         (t.n > 1 && !expandGroups ? '<span class="badge shots">' + t.n + ' shots</span>' : '') +
+        '<span class="add" role="button" tabindex="0" data-add="' + esc(p.id) + '" ' +
+          'aria-pressed="' + (leaderOf(p).queue > 0 ? 'true' : 'false') + '" ' +
+          'title="' + (leaderOf(p).queue > 0 ? 'On the list to draw' : 'Add to the list to draw') + '">' +
+          (leaderOf(p).queue > 0 ? '&#10003;' : '+') + '</span>' +
         (statusOf(p) && statusOf(p) !== 'New' ? '<span class="badge" data-s="' +
           esc(statusOf(p).toLowerCase().replace(/\s+/g, '-')) + '">' + esc(statusOf(p)) + '</span>' : '') +
       '</div>' + pal +
@@ -631,6 +692,17 @@ function renderGrid() {
       if (selected[p.id]) delete selected[p.id]; else selected[p.id] = true;
       renderGrid(); updateSelBar();
     });
+  });
+  el.grid.querySelectorAll('[data-add]').forEach(function (btn) {
+    var act = function (e) {
+      e.stopPropagation(); e.preventDefault();
+      var p = LIB.photos.filter(function (x) { return x.id === btn.dataset.add; })[0];
+      if (!p) return;
+      if (leaderOf(p).queue > 0) removeFromQueue(p); else addToQueue(p);
+      render();
+    };
+    btn.addEventListener('click', act);
+    btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') act(e); });
   });
   el.grid.querySelectorAll('.tile img').forEach(function (img) {
     img.addEventListener('load', function () { maybeReadColours(img); });
@@ -655,7 +727,81 @@ function maybeReadColours(img) {
   saveTags(p, true);
 }
 
-function render() { DUPES = dupeGroups(); GROUPS = groupsOf(); renderFilters(); renderGrid(); }
+function categoryOf(p) {
+  var v = p.facets && p.facets.category;
+  return Array.isArray(v) ? (v[0] || '') : (v || '');
+}
+
+function renderQueue() {
+  var list = queued();
+  document.getElementById('queuecount').textContent = list.length;
+  if (view !== 'queue') return;
+  if (!list.length) {
+    el.queue.innerHTML = '<div class="empty">Nothing on the list yet. ' +
+      'In the Library, tap the plus on anything you mean to draw.</div>';
+    return;
+  }
+  el.queue.innerHTML = list.map(function (p, i) {
+    var shots = (p.group && GROUPS[p.group]) ? GROUPS[p.group].length : 1;
+    var cat = categoryOf(p);
+    return '<div class="qrow" data-id="' + esc(p.id) + '">' +
+      '<span class="pos">' + (i + 1) + '</span>' +
+      '<span class="qim"><img loading="lazy" alt="" src="' + esc(imgSrc(p, 240)) + '"' +
+        (p.rot ? ' style="transform:rotate(' + (p.rot % 360) + 'deg)"' : '') + '></span>' +
+      '<span class="qmeta"><b>' + esc(p.name) + '</b>' +
+        '<span class="sub">' + (cat ? esc(cat) : 'No category') +
+        (shots > 1 ? ' &middot; ' + shots + ' shots' : '') +
+        (statusOf(p) ? ' &middot; ' + esc(statusOf(p)) : '') + '</span></span>' +
+      '<span class="qact">' +
+        '<button class="btn" type="button" data-up="' + esc(p.id) + '"' + (i === 0 ? ' disabled' : '') +
+          ' aria-label="Move up">&#9650;</button>' +
+        '<button class="btn" type="button" data-down="' + esc(p.id) + '"' + (i === list.length - 1 ? ' disabled' : '') +
+          ' aria-label="Move down">&#9660;</button>' +
+        '<button class="btn" type="button" data-off="' + esc(p.id) + '" aria-label="Take off the list">&times;</button>' +
+      '</span></div>';
+  }).join('');
+
+  var byId = function (id) { return LIB.photos.filter(function (x) { return x.id === id; })[0]; };
+  el.queue.querySelectorAll('[data-up]').forEach(function (b) {
+    b.addEventListener('click', function () { moveInQueue(byId(b.dataset.up), -1); renderQueue(); });
+  });
+  el.queue.querySelectorAll('[data-down]').forEach(function (b) {
+    b.addEventListener('click', function () { moveInQueue(byId(b.dataset.down), 1); renderQueue(); });
+  });
+  el.queue.querySelectorAll('[data-off]').forEach(function (b) {
+    b.addEventListener('click', function () { removeFromQueue(byId(b.dataset.off)); render(); });
+  });
+  el.queue.querySelectorAll('.qim, .qmeta').forEach(function (z) {
+    z.addEventListener('click', function () {
+      var id = z.closest('.qrow').dataset.id;
+      setView('library');
+      var idx = viewList.map(function (x) { return x.id; }).indexOf(id);
+      if (idx !== -1) openViewer(idx);
+    });
+  });
+}
+
+function setView(v) {
+  view = v;
+  document.getElementById('tab-library').setAttribute('aria-selected', v === 'library' ? 'true' : 'false');
+  document.getElementById('tab-queue').setAttribute('aria-selected', v === 'queue' ? 'true' : 'false');
+  el.grid.hidden = v !== 'library';
+  el.queue.hidden = v !== 'queue';
+  document.getElementById('librarybar').hidden = v !== 'library';
+  document.getElementById('rail').hidden = v !== 'library';
+  document.querySelector('.app').dataset.view = v;
+  document.getElementById('selbar').hidden = v !== 'library' || !selectMode;
+  render();
+}
+
+document.getElementById('tab-library').addEventListener('click', function () { setView('library'); });
+document.getElementById('tab-queue').addEventListener('click', function () { setView('queue'); });
+
+function render() {
+  DUPES = dupeGroups(); GROUPS = groupsOf();
+  if (view === 'library') { renderFilters(); renderGrid(); }
+  renderQueue();
+}
 
 var renderTimer = null;
 function scheduleRender() {
@@ -795,7 +941,10 @@ function renderSide(p) {
   html += '<div><label>Notes</label><textarea id="note" placeholder="What you saved it for.">' + esc(p.note) + '</textarea></div>';
 
   html += '</div>';
-  html += '<div class="savebar"><button class="btn primary" id="save" type="button">Save</button>' +
+  html += '<div class="savebar">' +
+    '<button class="btn" id="v-queue" type="button" aria-pressed="' + (leaderOf(p).queue > 0 ? 'true' : 'false') + '">' +
+      (leaderOf(p).queue > 0 ? 'On the list' : 'Add to draw list') + '</button>' +
+    '<button class="btn primary" id="save" type="button">Save</button>' +
     '<span class="saved" id="savedmsg" data-on="false">Saved</span></div>';
 
   el.side.innerHTML = html;
@@ -873,6 +1022,10 @@ function renderSide(p) {
   }
   usedIn.addEventListener('input', syncLink);
 
+  document.getElementById('v-queue').addEventListener('click', function () {
+    if (leaderOf(p).queue > 0) removeFromQueue(p); else addToQueue(p);
+    renderSide(p); renderQueue();
+  });
   document.getElementById('save').addEventListener('click', function () {
     p.note = document.getElementById('note').value;
     p.usedIn = document.getElementById('usedin').value;
@@ -887,7 +1040,7 @@ function saveTags(p, quiet) {
     try { all = JSON.parse(localStorage.getItem(PREVIEW_KEY) || '{}'); } catch (e) {}
     all[p.id] = { facets: p.facets, colours: p.colours, palette: p.palette,
       rating: p.rating, note: p.note, usedIn: p.usedIn, free: p.free,
-      group: p.group, sig: p.sig, rot: p.rot || 0 };
+      group: p.group, sig: p.sig, rot: p.rot || 0, queue: p.queue || 0 };
     try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(all)); } catch (e) {}
     if (!quiet) flashSaved('Saved on this device');
     scheduleRender();
@@ -901,7 +1054,7 @@ function saveTags(p, quiet) {
     body: JSON.stringify({
       facets: p.facets, colours: p.colours, palette: p.palette, rating: p.rating,
       used: p.used, usedIn: p.usedIn, note: p.note, free: p.free,
-      group: p.group, sig: p.sig, rot: p.rot || 0
+      group: p.group, sig: p.sig, rot: p.rot || 0, queue: p.queue || 0
     })
   }).then(function (r) {
     if (!quiet) flashSaved(r.ok ? 'Saved' : 'Save failed');

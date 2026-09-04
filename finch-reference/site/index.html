@@ -20,8 +20,14 @@
   </aside>
 
   <main class="main">
+    <div class="tabs" role="tablist">
+      <button class="tab" id="tab-library" role="tab" aria-selected="true" type="button">Library</button>
+      <button class="tab" id="tab-queue" role="tab" aria-selected="false" type="button">
+        To draw <span class="n" id="queuecount">0</span>
+      </button>
+    </div>
     <div id="notices"></div>
-    <div class="bar">
+    <div class="bar" id="librarybar">
       <span class="count" id="count"></span>
       <span class="sp"></span>
       <button class="btn" id="f-untagged" aria-pressed="false" type="button">Untagged only</button>
@@ -39,6 +45,7 @@
       <button class="btn primary" id="do-group" type="button" disabled>Group as one subject</button>
     </div>
     <div class="grid" id="grid"></div>
+    <div class="queue" id="queue" hidden></div>
   </main>
 </div>
 
