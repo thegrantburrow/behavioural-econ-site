@@ -202,3 +202,50 @@ gap already live on 23 of the site's other 26 experiments (all 8 Science
 Behind entries came back clean; `home-loan-prize-draw` was fixed the same
 day this was written), a real, pre-existing backlog the script now makes
 visible instead of relying on someone re-reading every piece by hand.
+
+## Standing policy: anchor links land under the sticky nav via `:target`, never a new per-class `scroll-margin-top`
+
+On 2026-09-04 the owner reported that anchor links "almost never" land in
+the right place, flagging `science-behind.html#macca-golden-deal` as a
+repeat offender even after an earlier fix that session. Root cause turned
+out to be two separate defects, not one:
+
+1. Every content-type class (`.principle`, `.session`, `.experiment`,
+   `.sb-entry`, `.report`, etc.) carried its own hardcoded
+   `scroll-margin-top: 136px`, copied from class to class as each new
+   content type shipped. That constant was tuned once for the desktop nav's
+   real height and never revisited for mobile (measured at 80px, not 136),
+   and it depended on someone remembering to add it to every new
+   class. `index.html`'s `#search-band`, `#newsletter`, `#find-your-start`,
+   and `apply.html`'s `#tool` had no such rule at all.
+2. `html { scroll-behavior: smooth }` was global. That applies to the
+   browser's own native jump-to-fragment on a hash change, not just to
+   explicit JS calls, so it raced this site's own corrective positioning in
+   `script.js` (`openTargetPrinciple`). Instrumented testing (repeatedly
+   navigating to the same in-page anchor and reading `getBoundingClientRect()`)
+   found this landed on the wrong element roughly 3 times out of 5 on a
+   same-page hash change (clicking a cross-link while already on the
+   destination page, or a predictive-search result), while a fresh page load
+   was mostly fine. Flakiness, not a clean reproducible failure, is exactly
+   why it kept resurfacing across "fixes" that only ever tested page load.
+
+**The fix.** `styles.css` now sets `[id]:target { scroll-margin-top:
+var(--nav-h); }`, and `script.js` measures the sticky nav's real height on
+load, resize, and orientation change and writes it to `--nav-h` on the
+root element. `:target` matches whichever element the URL fragment
+currently points at, so this applies correctly to every anchor destination
+on the site, present and future, without a new content type ever needing
+its own `scroll-margin-top` rule again, and without the constant ever
+drifting from the nav's actual size on any device. `scroll-behavior:
+smooth` was removed from `html` entirely; the two places that want an
+animated scroll (the rail-nav step clicks, the landing-hub category jump)
+already request `behavior: 'smooth'` explicitly on their own
+`scrollIntoView()` calls, which is unaffected by the global default and
+keeps working.
+
+**The check.** Before trusting an anchor-link fix on this site, don't just
+load the target URL once and eyeball it. Test a same-page hash change too
+(navigate to the page, then set `location.hash` again to a different
+anchor on it, the way a real cross-link click behaves), and run it several
+times in a row. A race condition like this one passes most single
+attempts and only shows up on repetition.

@@ -376,6 +376,30 @@ function normalizeApostrophes(s) {
 })();
 
 (function () {
+  // The sticky nav's real height drives every anchor-link landing spot on
+  // the site (see the `[id]:target { scroll-margin-top: var(--nav-h) }`
+  // rule in styles.css). It used to be a single hardcoded 136px repeated on
+  // each content-type's CSS class, tuned for desktop and never revisited
+  // for mobile, where the nav is actually shorter (menu links collapse into
+  // a hamburger). That mismatch didn't move an anchor to the wrong element,
+  // but on mobile it left far more clearance above the target than the nav
+  // needed, and any future nav redesign, or a new content type someone
+  // forgot to add scroll-margin-top to, would quietly reopen the gap this
+  // fixes. Measuring the real nav on every page, at its real current size,
+  // removes the need to keep that constant in sync with the nav by hand.
+  function syncNavHeight() {
+    var nav = document.querySelector('.site-nav');
+    if (!nav) return;
+    var h = Math.round(nav.getBoundingClientRect().height);
+    if (h > 0) document.documentElement.style.setProperty('--nav-h', h + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+  window.addEventListener('orientationchange', syncNavHeight);
+  window.__syncNavHeight = syncNavHeight;
+})();
+
+(function () {
   // Principle sections are collapsed by default. Jumping to one via any
   // anchor link (Contents, practice grid, "see also" cross-links) should
   // land on it already open, not force a second click after the jump. This

@@ -9,14 +9,42 @@
   --line: rgba(27, 30, 36, 0.12);
   --muted: rgba(27, 30, 36, 0.6);
   --nav-menu-bg: #E7E9E8;
+  --nav-h: 136px;
 }
 
 * { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
+  /* Deliberately no scroll-behavior: smooth here. A global smooth default
+     applies to every native browser-triggered scroll too, including the
+     automatic jump-to-fragment the browser performs whenever the URL hash
+     changes, and that native scroll runs at the same time as this site's
+     own corrective positioning in script.js (openTargetPrinciple), racing
+     it. On page load the two competing animations could cancel out short
+     of the real target; on a same-page hash change (clicking a cross-link
+     while already on the destination page, or the predictive search
+     dropdown) that race was measured to land on the wrong element roughly
+     3 times out of 5. Anchor jumps are instant by default without this
+     rule, which is what removes the race. The two places on the site that
+     genuinely want an animated scroll (the rail-nav step clicks, the
+     landing-hub category jump) already request behavior: 'smooth'
+     explicitly on their own scrollIntoView() calls, which works with or
+     without this global default.
+     If a future feature wants smooth scrolling generally, add
+     scroll-behavior: smooth on that specific interactive element or
+     scroll container, not back on html. */
   -webkit-text-size-adjust: 100%;
 }
+
+/* Every anchor-link target on the site clears the sticky nav using the nav's
+   own real, live-measured height (set as --nav-h by script.js), not a fixed
+   guess repeated on each content-type class. :target matches whichever
+   element the URL fragment currently points at, so this applies correctly to
+   every anchor destination, present and future, without a new content type
+   ever needing its own scroll-margin-top rule again. The [id] prefix raises
+   its specificity above the older per-class scroll-margin-top declarations
+   still present on individual components, so this always wins. */
+[id]:target { scroll-margin-top: var(--nav-h); }
 
 body {
   margin: 0;
