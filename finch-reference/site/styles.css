@@ -190,3 +190,16 @@ button,input,select,textarea{font:inherit;color:inherit;}
    this the link showed even with nothing typed in the field. */
 .prodlink[hidden]{display:none;}
 .prodlink:hover{text-decoration:none;}
+
+/* A tag you typed yourself, removable. The cross is part of the chip rather
+   than a second control, because there is only one thing you do to one of
+   these once it is wrong. */
+.freetag .x{margin-left:6px;opacity:.75;font-weight:400;}
+.freetag:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
+
+/* Where a photograph stands, on the tile, so the grid reads as a pipeline
+   rather than a pile. Shortlisted and Next up are the two worth spotting from
+   across the room, so they are the only ones that carry the accent. */
+.tile .badge[data-s="shortlist"],
+.tile .badge[data-s="next-up"]{background:var(--accent);color:var(--accent-ink);}
+.tile .badge[data-s="not-for-me"]{background:rgba(0,0,0,.45);opacity:.75;}

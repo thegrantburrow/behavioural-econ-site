@@ -31,7 +31,6 @@ having an archive that outlives any one service.
 | `worker/wrangler.toml` | Deployment config. Every secret is a placeholder. |
 | `site/` | The library itself: `index.html`, `app.js`, `styles.css`. No build step. |
 | `scripts/export-archive.mjs` | Pulls the live tags into `library.json` so git has a copy. |
-| `taxonomy-map.json` | Where each of the store's 46 product tags went, and why thirteen were left out. |
 | `_check.mjs` | The checks. Run before every commit. |
 
 ## Two rules this is built on
@@ -147,44 +146,62 @@ Click a photograph to open it:
 | Arrows | Previous and next, staying inside whatever you have filtered to. |
 | `Esc` | Close. |
 
+The **Candidates** button is the one to reach for when you are choosing what to
+draw next. **Untagged only** is the one for clearing the backlog after a big
+import.
+
 Filtering: chips in the same row widen the search, chips in different rows
 narrow it, and colour chips stack, so asking for red and green means both are
 in the photograph. Every chip carries the number of photographs it would leave
 you with, counted against everything else already selected, so a chip showing
 zero really would empty the grid.
 
-### The vocabulary is the shop's own
+### The categories are about finding something to draw
 
-The starting taxonomy is not invented. It is the live product tags from the
-OscarFinch Shopify store, read on 2026-09-03, split into the parts that describe
-a photograph:
+They are deliberately **not** the shop's product tags. An earlier version
+borrowed them so a reference would be filed in the same words as the finished
+print, and that was backwards. The shop's tags describe an artwork that already
+exists. This library is for the stage before one exists, where the job is to
+look through a few hundred photographs and work out which of them is worth
+drawing. Different question, different words.
 
-| Group | Where it comes from |
+| Group | What it answers |
 | --- | --- |
-| Subject | Store tags: People, Watches, Pens, Vehicles, Footwear and the rest. |
-| Theme | Store tags: Status & Power, Fate, Fortune & Irony, Wealth, Work. |
-| Series | Store tags: Time Traveller, Rocket Espresso, Collaboration. |
-| Saved for, Angle, Light, Source | Not in the shop. These describe a photograph, not an artwork. |
+| **Where it stands** | New, Maybe, Shortlist, Next up, Sketching, Drawn, Not for me. One at a time. |
+| What it is | The literal thing in the photograph. Person, Hands, Tool or instrument, Street. |
+| Why I kept it | The pull. There is a story in it, The shape of it, The light, Something odd. |
+| Size of the job | Quick study, A day of it, A big one. One at a time. |
+| Light | Overcast, Golden hour, Backlit and the rest. |
+| As a reference | Whether it is actually usable. Sharp enough, Awkward angle, Too dark, Only one I have. |
+| Source | Where it came from, which matters once a drawing is for sale. |
 
-So a reference tagged **Watches** and **Status & Power** is filed in the same
-words the finished print will be, and the library and the shop never need
-translating between them.
+**Where it stands** is the one that earns its place. Which photographs you want
+to make artworks from is a decision you revisit, not a label you apply once, so
+it is a position rather than a tag: everything starts at New, and the
+**Candidates** button in the toolbar shows only what is at Maybe, Shortlist,
+Next up or Sketching. That is the shortlist, and it is one click from anywhere.
+The status also shows on the tile, so the grid reads as a pipeline rather than a
+pile, with Shortlist and Next up the two worth spotting from across the room.
 
-`taxonomy-map.json` records where all 46 store tags went, including the thirteen
-deliberately left out with the reason for each. Open Edition and Small Format
-Only describe how a print is sold. Newer Work and Earlier Era date the artwork,
-and the photograph carries its own date. Leaving them listed means re-syncing
-after you add a tag is mechanical rather than a fresh judgement call.
+### Your own tags matter more than my lists
 
-The taxonomy is still yours. It lives in KV under the key `taxonomy`, the Worker
-serves whatever is there and falls back to the set above, and `PUT /api/taxonomy`
-replaces it. Rewrite it once you have tagged fifty photographs and know.
+The seven groups above are the broad strokes. The tag that actually makes a
+photograph findable is usually the specific one, and I cannot guess those.
+So every photograph takes free tags you type yourself: "Rocket Espresso",
+"fountain pen", "Sean". They collect into a **Your tags** group in the filter
+rail as you use them, with a count each, so your vocabulary grows out of the
+photographs rather than out of a list somebody wrote in advance.
 
-### Which piece a reference fed
+The seven groups are yours too. They live in KV under the key `taxonomy`, the
+Worker serves whatever is there and falls back to the set above, and
+`PUT /api/taxonomy` replaces it. A group with `single: true` holds one value.
+Rewrite the lot once you have tagged fifty photographs and know.
 
-The **Drawn from this** field takes the title of the artwork, and the panel then
-links straight to it on the shop. Handles are the title slugified, so nothing is
-typed twice.
+### If you did draw it
+
+The **If you drew it** field takes the title of the piece, and the panel links
+straight to it on the shop, so the library doubles as a record of where a
+photograph ended up. Handles are the title slugified, so nothing is typed twice.
 
 One rule caught by checking against the live store rather than assuming: an
 ampersand is **dropped**, not spelled out. "The Time Traveller & The Homo Sapiens

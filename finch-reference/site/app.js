@@ -135,8 +135,8 @@ function readColours(img) {
 /* ---------------------------------------------------------------- state */
 var LIB = { photos: [], taxonomy: { groups: [] }, drive: false, store: false, demo: false };
 var active = {};       /* facet key  -> [values] */
-var activeColours = [];
-var onlyUntagged = false, onlyUnused = false, query = '';
+var activeColours = [], activeFree = [];
+var onlyUntagged = false, onlyCandidates = false, query = '';
 var viewIndex = -1, viewList = [];
 
 var el = {
@@ -172,6 +172,24 @@ function handleOf(text) {
 function productUrl(text) {
   var h = handleOf(text);
   return h ? STORE + '/products/' + h : '';
+}
+
+function singleGroup(key) {
+  var g = (LIB.taxonomy.groups || []).filter(function (x) { return x.key === key; })[0];
+  return !!(g && g.single);
+}
+
+/* His own words, gathered from what he has actually typed rather than from a
+   list somebody guessed. "Rocket Espresso", "Sean", "fountain pen": the tags
+   that make a photograph findable are usually the specific ones. */
+function freeTagCounts() {
+  var counts = {};
+  LIB.photos.forEach(function (p) {
+    (p.free || []).forEach(function (t) { counts[t] = (counts[t] || 0) + 1; });
+  });
+  return Object.keys(counts).sort(function (a, b) {
+    return counts[b] - counts[a] || a.localeCompare(b);
+  }).map(function (t) { return { tag: t, n: counts[t] }; });
 }
 
 function esc(s) {
@@ -252,13 +270,24 @@ function matches(p) {
   for (var c = 0; c < activeColours.length; c++) {
     if ((p.colours || []).indexOf(activeColours[c]) === -1) return false;
   }
+  for (var t = 0; t < activeFree.length; t++) {
+    if ((p.free || []).indexOf(activeFree[t]) === -1) return false;
+  }
   if (onlyUntagged && isTagged(p)) return false;
-  if (onlyUnused && p.used) return false;
+  /* The one question the library exists to answer: what am I actually
+     considering drawing? */
+  if (onlyCandidates && CANDIDATE.indexOf(statusOf(p)) === -1) return false;
   if (query) {
     var hay = (p.name + ' ' + (p.note || '') + ' ' + (p.usedIn || '') + ' ' + (p.free || []).join(' ')).toLowerCase();
     if (hay.indexOf(query) === -1) return false;
   }
   return true;
+}
+
+var CANDIDATE = ['Maybe', 'Shortlist', 'Next up', 'Sketching'];
+function statusOf(p) {
+  var v = p.facets && p.facets.status;
+  return Array.isArray(v) ? (v[0] || '') : (v || '');
 }
 
 function isTagged(p) {
@@ -305,6 +334,17 @@ function renderFilters() {
     html += '</div></div>';
   });
 
+  var freeTags = freeTagCounts();
+  if (freeTags.length) {
+    html += '<div class="grp"><h2>Your tags</h2><div class="chips">';
+    freeTags.forEach(function (t) {
+      var on = activeFree.indexOf(t.tag) !== -1;
+      html += '<button class="chip" type="button" aria-pressed="' + (on ? 'true' : 'false') +
+        '" data-ft="' + esc(t.tag) + '">' + esc(t.tag) + '<span class="c">' + t.n + '</span></button>';
+    });
+    html += '</div></div>';
+  }
+
   html += '<div class="grp"><h2>Colour</h2><div class="swatches">';
   BUCKETS.forEach(function (b) {
     var on = activeColours.indexOf(b.k) !== -1;
@@ -324,6 +364,14 @@ function renderFilters() {
       var i = active[g].indexOf(v);
       if (i === -1) active[g].push(v); else active[g].splice(i, 1);
       if (!active[g].length) delete active[g];
+      render();
+    });
+  });
+  el.filters.querySelectorAll('[data-ft]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.dataset.ft;
+      var i = activeFree.indexOf(t);
+      if (i === -1) activeFree.push(t); else activeFree.splice(i, 1);
       render();
     });
   });
@@ -368,7 +416,8 @@ function renderGrid() {
       '<div class="im">' +
         '<img loading="lazy" decoding="async" alt="' + esc(p.name) + '" src="' + esc(src) + '" data-id="' + esc(p.id) + '">' +
         (isTagged(p) ? '' : '<span class="untag" title="Not tagged yet"></span>') +
-        (p.used ? '<span class="badge">drawn</span>' : '') +
+        (statusOf(p) && statusOf(p) !== 'New' ? '<span class="badge" data-s="' +
+          esc(statusOf(p).toLowerCase().replace(/\s+/g, '-')) + '">' + esc(statusOf(p)) + '</span>' : '') +
       '</div>' + pal +
       '<div class="m"><b>' + esc(p.name) + '</b>' + fmtDate(p.taken || p.added) +
         (p.rating ? ' &middot; ' + '★'.repeat(p.rating) : '') + '</div>' +
@@ -401,6 +450,12 @@ function maybeReadColours(img) {
 }
 
 function render() { renderFilters(); renderGrid(); }
+
+var renderTimer = null;
+function scheduleRender() {
+  clearTimeout(renderTimer);
+  renderTimer = setTimeout(render, 120);
+}
 
 /* --------------------------------------------------------------- viewer */
 function openViewer(i) {
@@ -461,11 +516,16 @@ function renderSide(p) {
   });
   html += '</div></div>';
 
-  html += '<div><label>Drawn from this</label><div class="chips" style="margin-top:5px;">' +
-    '<button class="chip" type="button" id="usedbtn" aria-pressed="' + (p.used ? 'true' : 'false') + '">Used</button>' +
-    '</div><input type="text" id="usedin" style="margin-top:6px;" placeholder="Which piece, by its title" value="' + esc(p.usedIn) + '">' +
+  /* No separate "used" toggle: the status group above already says Drawn, and
+     two controls meaning the same thing drift apart. This is only the name of
+     the piece, so the panel can link back to it. */
+  html += '<div><label>If you drew it</label>' +
+    '<input type="text" id="usedin" placeholder="Which piece, by its title" value="' + esc(p.usedIn) + '">' +
     '<a class="prodlink" id="prodlink" target="_blank" rel="noopener"' +
       (p.usedIn ? ' href="' + esc(productUrl(p.usedIn)) + '"' : ' hidden') + '>Open it on oscarfinch.com</a></div>';
+
+  html += '<div><label>Your tags</label><div class="chips" id="freechips" style="margin-top:5px;"></div>' +
+    '<input type="text" id="freeinput" style="margin-top:6px;" placeholder="Type a tag, press Enter"></div>';
 
   html += '<div><label>Notes</label><textarea id="note" placeholder="What you saved it for.">' + esc(p.note) + '</textarea></div>';
 
@@ -488,9 +548,19 @@ function renderSide(p) {
       p.facets = p.facets || {};
       var cur = Array.isArray(p.facets[g]) ? p.facets[g] : (p.facets[g] ? [p.facets[g]] : []);
       var i = cur.indexOf(v);
-      if (i === -1) cur.push(v); else cur.splice(i, 1);
-      p.facets[g] = cur;
-      b.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      /* A photograph is at one place in the pipeline and is one size of job.
+         Everything else can be several things at once. */
+      if (singleGroup(g)) {
+        p.facets[g] = (i === -1) ? [v] : [];
+        el.side.querySelectorAll('[data-fg="' + g + '"]').forEach(function (o) {
+          o.setAttribute('aria-pressed', 'false');
+        });
+        if (i === -1) b.setAttribute('aria-pressed', 'true');
+      } else {
+        if (i === -1) cur.push(v); else cur.splice(i, 1);
+        p.facets[g] = cur;
+        b.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      }
     });
   });
   el.side.querySelectorAll('[data-cb]').forEach(function (b) {
@@ -502,6 +572,33 @@ function renderSide(p) {
       b.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
     });
   });
+  function paintFree() {
+    document.getElementById('freechips').innerHTML = (p.free || []).length
+      ? p.free.map(function (t) {
+          return '<button class="chip freetag" type="button" aria-pressed="true" data-del="' +
+            esc(t) + '" title="Remove">' + esc(t) + '<span class="x">&times;</span></button>';
+        }).join('')
+      : '<span style="font-size:12.5px;color:var(--faint);">None yet.</span>';
+    document.getElementById('freechips').querySelectorAll('[data-del]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        p.free = (p.free || []).filter(function (t) { return t !== b.dataset.del; });
+        paintFree();
+      });
+    });
+  }
+  paintFree();
+  var freeInput = document.getElementById('freeinput');
+  freeInput.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    var v = freeInput.value.trim();
+    if (!v) return;
+    p.free = p.free || [];
+    if (p.free.indexOf(v) === -1) p.free.push(v);
+    freeInput.value = '';
+    paintFree();
+  });
+
   var usedIn = document.getElementById('usedin');
   var prodLink = document.getElementById('prodlink');
   function syncLink() {
@@ -511,14 +608,10 @@ function renderSide(p) {
   }
   usedIn.addEventListener('input', syncLink);
 
-  var usedBtn = document.getElementById('usedbtn');
-  usedBtn.addEventListener('click', function () {
-    p.used = !p.used;
-    usedBtn.setAttribute('aria-pressed', p.used ? 'true' : 'false');
-  });
   document.getElementById('save').addEventListener('click', function () {
     p.note = document.getElementById('note').value;
     p.usedIn = document.getElementById('usedin').value;
+    p.used = statusOf(p) === 'Drawn';
     saveTags(p);
   });
 }
@@ -535,7 +628,11 @@ function saveTags(p, quiet) {
     })
   }).then(function (r) {
     if (!quiet) flashSaved(r.ok ? 'Saved' : 'Save failed');
-    if (r.ok) renderGrid();
+    /* The whole rail, not just the grid: a tag you just typed is a new filter,
+       and the colour and facet counts beside every chip have moved. Coalesced
+       because the first load fires one quiet save per photograph as its colours
+       are read, and re-rendering the rail once per photo is wasted work. */
+    if (r.ok) scheduleRender();
   }).catch(function () { if (!quiet) flashSaved('Save failed'); });
 }
 
@@ -584,17 +681,17 @@ document.getElementById('f-untagged').addEventListener('click', function () {
   this.setAttribute('aria-pressed', onlyUntagged ? 'true' : 'false');
   render();
 });
-document.getElementById('f-unused').addEventListener('click', function () {
-  onlyUnused = !onlyUnused;
-  this.setAttribute('aria-pressed', onlyUnused ? 'true' : 'false');
+document.getElementById('f-candidates').addEventListener('click', function () {
+  onlyCandidates = !onlyCandidates;
+  this.setAttribute('aria-pressed', onlyCandidates ? 'true' : 'false');
   render();
 });
 document.getElementById('clear').addEventListener('click', function () {
-  active = {}; activeColours = []; query = '';
-  onlyUntagged = false; onlyUnused = false;
+  active = {}; activeColours = []; activeFree = []; query = '';
+  onlyUntagged = false; onlyCandidates = false;
   el.search.value = '';
   document.getElementById('f-untagged').setAttribute('aria-pressed', 'false');
-  document.getElementById('f-unused').setAttribute('aria-pressed', 'false');
+  document.getElementById('f-candidates').setAttribute('aria-pressed', 'false');
   render();
 });
 var searchTimer;

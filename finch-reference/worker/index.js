@@ -185,28 +185,48 @@ async function driveList(env) {
 /* ---------------------------------------------------------------------- */
 
 /*
- * The starting vocabulary is the store's own, not a guess. These are the live
- * product tags from the OscarFinch Shopify store, split into the parts that
- * describe a photograph you might draw from. taxonomy-map.json records where
- * every one of the store's tags went, including the ones deliberately left out
- * because they describe how a print is sold rather than what is in a picture.
+ * These describe a PHOTOGRAPH and what you might do with it. They are
+ * deliberately not the shop's product tags.
  *
- * Tagging a reference "Watches" and "Status & Power" therefore lands it in the
- * same words the finished print is filed under, which is the point: the library
- * and the shop should not need translating between them.
+ * An earlier version borrowed the store's vocabulary so a reference would be
+ * filed in the same words as the finished print. That was backwards. The shop's
+ * tags describe an artwork that exists; this library is for the stage before
+ * one exists, where the job is to look at a few hundred photographs and work
+ * out which of them is worth drawing. Those are different questions and they
+ * want different words.
  *
- * The last four groups have no equivalent in the shop, because they are
- * properties of a photograph rather than of an artwork.
+ * So the axes here are: what is in it, what made you keep it, how big a job it
+ * would be, and where it has got to. The last one is the one that answers
+ * "which pieces do I want to make artworks for", because that is a decision you
+ * revisit rather than a label you apply once.
  */
 const DEFAULT_TAXONOMY = {
   groups: [
-    { key: 'subject', label: 'Subject',   values: ['People', 'Places & Scenes', 'Products & Objects', 'Vehicles', 'Watches', 'Pens', 'Footwear', 'Jackets & Outerwear', 'Coins', 'Cards', 'Stamps & Collectibles', 'Food & Drink', 'Espresso Machines & Coffee', 'Everyday Household Objects'] },
-    { key: 'theme',   label: 'Theme',     values: ['Everyday Life', 'Work', 'Relationships & Family', 'Status & Power', 'Wealth', 'Treasure', 'Fate', 'Fortune & Irony', 'Appearance & Vanity', 'Inspiring', 'Amazing people', 'Amazing objects', 'Amazing places', 'Amazing tales'] },
-    { key: 'series',  label: 'Series',    values: ['Time Traveller', 'Rocket Espresso', 'Collaboration', 'Multi-vignette', 'Quotes & Typographic'] },
-    { key: 'why',     label: 'Saved for', values: ['Pose', 'Expression', 'Light', 'Colour', 'Texture', 'Composition', 'Detail', 'Whole mood'] },
-    { key: 'angle',   label: 'Angle',     values: ['Front', 'Three quarter', 'Profile', 'Back', 'From above', 'From below'] },
-    { key: 'light',   label: 'Light',     values: ['Overcast', 'Golden hour', 'Backlit', 'Harsh sun', 'Indoor', 'Night', 'Studio'] },
-    { key: 'source',  label: 'Source',    values: ['My photo', 'Stock, licensed', 'Client supplied', 'Found, unlicensed'] }
+    { key: 'status', label: 'Where it stands', single: true,
+      values: ['New', 'Maybe', 'Shortlist', 'Next up', 'Sketching', 'Drawn', 'Not for me'] },
+
+    { key: 'what', label: 'What it is',
+      values: ['Person', 'Face', 'Hands', 'Figure in a scene', 'Object', 'Tool or instrument',
+               'Vehicle', 'Building', 'Interior', 'Street', 'Landscape', 'Animal', 'Plant',
+               'Food or drink', 'Sign or lettering', 'Texture or surface'] },
+
+    { key: 'pull', label: 'Why I kept it',
+      values: ['There is a story in it', 'The shape of it', 'The light', 'The colour',
+               'The texture', 'Something odd', 'An expression', 'The composition',
+               'It is beautiful', 'It reminds me of something'] },
+
+    { key: 'effort', label: 'Size of the job', single: true,
+      values: ['Quick study', 'A day of it', 'A big one'] },
+
+    { key: 'light', label: 'Light',
+      values: ['Overcast', 'Golden hour', 'Backlit', 'Harsh sun', 'Indoor', 'Night', 'Studio'] },
+
+    { key: 'usable', label: 'As a reference',
+      values: ['Sharp enough', 'Detail is there', 'Awkward angle', 'Too dark', 'Blurred',
+               'Only one I have'] },
+
+    { key: 'source', label: 'Source',
+      values: ['My photo', 'Stock, licensed', 'Client supplied', 'Found, unlicensed'] }
   ]
 };
 
