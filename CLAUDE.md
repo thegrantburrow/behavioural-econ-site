@@ -249,3 +249,27 @@ load the target URL once and eyeball it. Test a same-page hash change too
 anchor on it, the way a real cross-link click behaves), and run it several
 times in a row. A race condition like this one passes most single
 attempts and only shows up on repetition.
+
+**A third, separate root cause, found the same day on a real phone.**
+After the two fixes above shipped, the owner reported the exact same URL
+(`science-behind.html#macca-golden-deal`) still landing wrong on a real
+device, this time on a completely different article's content (Up Bank's
+`sb-split` block, the entry immediately before macca-golden-deal), not
+just a wrong offset within the right one. None of the site's 108 local
+`<img>` tags carried `width`/`height` attributes, so the browser had no
+reserved size for any of them before they loaded. `up-bank-teardown` alone
+has 5 real screenshots above macca-golden-deal; a lazy-loaded image
+finishing its load after the page had already jumped to the anchor pushes
+everything below it down by its own height, which lands the viewport
+short of the real target by roughly however much unloaded image height
+sat above it. This could not be reproduced in this environment's Chromium
+(its built-in scroll-anchoring quietly compensates for the shift even
+under artificial network throttling), which is exactly why it wasn't
+caught by the same-page hash-change test above and needed a real device to
+surface. The fix: every local image's real pixel dimensions were read and
+written into its own `width`/`height` attributes, site-wide, so the
+browser reserves the correct box before the image loads and nothing
+shifts under a landed anchor regardless of which browser's scroll-anchor
+implementation is or isn't compensating for it. Any new image added to the
+site should carry real `width`/`height` attributes from the start, not
+rely on this being re-run later.
