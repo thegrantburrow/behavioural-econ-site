@@ -53,6 +53,23 @@ front of every request including the static ones.
 
 ## Setup
 
+Most of it is one command. Two steps are browser jobs on your accounts that
+nothing can do for you: creating the Google service account, and putting
+Cloudflare Access in front of the hostname.
+
+```
+./setup.sh ~/Downloads/service-account.json you@example.com <drive-folder-id>
+```
+
+That signs you in to Cloudflare, creates the KV namespace and binds it, writes
+the three settings, pushes the private key in as a secret, runs the checks and
+deploys. The Worker has been dry run deployed from this repository, so the
+bundle and the bindings are known good before you start: 18 KiB, the assets
+directory read, ACCESS_EMAILS, DRIVE_FOLDER_ID and GOOGLE_SA_EMAIL all bound.
+
+The long form of every step is below, for when something does not go to plan.
+
+
 ### 1. Put it in its own private repository
 
 This folder is self contained and lifts out as it stands.

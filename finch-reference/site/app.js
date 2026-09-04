@@ -398,26 +398,71 @@ var PREVIEW_KEY = 'ofref-preview-tags';
 /* A preview carries its photographs and its taxonomy inside the page and has no
    Worker behind it, so tagging is kept in this browser instead. It is the same
    interface either way: only where the pixels and the tags live changes. */
+/*
+ * Where a preview keeps what you do to it.
+ *
+ * The browser first, so the page works the instant it opens and keeps working
+ * with no network. Then, if the viewer grants it, the artifact's own store,
+ * which is what makes the same list appear on the phone and the laptop. Neither
+ * is the production path: the deployed site keeps all of this in KV behind the
+ * Worker, and this shape mirrors it, one document per photograph keyed the same
+ * way, so nothing is rewritten when it moves.
+ */
+var DB = null;
+var DB_COLLECTION = 'tags';
+
+function localTags() {
+  try { return JSON.parse(localStorage.getItem(PREVIEW_KEY) || '{}'); } catch (e) { return {}; }
+}
+
+function applyTags(p, t) {
+  if (!t) return;
+  p.facets = t.facets || p.facets; p.colours = t.colours || p.colours;
+  p.palette = t.palette || p.palette; p.rating = t.rating || 0;
+  p.note = t.note || ''; p.usedIn = t.usedIn || ''; p.free = t.free || [];
+  p.group = t.group || ''; p.sig = t.sig || p.sig;
+  p.rot = t.rot || 0; p.queue = t.queue || 0;
+}
+
+function connectStore() {
+  if (!window.claude || typeof window.claude.use !== 'function') return;
+  window.claude.use('db').then(function (db) {
+    if (!db) return;                       /* not granted here; the browser copy stands */
+    DB = db;
+    /* Live, so a change made on the phone lands on the laptop without a reload.
+       Our own writes come back through here too, which is why the re-render is
+       the coalesced one rather than an immediate redraw. */
+    db.collection(DB_COLLECTION).onSnapshot(function (snap) {
+      var byId = {};
+      LIB.photos.forEach(function (p) { byId[p.id] = p; });
+      var touched = 0;
+      snap.docs.forEach(function (d) {
+        var p = byId[d.id];
+        if (!p || !d.exists) return;
+        applyTags(p, d.data());
+        touched++;
+      });
+      if (!touched) return;
+      LIB.synced = true;
+      scheduleRender();
+      var n = document.getElementById('syncnote');
+      if (n) n.textContent = 'Synced across your devices';
+    }, function () { /* a dropped listener leaves the browser copy in charge */ });
+  }).catch(function () {});
+}
+
 function bootEmbedded(data) {
   LIB.taxonomy = data.taxonomy;
   LIB.photos = data.photos;
   LIB.preview = true;
   LIB.store = true;
-  var saved = {};
-  try { saved = JSON.parse(localStorage.getItem(PREVIEW_KEY) || '{}'); } catch (e) {}
-  LIB.photos.forEach(function (p) {
-    var t = saved[p.id];
-    if (!t) return;
-    p.facets = t.facets || p.facets; p.colours = t.colours || p.colours;
-    p.palette = t.palette || p.palette; p.rating = t.rating || 0;
-    p.note = t.note || ''; p.usedIn = t.usedIn || ''; p.free = t.free || [];
-    p.group = t.group || p.group; p.sig = t.sig || p.sig; p.rot = t.rot || 0;
-    p.queue = t.queue || 0;
-  });
+  var saved = localTags();
+  LIB.photos.forEach(function (p) { applyTags(p, saved[p.id]); });
   notice('This is a preview, and it is yours alone',
-    'Your actual photographs, running the real interface. Tagging is kept in this browser rather than on a server, ' +
-    'so it survives a reload on this device and goes nowhere else. Nothing here is shared, and the link is private to your account.');
+    'Your actual photographs, running the real interface. Nothing here is shared and the link is private to your account. ' +
+    '<span id="syncnote">Kept in this browser, and on your account if this view can reach it, so the same list turns up on your phone.</span>');
   render();
+  connectStore();
 }
 
 function boot() {
@@ -1036,13 +1081,21 @@ function renderSide(p) {
 
 function saveTags(p, quiet) {
   if (LIB.preview) {
-    var all = {};
-    try { all = JSON.parse(localStorage.getItem(PREVIEW_KEY) || '{}'); } catch (e) {}
-    all[p.id] = { facets: p.facets, colours: p.colours, palette: p.palette,
-      rating: p.rating, note: p.note, usedIn: p.usedIn, free: p.free,
-      group: p.group, sig: p.sig, rot: p.rot || 0, queue: p.queue || 0 };
+    var rec = { facets: p.facets || {}, colours: p.colours || [], palette: p.palette || [],
+      rating: p.rating || 0, note: p.note || '', usedIn: p.usedIn || '', free: p.free || [],
+      group: p.group || '', sig: p.sig || [], rot: p.rot || 0, queue: p.queue || 0 };
+    var all = localTags();
+    all[p.id] = rec;
     try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(all)); } catch (e) {}
-    if (!quiet) flashSaved('Saved on this device');
+    if (DB) {
+      DB.doc(DB_COLLECTION + '/' + p.id).set(rec).then(function () {
+        if (!quiet) flashSaved('Saved to your account');
+      }).catch(function () {
+        if (!quiet) flashSaved('Saved on this device only');
+      });
+    } else if (!quiet) {
+      flashSaved('Saved on this device');
+    }
     scheduleRender();
     return;
   }
