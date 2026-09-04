@@ -1625,6 +1625,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 .spotted-item img {
   display: block;
   width: 100%;
+  height: auto;
   border: 1px solid var(--line);
   border-radius: 10px;
 }
