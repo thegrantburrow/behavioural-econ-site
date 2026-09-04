@@ -174,6 +174,20 @@ function productUrl(text) {
   return h ? STORE + '/products/' + h : '';
 }
 
+/*
+ * Where a photograph's pixels come from. Normally the Worker's proxy, so the
+ * browser never talks to Google. In a preview the whole set is embedded in the
+ * page, which is how the real interface can be tried on a phone before any of
+ * the Cloudflare and Drive setup exists.
+ */
+function imgSrc(p, size) {
+  if (p.dataUri) return p.dataUri;
+  if (p.demoTile) return p.demoTile;
+  return size
+    ? '/thumb/' + encodeURIComponent(p.id) + '?s=' + size
+    : '/img/' + encodeURIComponent(p.id);
+}
+
 function singleGroup(key) {
   var g = (LIB.taxonomy.groups || []).filter(function (x) { return x.key === key; })[0];
   return !!(g && g.single);
@@ -199,7 +213,33 @@ function esc(s) {
 }
 
 /* ----------------------------------------------------------------- load */
+var PREVIEW_KEY = 'ofref-preview-tags';
+
+/* A preview carries its photographs and its taxonomy inside the page and has no
+   Worker behind it, so tagging is kept in this browser instead. It is the same
+   interface either way: only where the pixels and the tags live changes. */
+function bootEmbedded(data) {
+  LIB.taxonomy = data.taxonomy;
+  LIB.photos = data.photos;
+  LIB.preview = true;
+  LIB.store = true;
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(PREVIEW_KEY) || '{}'); } catch (e) {}
+  LIB.photos.forEach(function (p) {
+    var t = saved[p.id];
+    if (!t) return;
+    p.facets = t.facets || p.facets; p.colours = t.colours || p.colours;
+    p.palette = t.palette || p.palette; p.rating = t.rating || 0;
+    p.note = t.note || ''; p.usedIn = t.usedIn || ''; p.free = t.free || [];
+  });
+  notice('This is a preview, and it is yours alone',
+    'Your actual photographs, running the real interface. Tagging is kept in this browser rather than on a server, ' +
+    'so it survives a reload on this device and goes nowhere else. Nothing here is shared, and the link is private to your account.');
+  render();
+}
+
 function boot() {
+  if (window.__LIBRARY__) return bootEmbedded(window.__LIBRARY__);
   fetch('/api/library', { headers: { accept: 'application/json' } })
     .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
     .then(function (res) {
@@ -411,7 +451,7 @@ function renderGrid() {
     var pal = (p.palette || []).length
       ? '<div class="pal">' + p.palette.map(function (h) { return '<i style="background:' + esc(h) + '"></i>'; }).join('') + '</div>'
       : '';
-    var src = p.demoTile ? p.demoTile : '/thumb/' + encodeURIComponent(p.id) + '?s=480';
+    var src = imgSrc(p, 480);
     return '<button class="tile" type="button" data-i="' + i + '">' +
       '<div class="im">' +
         '<img loading="lazy" decoding="async" alt="' + esc(p.name) + '" src="' + esc(src) + '" data-id="' + esc(p.id) + '">' +
@@ -436,7 +476,7 @@ function renderGrid() {
    no other visit and no other device pays for it again. */
 var readingNow = {};
 function maybeReadColours(img) {
-  if (LIB.demo || !LIB.store) return;
+  if (LIB.demo || !LIB.store) return;   /* preview sets store, so colours are read there too */
   var id = img.dataset.id;
   if (!id || readingNow[id]) return;
   var p = LIB.photos.filter(function (x) { return x.id === id; })[0];
@@ -462,7 +502,7 @@ function openViewer(i) {
   if (i < 0 || i >= viewList.length) return;
   viewIndex = i;
   var p = viewList[i];
-  el.stageimg.src = p.demoTile ? p.demoTile : '/img/' + encodeURIComponent(p.id);
+  el.stageimg.src = imgSrc(p, 0);
   el.stageimg.alt = p.name;
   el.viewer.dataset.open = 'true';
   renderSide(p);
@@ -617,6 +657,16 @@ function renderSide(p) {
 }
 
 function saveTags(p, quiet) {
+  if (LIB.preview) {
+    var all = {};
+    try { all = JSON.parse(localStorage.getItem(PREVIEW_KEY) || '{}'); } catch (e) {}
+    all[p.id] = { facets: p.facets, colours: p.colours, palette: p.palette,
+      rating: p.rating, note: p.note, usedIn: p.usedIn, free: p.free };
+    try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(all)); } catch (e) {}
+    if (!quiet) flashSaved('Saved on this device');
+    scheduleRender();
+    return;
+  }
   if (LIB.demo) { if (!quiet) flashSaved('Not saved, these are examples'); return; }
   if (!LIB.store) { if (!quiet) flashSaved('No store bound, nothing saved'); return; }
   fetch('/api/tags/' + encodeURIComponent(p.id), {
@@ -662,7 +712,7 @@ document.getElementById('v-next').addEventListener('click', function () { openVi
 document.getElementById('v-prev').addEventListener('click', function () { openViewer(viewIndex - 1); });
 document.getElementById('v-full').addEventListener('click', function () {
   var p = viewList[viewIndex];
-  if (p && !p.demoTile) window.open('/img/' + encodeURIComponent(p.id), '_blank', 'noopener');
+  if (p) window.open(imgSrc(p, 0), '_blank', 'noopener');
 });
 
 document.addEventListener('keydown', function (e) {

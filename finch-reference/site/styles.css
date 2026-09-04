@@ -121,10 +121,15 @@ button,input,select,textarea{font:inherit;color:inherit;}
 .empty{grid-column:1/-1;text-align:center;color:var(--soft);padding:60px 20px;font-size:14px;}
 
 /* ---------- viewer ---------- */
+/* The row has to be pinned to the viewport. Left as the default auto it sizes
+   to the tallest cell, which is the tag panel, and a portrait photograph then
+   pushes the stage and its controls off the bottom of the screen. Only showed
+   up once there were real photographs in it: the placeholder tiles were square
+   and never made the stage tall enough to matter. */
 .viewer{position:fixed;inset:0;z-index:50;background:var(--paper);display:none;
-  grid-template-columns:1fr 340px;}
+  grid-template-columns:1fr 340px;grid-template-rows:minmax(0,1fr);}
 .viewer[data-open="true"]{display:grid;}
-.stagecol{display:flex;flex-direction:column;min-width:0;background:#0E0F10;}
+.stagecol{display:flex;flex-direction:column;min-width:0;min-height:0;background:#0E0F10;}
 .stage{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:0;}
 .stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;transition:filter .12s;}
 .stage.grey img{filter:grayscale(1) contrast(1.12);}
@@ -177,7 +182,7 @@ button,input,select,textarea{font:inherit;color:inherit;}
   .app{grid-template-columns:1fr;}
   .rail{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--line);}
   .rail[data-collapsed="true"] .grp,.rail[data-collapsed="true"] .srch{display:none;}
-  .viewer{grid-template-columns:1fr;grid-template-rows:1fr auto;}
+  .viewer{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;}
   .side{border-left:none;border-top:1px solid var(--line);max-height:46vh;}
   .grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
 }
