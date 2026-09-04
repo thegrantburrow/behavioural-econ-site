@@ -25,7 +25,7 @@ const { chromium } = pw;
 import { readdirSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, extname } from 'node:path';
 
-const MAX = 1400, QUALITY = 0.72;
+const MAX = 1800, QUALITY = 0.80;
 const MIME = { '.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.webp':'image/webp','.gif':'image/gif' };
 
 /* Minimal EXIF read: we want Orientation (0x0112) and DateTimeOriginal (0x9003). */

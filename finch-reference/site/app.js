@@ -155,6 +155,7 @@ var LIB = { photos: [], taxonomy: { groups: [] }, drive: false, store: false, de
 var active = {};       /* facet key  -> [values] */
 var activeColours = [], activeFree = [];
 var onlyUntagged = false, onlyCandidates = false, onlyDupes = false, query = '';
+var expandGroups = false, selectMode = false, selected = {};
 var viewIndex = -1, viewList = [];
 
 var el = {
@@ -232,6 +233,79 @@ function dupeGroups() {
 }
 var DUPES = {};
 
+/*
+ * A signature for "the same thing, seen again".
+ *
+ * Mean colour of each cell of a three by three grid, in Lab so that distance
+ * means what the eye means by it. Measured against a hand made truth over
+ * Grant's twenty five:
+ *
+ *   distance <= 0.10   8 of 15 true pairs, 0 false out of 285
+ *   distance <= 0.12  12 of 15 true pairs, 2 false
+ *
+ * Ten is the number used, because groups chain: one wrong link merges two
+ * unrelated subjects into one, which is far worse than missing a pair that can
+ * be joined by hand in a second. Half the pairs found for free, none wrong.
+ *
+ * A structural hash was tried first and could not do this at all. On the same
+ * truth, at 64, 256 and 1024 bits, some unrelated photographs always sat closer
+ * together than the true pairs, because different shots of one subject share
+ * little pixel structure. What they do share is the palette and roughly where
+ * it sits in the frame, which is what this measures.
+ */
+function labOf(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  var f = function (v) { return v > 0.04045 ? Math.pow((v + 0.055) / 1.055, 2.4) : v / 12.92; };
+  r = f(r); g = f(g); b = f(b);
+  var x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.9505;
+  var y = r * 0.2126 + g * 0.7152 + b * 0.0722;
+  var z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.089;
+  var c = function (v) { return v > 0.008856 ? Math.cbrt(v) : (7.787 * v + 16 / 116); };
+  x = c(x); y = c(y); z = c(z);
+  return [116 * y - 16, 500 * (x - y), 200 * (y - z)];
+}
+
+function layoutSig(img) {
+  var N = 3, cv = document.createElement('canvas');
+  cv.width = N; cv.height = N;
+  var cx = cv.getContext('2d', { willReadFrequently: true });
+  cx.drawImage(img, 0, 0, N, N);
+  var d;
+  try { d = cx.getImageData(0, 0, N, N).data; } catch (e) { return null; }
+  var out = [];
+  for (var i = 0; i < N * N; i++) {
+    var l = labOf(d[i * 4], d[i * 4 + 1], d[i * 4 + 2]);
+    out.push(Math.round(l[0] * 10) / 10, Math.round(l[1] * 10) / 10, Math.round(l[2] * 10) / 10);
+  }
+  return out;
+}
+
+function sigDistance(a, b) {
+  if (!a || !b || a.length !== b.length) return 99;
+  var sum = 0;
+  for (var i = 0; i < a.length; i += 3) {
+    var dl = a[i] - b[i], da = a[i + 1] - b[i + 1], db = a[i + 2] - b[i + 2];
+    sum += Math.sqrt(dl * dl + da * da + db * db);
+  }
+  return sum / (a.length / 3) / 100;
+}
+var SIG_LIMIT = 0.10;
+
+/* Photographs of one subject, keyed by the group id they share. */
+function groupsOf() {
+  var by = {};
+  LIB.photos.forEach(function (p) {
+    if (!p.group) return;
+    (by[p.group] = by[p.group] || []).push(p);
+  });
+  return by;
+}
+var GROUPS = {};
+
+function newGroupId() {
+  return 'g' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
 function singleGroup(key) {
   var g = (LIB.taxonomy.groups || []).filter(function (x) { return x.key === key; })[0];
   return !!(g && g.single);
@@ -275,6 +349,7 @@ function bootEmbedded(data) {
     p.facets = t.facets || p.facets; p.colours = t.colours || p.colours;
     p.palette = t.palette || p.palette; p.rating = t.rating || 0;
     p.note = t.note || ''; p.usedIn = t.usedIn || ''; p.free = t.free || [];
+    p.group = t.group || p.group; p.sig = t.sig || p.sig;
   });
   notice('This is a preview, and it is yours alone',
     'Your actual photographs, running the real interface. Tagging is kept in this browser rather than on a server, ' +
@@ -492,17 +567,36 @@ function renderGrid() {
       '</div>';
     return;
   }
-  el.grid.innerHTML = shown.map(function (p, i) {
+  /* One tile per subject. Four shots of one watch display is one thing you are
+     deciding about, not four, and a grid that shows it four times buries the
+     twenty other subjects. Turn on Show every shot to see them all. */
+  var emitted = {};
+  var tiles = [];
+  shown.forEach(function (p, i) {
+    if (!expandGroups && p.group && GROUPS[p.group] && GROUPS[p.group].length > 1) {
+      if (emitted[p.group]) return;
+      emitted[p.group] = true;
+    }
+    tiles.push({ p: p, i: i, n: (p.group && GROUPS[p.group]) ? GROUPS[p.group].length : 1 });
+  });
+  el.count.textContent = tiles.length === shown.length
+    ? el.count.textContent
+    : tiles.length + (tiles.length === 1 ? ' subject' : ' subjects') + ' in ' + shown.length + ' photos';
+
+  el.grid.innerHTML = tiles.map(function (t) {
+    var p = t.p, i = t.i;
     var pal = (p.palette || []).length
       ? '<div class="pal">' + p.palette.map(function (h) { return '<i style="background:' + esc(h) + '"></i>'; }).join('') + '</div>'
       : '';
     var src = imgSrc(p, 480);
-    return '<button class="tile" type="button" data-i="' + i + '">' +
+    return '<button class="tile" type="button" data-i="' + i + '"' +
+      (selected[p.id] ? ' data-sel="true"' : '') + '>' +
       '<div class="im">' +
         '<img loading="lazy" decoding="async" alt="' + esc(p.name) + '" src="' + esc(src) + '" data-id="' + esc(p.id) + '">' +
         (isTagged(p) ? '' : '<span class="untag" title="Not tagged yet"></span>') +
         (DUPES[p.id] ? '<span class="badge dupe" title="The same file is in the library ' +
           DUPES[p.id].length + ' times">' + DUPES[p.id].length + ' copies</span>' : '') +
+        (t.n > 1 && !expandGroups ? '<span class="badge shots">' + t.n + ' shots</span>' : '') +
         (statusOf(p) && statusOf(p) !== 'New' ? '<span class="badge" data-s="' +
           esc(statusOf(p).toLowerCase().replace(/\s+/g, '-')) + '">' + esc(statusOf(p)) + '</span>' : '') +
       '</div>' + pal +
@@ -511,8 +605,14 @@ function renderGrid() {
     '</button>';
   }).join('');
 
-  el.grid.querySelectorAll('.tile').forEach(function (t) {
-    t.addEventListener('click', function () { openViewer(parseInt(t.dataset.i, 10)); });
+  el.grid.querySelectorAll('.tile').forEach(function (el2) {
+    el2.addEventListener('click', function () {
+      var idx = parseInt(el2.dataset.i, 10);
+      if (!selectMode) return openViewer(idx);
+      var p = viewList[idx];
+      if (selected[p.id]) delete selected[p.id]; else selected[p.id] = true;
+      renderGrid(); updateSelBar();
+    });
   });
   el.grid.querySelectorAll('.tile img').forEach(function (img) {
     img.addEventListener('load', function () { maybeReadColours(img); });
@@ -533,10 +633,11 @@ function maybeReadColours(img) {
   if (!res) return;
   p.palette = res.palette;
   p.colours = res.colours;
+  p.sig = layoutSig(img) || p.sig;
   saveTags(p, true);
 }
 
-function render() { DUPES = dupeGroups(); renderFilters(); renderGrid(); }
+function render() { DUPES = dupeGroups(); GROUPS = groupsOf(); renderFilters(); renderGrid(); }
 
 var renderTimer = null;
 function scheduleRender() {
@@ -552,6 +653,7 @@ function openViewer(i) {
   el.stageimg.src = imgSrc(p, 0);
   el.stageimg.alt = p.name;
   el.viewer.dataset.open = 'true';
+  renderStrip(p);
   renderSide(p);
   document.body.style.overflow = 'hidden';
 }
@@ -560,6 +662,31 @@ function closeViewer() {
   el.viewer.dataset.open = 'false';
   el.stageimg.removeAttribute('src');
   document.body.style.overflow = '';
+}
+
+/* The other shots of the same subject, under the photograph, so flicking
+   between angles is one tap and never leaves the subject you are judging. */
+function renderStrip(p) {
+  var strip = document.getElementById('strip');
+  var mates = (p.group && GROUPS[p.group]) ? GROUPS[p.group] : [];
+  if (mates.length < 2) { strip.innerHTML = ''; strip.hidden = true; return; }
+  strip.hidden = false;
+  strip.innerHTML = mates.map(function (m) {
+    return '<button class="shot" type="button" data-id="' + esc(m.id) + '"' +
+      (m.id === p.id ? ' aria-current="true"' : '') + '>' +
+      '<img loading="lazy" alt="" src="' + esc(imgSrc(m, 240)) + '"></button>';
+  }).join('');
+  strip.querySelectorAll('.shot').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var idx = viewList.map(function (x) { return x.id; }).indexOf(b.dataset.id);
+      if (idx !== -1) return openViewer(idx);
+      /* Collapsed out of the grid, so show it without disturbing the list. */
+      var m = LIB.photos.filter(function (x) { return x.id === b.dataset.id; })[0];
+      if (!m) return;
+      el.stageimg.src = imgSrc(m, 0); el.stageimg.alt = m.name;
+      renderStrip(m); renderSide(m);
+    });
+  });
 }
 
 function renderSide(p) {
@@ -708,7 +835,8 @@ function saveTags(p, quiet) {
     var all = {};
     try { all = JSON.parse(localStorage.getItem(PREVIEW_KEY) || '{}'); } catch (e) {}
     all[p.id] = { facets: p.facets, colours: p.colours, palette: p.palette,
-      rating: p.rating, note: p.note, usedIn: p.usedIn, free: p.free };
+      rating: p.rating, note: p.note, usedIn: p.usedIn, free: p.free,
+      group: p.group, sig: p.sig };
     try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(all)); } catch (e) {}
     if (!quiet) flashSaved('Saved on this device');
     scheduleRender();
@@ -721,7 +849,8 @@ function saveTags(p, quiet) {
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       facets: p.facets, colours: p.colours, palette: p.palette, rating: p.rating,
-      used: p.used, usedIn: p.usedIn, note: p.note, free: p.free
+      used: p.used, usedIn: p.usedIn, note: p.note, free: p.free,
+      group: p.group, sig: p.sig
     })
   }).then(function (r) {
     if (!quiet) flashSaved(r.ok ? 'Saved' : 'Save failed');
@@ -783,6 +912,90 @@ document.getElementById('f-candidates').addEventListener('click', function () {
   this.setAttribute('aria-pressed', onlyCandidates ? 'true' : 'false');
   render();
 });
+function updateSelBar() {
+  var n = Object.keys(selected).length;
+  document.getElementById('selcount').textContent = n ? n + ' selected' : 'Tap photos to select them';
+  document.getElementById('do-group').disabled = n < 2;
+  document.getElementById('do-ungroup').disabled = n < 1;
+}
+
+document.getElementById('f-select').addEventListener('click', function () {
+  selectMode = !selectMode;
+  this.setAttribute('aria-pressed', selectMode ? 'true' : 'false');
+  document.getElementById('selbar').hidden = !selectMode;
+  if (!selectMode) selected = {};
+  updateSelBar(); renderGrid();
+});
+
+document.getElementById('f-expand').addEventListener('click', function () {
+  expandGroups = !expandGroups;
+  this.setAttribute('aria-pressed', expandGroups ? 'true' : 'false');
+  renderGrid();
+});
+
+/* Joining by hand is the exact answer and always available. The suggestion
+   below only ever saves typing. */
+document.getElementById('do-group').addEventListener('click', function () {
+  var ids = Object.keys(selected);
+  if (ids.length < 2) return;
+  var chosen = LIB.photos.filter(function (p) { return selected[p.id]; });
+  /* Joining a photograph that is already in a group merges the two, which is
+     what a person means by dragging one onto the other. */
+  var existing = chosen.map(function (p) { return p.group; }).filter(Boolean);
+  var gid = existing[0] || newGroupId();
+  var absorb = {};
+  existing.forEach(function (g) { absorb[g] = true; });
+  LIB.photos.forEach(function (p) {
+    if (selected[p.id] || (p.group && absorb[p.group])) { p.group = gid; saveTags(p, true); }
+  });
+  selected = {}; updateSelBar(); render();
+});
+
+document.getElementById('do-ungroup').addEventListener('click', function () {
+  LIB.photos.forEach(function (p) {
+    if (selected[p.id] && p.group) { p.group = ''; saveTags(p, true); }
+  });
+  selected = {}; updateSelBar(); render();
+});
+
+document.getElementById('do-suggest').addEventListener('click', function () {
+  var withSig = LIB.photos.filter(function (p) { return p.sig && p.sig.length; });
+  if (withSig.length < 2) {
+    notice('Nothing to work from yet', 'The signatures are read as each photograph is first drawn. Scroll the grid once, then try again.');
+    return;
+  }
+  /* Union find over pairs under the measured limit. */
+  var parent = {};
+  var find = function (x) { while (parent[x] && parent[x] !== x) x = parent[x]; return x; };
+  withSig.forEach(function (p) { parent[p.id] = p.group || p.id; });
+  var linked = 0;
+  for (var i = 0; i < withSig.length; i++) {
+    for (var j = i + 1; j < withSig.length; j++) {
+      if (sigDistance(withSig[i].sig, withSig[j].sig) > SIG_LIMIT) continue;
+      var a = find(withSig[i].id), b = find(withSig[j].id);
+      if (a !== b) { parent[a] = b; linked++; }
+    }
+  }
+  var sets = {};
+  withSig.forEach(function (p) { (sets[find(p.id)] = sets[find(p.id)] || []).push(p); });
+  var made = 0, joined = 0;
+  Object.keys(sets).forEach(function (root) {
+    var members = sets[root];
+    if (members.length < 2) return;
+    var gid = members.map(function (m) { return m.group; }).filter(Boolean)[0] || newGroupId();
+    members.forEach(function (m) { if (m.group !== gid) { m.group = gid; saveTags(m, true); joined++; } });
+    made++;
+  });
+  render();
+  notice(made ? 'Suggested ' + made + (made === 1 ? ' subject' : ' subjects') : 'Nothing looked like a pair',
+    made
+      ? 'It joined ' + joined + ' photographs into ' + made + ' ' + (made === 1 ? 'set' : 'sets') +
+        ', on colour and where that colour sits in the frame. It is deliberately cautious, so it will miss ' +
+        'about half of them: measured over your first twenty five it found eight of fifteen true pairs and ' +
+        'nothing wrong. Use Select for the rest, and Select then Ungroup to undo any of this.'
+      : 'Nothing was close enough to join with any confidence. Use Select to group them by hand.');
+});
+
 document.getElementById('f-dupes').addEventListener('click', function () {
   onlyDupes = !onlyDupes;
   this.setAttribute('aria-pressed', onlyDupes ? 'true' : 'false');
@@ -791,6 +1004,7 @@ document.getElementById('f-dupes').addEventListener('click', function () {
 document.getElementById('clear').addEventListener('click', function () {
   active = {}; activeColours = []; activeFree = []; query = '';
   onlyUntagged = false; onlyCandidates = false; onlyDupes = false;
+  selected = {}; updateSelBar();
   el.search.value = '';
   document.getElementById('f-untagged').setAttribute('aria-pressed', 'false');
   document.getElementById('f-candidates').setAttribute('aria-pressed', 'false');

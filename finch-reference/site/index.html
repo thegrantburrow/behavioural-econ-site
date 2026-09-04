@@ -27,7 +27,16 @@
       <button class="btn" id="f-untagged" aria-pressed="false" type="button">Untagged only</button>
       <button class="btn" id="f-candidates" aria-pressed="false" type="button">Candidates</button>
       <button class="btn" id="f-dupes" aria-pressed="false" type="button">Exact copies</button>
+      <button class="btn" id="f-expand" aria-pressed="false" type="button">Show every shot</button>
+      <button class="btn" id="f-select" aria-pressed="false" type="button">Select</button>
       <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+    <div class="selbar" id="selbar" hidden>
+      <span id="selcount">Tap photos to select them</span>
+      <span class="sp"></span>
+      <button class="btn" id="do-suggest" type="button">Suggest subjects</button>
+      <button class="btn" id="do-ungroup" type="button" disabled>Ungroup</button>
+      <button class="btn primary" id="do-group" type="button" disabled>Group as one subject</button>
     </div>
     <div class="grid" id="grid"></div>
   </main>
@@ -40,6 +49,7 @@
       <img id="stageimg" alt="">
       <div class="gl"></div>
     </div>
+    <div class="strip" id="strip" hidden></div>
     <div class="stagebar">
       <button class="btn" id="v-grey" aria-pressed="false" type="button">Values only</button>
       <button class="btn" id="v-grid" aria-pressed="false" type="button">Grid</button>
