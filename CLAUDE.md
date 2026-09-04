@@ -84,6 +84,55 @@ gets real punctuation. Before publishing any new page or artifact for this
 site, grep it for `&mdash;`, `&#8212;`, and the em dash character itself and
 fix anything that isn't one of those two UI exceptions.
 
+## Standing policy: every new or edited page keeps `search-index.js` in sync
+
+`search-index.js` is a separate, hand-maintained array (`SEARCH_INDEX`) that
+feeds every predictive-search box on the site (the homepage inline search,
+the homepage search band, and the nav-bar search available on every page,
+all wired in `script.js`). It is not generated from the pages themselves
+except for Principles, which it pulls live from `APPLY_PRINCIPLES`
+(`apply-data.js`); every other content type (Science Behind, Field Sessions,
+Experiments, Reading the Research, Natural Experiments) is a separate,
+manually-added row. Nothing enforces that a new or edited page's entry gets
+added here too, so it silently drifts, exactly like the `apply-data.js`
+parity trap `behavioural-principle-article` already documents for
+Principles, just one level up, across every other content type as well.
+
+On 2026-09-04 the owner asked "Ensure every change means the predictive
+search is finding etc" right after a new experiment blueprint shipped. A
+parity check turned up 4 pre-existing experiments (`cashback-rank-vs-raw-rate`,
+`loan-decline-benevolence-framing`, `printed-vs-digital-member-guide`,
+`tax-refund-debt-payoff-spending`) that had been live on `experiments.html`
+for a while but were never added to `search-index.js`, so predictive search
+could never find them, not because of anything wrong with those pages
+themselves, but because the separate index was never touched when they
+shipped.
+
+**The rule, going forward.** Whenever a page or artifact is added, renamed,
+or given a new anchor id in any of the content types `search-index.js`
+covers (a new principle, a new Science Behind entry, a new Field Session, a
+new Experiment, a new Reading the Research report, a new Natural Experiment),
+add or update its row in `search-index.js` in the same change, not as a
+follow-up. A principle only needs its `apply-data.js` entry (`SEARCH_INDEX`
+picks it up automatically); every other content type needs its own explicit
+row: `{ title, category, url, blurb }`, `category` matching one of the exact
+site nav labels (`'Principles'`, `'The Science Behind'`, `'Field Sessions'`,
+`'Experiments'`, `'Reading the Research'`, `'Natural Experiments'`, `'Apply
+It'`), `url` pointing at the real anchor, and `blurb` a real hook sentence,
+not a restated title.
+
+**The check.** Before calling any content addition finished, diff the ids:
+for principles, the `section.principle` ids in `principles.html` against the
+`id:` values in `apply-data.js` (already documented); for every other
+content type, its real anchor ids (`article.sb-entry` in `science-behind.html`,
+`article.experiment` in `experiments.html`, etc.) against the
+`url: '<page>.html#...'` values in `search-index.js`. A one-line Python or
+node diff of the two id sets catches a silent gap immediately; don't trust
+memory that both were touched. Then verify at least one new/changed entry
+live, by typing a real query into an actual predictive-search box (Playwright
+is fine) and confirming the right result appears, not just that the array
+entry exists syntactically.
+
 ## Standing policy: no AI writing tics, ever
 
 On 2026-08-22 the owner flagged a sentence in a freshly written experiment
