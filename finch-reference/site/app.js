@@ -52,6 +52,7 @@ var BUCKETS = [
   { k: 'grey',   n: 'Grey',   hex: '#9A9DA1' },
   { k: 'white',  n: 'White',  hex: '#EFEFEA' }
 ];
+var NEUTRAL = ['black', 'white', 'grey'];
 var BUCKET_BY_KEY = {};
 BUCKETS.forEach(function (b) { BUCKET_BY_KEY[b.k] = b; });
 
@@ -69,16 +70,16 @@ function rgbToHsl(r, g, b) {
 }
 
 /*
- * Buckets are cut on hue with lightness and saturation deciding the awkward
- * cases: a dark unsaturated orange is brown, a pale unsaturated anything is
- * white or grey. It gets a photo mostly right and is wrong often enough that
- * every colour it assigns stays editable in the panel.
+ * Buckets cut on hue, with the neutrals split on lightness.
+ *
+ * The earlier version sent ANY desaturated pixel below mid lightness to black,
+ * which is most of an outdoor photograph: asphalt, foliage in shade, a dark
+ * coat. Measured over Grant's twenty five, it called eighty percent of them
+ * black, which made the filter useless.
  */
 function bucketOf(r, g, b) {
   var hsl = rgbToHsl(r, g, b), h = hsl[0], s = hsl[1], l = hsl[2];
-  if (l < 0.16) return 'black';
-  if (l > 0.88 && s < 0.18) return 'white';
-  if (s < 0.14) return l < 0.5 ? 'black' : (l > 0.78 ? 'white' : 'grey');
+  if (s < 0.16) return l < 0.22 ? 'black' : (l > 0.78 ? 'white' : 'grey');
   if (h < 16 || h >= 340) return 'red';
   if (h < 42) return (l < 0.42 && s < 0.6) ? 'brown' : 'orange';
   if (h < 68) return (l < 0.38) ? 'brown' : 'yellow';
@@ -116,16 +117,33 @@ function readColours(img) {
     return { n: o.n, r: o.r / o.n, g: o.g / o.n, b: o.b / o.n };
   }).sort(function (a, b) { return b.n - a.n; });
   if (!list.length) return null;
-  var total = list.reduce(function (a, o) { return a + o.n; }, 0);
-  var weight = {};
+  /*
+   * Two scores, because a colour and a neutral are different questions.
+   *
+   * A COLOUR qualifies on a weighted share, where a saturated mid tone pixel
+   * counts for more than a pale wash: that is what finds the red on a watch
+   * face and the teal in the water, both of which the plain count missed.
+   *
+   * A NEUTRAL qualifies on its raw share of the frame, because the only
+   * interesting thing about black is how much of the picture it fills. Scoring
+   * it the weighted way penalises darkness twice and loses it entirely.
+   */
+  var wt = {}, raw = {}, wtTotal = 0, rawTotal = 0;
   list.forEach(function (o) {
+    var q = rgbToHsl(o.r, o.g, o.b), sat = q[1], lit = q[2];
+    var mid = Math.max(0, 1 - Math.abs(lit - 0.5) * 1.9);
+    var w = o.n * (0.12 + 0.88 * sat) * (0.15 + 0.85 * mid);
     var k = bucketOf(o.r, o.g, o.b);
-    weight[k] = (weight[k] || 0) + o.n;
+    wt[k] = (wt[k] || 0) + w;   wtTotal += w;
+    raw[k] = (raw[k] || 0) + o.n; rawTotal += o.n;
   });
-  var keys = Object.keys(weight)
-    .filter(function (k) { return weight[k] / total >= 0.06; })
-    .sort(function (a, b) { return weight[b] - weight[a]; })
-    .slice(0, 5);
+  var keys = Object.keys(raw).filter(function (k) {
+    return NEUTRAL.indexOf(k) !== -1
+      ? raw[k] / rawTotal >= 0.34
+      : (wt[k] || 0) / wtTotal >= 0.08;
+  }).sort(function (a, b) {
+    return ((wt[b] || 0) / wtTotal + raw[b] / rawTotal) - ((wt[a] || 0) / wtTotal + raw[a] / rawTotal);
+  }).slice(0, 4);
   return {
     palette: list.slice(0, 6).map(function (o) { return toHex(o.r, o.g, o.b); }),
     colours: keys
