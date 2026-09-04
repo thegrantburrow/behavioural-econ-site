@@ -208,3 +208,8 @@ button,input,select,textarea{font:inherit;color:inherit;}
 .tile .badge[data-s="shortlist"],
 .tile .badge[data-s="next-up"]{background:var(--accent);color:var(--accent-ink);}
 .tile .badge[data-s="not-for-me"]{background:rgba(0,0,0,.45);opacity:.75;}
+
+/* Only ever exact copies of one file. Deliberately not a guess about which
+   photographs are "similar": that was measured on the real set and could not
+   be done from pixels. */
+.tile .badge.dupe{left:6px;right:auto;top:auto;bottom:6px;background:var(--accent);color:var(--accent-ink);font-weight:600;}

@@ -136,7 +136,7 @@ function readColours(img) {
 var LIB = { photos: [], taxonomy: { groups: [] }, drive: false, store: false, demo: false };
 var active = {};       /* facet key  -> [values] */
 var activeColours = [], activeFree = [];
-var onlyUntagged = false, onlyCandidates = false, query = '';
+var onlyUntagged = false, onlyCandidates = false, onlyDupes = false, query = '';
 var viewIndex = -1, viewList = [];
 
 var el = {
@@ -187,6 +187,32 @@ function imgSrc(p, size) {
     ? '/thumb/' + encodeURIComponent(p.id) + '?s=' + size
     : '/img/' + encodeURIComponent(p.id);
 }
+
+/*
+ * Exact duplicates only, grouped on the checksum Drive already computed. The
+ * same photograph reaching the library from two folders is worth spotting and
+ * costs nothing to find.
+ *
+ * Four frames of one watch display are a different question and this does not
+ * pretend to answer it. Perceptual hashing was tried on the real set and could
+ * not: at 64, 256 and 1024 bits there were always unrelated photographs closer
+ * together than the true pairs, so no threshold existed. The signal that works
+ * is capture time, and that needs the dates Drive carries.
+ */
+function dupeGroups() {
+  var bySig = {};
+  LIB.photos.forEach(function (p) {
+    if (!p.sig) return;
+    (bySig[p.sig] = bySig[p.sig] || []).push(p.id);
+  });
+  var out = {};
+  Object.keys(bySig).forEach(function (sig) {
+    if (bySig[sig].length < 2) return;
+    bySig[sig].forEach(function (id) { out[id] = bySig[sig]; });
+  });
+  return out;
+}
+var DUPES = {};
 
 function singleGroup(key) {
   var g = (LIB.taxonomy.groups || []).filter(function (x) { return x.key === key; })[0];
@@ -317,6 +343,7 @@ function matches(p) {
   /* The one question the library exists to answer: what am I actually
      considering drawing? */
   if (onlyCandidates && CANDIDATE.indexOf(statusOf(p)) === -1) return false;
+  if (onlyDupes && !DUPES[p.id]) return false;
   if (query) {
     var hay = (p.name + ' ' + (p.note || '') + ' ' + (p.usedIn || '') + ' ' + (p.free || []).join(' ')).toLowerCase();
     if (hay.indexOf(query) === -1) return false;
@@ -456,6 +483,8 @@ function renderGrid() {
       '<div class="im">' +
         '<img loading="lazy" decoding="async" alt="' + esc(p.name) + '" src="' + esc(src) + '" data-id="' + esc(p.id) + '">' +
         (isTagged(p) ? '' : '<span class="untag" title="Not tagged yet"></span>') +
+        (DUPES[p.id] ? '<span class="badge dupe" title="The same file is in the library ' +
+          DUPES[p.id].length + ' times">' + DUPES[p.id].length + ' copies</span>' : '') +
         (statusOf(p) && statusOf(p) !== 'New' ? '<span class="badge" data-s="' +
           esc(statusOf(p).toLowerCase().replace(/\s+/g, '-')) + '">' + esc(statusOf(p)) + '</span>' : '') +
       '</div>' + pal +
@@ -489,7 +518,7 @@ function maybeReadColours(img) {
   saveTags(p, true);
 }
 
-function render() { renderFilters(); renderGrid(); }
+function render() { DUPES = dupeGroups(); renderFilters(); renderGrid(); }
 
 var renderTimer = null;
 function scheduleRender() {
@@ -736,12 +765,18 @@ document.getElementById('f-candidates').addEventListener('click', function () {
   this.setAttribute('aria-pressed', onlyCandidates ? 'true' : 'false');
   render();
 });
+document.getElementById('f-dupes').addEventListener('click', function () {
+  onlyDupes = !onlyDupes;
+  this.setAttribute('aria-pressed', onlyDupes ? 'true' : 'false');
+  render();
+});
 document.getElementById('clear').addEventListener('click', function () {
   active = {}; activeColours = []; activeFree = []; query = '';
-  onlyUntagged = false; onlyCandidates = false;
+  onlyUntagged = false; onlyCandidates = false; onlyDupes = false;
   el.search.value = '';
   document.getElementById('f-untagged').setAttribute('aria-pressed', 'false');
   document.getElementById('f-candidates').setAttribute('aria-pressed', 'false');
+  document.getElementById('f-dupes').setAttribute('aria-pressed', 'false');
   render();
 });
 var searchTimer;

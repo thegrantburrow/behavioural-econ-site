@@ -24,7 +24,38 @@ const SCOPE = 'https://www.googleapis.com/auth/drive.readonly';
 
 /* Drive fields we ask for. imageMediaMetadata.time is the EXIF capture time,
    which is the date the photo was taken rather than the date it was uploaded. */
-const FILE_FIELDS = 'id,name,mimeType,size,createdTime,modifiedTime,thumbnailLink,imageMediaMetadata(width,height,time,cameraMake,cameraModel)';
+/*
+ * md5Checksum is the exact duplicate answer and Drive computes it for us, so
+ * the same photograph arriving twice from two folders costs nothing to spot.
+ *
+ * It is only EXACT duplicates. Four shots of the same watch display are not
+ * byte identical and no checksum will ever group them: that is a same shoot
+ * question, and capture time is what answers it. See NEAR DUPLICATES below.
+ */
+const FILE_FIELDS = 'id,name,mimeType,size,md5Checksum,createdTime,modifiedTime,thumbnailLink,imageMediaMetadata(width,height,time,cameraMake,cameraModel)';
+
+/*
+ * NEAR DUPLICATES, and why there is no perceptual hash in this file.
+ *
+ * Measured on twenty five of Grant's own photographs, against a hand made
+ * truth of which ones are the same subject: four screenshots of one pair of
+ * trousers, four frames of one watch display, two of a Corvette, two of a city
+ * street, two on a bus.
+ *
+ *   dHash   64 bits: same subject worst 59.4%, closest unrelated 31.3%
+ *   dHash  256 bits: same subject worst 54.3%, closest unrelated 39.8%
+ *   dHash 1024 bits: same subject worst 51.7%, closest unrelated 43.6%
+ *
+ * The two distributions are not merely overlapping, they are the wrong way
+ * round at the edges: at every size there are unrelated photographs closer
+ * together than the true pairs. No threshold exists. A perceptual hash finds
+ * the same IMAGE re-encoded, and none of these are that. They are different
+ * shots of one subject, which have little pixel structure in common.
+ *
+ * What does answer it is when the shutter went. Photographs of one subject
+ * come in a run of seconds or minutes, and Drive returns that as
+ * imageMediaMetadata.time. Build it on that, not on the pixels.
+ */
 
 export default {
   async fetch(request, env, ctx) {
@@ -285,6 +316,7 @@ async function apiLibrary(request, env, ctx) {
       taken: meta.time || null,
       added: f.createdTime || null,
       camera: [meta.cameraMake, meta.cameraModel].filter(Boolean).join(' ') || null,
+      sig: f.md5Checksum || null,
       folderId: f.folderId,
       facets: t.facets || {},
       colours: t.colours || [],
