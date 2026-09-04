@@ -73,6 +73,24 @@ function normalizeApostrophes(s) {
 
   var CATEGORY_ORDER = ['Principles', 'The Science Behind', 'Field Sessions', 'Experiments', 'Reading the Research', 'Natural Experiments', 'Apply It'];
 
+  // Some real content lives under different names in different places, the
+  // same finding this site's own "Behavioural Economics vs. Behavioural
+  // Science vs. Psychology vs. UX" report is about: the academic term
+  // ("prize-linked savings"), the site's own headline phrasing ("savings
+  // lottery"), and a real product name (PLSA, Save to Win) can all be how a
+  // reader actually searches for the same entry. `blurb` stays the honest,
+  // readable hook shown nowhere in the UI beyond scoring; `keywords`, also
+  // never rendered, is where that alternate terminology lives so a search
+  // for any of them still finds the right result. Falls back cleanly on
+  // entries with no `keywords` field, same tier as a blurb match.
+  function siteRelevanceScore(item, query, fields) {
+    var base = PredictiveSearch.defaultRelevanceScore(item, query, fields);
+    if (base < 5) return base;
+    var q = query.toLowerCase();
+    var kw = String(item.keywords || '').toLowerCase();
+    return kw && kw.indexOf(q) !== -1 ? 4 : 5;
+  }
+
   [
     { input: 'homeSearch', list: 'homeSearchSuggestions' },
     { input: 'searchBandInput', list: 'searchBandSuggestions' },
@@ -86,6 +104,7 @@ function normalizeApostrophes(s) {
       list: list,
       data: SEARCH_INDEX,
       fields: { primary: 'title', secondary: 'blurb' },
+      relevanceScore: siteRelevanceScore,
       groupBy: 'category',
       groupOrder: CATEGORY_ORDER,
       maxResultsPerGroup: 3,

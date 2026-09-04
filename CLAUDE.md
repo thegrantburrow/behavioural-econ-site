@@ -133,6 +133,30 @@ live, by typing a real query into an actual predictive-search box (Playwright
 is fine) and confirming the right result appears, not just that the array
 entry exists syntactically.
 
+**Adjacent/alternate terminology: the `keywords` field.** A blurb can only
+literally contain a few words, but a reader can reasonably search using a
+different real term for the same thing: the academic name versus the site's
+own headline phrasing (`savings lottery` vs. `prize-linked savings`), a
+product's real name (`Save to Win`, `PLSA`), or, for a multi-mechanism entry
+like Science Behind (which decodes several principles at once, so the one
+hook blurb can't name them all), any one of the specific principles it cites.
+On 2026-09-04 the owner asked for exactly this ("adjacent terms so that can
+find eg savings lottery vs prize-linked savings"), and an audit of the same
+kind the parity check above already runs, this time checking whether each
+entry's own cited principle name(s) appear anywhere in its indexed text,
+found the gap was real and widespread: all 8 Science Behind entries and 19
+Experiments were missing at least one of their own defining terms. Any entry
+row in `search-index.js` may carry an optional `keywords: '...'` field
+(space-separated terms, never rendered anywhere in the UI, only used for
+matching) alongside its `blurb`; `script.js`'s `siteRelevanceScore` checks it
+as a fallback at the same tier as a blurb match. Add it whenever an entry's
+real, load-bearing alternate names, principle citations, or product names
+aren't already substrings of its own title/blurb, rather than distorting the
+blurb itself to cram every synonym in. Never invent a synonym that isn't
+real, established site or academic terminology, this is the same
+citation-honesty discipline as everywhere else on the site, just applied to
+search terms instead of quotes.
+
 ## Standing policy: no AI writing tics, ever
 
 On 2026-08-22 the owner flagged a sentence in a freshly written experiment
