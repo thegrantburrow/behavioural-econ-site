@@ -34,7 +34,7 @@ $WR whoami >/dev/null 2>&1 || $WR login
 
 say "3. Somewhere to keep the tags"
 if grep -q 'kv_namespaces' wrangler.jsonc; then
-  echo "   already bound, leaving it alone"
+  echo "   already bound (oscar-finch-reference-TAGS), leaving it alone"
 else
   OUT=$($WR kv namespace create TAGS)
   echo "$OUT"

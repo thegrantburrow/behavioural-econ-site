@@ -40,10 +40,18 @@
     "GOOGLE_SA_EMAIL": ""
   }
 
+  ,
+  // Created in the Cloudflare account on 2026-09-04. Holds the tags, notes,
+  // ratings, groups, the taxonomy and the draw list: one document per
+  // photograph, keyed the same way the preview keys them.
+  "kv_namespaces": [
+    { "binding": "TAGS", "id": "5d59f30232d8472996cf812f9e6b7e71" }
+  ]
+
   // Two things are set out of band and never appear in this repo:
   //
   //   npx wrangler kv namespace create TAGS     -> add the [[kv_namespaces]]
-  //                                                binding it prints, as TAGS
+
   //   npx wrangler secret put GOOGLE_SA_KEY     -> paste private_key from the
   //                                                JSON, newlines and all
   //

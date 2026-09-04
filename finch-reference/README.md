@@ -66,8 +66,9 @@ Everything in one place, no `wrangler login`, no API token anywhere.
 1. **Workers and Pages**, create a Worker from this repository, exactly like
    play-cricket. Root directory `finch-reference`, no build command, deploy
    command `npx wrangler deploy`.
-2. **Storage and Databases**, **KV**, create a namespace. In the Worker's
-   **Settings**, **Bindings**, bind it as `TAGS`.
+2. The KV namespace already exists in your account as
+   `oscar-finch-reference-TAGS`, and `wrangler.jsonc` already binds it as
+   `TAGS`, so a deploy picks it up with nothing to do here.
 3. Same Settings page, **Variables**: `ACCESS_EMAILS` is your address,
    `DRIVE_FOLDER_ID` is the folder, `GOOGLE_SA_EMAIL` is the service account's
    address. Then **Secret**: `GOOGLE_SA_KEY`, the `private_key` out of the JSON,
