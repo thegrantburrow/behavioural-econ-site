@@ -32,7 +32,7 @@ const SCOPE = 'https://www.googleapis.com/auth/drive.readonly';
  * byte identical and no checksum will ever group them: that is a same shoot
  * question, and capture time is what answers it. See NEAR DUPLICATES below.
  */
-const FILE_FIELDS = 'id,name,mimeType,size,md5Checksum,createdTime,modifiedTime,thumbnailLink,imageMediaMetadata(width,height,time,cameraMake,cameraModel)';
+const FILE_FIELDS = 'id,name,mimeType,size,md5Checksum,createdTime,modifiedTime,thumbnailLink,imageMediaMetadata(width,height,time,cameraMake,cameraModel,location)';
 
 /*
  * NEAR DUPLICATES, and why there is no perceptual hash in this file.
@@ -317,6 +317,19 @@ async function apiLibrary(request, env, ctx) {
       added: f.createdTime || null,
       camera: [meta.cameraMake, meta.cameraModel].filter(Boolean).join(' ') || null,
       sig: f.md5Checksum || null,
+      /*
+       * Where it was taken, straight off the phone at no cost. Worth carrying
+       * because these photographs are anchored to places: a boutique on George
+       * Street, a church in Annandale, a piazza in Milan, one particular beach.
+       * "The one from that morning at the beach" is how a person looks for a
+       * photograph, and a date alone does not answer it.
+       *
+       * A phone writes this only when location was on for the camera, so it is
+       * often absent and nothing may depend on it.
+       */
+      where: (meta.location && typeof meta.location.latitude === 'number')
+        ? { lat: meta.location.latitude, lng: meta.location.longitude }
+        : null,
       folderId: f.folderId,
       facets: t.facets || {},
       colours: t.colours || [],

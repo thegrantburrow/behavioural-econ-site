@@ -174,5 +174,46 @@ const allFiles = siteFiles.concat(['worker/index.js', 'README.md', 'scripts/expo
   globalThis.fetch = realFetch;
 }
 
+/* 6. The photograph fields the library depends on are actually mapped out of
+      Drive's reply. Renaming one is a silent loss: the page just stops showing
+      a date, or a camera, or where it was taken, with no error anywhere. */
+{
+  const realFetch2 = globalThis.fetch;
+  globalThis.fetch = async (input) => {
+    /* driveList passes a URL object, the token call passes a string. */
+    const url = typeof input === 'string' ? input : (input.href || input.url);
+    if (url.startsWith('https://oauth2.googleapis.com/token')) {
+      return new Response(JSON.stringify({ access_token: 't', expires_in: 3600 }),
+        { headers: { 'content-type': 'application/json' } });
+    }
+    return new Response(JSON.stringify({ files: [{
+      id: 'f1', name: 'IMG_0001.jpg', mimeType: 'image/jpeg', size: '4200000',
+      md5Checksum: 'abc123', createdTime: '2026-09-01T00:00:00Z',
+      imageMediaMetadata: { width: 4032, height: 3024, time: '2026:08:14 08:12:31',
+        cameraMake: 'Apple', cameraModel: 'iPhone 15 Pro',
+        location: { latitude: -33.8688, longitude: 151.2093 } }
+    }] }), { headers: { 'content-type': 'application/json' } });
+  };
+  const { generateKeyPairSync: gk } = await import('node:crypto');
+  const pem2 = gk('rsa', { modulusLength: 2048 }).privateKey
+    .export({ type: 'pkcs8', format: 'pem' }).toString();
+  const mod3 = await import('./worker/index.js?fields');
+  const res3 = await mod3.default.fetch(
+    new Request('https://x.test/api/library', { headers: { 'Cf-Access-Authenticated-User-Email': 'a@b.com' } }),
+    { ACCESS_EMAILS: 'a@b.com', GOOGLE_SA_EMAIL: 'sa@x.iam', GOOGLE_SA_KEY: pem2, DRIVE_FOLDER_ID: 'F' },
+    { waitUntil() {} });
+  const body3 = await res3.json();
+  const ph = (body3.photos || [])[0] || {};
+  const want = {
+    taken: '2026:08:14 08:12:31', camera: 'Apple iPhone 15 Pro', sig: 'abc123',
+    width: 4032, height: 3024, bytes: 4200000
+  };
+  const wrong = Object.keys(want).filter(k => ph[k] !== want[k]);
+  if (!ph.where || ph.where.lat !== -33.8688) wrong.push('where');
+  if (wrong.length) bad('every Drive field the page needs is mapped', 'lost: ' + wrong.join(', '));
+  else ok('every Drive field the page needs is mapped', 'date, camera, checksum, size, location');
+  globalThis.fetch = realFetch2;
+}
+
 console.log(failures ? '\n' + failures + ' check(s) failed.' : '\nAll checks passed.');
 process.exit(failures ? 1 : 0);
