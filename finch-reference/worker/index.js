@@ -356,15 +356,27 @@ async function apiImage(request, env, ctx, id) {
   if (hit) return hit;
 
   const token = await driveToken(env);
-  const res = await fetch(DRIVE + '/files/' + encodeURIComponent(id) + '?alt=media&supportsAllDrives=true', {
-    headers: { authorization: 'Bearer ' + token }
-  });
-  if (!res.ok) return json({ error: 'drive_fetch', status: res.status }, 502);
+  const meta = await metaFor(env, id);
+  let res = null;
+  let forcedType = null;
+
+  if (meta && NEEDS_TRANSCODE.indexOf(meta.mimeType) !== -1 && meta.thumbnailLink) {
+    /* Drive's rendition, asked for at a size worth drawing from. */
+    res = await fetch(meta.thumbnailLink.replace(/=s\d+$/, '=s2048'));
+    if (res.ok) forcedType = 'image/jpeg';
+    else { fileMeta.delete(id); res = null; }
+  }
+  if (!res) {
+    res = await fetch(DRIVE + '/files/' + encodeURIComponent(id) + '?alt=media&supportsAllDrives=true', {
+      headers: { authorization: 'Bearer ' + token }
+    });
+    if (!res.ok) return json({ error: 'drive_fetch', status: res.status }, 502);
+  }
 
   const out = new Response(res.body, {
     status: 200,
     headers: {
-      'content-type': res.headers.get('content-type') || 'image/jpeg',
+      'content-type': forcedType || res.headers.get('content-type') || 'image/jpeg',
       /* Drive ids are stable, so the bytes behind one never change. */
       'cache-control': 'private, max-age=31536000, immutable',
       'x-content-type-options': 'nosniff'
@@ -379,8 +391,35 @@ async function apiImage(request, env, ctx, id) {
  * a Drive backed gallery feel slow, so this uses Drive's own thumbnail and asks
  * it for the size actually being drawn. Falls back to the full image when Drive
  * has not made a thumbnail yet, which happens for a few seconds after upload.
+ *
+ * The cache holds the mime type as well, because /img needs it to know whether
+ * the raw bytes are something a browser can actually draw. See NEEDS_TRANSCODE below.
  */
-const thumbLinks = new Map();
+const fileMeta = new Map();
+
+async function metaFor(env, id) {
+  if (fileMeta.has(id)) return fileMeta.get(id);
+  const token = await driveToken(env);
+  const res = await fetch(DRIVE + '/files/' + encodeURIComponent(id) +
+    '?fields=thumbnailLink,mimeType&supportsAllDrives=true', {
+    headers: { authorization: 'Bearer ' + token }
+  });
+  if (!res.ok) return null;
+  const meta = await res.json();
+  fileMeta.set(id, meta);
+  return meta;
+}
+
+/*
+ * An iPhone writes HEIC and Drive stores it untouched. Chrome and Firefox
+ * cannot decode it, so serving the raw bytes gives a broken image icon and
+ * nothing in the console to explain it. Safari would have shown it fine, which
+ * is the sort of bug that survives testing on one machine.
+ *
+ * Drive already keeps a JPEG rendition for its own previews, so HEIC is served
+ * from that at full width instead. The original is never modified.
+ */
+const NEEDS_TRANSCODE = ['image/heif', 'image/heic', 'image/x-adobe-dng', 'image/tiff'];
 
 async function apiThumb(request, env, ctx, id) {
   if (!driveConfigured(env)) return json({ error: 'drive_not_configured' }, 503);
@@ -391,20 +430,12 @@ async function apiThumb(request, env, ctx, id) {
   if (hit) return hit;
 
   const token = await driveToken(env);
-  let link = thumbLinks.get(id);
-  if (!link) {
-    const metaRes = await fetch(DRIVE + '/files/' + encodeURIComponent(id) + '?fields=thumbnailLink&supportsAllDrives=true', {
-      headers: { authorization: 'Bearer ' + token }
-    });
-    if (metaRes.ok) {
-      const meta = await metaRes.json();
-      if (meta.thumbnailLink) { link = meta.thumbnailLink; thumbLinks.set(id, link); }
-    }
-  }
+  const meta = await metaFor(env, id);
+  const link = meta && meta.thumbnailLink;
   let res;
   if (link) {
     res = await fetch(link.replace(/=s\d+$/, '=s' + size));
-    if (!res.ok) { thumbLinks.delete(id); res = null; }
+    if (!res.ok) { fileMeta.delete(id); res = null; }
   }
   if (!res) {
     res = await fetch(DRIVE + '/files/' + encodeURIComponent(id) + '?alt=media&supportsAllDrives=true', {

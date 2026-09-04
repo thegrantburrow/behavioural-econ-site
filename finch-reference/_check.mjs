@@ -108,5 +108,71 @@ const allFiles = siteFiles.concat(['worker/index.js', 'README.md', 'scripts/expo
   else ok('gate rejects an address not on the list', '403');
 }
 
+/* 5. An iPhone photo is HEIC and most browsers cannot draw it. Drive keeps a
+      JPEG rendition, so /img must serve that instead of the raw bytes for those
+      types and the original bytes for everything else. Asserted by running the
+      Worker against a stubbed Drive, because the failure is a broken image icon
+      with nothing in the console and it would only show up on a machine that is
+      not a Mac. */
+{
+  const { generateKeyPairSync } = await import('node:crypto');
+  const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
+  const pem = privateKey.export({ type: 'pkcs8', format: 'pem' }).toString();
+
+  const FILES = {
+    heic: { mimeType: 'image/heif', thumbnailLink: 'https://lh3.example/abc=s220' },
+    jpg:  { mimeType: 'image/jpeg', thumbnailLink: 'https://lh3.example/def=s220' }
+  };
+  const seen = [];
+  const realFetch = globalThis.fetch;
+  globalThis.caches = { default: { match: async () => undefined, put: async () => {} } };
+  globalThis.fetch = async (input) => {
+    const url = typeof input === 'string' ? input : input.url;
+    seen.push(url);
+    if (url.startsWith('https://oauth2.googleapis.com/token')) {
+      return new Response(JSON.stringify({ access_token: 't', expires_in: 3600 }),
+        { headers: { 'content-type': 'application/json' } });
+    }
+    const fieldsMatch = url.match(/files\/(\w+)\?fields=/);
+    if (fieldsMatch) {
+      return new Response(JSON.stringify(FILES[fieldsMatch[1]] || {}),
+        { headers: { 'content-type': 'application/json' } });
+    }
+    if (url.includes('alt=media')) {
+      return new Response('RAWBYTES', { headers: { 'content-type': 'image/heif' } });
+    }
+    return new Response('JPEGBYTES', { headers: { 'content-type': 'image/jpeg' } });
+  };
+
+  const mod2 = await import('./worker/index.js?heic');
+  const env = {
+    ACCESS_EMAILS: 'a@b.com', GOOGLE_SA_EMAIL: 'sa@x.iam', GOOGLE_SA_KEY: pem,
+    DRIVE_FOLDER_ID: 'F'
+  };
+  const hdr = { 'Cf-Access-Authenticated-User-Email': 'a@b.com' };
+  const ctx = { waitUntil() {} };
+
+  seen.length = 0;
+  const heicRes = await mod2.default.fetch(new Request('https://x.test/img/heic', { headers: hdr }), env, ctx);
+  const heicType = heicRes.headers.get('content-type');
+  const askedRendition = seen.some(u => u.includes('lh3.example/abc=s2048'));
+  const askedRaw = seen.some(u => u.includes('files/heic?alt=media'));
+  if (heicType !== 'image/jpeg' || !askedRendition || askedRaw) {
+    bad('HEIC is served as something a browser can draw',
+      'type ' + heicType + ', rendition ' + askedRendition + ', raw ' + askedRaw);
+  } else ok('HEIC is served as something a browser can draw', 'Drive rendition at s2048, as image/jpeg');
+
+  seen.length = 0;
+  const jpgRes = await mod2.default.fetch(new Request('https://x.test/img/jpg', { headers: hdr }), env, ctx);
+  const usedRaw = seen.some(u => u.includes('files/jpg?alt=media'));
+  const usedRendition = seen.some(u => u.includes('lh3.example/def=s2048'));
+  if (!usedRaw || usedRendition || jpgRes.status !== 200) {
+    bad('a normal photo still serves its original bytes',
+      'raw ' + usedRaw + ', rendition ' + usedRendition + ', status ' + jpgRes.status);
+  } else ok('a normal photo still serves its original bytes', 'alt=media, untouched');
+
+  globalThis.fetch = realFetch;
+}
+
 console.log(failures ? '\n' + failures + ' check(s) failed.' : '\nAll checks passed.');
 process.exit(failures ? 1 : 0);

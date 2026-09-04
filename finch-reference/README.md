@@ -209,6 +209,19 @@ Pen" is `/products/the-time-traveller-the-homo-sapiens-pen`, while "The Heart an
 the Wattle" keeps its written "and". All twelve handles on the store were tested
 against the rule. Paste a handle in directly and it passes through unchanged.
 
+### iPhone photos
+
+Your Drive already has HEIC files in it, and Chrome and Firefox cannot draw
+one. Serving the bytes straight through gives a broken image icon and nothing
+in the console to explain it, and Safari would have shown it perfectly, so it is
+the kind of fault that survives being tested on one machine.
+
+Drive keeps a JPEG rendition of every image for its own previews, so HEIC, HEIF,
+DNG and TIFF are served from that instead. Your originals are never modified and
+never re-encoded in Drive. `_check.mjs` runs the Worker against a stubbed Drive
+to prove that HEIC takes the rendition and an ordinary JPEG still gets its own
+untouched bytes.
+
 ## The archive
 
 KV holds the copy the site reads and writes. Git holds the copy with a history.
