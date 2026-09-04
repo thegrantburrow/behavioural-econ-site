@@ -169,3 +169,36 @@ because the distinction was load-bearing, five fixed because it wasn't),
 and the four-question test to run before calling any sentence finished.
 Load that skill before finishing any new prose on this site, the same way
 `behavioural-principle-article` gets loaded before a new principle.
+
+## Standing policy: every cross-page reference gets inline-linked in body prose, not just meta
+
+On 2026-09-04 the owner flagged the `home-loan-prize-draw` experiment's own
+Theory paragraph: it named &ldquo;Bankwest's real Interesting Rates
+promotion&rdquo; and said &ldquo;Probability Weighting is the direct
+mechanism&rdquo; as plain text, while the real `<a href>` to those two pages
+only lived in `session-meta` and the closing `also-note`. A reader following
+the actual argument had no way to click through to the thing being described
+at the exact point it was named, only at the top of the page (before they
+knew why it mattered) or the bottom (after they'd already read past it).
+
+**The rule.** Whenever an experiment's or Science Behind entry's `Builds
+on`/`session-meta` line or closing `also-note` cites another real page on
+the site (a principle, a Science Behind entry, a special report), the first
+mention of that same thing inside the body prose (Theory, Hypothesis,
+Ethics, a `.sb-block`, wherever it's actually named) must carry the real
+`<a href>` too, not just the meta line and the closing note. This mirrors
+the `search-index.js` sync policy above: a citation living only at the
+edges of the piece, never at the place a reader would actually want to
+click, is the same class of defect as an entry search can't find, just
+applied to navigation instead of discovery.
+
+**The check.** `scripts/check_inline_references.py` (run from the repo
+root, no arguments needed) diffs every experiment's and Science Behind
+entry's `session-meta`/`also-note` hrefs against its own body prose and
+reports any cross-page reference missing an inline link, exits non-zero if
+it finds one. Run it before calling any new or edited experiment/Science
+Behind entry finished. Running it for the first time found the identical
+gap already live on 23 of the site's other 26 experiments (all 8 Science
+Behind entries came back clean; `home-loan-prize-draw` was fixed the same
+day this was written), a real, pre-existing backlog the script now makes
+visible instead of relying on someone re-reading every piece by hand.
