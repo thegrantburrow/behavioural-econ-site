@@ -28,7 +28,8 @@ having an archive that outlives any one service.
 | Path | What it is |
 | --- | --- |
 | `worker/index.js` | The only server side code. The gate, the Drive client, the image proxy, the tags API. |
-| `worker/wrangler.toml` | Deployment config. Every secret is a placeholder. |
+| `wrangler.jsonc` | Deployment config, at the root so the dashboard can deploy this folder. Every secret is a placeholder. |
+| `setup.sh` | The command line route through the whole setup. |
 | `site/` | The library itself: `index.html`, `app.js`, `styles.css`. No build step. |
 | `scripts/export-archive.mjs` | Pulls the live tags into `library.json` so git has a copy. |
 | `_check.mjs` | The checks. Run before every commit. |
@@ -53,22 +54,54 @@ front of every request including the static ones.
 
 ## Setup
 
-Most of it is one command. Two steps are browser jobs on your accounts that
-nothing can do for you: creating the Google service account, and putting
-Cloudflare Access in front of the hostname.
+You already run Workers for the cricket site, so this is laid out the same way:
+`wrangler.jsonc` at the root of this folder, `run_worker_first` on, no account
+id and no routes in the file. Two routes to deploying it, and the dashboard one
+is shorter if you are already in there.
+
+### The dashboard route
+
+Everything in one place, no `wrangler login`, no API token anywhere.
+
+1. **Workers and Pages**, create a Worker from this repository, exactly like
+   play-cricket. Root directory `finch-reference`, no build command, deploy
+   command `npx wrangler deploy`.
+2. **Storage and Databases**, **KV**, create a namespace. In the Worker's
+   **Settings**, **Bindings**, bind it as `TAGS`.
+3. Same Settings page, **Variables**: `ACCESS_EMAILS` is your address,
+   `DRIVE_FOLDER_ID` is the folder, `GOOGLE_SA_EMAIL` is the service account's
+   address. Then **Secret**: `GOOGLE_SA_KEY`, the `private_key` out of the JSON,
+   newlines and all.
+4. **Zero Trust**, **Access**, **Applications**: a self hosted application on
+   this Worker's hostname, with a policy allowing only your address.
+
+### The command line route
 
 ```
 ./setup.sh ~/Downloads/service-account.json you@example.com <drive-folder-id>
 ```
 
-That signs you in to Cloudflare, creates the KV namespace and binds it, writes
-the three settings, pushes the private key in as a secret, runs the checks and
-deploys. The Worker has been dry run deployed from this repository, so the
-bundle and the bindings are known good before you start: 18 KiB, the assets
-directory read, ACCESS_EMAILS, DRIVE_FOLDER_ID and GOOGLE_SA_EMAIL all bound.
+Signs you in, creates and binds the KV namespace, writes the three settings,
+pushes the key in as a secret, runs the checks and deploys. It leaves step 4
+above for you, because Access is not a Workers setting and no amount of wrangler
+reaches it.
+
+### What no route avoids
+
+Two things need your own browser and your own login, and nothing changes that:
+
+- **The Google service account.** Google Cloud console: a project, the Drive API
+  enabled, a service account with no roles, and a JSON key downloaded. Section 2
+  below has the clicks.
+- **The Access application.** Step 4 above. Until Access is stamping a header on
+  requests, the Worker serves a setup page and nothing else, which is the point
+  rather than a gap.
+
+The Worker has been dry run deployed from this repository so the path is known
+good before you spend anything on it: 18.23 KiB, the assets directory read, and
+ASSETS, ACCESS_EMAILS, DRIVE_FOLDER_ID and GOOGLE_SA_EMAIL all bound.
 
 The long form of every step is below, for when something does not go to plan.
-
 
 ### 1. Put it in its own private repository
 

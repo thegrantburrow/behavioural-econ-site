@@ -1,0 +1,52 @@
+{
+  // Cloudflare Workers, laid out the same way play-cricket is, so this deploys
+  // through the dashboard's Git integration rather than needing anyone to run
+  // `wrangler login` on a laptop:
+  //
+  //   Root directory:  finch-reference
+  //   Build command:   (none, there is no build step)
+  //   Deploy command:  npx wrangler deploy
+  //
+  // No account_id and no routes here, for the same reason they are absent from
+  // the cricket config: the account comes from whoever is deploying, and the
+  // hostname is attached to the Worker on the dashboard. That is also where the
+  // Access policy goes, and Access is what this whole thing hangs on.
+  "name": "oscar-finch-reference",
+  "compatibility_date": "2026-09-01",
+  "main": "worker/index.js",
+
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS",
+    // Same reason as the cricket site, but load bearing here rather than a
+    // nicety: without it the asset server answers first and the Worker only
+    // sees requests that match no file, so index.html would be handed to
+    // anybody who asked, gate or no gate. The gate has to be in front of
+    // everything, including the static files.
+    "run_worker_first": true
+  },
+
+  "vars": {
+    // Nobody gets in until this is set, including you. An unset value makes the
+    // Worker serve a setup page and nothing else, which is deliberate: an
+    // unconfigured gate is an open door in front of a private photo collection.
+    "ACCESS_EMAILS": "",
+
+    // The Drive folder to read, or several separated by commas.
+    "DRIVE_FOLDER_ID": "",
+
+    // The service account's client_email out of its JSON key. Not a secret on
+    // its own: it is an address, and it is useless without the private key.
+    "GOOGLE_SA_EMAIL": ""
+  }
+
+  // Two things are set out of band and never appear in this repo:
+  //
+  //   npx wrangler kv namespace create TAGS     -> add the [[kv_namespaces]]
+  //                                                binding it prints, as TAGS
+  //   npx wrangler secret put GOOGLE_SA_KEY     -> paste private_key from the
+  //                                                JSON, newlines and all
+  //
+  // Both can be done on the dashboard instead, under the Worker's Settings,
+  // which is the shorter path if you are already there adding the Access policy.
+}
