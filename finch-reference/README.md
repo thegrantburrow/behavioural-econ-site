@@ -173,6 +173,59 @@ in the photograph. Every chip carries the number of photographs it would leave
 you with, counted against everything else already selected, so a chip showing
 zero really would empty the grid.
 
+### Two tabs
+
+**Library** is everything. **To draw** is the short ordered list of what you
+actually mean to make, with its count on the tab so it is visible from either
+side.
+
+Marking one is the plus on the tile, so it happens while you are scanning rather
+than after opening. The viewer carries the same control for when you have opened
+something to judge it properly. In the list, the arrows move a row and the cross
+takes it off; tapping the thumbnail or the name jumps back to it.
+
+The list holds SUBJECTS, not photographs. Adding any one of four frames of a
+watch display puts the display on the list and carries the other three with it.
+Four shots of one thing is one thing to draw.
+
+Positions are renumbered one to N after every change, so a gap or a collision
+from an interrupted save cannot accumulate into a wrong order.
+
+### One tile per subject
+
+Four screenshots of one pair of trousers is one thing you are deciding about.
+The grid shows one tile with the number of shots on it, and opening it puts the
+rest in a filmstrip under the photograph, so moving between angles never means
+going back to the grid.
+
+**Select**, then tap, then **Group as one subject** joins them by hand, which is
+exact. Selecting one already in a set merges the two. **Ungroup** undoes it, and
+**Show every shot** ignores the grouping for a moment.
+
+**Suggest subjects** does the obvious ones for you. It compares the mean colour
+of each cell of a three by three grid in Lab, and it is deliberately cautious:
+measured against a hand made truth over the first twenty five it found eight of
+fifteen true pairs and nothing wrong. Groups chain, so one bad link would weld
+two unrelated subjects together, which is worse than a pair you join in a
+second. Expect it to find about half and leave the rest to you.
+
+A structural hash was tried first and cannot do this at all. At 64, 256 and 1024
+bits some unrelated photographs always sat closer together than the true pairs,
+because different shots of one subject share little pixel structure. What they
+share is the palette and roughly where it sits in the frame.
+
+### When the phone gets the orientation wrong
+
+**Rotate** in the viewer turns a photograph a quarter at a time and remembers it,
+in the grid as well as the stage. Your file is never touched, which matters when
+it lives in Drive and this is only reading it.
+
+It is there because a phone writes its orientation tag from gravity, and a
+photograph taken straight down has no gravity in the plane of the sensor, so it
+guesses. One of the first twenty five is tagged wrong for exactly that reason.
+This is not the pipeline getting it wrong: Chromium applies the tag on all
+twenty five and the pipeline follows it.
+
 ### The categories are about finding something to draw
 
 They are deliberately **not** the shop's product tags. An earlier version
@@ -238,6 +291,19 @@ DNG and TIFF are served from that instead. Your originals are never modified and
 never re-encoded in Drive. `_check.mjs` runs the Worker against a stubbed Drive
 to prove that HEIC takes the rendition and an ordinary JPEG still gets its own
 untouched bytes.
+
+## Where your work is kept
+
+Three places, and which one is in charge depends on what is running.
+
+| Running | Tags, groups, order and the draw list live in |
+| --- | --- |
+| The deployed site | KV, behind the Worker. One document per photograph. |
+| A preview artifact | Your Claude account, so the same list turns up on the phone and the laptop. The browser holds a copy first, so the page works with no network. |
+| Neither | The browser alone. |
+
+The preview mirrors production deliberately: one document per photograph, keyed
+the same way, so nothing is rewritten when the deployed site takes over.
 
 ## The archive
 
