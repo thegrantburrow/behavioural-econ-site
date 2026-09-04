@@ -306,6 +306,12 @@ function newGroupId() {
   return 'g' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 }
 
+/* A tree group's values are its leaves, gathered from the branches. */
+function valuesOf(g) {
+  if (!g.tree) return g.values || [];
+  return Object.keys(g.tree).reduce(function (a, k) { return a.concat(g.tree[k]); }, []);
+}
+
 function singleGroup(key) {
   var g = (LIB.taxonomy.groups || []).filter(function (x) { return x.key === key; })[0];
   return !!(g && g.single);
@@ -349,7 +355,7 @@ function bootEmbedded(data) {
     p.facets = t.facets || p.facets; p.colours = t.colours || p.colours;
     p.palette = t.palette || p.palette; p.rating = t.rating || 0;
     p.note = t.note || ''; p.usedIn = t.usedIn || ''; p.free = t.free || [];
-    p.group = t.group || p.group; p.sig = t.sig || p.sig;
+    p.group = t.group || p.group; p.sig = t.sig || p.sig; p.rot = t.rot || 0;
   });
   notice('This is a preview, and it is yours alone',
     'Your actual photographs, running the real interface. Tagging is kept in this browser rather than on a server, ' +
@@ -483,15 +489,26 @@ function countForColour(k) {
 function renderFilters() {
   var html = '';
   (LIB.taxonomy.groups || []).forEach(function (g) {
-    html += '<div class="grp"><h2>' + esc(g.label) + '</h2><div class="chips">';
-    (g.values || []).forEach(function (v) {
+    html += '<div class="grp"><h2>' + esc(g.label) + '</h2>';
+    var chip = function (v) {
       var on = (active[g.key] || []).indexOf(v) !== -1;
       var n = countFor(g.key, v);
-      html += '<button class="chip' + (n === 0 && !on ? ' dim' : '') + '" type="button" ' +
+      return '<button class="chip' + (n === 0 && !on ? ' dim' : '') + '" type="button" ' +
         'aria-pressed="' + (on ? 'true' : 'false') + '" data-g="' + esc(g.key) + '" data-v="' + esc(v) + '">' +
         esc(v) + '<span class="c">' + n + '</span></button>';
-    });
-    html += '</div></div>';
+    };
+    if (g.tree) {
+      /* Parent is a heading carrying its own total, children are the chips. */
+      Object.keys(g.tree).forEach(function (parent) {
+        var kids = g.tree[parent];
+        var total = kids.reduce(function (a, v) { return a + countFor(g.key, v); }, 0);
+        html += '<div class="branch"><h3>' + esc(parent) + '<span class="c">' + total + '</span></h3>' +
+          '<div class="chips">' + kids.map(chip).join('') + '</div></div>';
+      });
+    } else {
+      html += '<div class="chips">' + (g.values || []).map(chip).join('') + '</div>';
+    }
+    html += '</div>';
   });
 
   var freeTags = freeTagCounts();
@@ -592,7 +609,8 @@ function renderGrid() {
     return '<button class="tile" type="button" data-i="' + i + '"' +
       (selected[p.id] ? ' data-sel="true"' : '') + '>' +
       '<div class="im">' +
-        '<img loading="lazy" decoding="async" alt="' + esc(p.name) + '" src="' + esc(src) + '" data-id="' + esc(p.id) + '">' +
+        '<img loading="lazy" decoding="async" alt="' + esc(p.name) + '" src="' + esc(src) + '" data-id="' + esc(p.id) + '"' +
+          (p.rot ? ' style="transform:rotate(' + (p.rot % 360) + 'deg)"' : '') + '>' +
         (isTagged(p) ? '' : '<span class="untag" title="Not tagged yet"></span>') +
         (DUPES[p.id] ? '<span class="badge dupe" title="The same file is in the library ' +
           DUPES[p.id].length + ' times">' + DUPES[p.id].length + ' copies</span>' : '') +
@@ -652,6 +670,7 @@ function openViewer(i) {
   var p = viewList[i];
   el.stageimg.src = imgSrc(p, 0);
   el.stageimg.alt = p.name;
+  el.stageimg.onload = function () { applyRotation(p); };
   el.viewer.dataset.open = 'true';
   renderStrip(p);
   renderSide(p);
@@ -666,6 +685,30 @@ function closeViewer() {
 
 /* The other shots of the same subject, under the photograph, so flicking
    between angles is one tap and never leaves the subject you are judging. */
+/*
+ * A phone writes an EXIF orientation tag from gravity, and a photograph taken
+ * straight down has no gravity in the plane of the sensor, so it guesses. Of
+ * Grant's first twenty five, one is tagged wrong: a family on a couch shot from
+ * above, tagged portrait, landscape in truth.
+ *
+ * Checked before adding this rather than assuming a bug: Chromium applies the
+ * tag on all twenty five and the pipeline follows it faithfully. The metadata is
+ * simply wrong, so the answer is a correction that outlives it, saved with the
+ * photograph and applied everywhere it is drawn. The file is never touched.
+ */
+function applyRotation(p) {
+  var rot = ((p.rot || 0) % 360 + 360) % 360;
+  var img = el.stageimg;
+  img.style.transform = rot ? 'rotate(' + rot + 'deg)' : '';
+  if (!rot || (rot !== 90 && rot !== 270)) { img.style.width = ''; img.style.height = ''; return; }
+  /* A quarter turn swaps the axes, so fit it to the box the other way round. */
+  var box = el.stage.getBoundingClientRect();
+  var nat = (img.naturalWidth && img.naturalHeight) ? img.naturalWidth / img.naturalHeight : 1;
+  var fit = Math.min(box.height / 1, box.width / nat);
+  img.style.width = Math.round(Math.min(box.height, box.width / nat)) + 'px';
+  img.style.height = Math.round(Math.min(box.height, box.width / nat) / nat) + 'px';
+}
+
 function renderStrip(p) {
   var strip = document.getElementById('strip');
   var mates = (p.group && GROUPS[p.group]) ? GROUPS[p.group] : [];
@@ -715,12 +758,20 @@ function renderSide(p) {
   groups.forEach(function (g) {
     var have = p.facets && p.facets[g.key];
     var list = Array.isArray(have) ? have : (have ? [have] : []);
-    html += '<div><label>' + esc(g.label) + '</label><div class="chips" style="margin-top:5px;">';
-    (g.values || []).forEach(function (v) {
-      html += '<button class="chip" type="button" data-fg="' + esc(g.key) + '" data-fv="' + esc(v) + '" ' +
+    var chip = function (v) {
+      return '<button class="chip" type="button" data-fg="' + esc(g.key) + '" data-fv="' + esc(v) + '" ' +
         'aria-pressed="' + (list.indexOf(v) !== -1 ? 'true' : 'false') + '">' + esc(v) + '</button>';
-    });
-    html += '</div></div>';
+    };
+    html += '<div><label>' + esc(g.label) + '</label>';
+    if (g.tree) {
+      Object.keys(g.tree).forEach(function (parent) {
+        html += '<div class="branch"><h3>' + esc(parent) + '</h3><div class="chips">' +
+          g.tree[parent].map(chip).join('') + '</div></div>';
+      });
+    } else {
+      html += '<div class="chips" style="margin-top:5px;">' + (g.values || []).map(chip).join('') + '</div>';
+    }
+    html += '</div>';
   });
 
   html += '<div><label>Colours read off the photo</label><div class="chips" style="margin-top:5px;">';
@@ -836,7 +887,7 @@ function saveTags(p, quiet) {
     try { all = JSON.parse(localStorage.getItem(PREVIEW_KEY) || '{}'); } catch (e) {}
     all[p.id] = { facets: p.facets, colours: p.colours, palette: p.palette,
       rating: p.rating, note: p.note, usedIn: p.usedIn, free: p.free,
-      group: p.group, sig: p.sig };
+      group: p.group, sig: p.sig, rot: p.rot || 0 };
     try { localStorage.setItem(PREVIEW_KEY, JSON.stringify(all)); } catch (e) {}
     if (!quiet) flashSaved('Saved on this device');
     scheduleRender();
@@ -850,7 +901,7 @@ function saveTags(p, quiet) {
     body: JSON.stringify({
       facets: p.facets, colours: p.colours, palette: p.palette, rating: p.rating,
       used: p.used, usedIn: p.usedIn, note: p.note, free: p.free,
-      group: p.group, sig: p.sig
+      group: p.group, sig: p.sig, rot: p.rot || 0
     })
   }).then(function (r) {
     if (!quiet) flashSaved(r.ok ? 'Saved' : 'Save failed');
@@ -886,6 +937,14 @@ bindStage('v-flip', 'flip');
 document.getElementById('close').addEventListener('click', closeViewer);
 document.getElementById('v-next').addEventListener('click', function () { openViewer(viewIndex + 1); });
 document.getElementById('v-prev').addEventListener('click', function () { openViewer(viewIndex - 1); });
+document.getElementById('v-rotate').addEventListener('click', function () {
+  var p = viewList[viewIndex];
+  if (!p) return;
+  p.rot = (((p.rot || 0) + 90) % 360);
+  applyRotation(p);
+  saveTags(p);
+});
+
 document.getElementById('v-full').addEventListener('click', function () {
   var p = viewList[viewIndex];
   if (p) window.open(imgSrc(p, 0), '_blank', 'noopener');

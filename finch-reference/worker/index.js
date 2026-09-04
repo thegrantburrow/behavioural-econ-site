@@ -236,10 +236,18 @@ const DEFAULT_TAXONOMY = {
     { key: 'status', label: 'Where it stands', single: true,
       values: ['New', 'Maybe', 'Shortlist', 'Next up', 'Sketching', 'Drawn', 'Not for me'] },
 
-    { key: 'what', label: 'What it is',
-      values: ['Person', 'Face', 'Hands', 'Figure in a scene', 'Object', 'Tool or instrument',
-               'Vehicle', 'Building', 'Interior', 'Street', 'Landscape', 'Animal', 'Plant',
-               'Food or drink', 'Sign or lettering', 'Texture or surface'] },
+    /*
+     * A tree rather than a flat list, because the answer to "what is in it" has
+     * two levels: four watch photographs are Products, and they are Watches, and
+     * both are worth filtering on. Drawn from the first twenty five rather than
+     * imagined: every value below has at least one real photograph in it.
+     */
+    { key: 'category', label: 'What it is', single: true, tree: {
+        'Products & objects': ['Watches', 'Clothing & footwear', 'Everyday things'],
+        'People':             ['On the street', 'Older people', 'Young people', 'Family & home', 'A gathering'],
+        'Places & scenes':    ['Shopfronts & windows', 'Coast & water', 'Suburban street', 'Landmarks & travel'],
+        'Vehicles':           ['Classic cars']
+      } },
 
     { key: 'pull', label: 'Why I kept it',
       values: ['There is a story in it', 'The shape of it', 'The light', 'The colour',

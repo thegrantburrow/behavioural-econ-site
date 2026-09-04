@@ -231,3 +231,11 @@ button,input,select,textarea{font:inherit;color:inherit;}
   border:2px solid transparent;background:#000;cursor:pointer;}
 .strip .shot img{width:100%;height:100%;object-fit:cover;display:block;}
 .strip .shot[aria-current="true"]{border-color:var(--accent);}
+
+/* A branch of the category tree: the parent names it and carries its own
+   total, the children are what you actually filter on. */
+.branch{margin:8px 0 0;}
+.branch h3{font-size:12px;font-weight:600;color:var(--ink);margin:0 0 4px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:6px;}
+.branch h3 .c{font-variant-numeric:tabular-nums;color:var(--faint);font-weight:400;font-size:11px;}
+.branch .chips{padding-left:8px;border-left:2px solid var(--line);}
