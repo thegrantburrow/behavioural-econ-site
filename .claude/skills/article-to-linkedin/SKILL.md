@@ -1,107 +1,428 @@
-# Article to LinkedIn
+---
+name: article-to-linkedin
+description: >
+  Use whenever drafting, revising, collaging, or Drive-archiving a LinkedIn post
+  for Grant Burrow / grantburrow.com (article-share, principle-share, field-session
+  recap, or any "turn this into a LinkedIn post" request). Trigger on phrasing like
+  "LinkedIn post", "write a LinkedIn", "post this to LinkedIn", "collage for LinkedIn",
+  or supplying a Topic/URL + hero image for a post. Always use this skill instead of
+  improvising — soft randomisation, voice register, collage, and Drive embed rules
+  are locked here. Load authentic-voice before calling any draft finished. Use
+  oscarfinch-feedback-html for every draft review round.
+---
 
-## Why this exists
+# Grant Burrow — LinkedIn Post Writing Spec (for Cursor)
 
-Founded 2026-08-27 on a direct request: turn a published site piece (the NRMA
-tactile-premium special report, first) into a short LinkedIn post that
-actually sounds like the owner, not a marketing summary of the article. His
-own framing of the brief, in full: a short post in his voice, a reason for
-sharing that isn't generic, a collage of the article's own key images, a
-direct link, and 2-4 hashtags that aren't contrived. Every future "turn this
-into a LinkedIn post" request for this site should go through the same
-pipeline, not a one-off summary written from scratch each time.
+**Owner:** Grant Burrow / grantburrow.com (What Works & Why)  
+**Purpose:** Give Cursor everything it needs to draft LinkedIn posts in Grant’s voice, build a simple collage, and archive to Google Drive — without producing five near-identical AI twins.  
+**Mode:** Soft randomisation — keep a recognisable spine; rotate openers, mid-beats, phrasing, and closes so a batch does not look templated.  
+**Date locked:** 2026-09-06 (from live corrections Sept 2024–2026)
 
-The first real draft went through one round of his feedback before he'd post
-it. That round is folded into the pipeline below (see "Round 1 feedback" at
-the end) rather than kept as a one-off fix, since every failure mode it
-surfaced will recur on the next article if it isn't codified here.
+---
 
-## What this deliverable is, and isn't
+## 0. How to use this file in Cursor
 
-It's a short, personal LinkedIn post that points at a full site article,
-written the way the owner would actually write a post, not a press-release
-recap of the piece and not the article's abstract with a link tacked on. It
-is going out under his name on a public platform, so the standing global
-policy in his own `~/.claude/CLAUDE.md` applies in full: **a finished
-document must read as genuinely his**, no review scaffolding, no
-verification-status commentary, no AI prose tics, first person throughout.
-Treat this the same as a CV or a cover letter for that purpose, just shorter
-and public.
+1. This skill is the standing pipeline for every LinkedIn post on this project.
+2. For each post, the user supplies: **topic / principle URL**, **hero photo or screenshot** (or “use the one on the site”), and any **NOTE TO CURSOR** lines.
+3. Before writing, Cursor must run the **Soft randomisation checklist** (§4) and write the chosen rotation IDs at the top of its private scratch notes (not in the post).
+4. Deliver: (a) LinkedIn copy, (b) collage image, (c) when asked to save — Drive Doc with collage **embedded** + sibling `… collage.jpg`.
+5. When Grant corrects wording, treat his paste as source of truth and update this spec’s relevant line in the same turn.
+6. Also save locally under `linkedin-posts/<slug>/post.txt` + `collage.jpg` (outside `mockup/` — GitHub Pages only publishes `mockup/`).
+7. Present every draft through `oscarfinch-feedback-html` with copy-edit textareas from round 1 (see §14).
 
-## Prerequisite: a voice profile must exist
+---
 
-This only works if `~/.claude/skills/my-writing-style/SKILL.md` exists. If it
-doesn't, stop and run the `setup-writing-style` skill first (see that
-skill's own guardrails on consent and sourcing); don't guess at how the owner
-writes from the site's own editorial voice, which is a different, more
-formal register aimed at a different reader. Once it exists, load it before
-drafting every post this skill produces, not just the first one, and fold
-back any feedback the owner gives on a specific post per that skill's own
-"Updating this profile" section.
+## 1. Voice register (locked)
 
-## The pipeline
+Write in Grant’s **LinkedIn / personal** register — not the website Field Notes voice.
 
-1. **Read the source article in full**, not just its headline and intro. Pull out: the single most shareable insight (usually not the same as the article's own thesis statement, thesis is written for a reader already committed to a 5-minute read; a LinkedIn hook has one sentence to earn attention), the real citations with real numbers, and every real image actually embedded in the piece (a `.spotted-wild` photo, a `.case-grid` screenshot, a diagram). Never invent a number or a finding that isn't in the article itself.
-2. **Find the real reason for sharing, and frame it as a service to the reader, not a report on your own work.** "Thought this was interesting" or "check out my latest piece" is exactly the generic framing the brief rejected, but so is a post that reads as "here's some research I did", even a specific, real reason for writing it. His round-1 correction, verbatim: less about the research itself and more "here is some of the interesting behavioural science behind it and how you might harness it in practical ways yourself". Open on a real, concrete, dated personal moment (he received the actual magazine two days ago, he found the actual object in his letterbox), then pivot straight to what the reader can do with the mechanism, not to a description of the piece he wrote. Don't restate the same idea across the first two paragraphs, if the opening moment and the pivot line are both explaining "why does this physical thing still exist", that's one idea said twice, cut one.
-3. **Draft the post applying `my-writing-style`.** Match its "doc / LinkedIn / external" surface section for structure (short paragraphs, a blank line between each, an emoji-bulleted list for a small sample of findings, no greeting), but don't force-fit a habit the profile documents for a different post type when it doesn't actually apply. His sampled posts are all live-event recaps with a named collaborator to thank early; an article share has no event and no collaborator, so that specific device gets dropped rather than manufactured, not silently, note it as a real gap between the sampled voice and this new post type when presenting the draft. Keep the length well under his usual 150-350 words when the post is pointing at a full piece rather than being the whole content itself, aim for roughly 120-220 words so the link still has a reason to be clicked.
-4. **The findings list is 2 main drivers, elaborated, not 3+ raw stats.** A first pass at this skill listed every citable finding in the article as its own one-line emoji bullet, mimicking the shape of his real "small sample" lists without their substance. His correction: pick the top 2 actual drivers of the argument, give each a little real elaboration in plain language, and use the specific numbers and citations as a parenthetical backing detail at the end of that bullet, not as the bullet's entire content. A third genuinely supporting finding can move into the surrounding prose instead of getting its own bullet, it doesn't need equal billing just because the article cites it.
-5. **Build the collage from the article's own real images, nothing stock.** Composite the 2-4 images that most concretely show what the post is about (not every image in the piece, the ones a reader needs to see to get the point) onto one flat image sized for a LinkedIn upload (roughly 1400x1000 or 1200x1200 works well for two portrait-oriented photos side by side). Keep the composition restrained: the site's own paper background token (`#FBF9F4`), a thin ink-toned border per photo, generous margins, no added text, no drop shadows or gradients competing with the real photos. Check every source image against the site's standing no-watermark policy before it goes anywhere near the collage, the same check any image gets before `mockup/images/`. If the article's images are all portrait-oriented, don't force a square or landscape canvas that crops them, size the canvas around what the real images actually are. **Blur identifiable bystanders before anyone but him is in frame, subtly and only their actual faces, one at a time.** A field-session photo showing a crowd (students, workshop attendees, anyone who didn't agree to appear in a LinkedIn post specifically) needs their faces softened before the collage ships, even though the same unaltered photo is fine on the site's own field-session page, a talk recap on `sessions.html` and a public LinkedIn post are different exposure levels. This took three corrections in a row on the Airds High collage to get right, and the failure mode each time was overcorrecting on the axis he'd just flagged while missing the other one:
-  1. His first catch: "Gentle blur / out of focus for th students' faces." First attempt: a single feathered blur over the *whole* crowd region, bodies, uniforms, chairs, all of it.
-  2. His second catch: "Just blur faces subtly not everyone else." Second attempt: narrowed to a horizontal band across head height (a feathered rectangle spanning the whole row), which fixed "not everyone else" but was still one blob covering the full width, not individual faces, and still read as too strong.
-  3. His third catch: "Subtler blue [blur] just in faces." What actually held up: per-face masking, a separate small ellipse over each individual visible face (however many that is, in this case 14 across one crowd shot), each with a light-radius Gaussian (roughly a third the strength of the first attempt) and a soft few-pixel feather, composited only within those ellipses onto the otherwise-untouched sharp original. Automated face detection is worth trying first if the environment allows installing a model (see below), but don't spend more than one attempt on it before falling back to manual: crowd photos taken from across a room, at an angle, with small and partially-turned faces, defeated three different detectors in a row (OpenCV's Haar cascade had no cascade files bundled, MediaPipe's BlazeFace found 0-1 faces even after upscaling, and the TensorFlow SSD face detector found 2 of 14). Manual mapping works reliably: crop the crowd region, overlay a pixel-coordinate grid (gridlines every ~20px labeled with real image coordinates) at 3-4x zoom, read off each face's center and radius directly off the grid, then draw filled ellipses at those coordinates for the mask. This is slower than automated detection but, unlike a band or a whole-region blur, actually satisfies "just the faces" without guessing.
-  The lesson to carry forward, not just for this one photo: when he flags two things in sequence (too much blurred, then too strong), don't fix them one at a time across two more rounds, fix precision (per-face, not a band or a region) and subtlety (light radius) together on the next attempt. Never blur him, and never blur an adult professional colleague who's a named, willing participant in the post, this is about people who didn't choose to be identifiable to a LinkedIn audience.
-6. **Hashtags: use his real recurring cluster, don't force a 2-4 cap.** The original brief said "2-4 hashtags that aren't contrived", read the first time as a hard ceiling, which produced a thinner set than he actually wanted. His round-1 correction added four more from his own documented recurring set (`#behaviouralscience #customers #experimentation #outcomes`) on top of the three already there, landing at 7, which matches `my-writing-style`'s own documented range for him (5-7 tags per post) exactly. Default to his real cluster at its natural size, then add only the one or two genuinely article-specific tags on top (a real, standard industry term like `#customerloyalty` or `#directmail`, not a compound invented for the occasion like `#printvsdigital`). "Not contrived" is the actual bar, not a specific number.
-7. **Direct link, plain, no tracking parameters added, introduced as a personal invitation, not a citation label.** The site's canonical URL for the relevant page (an article, or a Field Session's own anchor), on its own line near the end. His round-3 correction: "Full piece, with all the citations:" reads like a formal source label; he changed it to "I did a fuller write up with visuals here for those interested:", a low-key, first-person hand-off rather than an academic pointer. Default to that register for the link line going forward. **This applies to any post pointing at site content, not just an article share** (see Round 6 below): a talk-recap post gets the same closing invitation too, when a matching Field Session write-up exists, phrased to fit a recap rather than the article-share wording verbatim, e.g. "if interested, here's more on the behavioural science behind it and some visuals: [link]."
-8. **Close on a plain, specific thought, never a tidy summary aphorism.** A first pass closed with "Digital is still cheaper to produce and send. Touch, memory, and price all point the other way", a rule-of-three wrap-up sentence that reads exactly like generated copy dressing up a plain point as a considered one. His catch, verbatim: "This first line reads like classic ai. Sounds like me as a human." The fix wasn't softer wording, it was structural: drop the neat list-of-three-things-that-point-the-other-way shape entirely and end on something a specific person would actually say out loud, a real question posed to the reader, a genuine next step, a plain observation with one real idea in it, not three packaged as a flourish.
-9. **Save the deliverable outside the deployed site.** GitHub Pages only publishes the `mockup/` directory (see `.github/workflows/*.yml`), so a LinkedIn post and its collage are not site content and don't belong there. Save to `linkedin-posts/<article-slug>/post.txt` (the plain post text, ready to paste, nothing else in the file, no headers or metadata) and `linkedin-posts/<article-slug>/collage.jpg` (or `.png`) at the repo root.
-9a. **Once the post is approved and Google Drive is available, the Google Doc always gets both the text and the embedded collage image, never text alone.** The first real doc built by this skill (the NRMA tactile-premium post) shipped as text-only, the collage sat in the repo but never made it into the doc itself. The owner's catch, verbatim: "The LinkedIn post for NRMA is the latest we agreed and doesn't have the photo embedded. This should be standard in the skill." Fixed as a standing rule, not a one-off: creating (or updating) the Drive doc for any post this skill produces means inserting the actual collage image into the document alongside the post text, every time, in the same folder structure already established (a dedicated "LinkedIn Posts" parent folder, one subfolder per post). Before calling a doc "done," check it actually contains the image, not just confirm the file was created. If Drive isn't available yet when the post is otherwise ready, say so plainly and come back to create (or fix) the doc once it is, rather than shipping text-only and treating the image as optional.
-10. **Run the same finishing checks any of his own finished writing gets** before calling it done: the `authentic-voice` skill's fourteen hallmarks (a LinkedIn post is exactly the kind of short, punchy writing where a contrastive "X, not Y" or a rule-of-three sneaks in), no em dash (his own real posts use a spaced hyphen for an aside, never `&mdash;` or `—`), and a genuine read-through from a LinkedIn scroller's seat, not a mechanical checklist pass. Present the draft, name any place a real pattern from the sampled voice didn't apply and had to be dropped or improvised, and invite correction the way `my-writing-style`'s own "Applying this profile" section asks for.
-11. **Use the standing `oscarfinch-feedback-html` format to collect his feedback, item by item, and use the copy-edit variant for every text card from round 1, not just from round 2 onward.** Break the post into the same real decisions this skill makes (opening hook, findings list, any commercial/practical-impact paragraph, closing line, hashtags) as separate cards, so a "needs work" lands on the specific piece it's about, not the whole post. Every card whose content is prose he might want to rewrite gets a `<textarea data-copytext>` **pre-filled with the current copy** (per `oscarfinch-feedback-html`'s "A copy-editing request wants a live text box" section) so he can edit directly in the box, rather than a toggle plus a comment describing the edit he wants. This was originally scoped to "round 2 onward, once he's actually rewriting sentences," but his explicit instruction on the Airds High draft overrides that: "I need the html so I can edit directly," applied to every draft from the first round, no toggle-plus-comment warm-up round first. The image/collage card is the one exception, it isn't prose to rewrite, so it keeps the binary toggle plus a real comment box (that's exactly how the blur feedback above came in). Track each textarea's original value in `dataset.original` on load and compile the feedback panel from the box's current value, tagged `(edited)` or `(unchanged)`, never from a toggle state, for every text card.
-12. **Apply his returned edits, then feed them back into `my-writing-style` and this skill, not just into the one post.** A rewritten sentence he sends back through the copy-edit boxes is a direct sample of his real voice on this content type, richer signal than a comment describing a fix. After applying his edits to the post, check whether the edit reveals a pattern (a phrase he always cuts, a rhythm he prefers, a fact he tightens for accuracy) worth adding to `my-writing-style`'s "Updating this profile" section or to this skill's own rules, the same way round 1 and round 3's feedback below got folded in rather than treated as one-off fixes.
+| Do | Don’t |
+|---|---|
+| First person (`I`, `we`) | Third-person Field Notes tone |
+| Warm, specific, real numbers | Vague quantifiers (“many”, “significant”) |
+| Short paragraphs (1–3 sentences), blank line between | Dense walls of text |
+| Spaced hyphen asides (`word - word`) | Em dashes (`—`) |
+| `&` mid-sentence where natural (`joy & surprise`) | Forced “and” everywhere |
+| Topic emoji as one finding per line when used | Emoji stuffed into every sentence |
+| Slightly imperfect human texture | Over-polished corporate / AI smoothness |
+| Light italics on one key word when it helps (`a *real* physical magazine`) | ALL CAPS emphasis or shouty formatting |
 
-## Round 1 feedback: what changed after his first review
+### Critical: leading “It”
 
-The first real draft (the-tactile-premium.html post) shipped with a rhetorical-question opener, a 3-item raw-stat findings list, a tidy rule-of-three closer, and 3 hashtags. Every one of those four choices got "needs work." The corrected pattern for each is folded into the numbered steps above (2, 4, 6, 8 respectively), not just fixed on that one post, because none of the four was specific to this article, they were all defaults this skill picked that turned out wrong for how he actually wants an article-share post to read. Treat round-1 feedback on the next article the same way: fix the post, then check whether the fix is really about that one post or about a default this skill should carry forward.
+- **Do** drop “It” only in `It was [adjective] to…` openers → `Was fantastic to lead this session…`
+- **Do not** drop “It” from warm reflective lines. Prefer `It got me thinking…` over `Got me thinking…`
 
-## Round 3 feedback: parenthetical asides in his edits are instructions, not copy
+### Don’ts (hard bans)
 
-When he returns edited copy through the copy-edit review (step 12), he sometimes leaves a bracketed or parenthetical note inside the text telling Claude what to do at that spot, rather than writing the literal words he wants shipped, e.g. "(five link to the article on my site)" as a rough, possibly dictation-garbled instruction to insert the actual article URL there, not to paste that phrase verbatim into the post. Read every returned edit for this before applying it literally: if a clause reads like a note addressed to Claude (mentions "link", "insert", "add", is bracketed, or is otherwise not something a reader would see in the finished post), treat it as a directive and resolve it (here, substitute the real URL in a natural sentence), the same way the global CLAUDE.md guardrail says review scaffolding must never leak into a finished deliverable. Everything else he returns in that box is his real prose and goes in verbatim, including rough edges (a missing comma, an unconventional phrase like "Eg" as a lead-in) that reflect the "doesn't over-polish" trait `my-writing-style` already documents.
+- Em dashes
+- Hollow AI fillers: `leverage`, `delve`, `unlock`, `elevate`, `seamless`, `robust`, `game-changer` (as lazy intensifier)
+- Generic closes: `Thoughts?`, `Let's connect!`, `Thanks for reading!`
+- Tidy rule-of-three summary sentence as the closer — end on one real specific thought
+- Left/Right image stage directions in the post body (`Left:`, `Right:`)
+- Claiming a spotted-in-the-wild photo **proved** sales moved — the photo is the example; the papers are the evidence
 
-This round also produced one substantive rigor edit worth carrying forward as a default, not just applying once: he changed "Identical content is worth more once it's physical" to "Identical content can be perceived as worth more once it's physical", turning a flat factual claim into an accurately-scoped one (the cited studies measured valuation and willingness-to-pay, not an objective fact about worth). Apply the same scrutiny by default when drafting a bullet from a valuation/perception study, "X is worth more" overclaims what a WTP study actually shows, "X is perceived as worth more" or "people valued/paid more for X" doesn't.
+Also run `authentic-voice` before calling any draft finished (LinkedIn posts are short enough that contrastive “X, not Y” and rule-of-three closers sneak in easily).
 
-## Round 4 feedback: every draft uses the copy-edit boxes, and crowd photos get blurred
+---
 
-On the Airds High School draft (a field-session recap, not an article share, the first time this skill was applied to that content type), two corrections landed in the same round, both folded into steps 5 and 11 above rather than treated as one-off fixes:
+## 2. Content spine (always present — order of *ideas*, not fixed sentences)
 
-His exact words: "Remember I need the html so I can edit directly and you'll then use that feedback to learn. Codify sk[ill] every LinkedIn post draft uses this." This retires the old round-1/round-2 split entirely, there's no more warm-up round with toggles and comments before switching to editable text boxes; every text card on every draft, from the first one shown, is a pre-filled `<textarea>` he edits directly.
+Every article-share / principle-share post should cover these **beats**. Soft randomisation changes *how* and sometimes *order of optional beats*, not whether the spine exists.
 
-Separately, on the collage card specifically, still using the toggle (it's an image, not prose): "Needs work. Gentle blur / out of focus for th students' faces." The room-wide photo showed a full classroom of identifiable minors who never agreed to appear in a public LinkedIn post, distinct from the site's own use of the same photo on `sessions.html`, where it's a talk recap, not amplified to a public feed. See step 5's blur rule above for the fix.
+1. **Concrete moment** — a real, dated, first-person observation (app screen, mailbox, magazine, rate, sticker).
+2. **Warm reaction** — `It got me thinking…` (or a rotated equivalent that still keeps “It” when reflective).
+3. **Name the mechanism simply** — one or two plain sentences; real numbers when available.
+4. **Parallel examples** (usually 2–3) — familiar everyday shapes so it is not a one-off (e.g. 6.99% vs 7.00%, $29,990 vs $30,000). Illustrations, not fake studies.
+5. **Tension question** — `If X shouldn’t move a decision that much - what might be going on?`
+6. **Harness / commercial stake** — behavioural science might be doing real work; orgs could harness it for acquisition & retention (see phrase bank).
+7. **Active ingredients** — 2–4 emoji lines; lead-in preferably `A few active ingredients that might be going on:`
+8. **Evidence beat** — one short sentence naming **2–3 real papers** (authors + one-clause hook). No study summaries.
+9. **Link handoff** — service to the reader, then URL on its own line.
+10. **Soft wonder close** — forward-looking, trailing ellipsis, one specific thought.
+11. **Hashtags** — 5–7 from the standing set + 1–2 topic tags.
 
-## Round 5 feedback: for a recurring named program, his own past posts about it beat generic defaults, but don't carry over facts from a different year
+Optional (rotate in/out): inclusive “you” invitation in the open; one italicised key word; a mid-thought ellipsis in the harness line.
 
-On the same Airds High School draft, he later supplied screenshots of two of his own real past LinkedIn posts about the same annual NAB x Airds High event (from a previous year), with the instruction to use them as the basis for the new post. This produced a real, better source than the general "event recap" pattern documented elsewhere in this skill: when the post is about a recurring, named program (an annual school visit, a repeat workshop series), search for or ask for his own past posts about that same program before drafting from scratch, they're a stronger source than a general voice profile because they show the exact hashtag cluster, framing, and structural devices he actually uses for *this* program, not just his LinkedIn voice in general. Two things this surfaced that weren't in the profile yet, now added to `my-writing-style`: a parenthetical aside closed with a plain smiley emoticon (his real photo-caption device), and confirmation that his hashtag cluster shifts by topic rather than being one fixed set.
+### Event / field-session recaps (different spine, same voice)
 
-The trap this pattern creates: his old posts named real people (a colleague, a volunteer teacher) and a real number (student count) specific to *that* year's event. None of those facts carry over to this year's post just because the event is the same series, a different year almost certainly has different volunteers and a different headcount. Reusing last year's names would misattribute credit; inventing new ones for this year would be a fabrication, exactly what the site's own citation-honesty standard (see "A note on rigor" below) exists to prevent. The fix: draft everything that's confirmed for *this* occurrence (this year's actual demo, this year's actual photos, the real recurring program name and hashtag cluster, since those don't change year to year), leave out any credits paragraph that would need this year's specific names or numbers, and say plainly in the review artifact that it's missing and why, exactly like the "gap, not a guess" pattern step 3 already uses for the missing collaborator-thanks paragraph. Add the real paragraph only once he supplies this year's actual details.
+When the post is a live-session or program recap rather than an article/principle share:
 
-## Round 6 feedback: what he actually changed between the drafted post and the one he published
+- Prefer Grant’s own past posts about that **same named program** over generic article-share defaults (hashtags, framing, caption devices). Facts from a different year (names, headcounts) do **not** carry over — leave a visible gap rather than guessing.
+- Drop the collaborator-thanks paragraph only when there is no confirmed name for *this* occurrence; say so in the review artifact.
+- Dropped opening “It” is allowed on `Was fantastic to lead…` openers; keep “It” on reflective lines.
+- Still use the link-handoff register when a matching Field Session / site write-up exists.
+- Precision: if an action was staged/demoed, say so (`hypothetically` spend, etc.) rather than implying a real purchase.
 
-He posted the Airds High draft to LinkedIn himself (outside this skill's own copy-edit review loop) and then shared a screenshot of the live post, asking for the real edits to be folded back into this skill and `my-writing-style`, per step 12. Diffing the published text against the drafted `post.txt` line by line surfaced six real changes, none of them typos or noise:
+---
 
-1. **The very first photo-caption aside drops the parentheses and closes on an ellipsis, not a smiley.** Drafted: "(💰 This is me marking a pair of sneakers down 50% off to make a point about how our brains judge a "deal" :)". Published: "💰 This is me marking a pair of sneakers down 50% off to make a point about how our brains judge a "deal" ...", no enclosing parens at all. `my-writing-style`'s existing rule (a parenthetical aside closed with a smiley) was drawn from a past year's post of the same event; this year's actual post shows the device evolving, not fixed: the opening aside, immediately after the intro paragraph, stands as its own free sentence and trails into "..."; a later, second aside mid-post ("...a great side benefit :)") uses a spaced hyphen to introduce it and a smiley to close it, matching the older documented pattern exactly. Both are real and both survived into this post; which one applies depends on position (the demo-photo caption right after the hook vs. a smaller aside later on), not on which device is "more correct."
-2. **A precision qualifier gets inserted when a described action was staged, not literal.** Drafted: "they were actually about to spend money they previously weren't planning on." Published: "they were actually about to **hypothetically** spend money they hadn't planned on." Nobody in the room spent real money; the demo was a live price markdown with no real purchase happening. This is the same rigor instinct the 2026-08-27 "Round 3" catch already documented for valuation claims ("X is worth more" &rarr; "X can be perceived as worth more"), just applied to an action description instead of a value claim: when a bullet or line describes something that happened in a demo rather than literally, in real terms, check whether it needs its own qualifier, don't assume "spend," "pay," or "save" reads as obviously simulated from context alone.
-3. **Real grammar errors get fixed even though stylistic rough edges don't.** He corrected a comma splice ("anchoring, the discount only feels real" &rarr; "anchoring where the discount only feels real") in the same round he left a dropped opening quotation mark uncorrected ("the answer seems to be 50%?", missing its opening `"` before "50%"). `my-writing-style`'s "doesn't over-polish" note was previously read as "leaves rough edges in generally," which risks silently fixing splices that he'd actually catch himself. The real distinction: he fixes actual grammatical errors (a splice, a dangling clause) but doesn't chase down small mechanical slips (a missing quotation mark, a dropped word) that don't change what a reader takes away. Don't over-correct a draft to look like every mechanical slip already got caught; do write grammatically sound sentences and expect him to tighten wording, not fix splices, on his own pass.
-4. **A cross-paragraph cliffhanger: a paragraph can end mid-thought and resolve in the next one.** Drafted as two clean, separately-resolved sentences: "I asked the room how much they were saving. "50%?"" Published as one merged sentence trailing off into the *next* paragraph's reveal: "I asked the room how much they were saving - the answer seems to be 50%?", however..." with the actual payoff ("While it can feel like we're saving, they were actually...") arriving as a new paragraph. This is a real, deliberate structural device distinct from the spaced-hyphen aside already documented: ending a paragraph on an unresolved "however..." (or a similar trailing connective) instead of a full stop, letting the paragraph break itself carry suspense. Only use it where the next paragraph genuinely delivers the resolution immediately; it's a bridge, not a device to sprinkle in for rhythm.
-5. **The closing link-invitation line generalises beyond article-share posts to session recaps too.** This draft, a talk recap, had no link line at all (per this skill's own step 7, which was scoped to "an article that links to a full site piece"). He added one himself before the hashtags: "If interested here are more details of the behavioural science behind it and some visuals https://lnkd.in/g-GrTCux," in the same low-key, first-person register step 7 already documents for article shares ("I did a fuller write up with visuals here for those interested"). **Step 7's link-line convention now applies to any post pointing at site content, not just article-share posts** — a talk recap that has a matching Field Session write-up gets the same closing invitation, phrased to fit a recap ("if interested, here's more on the behavioural science behind it") rather than an article share's phrasing verbatim.
-6. **The "gap, not a guess" rule from Round 5 worked exactly as intended.** The drafted post correctly left "Jonathan …" as a visible placeholder rather than guessing a surname; he filled in the real name himself ("Jon Singam") when he posted. No fix needed here, this is confirmation the existing rule is working, kept as a data point rather than a new rule.
+## 3. Soft randomisation (required for every draft)
 
-Both `my-writing-style` (the paren-dropping refinement, the cross-paragraph cliffhanger device, the grammar-vs-rough-edges distinction) and this skill (the link-line scope, the "hypothetically"-style precision-qualifier check) were updated with these six findings the same day.
+**Goal:** Five posts in a week should feel like the same person noticing different things — not the same Mad Libs template with nouns swapped.
 
-## A note on rigor
+### 3.1 Anti-twin rules (hard)
 
-Nothing in this pipeline gets a pass on the site's own citation-honesty
-standard just because it's a shorter, more casual format. A number quoted in
-a LinkedIn post traces to the same verified citation as the article it
-links to, and a claim the article itself already flagged as a reasoned
-extension rather than a directly-tested finding (see `special-report`'s
-citation discipline) stays flagged that way here too, in plain language, not
-dropped for the sake of a punchier line.
+Before delivering a draft, Cursor must check the **last 4 posts** in this conversation or Drive folder (if known). Then enforce:
+
+1. **Opener family must differ** from the immediately previous post (do not use the same opener ID twice in a row).
+2. **At most 2 of the last 4 posts** may use the same opener family.
+3. **Findings layout must differ** from the previous post (emoji-list vs prose vs hybrid).
+4. **Close family must differ** from the previous post.
+5. **Do not** reuse the exact harness sentence verbatim if it appeared in the previous post — pick another variant from the bank.
+6. **Do not** start three consecutive posts with the same first three words.
+7. Parallel-example *slot* can repeat (rate / sticker / menu) but **numbers and nouns must be topic-true**, not copy-pasted from an unrelated post unless they genuinely fit.
+
+### 3.2 Rotation tables
+
+Pick **one ID from each table** per post. Prefer random / hash of topic slug; if that collides with anti-twin rules, pick the next unused ID.
+
+#### A — Opener family
+
+| ID | Pattern | Example shape |
+|---|---|---|
+| A1 | Inclusive wonder | `I wonder if - like me - a couple of days ago you received…` |
+| A2 | Solo concrete moment | `Last week I opened the McDonald's app and there it was - …` |
+| A3 | Dated mail / object | `A couple of days ago I received the physical copy of … in the mailbox.` |
+| A4 | Noticed-in-the-wild | `I keep noticing … sitting one cent under a round number.` |
+| A5 | Contrast open | `On paper it's only one cent. In how it feels, it's a different price.` |
+| A6 | Question-first | `Why does $0.99 feel so different from $1.00 - when they're a cent apart?` |
+
+#### B — Reaction line
+
+| ID | Line bank (keep “It” on reflective ones) |
+|---|---|
+| B1 | `It got me thinking about…` |
+| B2 | `It got me thinking - …` |
+| B3 | `It stopped me for a second - …` |
+| B4 | `That small detail got me thinking about…` (no leading It — only when the subject is already named) |
+
+#### C — Parallel-example placement
+
+| ID | Placement |
+|---|---|
+| C1 | Right after naming the mechanism (before the tension question) |
+| C2 | Inside the active-ingredients list (as emoji lines) |
+| C3 | Both: one short prose line early + one emoji line later (no exact repeat) |
+| C4 | Omit separate prose parallels if the hero + ingredients already carry 3 concrete shapes |
+
+#### D — Findings layout
+
+| ID | Layout |
+|---|---|
+| D1 | Lead-in + 3 emoji lines |
+| D2 | Lead-in + 2 emoji lines + one short prose beat |
+| D3 | No lead-in label; three short paragraphs instead of emoji (rare — use ≤1 in 4 posts) |
+| D4 | Lead-in + 4 emoji lines when the principle genuinely has four clean hooks |
+
+Lead-in preference: `A few active ingredients that might be going on:`  
+Allowed alternates (max 1 in 3 posts): `A few things that might be doing the work:` / `What's quietly doing work here:`
+
+#### E — Harness / commercial line
+
+| ID | Variant |
+|---|---|
+| E1 | `Real tangible behavioural science might be doing real work here - and it might be possible to harness by more organisations in interesting & creative ways… that drive better acquisition & retention outcomes.` |
+| E2 | `Real tangible behavioural science might be doing real work here - and it might be harnessed by more organisations in interesting & creative ways that drive better acquisition & retention.` |
+| E3 | `There's a commercial version of this hiding in plain sight - acquisition, retention, and how a number is framed before anyone "decides."` |
+| E4 | Skip a long harness paragraph; let the tension question + ingredients carry the stake (use ≤1 in 4 posts) |
+
+#### F — Link handoff
+
+| ID | Variant |
+|---|---|
+| F1 | `I did a short piece on it for those interested where I share more and the commercial outcomes that may improve if harnessed in practical ways:` then URL |
+| F2 | `I wrote this up properly here if useful - more on the mechanism and where it shows up commercially:` then URL |
+| F3 | `Full write-up (study, caveats, and where it shows up in the wild):` then URL |
+
+Prefer F1 as default; rotate F2/F3 so F1 is not every post.
+
+#### G — Close family
+
+| ID | Pattern |
+|---|---|
+| G1 | `I wonder where else …` + trailing ellipsis |
+| G2 | `I wonder whether anyone's actually measured what that … is doing…` |
+| G3 | `Still thinking about where else this same shape is sitting in plain sight…` |
+| G4 | One specific curiosity without “I wonder” (≤1 in 4 posts) |
+
+### 3.3 What must stay stable (do not “randomise away”)
+
+- Spaced hyphens, not em dashes  
+- Evidence honesty (photo ≠ proof of lift)  
+- 2–3 real paper names when leaning on research  
+- Hashtag core set  
+- First-person warmth  
+- Site URL pointing at the real principle / Field Note  
+
+---
+
+## 4. Soft randomisation checklist (run every draft)
+
+Copy into scratch, fill, then write:
+
+```
+Topic slug:
+Previous post opener ID (if known):
+Chosen: A__ B__ C__ D__ E__ F__ G__
+Anti-twin OK? (opener ≠ last; layout ≠ last; close ≠ last): Y/N
+Parallel examples topic-true? Y/N
+Photo framed as example not proof? Y/N
+```
+
+If any N → re-roll the colliding ID before drafting.
+
+---
+
+## 5. Evidence without bluster
+
+When the post leans on behavioural science:
+
+- After findings, **one** short sentence naming **2–3 real papers** — authors + one-clause hook only.
+- Shape: `There's real research behind those, not just intuition - [Author] on [hook], [Author] on [hook], [Author] on [hook].`
+- Prefer “might be going on” over overconfident causality.
+- Spotted-in-the-wild screenshots are **examples of the pricing/shape**, not evidence the missing cent / digit caused a measured lift unless the cited study is about that exact setting.
+- Valuation / perception studies: prefer “can be perceived as worth more” / “people valued more” over flat “is worth more.”
+
+Pull paper names from the live grantburrow.com principle page for that topic whenever possible. Read the source article in full before drafting — never invent a number or finding that isn’t in the piece.
+
+---
+
+## 6. Links & hashtags
+
+### Link targets
+
+Use the real page for the principle or Field Note, e.g.:
+
+- https://www.grantburrow.com/the-tactile-premium  
+- https://www.grantburrow.com/principles#left-digit-bias  
+- Other principles: `https://www.grantburrow.com/principles#<slug>`
+
+URL on its **own line** after the handoff sentence. No tracking parameters.
+
+### Hashtags
+
+End with 5–7 tags. Core set (usually include most):
+
+`#behaviouraleconomics` `#behaviouralscience` `#experimentation` `#outcomes` `#customers` `#measurement`
+
+Plus 1–2 topic tags (`#print`, `#pricing`, etc.). No hashtag walls of 15+. Topic tags must be real industry terms, not invented compounds.
+
+---
+
+## 7. When Grant pastes a draft
+
+1. His words = source of truth.  
+2. Fix only clear grammar / incomplete clauses / forbidden em dashes.  
+3. Do not rewrite metaphors, questions, or cadence into a tidier AI version.  
+4. Honour `(NOTE TO CURSOR …)` / `(NOTE TO GROK …)` then strip those notes from posted copy.  
+5. Parenthetical asides that read as instructions to Cursor (`(five link to the article…)`) are directives, not copy — resolve them, don’t paste them.  
+6. If he updates wording after a Drive save: rebuild Doc with new copy + same collage embed; trash outdated Doc; keep sibling JPEG unless collage changed.  
+7. Fold lasting pattern fixes back into this skill in the same turn (not just the one post).
+
+---
+
+## 8. Collage / image (full pipeline)
+
+### Design rules
+
+- Simple: real photos / screenshots from the article / session, nothing stock  
+- Canvas often **1200×1200** for LinkedIn  
+- Quiet warm background (e.g. soft beige / site paper `#FBF9F4`) — not neon  
+- Captions: **Liberation Serif Bold**, large enough to read in-feed  
+- **Vertically center** the full block (image + caption) on the canvas — not stuck to the top  
+- Low-key captions under images — not handwritten sticky notes or shouty callout cards unless asked  
+- Thin ink-toned border per photo, generous margins; no drop shadows competing with the photos  
+- Do not put Left/Right stage directions in the post copy  
+- Check every source image against the site’s no-watermark policy before compositing  
+
+### Caption voice
+
+Short, specific, quiet. Examples:
+
+- `One cent under a dollar.`  
+- `Still printed. Still mailed.` / `Digital hub alongside it.` (when two-panel)
+
+Rotate caption wording with the topic; do not reuse the same caption across unrelated posts.
+
+### Crowd / bystander faces (hard)
+
+Blur identifiable bystanders (students, workshop attendees, anyone who didn’t agree to appear in a LinkedIn post) **before** the collage ships — even if the same unaltered photo is fine on `sessions.html`.
+
+- Per-face only: separate small ellipse over each visible face, light Gaussian, soft feather. Never a whole-crowd band or room-wide blur.
+- Never blur Grant; never blur a named adult professional colleague who is a willing participant.
+- Automated face detection is worth one attempt; fall back to manual coordinate mapping if it fails (common on angled classroom shots).
+- When he flags both “too much blurred” and “too strong,” fix precision and subtlety together on the next attempt.
+
+---
+
+## 9. Drive archive (full pipeline — mandatory when saving)
+
+### Folder & naming
+
+- Folder: **Behavioural Economics > LinkedIn Posts**  
+  - Behavioural Economics id: `1JBPEPkhPhEK7Dh7TZemvIhfMxQ298LT-`  
+  - LinkedIn Posts id: `12-PUomRxY3PcPIrBJCU_WlawdjKI0Y9W`  
+- Naming: **`YYYYMMDD`** prefix (Australia/Sydney date) + short title  
+  - Doc: `20260904 NRMA Open Road – tactile premium LinkedIn`  
+  - Photo: `20260904 NRMA Open Road – tactile premium LinkedIn collage.jpg`  
+
+### Two files every time
+
+1. **Google Doc** — post copy **and** collage embedded as a **native** Docs image  
+2. **Sibling JPEG** — downloadable collage for LinkedIn upload  
+
+Sibling alone ≠ archive. Doc without downloadable photo ≠ complete handoff.
+
+### Embed method (verified)
+
+1. Build a local `.docx` with collage as real Word inline picture (`word/media/image1.jpg` via python-docx `add_picture`), then post paragraphs. Image first, copy below.  
+2. Keep embed JPEG modest (~30–40 KB; ~28 KB at ~480px worked). Large `base64Content` gets truncated / rejected.  
+3. Upload via Drive `create_file`:  
+   - `contentMimeType`: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`  
+   - `base64Content`: full docx  
+   - `parentId`: LinkedIn Posts id  
+   - Do **not** set `disableConversionToGoogleType` (must convert Word → Google Doc)  
+4. Upload sibling as `image/jpeg` with `disableConversionToGoogleType: true`.  
+
+### Verify before sending links
+
+- Doc `fileSize` is tens of KB (not ~1 KB)  
+- Export as docx → unzip → `word/media/image*.jpg` is a real JPEG (`FF D8`), tens of KB — not a ~70-byte placeholder  
+- HTML `<img src="data:…">` or Drive URL in text export is **not** proof of a native image  
+- Sibling JPEG exists in the same folder  
+- Body matches latest wording  
+
+### Failed approaches (do not retry)
+
+- Text-only Google Doc / `textContent` only  
+- HTML + data-URI image  
+- HTML + `drive.google.com/uc?id=…`  
+- Sidecar JPEG **instead of** embed  
+
+---
+
+## 10. Worked examples (spine same — rotation different)
+
+### Example 1 — NRMA / tactile premium (opener A1, layout D1, close G1)
+
+See live locked copy pattern:
+
+- Inclusive wonder open (“I wonder if - like me… mailbox”)  
+- `It got me thinking…` + `*real*` + `digital age`  
+- Facts (1927, 1.3M, digital hub alongside)  
+- Tension question  
+- Harness E1  
+- Three emoji ingredients + Peck & Shu / Mangen / Atasoy & Morewedge  
+- Link: https://www.grantburrow.com/the-tactile-premium  
+- Wonder close + `#print`
+
+Local reference: `linkedin-posts/the-tactile-premium/post.txt`
+
+### Example 2 — Left-digit / McDonald’s $0.99 (opener A2, parallels C1, close G2)
+
+- Solo app moment open  
+- Mechanism in plain words  
+- Parallels: 6.99% vs 7.00%, $29,990 vs $30,000  
+- Ingredients include odometer threshold (Lacetera, Pope & Sydnor) + Thomas & Morwitz  
+- Photo = example of shape, not proof the missing cent sold more  
+- Link: https://www.grantburrow.com/principles#left-digit-bias  
+
+Use these as **reference texture**, not as paste templates for new topics.
+
+---
+
+## 11. Delivery checklist (before Grant sees it)
+
+- [ ] Soft randomisation checklist filled; anti-twin OK  
+- [ ] Sounds like a person talking (especially any dropped “It”)  
+- [ ] No em dashes; no banned AI fillers; no generic close  
+- [ ] Evidence beat present if research is claimed  
+- [ ] Photo framed honestly  
+- [ ] Collage: Liberation Serif Bold caption, vertically centered, readable  
+- [ ] Crowd faces blurred if needed (§8)  
+- [ ] Local `linkedin-posts/<slug>/` saved  
+- [ ] If saving: Doc embed verified by unzip + sibling JPEG in folder  
+- [ ] Hashtags + correct URL  
+- [ ] `authentic-voice` pass done  
+- [ ] Review HTML via `oscarfinch-feedback-html` ready  
+
+---
+
+## 12. Input template (user → Cursor)
+
+```
+Topic / URL:
+Hero image: [path or "use site image at …"]
+Must include parallels: [e.g. 6.99% / $29,990 or none]
+Tone notes / NOTE TO CURSOR:
+Save to Drive?: yes/no
+Previous post opener ID (if known):
+```
+
+---
+
+## 13. One-line mission
+
+Write like Grant noticed something in the wild, got curious, named the mechanism without bluster, pointed to real papers, and left the reader wondering — then archive the post with the photo **in** the Doc and **beside** it in Drive — and never let five posts share the same skeleton word-for-word.
+
+---
+
+## 14. Feedback loop (standing)
+
+Every draft uses `oscarfinch-feedback-html` with copy-edit `<textarea data-copytext>` cards pre-filled from round 1 — opening hook, findings, commercial/harness line, closing line, hashtags as separate cards. Collage card stays binary toggle + comment (image, not prose). After he edits:
+
+1. Apply his words as source of truth (§7).  
+2. Feed lasting patterns back into this skill and any writing-style profile in the same turn.  
+3. Rebuild Drive Doc if already archived.
+
+---
+
+## 15. Pipeline order (quick)
+
+1. Read source article / principle page in full; pull real numbers, papers, images.  
+2. Fill soft-randomisation checklist (§4); re-roll collisions.  
+3. Draft copy (§1–§6 spine + rotations).  
+4. Build collage (§8); blur faces if needed.  
+5. Save `linkedin-posts/<slug>/post.txt` + `collage.jpg`.  
+6. `authentic-voice` + delivery checklist (§11).  
+7. Present via `oscarfinch-feedback-html`.  
+8. On “Save to Drive”: §9 verified Doc embed + sibling JPEG.  
