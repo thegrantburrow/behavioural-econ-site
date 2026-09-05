@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinkedIn draft — Macca Golden Deal</title>
+<style>
+:root{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+    --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+    --accent:#D97A56; --accent-ink:#1A1310;
+    --accent2:#5FA89A; --accent2-ink:#0D1917;
+    --good:#5FA89A; --good-ink:#0D1917;
+    --needs:#D97A56; --needs-ink:#1A1310;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+  --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+  --accent:#D97A56; --accent-ink:#1A1310;
+  --accent2:#5FA89A; --accent2-ink:#0D1917;
+  --good:#5FA89A; --good-ink:#0D1917;
+  --needs:#D97A56; --needs-ink:#1A1310;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+}
+:root[data-theme="light"]{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.wrap{max-width:860px;margin:0 auto;padding:44px 20px 80px;}
+h1{font-family:Georgia,ui-serif,serif;font-size:30px;margin:0 0 6px;text-wrap:balance;}
+.sub{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:0 0 8px;max-width:62ch;}
+.ask{font-size:13.5px;color:var(--ink-soft);background:var(--paper-alt);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:18px 0 28px;line-height:1.55;}
+.ask b{color:var(--ink);}
+.meta{font-size:12.5px;color:var(--ink-soft);margin:0 0 24px;}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:28px;overflow:hidden;}
+.card__head{padding:18px 22px 0;}
+.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px;}
+.card h3{font-family:Georgia,ui-serif,serif;font-size:19px;margin:0 0 6px;}
+.card p.desc{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 16px;max-width:62ch;}
+.preview{background:var(--paper-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 22px;}
+.fullpost{white-space:pre-wrap;font-size:14.5px;line-height:1.55;margin:0;color:var(--ink);}
+.toggle{display:flex;gap:8px;padding:16px 22px 4px;flex-wrap:wrap;}
+.toggle-btn{border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
+.toggle-btn:hover{border-color:var(--accent);}
+.toggle-btn[data-active="true"][data-val="good"]{background:var(--good);border-color:var(--good);color:var(--good-ink);}
+.toggle-btn[data-active="true"][data-val="needs-work"]{background:var(--needs);border-color:var(--needs);color:var(--needs-ink);}
+.comment{margin:10px 22px 20px;}
+.comment textarea{width:100%;min-height:44px;resize:vertical;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:13.5px;padding:9px 11px;line-height:1.5;}
+.comment textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+.feedback{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;margin-top:36px;}
+.feedback h3{font-family:Georgia,ui-serif,serif;font-size:17px;margin:0 0 10px;}
+.feedback textarea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:8px;background:var(--paper-alt);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical;}
+.feedback-row{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;}
+.copy-btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;}
+.copy-btn[data-copied="true"]{background:var(--accent2);color:var(--accent2-ink);}
+.theme-toggle{position:fixed;top:14px;right:14px;z-index:20;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;padding:0;}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">🌙</button>
+<div class="wrap">
+  <h1>LinkedIn draft — Macca Golden Deal</h1>
+  <p class="sub">Article-share post for <code>science-behind.html#macca-golden-deal</code>. Soft rotation A2 B1 C3 D1 E2 F1 G2 (previous tactile post was A3).</p>
+  <div class="ask"><b>Edit the copy boxes directly</b> — rewrites are source of truth. Collage uses Looks good / Needs work. Copy feedback at the bottom when done.</div>
+  <p class="meta">Files: <code>linkedin-posts/macca-golden-deal/post.txt</code> · <code>collage.jpg</code>. Say the word if you want this archived to Drive.</p>
+
+  <div class="card" data-item data-title="Full post (read-through)" data-kind="toggle">
+    <div class="card__head">
+      <span class="tag">Preview</span>
+      <h3>Full post read-through</h3>
+      <p class="desc">How it reads end to end. Use the section boxes below to rewrite specific beats.</p>
+    </div>
+    <div class="preview"><pre class="fullpost">Last week I opened the McDonald&#x27;s app and there it was - a $2.50 large fries deal, pickup only, tagged Today&#x27;s Golden Deal and expiring at midnight.
+
+Sitting right under the price: &quot;Plus, a chance to WIN!&quot; Free Macca&#x27;s for *life*.
+
+It got me thinking about how a tiny chance at something vivid can turn a plain discount into a completely different moment.
+
+On paper it&#x27;s still $2.50 fries. Attach a prize draw and the mind stops weighing the real, probably tiny odds correctly - same shape as a lottery ticket, or a bank savings promo that puts a chance at a jackpot rate next to the guaranteed one.
+
+If a missing odds line shouldn&#x27;t move a $2.50 decision that much - what might be going on?
+
+There&#x27;s a commercial version of this hiding in plain sight - acquisition, retention, and how a chance is framed before anyone &quot;decides.&quot;
+
+A few active ingredients that might be going on:
+
+🎰 Probability Weighting - once &quot;a chance to win&quot; is attached, almost any small probability feels worth chasing
+🏷️ Framing - &quot;free food for life&quot; vs &quot;$30 a week for 40 years&quot; (about $62,400, eight McGold Cards Australia-wide) is the same prize landing as two different offers
+😊 Anticipatory joy - simply holding a lottery-style ticket lifts happiness before the draw, win or lose
+
+There&#x27;s real research behind those - Kahneman &amp; Tversky on overweighting small probabilities, Rottenstreich &amp; Hsee on affect-rich prizes, Burger and colleagues on the measured happiness lift from holding a ticket.
+
+I did a short piece on it for those interested where I share more and the commercial outcomes that may improve if harnessed in practical ways:
+
+https://www.grantburrow.com/science-behind.html#macca-golden-deal
+
+I wonder whether anyone&#x27;s actually measured what that &quot;chance to WIN&quot; line is doing to same-day fries redemptions…
+
+#behaviouraleconomics #behaviouralscience #experimentation #outcomes #customers #measurement #pricing #loyalty</pre></div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good" type="button">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work" type="button">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Overall notes…"></textarea></div>
+  </div>
+
+
+  <div class="card" data-item data-title="Opener" data-kind="copy">
+    <div class="card__head">
+      <span class="tag">Copy</span>
+      <h3>Opener</h3>
+      <p class="desc">Concrete app moment + prize line under the price. Edit in place — rewrite becomes source of truth.</p>
+    </div>
+    <div class="comment">
+      <textarea data-copytext rows="9">Last week I opened the McDonald&#x27;s app and there it was - a $2.50 large fries deal, pickup only, tagged Today&#x27;s Golden Deal and expiring at midnight.
+
+Sitting right under the price: &quot;Plus, a chance to WIN!&quot; Free Macca&#x27;s for *life*.</textarea>
+    </div>
+  </div>
+  <div class="card" data-item data-title="Reaction + mechanism" data-kind="copy">
+    <div class="card__head">
+      <span class="tag">Copy</span>
+      <h3>Reaction + mechanism</h3>
+      <p class="desc">Warm reflective &quot;It got me thinking&quot; + plain-language mechanism with topic-true parallels. Edit in place — rewrite becomes source of truth.</p>
+    </div>
+    <div class="comment">
+      <textarea data-copytext rows="9">It got me thinking about how a tiny chance at something vivid can turn a plain discount into a completely different moment.
+
+On paper it&#x27;s still $2.50 fries. Attach a prize draw and the mind stops weighing the real, probably tiny odds correctly - same shape as a lottery ticket, or a bank savings promo that puts a chance at a jackpot rate next to the guaranteed one.</textarea>
+    </div>
+  </div>
+  <div class="card" data-item data-title="Tension + commercial stake" data-kind="copy">
+    <div class="card__head">
+      <span class="tag">Copy</span>
+      <h3>Tension + commercial stake</h3>
+      <p class="desc">Tension question + E2 harness line. Edit in place — rewrite becomes source of truth.</p>
+    </div>
+    <div class="comment">
+      <textarea data-copytext rows="9">If a missing odds line shouldn&#x27;t move a $2.50 decision that much - what might be going on?
+
+There&#x27;s a commercial version of this hiding in plain sight - acquisition, retention, and how a chance is framed before anyone &quot;decides.&quot;</textarea>
+    </div>
+  </div>
+  <div class="card" data-item data-title="Active ingredients" data-kind="copy">
+    <div class="card__head">
+      <span class="tag">Copy</span>
+      <h3>Active ingredients</h3>
+      <p class="desc">D1 layout: lead-in + 3 emoji lines. Edit in place — rewrite becomes source of truth.</p>
+    </div>
+    <div class="comment">
+      <textarea data-copytext rows="9">A few active ingredients that might be going on:
+
+🎰 Probability Weighting - once &quot;a chance to win&quot; is attached, almost any small probability feels worth chasing
+🏷️ Framing - &quot;free food for life&quot; vs &quot;$30 a week for 40 years&quot; (about $62,400, eight McGold Cards Australia-wide) is the same prize landing as two different offers
+😊 Anticipatory joy - simply holding a lottery-style ticket lifts happiness before the draw, win or lose</textarea>
+    </div>
+  </div>
+  <div class="card" data-item data-title="Evidence + link + close" data-kind="copy">
+    <div class="card__head">
+      <span class="tag">Copy</span>
+      <h3>Evidence + link + close</h3>
+      <p class="desc">Papers beat, F1 handoff URL, soft wonder close. Edit in place — rewrite becomes source of truth.</p>
+    </div>
+    <div class="comment">
+      <textarea data-copytext rows="9">There&#x27;s real research behind those - Kahneman &amp; Tversky on overweighting small probabilities, Rottenstreich &amp; Hsee on affect-rich prizes, Burger and colleagues on the measured happiness lift from holding a ticket.
+
+I did a short piece on it for those interested where I share more and the commercial outcomes that may improve if harnessed in practical ways:
+
+https://www.grantburrow.com/science-behind.html#macca-golden-deal
+
+I wonder whether anyone&#x27;s actually measured what that &quot;chance to WIN&quot; line is doing to same-day fries redemptions…</textarea>
+    </div>
+  </div>
+  <div class="card" data-item data-title="Hashtags" data-kind="copy">
+    <div class="card__head">
+      <span class="tag">Copy</span>
+      <h3>Hashtags</h3>
+      <p class="desc">Core set + pricing / loyalty. Edit in place — rewrite becomes source of truth.</p>
+    </div>
+    <div class="comment">
+      <textarea data-copytext rows="9">#behaviouraleconomics #behaviouralscience #experimentation #outcomes #customers #measurement #pricing #loyalty</textarea>
+    </div>
+  </div>
+
+  <div class="card" data-item data-title="Collage" data-kind="toggle">
+    <div class="card__head">
+      <span class="tag">Image</span>
+      <h3>Collage</h3>
+      <p class="desc">1200×1200, Liberation Serif Bold captions, block vertically centered. Screenshots are the example of the shape — not proof the prize line moved fries sales.</p>
+    </div>
+    <div class="preview" style="text-align:center;">
+      <img src="collage.jpg" alt="Macca Golden Deal LinkedIn collage" style="max-width:min(100%,520px);height:auto;border-radius:8px;border:1px solid var(--line);">
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good" type="button">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work" type="button">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on captions, crop, layout…"></textarea></div>
+  </div>
+
+  <div class="feedback">
+    <h3>Feedback</h3>
+    <textarea id="fb-output" readonly placeholder="Edit copy or toggle options above. Your picks will build up here."></textarea>
+    <div class="feedback-row">
+      <button class="copy-btn" id="fb-copy" type="button">Copy feedback</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var KEY = 'of-fb-theme';
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch(e){}
+  if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+  function sync(){
+    var cur = root.getAttribute('data-theme');
+    var isDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  sync();
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var curDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = curDark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch(e){}
+    sync();
+  });
+})();
+
+document.querySelectorAll('[data-item]').forEach(function(item){
+  item.querySelectorAll('.toggle-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var already = btn.getAttribute('data-active') === 'true';
+      item.querySelectorAll('.toggle-btn').forEach(function(b){ b.removeAttribute('data-active'); });
+      if(!already) btn.setAttribute('data-active','true');
+      updateFeedback();
+    });
+  });
+  var ta = item.querySelector('[data-comment]');
+  if(ta) ta.addEventListener('input', updateFeedback);
+  var copy = item.querySelector('[data-copytext]');
+  if(copy){
+    copy.dataset.original = copy.value;
+    copy.addEventListener('input', updateFeedback);
+  }
+});
+
+function updateFeedback(){
+  var out = [];
+  document.querySelectorAll('[data-item]').forEach(function(item){
+    var title = item.getAttribute('data-title');
+    var kind = item.getAttribute('data-kind');
+    if(kind === 'copy'){
+      var box = item.querySelector('[data-copytext]');
+      if(!box) return;
+      var cur = box.value;
+      var orig = box.dataset.original || '';
+      var edited = cur !== orig;
+      out.push('— ' + title + ' (' + (edited ? 'edited' : 'unchanged') + ')\n' + cur);
+      return;
+    }
+    var active = item.querySelector('.toggle-btn[data-active="true"]');
+    var comment = item.querySelector('[data-comment]');
+    var commentVal = comment ? comment.value.trim() : '';
+    if(!active && !commentVal) return;
+    var choice = active ? active.textContent.trim() : '(no choice)';
+    out.push('— ' + title + '\n  Choice: ' + choice + (commentVal ? '\n  Comment: ' + commentVal : ''));
+  });
+  document.getElementById('fb-output').value = out.length ? out.join('\n\n') : '';
+}
+updateFeedback();
+
+document.getElementById('fb-copy').addEventListener('click', function(){
+  var btn = this;
+  var text = document.getElementById('fb-output').value;
+  if(!text){ return; }
+  function done(){
+    btn.textContent = 'Copied ✓';
+    btn.setAttribute('data-copied','true');
+    setTimeout(function(){ btn.textContent = 'Copy feedback'; btn.removeAttribute('data-copied'); }, 1800);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+  } else {
+    fallbackCopy(text, done);
+  }
+});
+function fallbackCopy(text, cb){
+  var ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  cb();
+}
+</script>
+</body>
+</html>
