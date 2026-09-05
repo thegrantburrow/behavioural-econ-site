@@ -1710,9 +1710,15 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 }
 
 .flow-branches {
+  /* Column, not row, at every width: .flow-path lives inside .rail-content,
+     a deliberately narrow reading column (roughly 250-380px even on a wide
+     desktop window, see CLAUDE.md's mobile-crowding writeup) that never
+     actually has room for two side-by-side condition cards. A row layout
+     here always squeezed each .flow-path down to ~80-140px regardless of
+     viewport, colliding "100 pts" against "pistachio" on every device. */
   display: flex;
-  flex-direction: row;
-  gap: 6px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .flow-path {
@@ -1798,6 +1804,14 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 
 .result-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .result-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+/* The arrow column (a bare "→" between the two condition percentages) is
+   decorative, not informational, the colour-coded columns and the delta
+   already show the direction. .result-table only ever lives inside
+   .rail-content, a reading column that stays roughly 190-380px wide
+   regardless of viewport (see .flow-branches above), so this column is
+   never "spare" width, it is always the difference between the two
+   percentages fitting on screen or getting clipped at the right edge. */
+.result-table th:nth-child(3), .result-table td.result-arrow { display: none; }
 .result-table th {
   text-align: right;
   font-size: 0.64rem;
@@ -1809,8 +1823,13 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   white-space: nowrap;
 }
 .result-table th:first-child { text-align: left; }
-.result-table th.col-a { color: var(--terracotta); }
-.result-table th.col-b { color: var(--teal); }
+.result-table th.col-a { color: var(--terracotta); padding-right: 6px; }
+.result-table th.col-b { color: var(--teal); padding-right: 6px; }
+/* The condition-icon inside col-a/col-b headers repeats a distinction
+   colour + the header word already make, and at ~190px of real available
+   width (see the .result-table-wrap comment above) it's the difference
+   between the Swing column fitting on screen or clipping at the edge. */
+.result-table th .condition-icon { display: none; }
 .result-table td {
   padding: 9px 0;
   border-top: 1px solid var(--line);
@@ -1818,12 +1837,12 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   white-space: nowrap;
   vertical-align: middle;
 }
-.result-table td.row-label { text-align: left; font-weight: 700; white-space: normal; padding-right: 8px; }
-.result-table td.pct { font-weight: 700; font-size: 0.9rem; }
-.result-table td.pct.a { color: var(--terracotta); }
-.result-table td.pct.b { color: var(--teal); }
+.result-table td.row-label { text-align: left; font-weight: 700; white-space: normal; padding-right: 4px; }
+.result-table td.pct { font-weight: 700; font-size: 0.82rem; }
+.result-table td.pct.a { color: var(--terracotta); padding-right: 6px; }
+.result-table td.pct.b { color: var(--teal); padding-right: 6px; }
 .result-table td.result-arrow { color: var(--muted); font-size: 0.75rem; padding: 0 4px; }
-.result-table td.result-delta { font-weight: 800; color: var(--ink); background: rgba(224, 169, 58, 0.3); border-radius: 6px; padding: 4px 7px; font-size: 0.78rem; }
+.result-table td.result-delta { font-weight: 800; color: var(--ink); background: rgba(224, 169, 58, 0.3); border-radius: 6px; padding: 3px 5px; font-size: 0.74rem; }
 
 .flow-insight {
   font-size: 0.85rem;
@@ -1871,10 +1890,10 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
   .result-table { font-size: 0.9rem; }
   .result-table td { padding: 11px 0; }
   .result-table td.pct { font-size: 1rem; }
+  .result-table td.result-delta { padding: 4px 7px; font-size: 0.78rem; }
 }
 
 @media (min-width: 600px) {
-  .flow-branches { gap: 16px; }
   .flow-validity { flex-direction: row; }
   .v-badge { flex: 1; }
 }
