@@ -315,7 +315,7 @@ Sibling alone ≠ archive. Doc without downloadable photo ≠ complete handoff.
 ### Embed method (verified)
 
 1. Build a local `.docx` with collage as real Word inline picture (`word/media/image1.jpg` via python-docx `add_picture`), then post paragraphs. Image first, copy below.  
-2. Keep embed JPEG modest (~30–40 KB; ~28 KB at ~480px worked). Large `base64Content` gets truncated / rejected.  
+2. Keep embed JPEG modest (~18–28 KB; ~18 KB at ~480px worked for Macca). Large `base64Content` gets truncated / rejected by the MCP tool path.  
 3. Upload via Drive `create_file`:  
    - `contentMimeType`: `application/vnd.openxmlformats-officedocument.wordprocessingml.document`  
    - `base64Content`: full docx  
@@ -323,12 +323,21 @@ Sibling alone ≠ archive. Doc without downloadable photo ≠ complete handoff.
    - Do **not** set `disableConversionToGoogleType` (must convert Word → Google Doc)  
 4. Upload sibling as `image/jpeg` with `disableConversionToGoogleType: true`.  
 
+### MCP `base64Content` ceiling (locked 2026-09-06)
+
+The Drive MCP `create_file` path truncates / corrupts large `base64Content` before Drive sees it. Probed ceiling:
+
+- **Faithful max ~9992 base64 chars** (~7.5 KB decoded) for sibling JPEGs — larger payloads may “succeed” with wrong `fileSize`, or fail as invalid base64.  
+- Docx embeds can clear a bit higher when kept ~18–24 KB total docx (~24–32 KB base64) — still verify export; do not assume bigger is fine.  
+- If the faithful sibling must be tiny: compress to max dimension that fits the ceiling (e.g. ~400px q≈25), keep a **full-res local** `linkedin-posts/<slug>/collage.jpg` plus the named `YYYYMMDD … collage.jpg`, and tell Grant the Doc embed + local file are the LinkedIn-quality sources when Drive sibling is MCP-capped.
+
 ### Verify before sending links
 
 - Doc `fileSize` is tens of KB (not ~1 KB)  
 - Export as docx → unzip → `word/media/image*.jpg` is a real JPEG (`FF D8`), tens of KB — not a ~70-byte placeholder  
 - HTML `<img src="data:…">` or Drive URL in text export is **not** proof of a native image  
-- Sibling JPEG exists in the same folder  
+- Sibling JPEG exists in the same folder with the exact `… collage.jpg` name  
+- Sibling `fileSize` matches the bytes you encoded (truncation bug shows a smaller size)  
 - Body matches latest wording  
 
 ### Failed approaches (do not retry)
@@ -337,6 +346,7 @@ Sibling alone ≠ archive. Doc without downloadable photo ≠ complete handoff.
 - HTML + data-URI image  
 - HTML + `drive.google.com/uc?id=…`  
 - Sidecar JPEG **instead of** embed  
+- Assuming a large sibling upload “worked” without checking `fileSize` against source bytes  
 
 ---
 
