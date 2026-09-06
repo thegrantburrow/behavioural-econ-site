@@ -3,6 +3,7 @@
   --terracotta: #C43E1F;
   --terracotta-dim: #A6331A;
   --mustard: #E0A93A;
+  --mustard-dim: #96691E;
   --teal: #1F7A6C;
   --paper: #F5F6F5;
   --card: #FFFFFF;
@@ -1731,6 +1732,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 
 .flow-path.path-a { border-top: 3px solid var(--terracotta); }
 .flow-path.path-b { border-top: 3px solid var(--teal); }
+.flow-path.path-c { border-top: 3px solid var(--mustard); }
 
 .path-tag {
   display: flex;
@@ -1745,6 +1747,7 @@ a.read-link { font-size: 0.8rem; color: var(--terracotta); text-decoration: unde
 }
 .path-a .path-tag { color: var(--terracotta); }
 .path-b .path-tag { color: var(--teal); }
+.path-c .path-tag { color: var(--mustard-dim); }
 
 .flow-step {
   display: flex;
