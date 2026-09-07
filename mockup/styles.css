@@ -3813,3 +3813,99 @@ footer a:hover { color: var(--terracotta); }
 .coin-track-dot { position: absolute; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--terracotta); border: 2px solid var(--card); transform: translateX(-50%); }
 .coin-track-dot.group-b { background: var(--teal); }
 .coin-track-range { font-size: 0.78rem; color: var(--muted); }
+
+/* ---------- Money-flow numbered step diagram (VISUAL-SYSTEMS.md system #23) ----------
+   Renamed from the review-artifact prototype: .flow-diagram/.flow-tag/.flow-insight would
+   collide with system #8's real classes above, so this system uses money-flow-* for those
+   three only. Everything else (step-strip, step-col, mini-list, strip-node, link-connector)
+   was already free and is used unprefixed. */
+.money-flow-diagram { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px 8px; overflow: hidden; margin: 20px 0; }
+.money-flow-tag { display: block; font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800; color: var(--muted); margin-bottom: 14px; text-align: center; }
+.money-flow-insight { font-size: 0.85rem; margin: 16px 0 0; padding-top: 12px; border-top: 1px dashed var(--line); color: var(--ink); }
+.money-flow-insight b { color: var(--terracotta); }
+
+.step-strip { display: grid; grid-template-columns: 68px 68px 1fr 68px; column-gap: 4px; align-items: center; margin-bottom: 14px; padding: 0 2px; position: relative; }
+.strip-node-wrap { display: flex; justify-content: center; }
+.strip-node { width: 19px; height: 19px; border-radius: 50%; background: var(--terracotta); color: #fff; font-size: 0.62rem; font-weight: 800; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+.strip-connector { position: absolute; top: 50%; left: 34px; right: 34px; height: 2px; background: var(--line); transform: translateY(-50%); z-index: 0; }
+
+.flow-steps { display: grid; grid-template-columns: 68px 68px 1fr 68px; column-gap: 4px; align-items: start; position: relative; }
+.step-col { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; position: relative; }
+.step-col .flow-icon-lg { width: 28px; height: 28px; color: var(--ink); flex-shrink: 0; }
+.step-col .step-label { font-size: 0.68rem; font-weight: 700; line-height: 1.25; color: var(--ink); }
+.step-col.wide { min-width: 0; align-items: stretch; }
+.step-col.align-third { align-self: flex-end; }
+
+.mini-list { display: flex; flex-direction: column; gap: 8px; padding-top: 1px; }
+.mini-row { display: flex; align-items: center; gap: 7px; text-align: left; }
+.mini-row .mini-icon { width: 19px; height: 19px; flex-shrink: 0; color: var(--ink); }
+.mini-row .mini-label { font-size: 0.7rem; line-height: 1.28; color: var(--ink); }
+.mini-row .mini-tag { display: block; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; }
+.mini-row.mr-a .mini-tag { color: var(--terracotta); }
+.mini-row.mr-b .mini-tag { color: var(--teal); }
+.mini-row.mr-c .mini-tag { color: var(--mustard-dim); }
+
+.link-connector { position: absolute; height: 2px; background: var(--line); right: 68px; width: 22px; bottom: 33px; }
+
+@media (max-width: 480px) {
+  .money-flow-diagram { padding: 16px 6px; }
+}
+
+/* ---------- Banking-app savings mockup (reuses the real .app-mock-phone/.app-mock-screen
+   shell already defined above; these are the report-specific inner components) ---------- */
+.pocket-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.pocket-row { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+.pocket-row.dimmed { opacity: 0.65; border-style: dashed; }
+.pocket-icon { width: 20px; height: 20px; flex-shrink: 0; }
+.pocket-info { flex: 1; min-width: 0; }
+.pocket-name { font-size: 0.78rem; font-weight: 700; display: block; }
+.pocket-sub { font-size: 0.66rem; color: var(--muted); }
+.pocket-balance { font-size: 0.8rem; font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.pocket-hidden-tag { display: inline-block; font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; color: var(--mustard-dim); background: rgba(150,105,30,0.12); border-radius: 999px; padding: 2px 7px; margin-top: 3px; }
+
+.transfer-source { border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; background: var(--card); }
+.transfer-arrows { display: flex; justify-content: center; margin: 6px 0; }
+.transfer-arrows svg { width: 16px; height: 16px; color: var(--muted); }
+.transfer-dest-row { display: flex; flex-direction: column; gap: 8px; }
+
+.real-cog-row { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.real-cog-row svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; }
+.rename-field { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; }
+.rename-field input { border: none; background: none; font: inherit; font-size: 0.82rem; color: var(--ink); flex: 1; outline: none; }
+.rename-field svg { width: 15px; height: 15px; color: var(--terracotta); flex-shrink: 0; }
+
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--line); }
+.toggle-label { font-size: 0.78rem; }
+.toggle-switch { width: 34px; height: 19px; border-radius: 999px; background: var(--line); position: relative; flex-shrink: 0; }
+.toggle-switch::after { content: ''; position: absolute; top: 2px; right: 2px; width: 15px; height: 15px; border-radius: 50%; background: #fff; }
+
+.goal-progress { margin: 4px 0 10px; }
+.goal-progress-label { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.goal-progress-track { height: 7px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+.goal-progress-fill { height: 100%; border-radius: 999px; }
+
+.not-real-tag { display: inline-block; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; color: var(--terracotta); background: rgba(196,62,31,0.1); border-radius: 999px; padding: 3px 8px; margin-bottom: 10px; }
+.reminder-mock { border: 1px dashed var(--line); border-radius: 14px; padding: 16px 14px; max-width: 240px; margin: 0 auto; background: var(--paper); }
+.reminder-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; font-size: 0.8rem; }
+.reminder-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0; }
+
+.cite-note { font-size: 0.85rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--terracotta); border-radius: 8px; padding: 12px 14px; margin: 16px 0; line-height: 1.55; }
+.cite-note b { color: var(--terracotta); }
+.cite-note ul { margin: 6px 0 0; padding-left: 18px; }
+.cite-note li { margin-bottom: 5px; }
+
+.real-grid { display: grid; grid-template-columns: 1fr; gap: 22px; margin: 0 0 6px; }
+@media (min-width: 560px) { .real-grid { grid-template-columns: repeat(3, 1fr); } }
+.real-col { display: flex; flex-direction: column; }
+.real-step-num { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); font-weight: 800; margin-bottom: 10px; text-align: center; }
+.mini-num-badge { width: 16px; height: 16px; border-radius: 50%; color: #fff; font-size: 0.6rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+.real-strip-wrap { margin: 20px 0 18px; }
+.real-strip-row { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 3px; align-items: center; position: relative; padding: 0 2px; }
+.real-strip-row .strip-connector { position: absolute; top: 50%; left: 9%; right: 9%; height: 2px; background: var(--line); transform: translateY(-50%); z-index: 0; }
+.real-strip-node-wrap { display: flex; justify-content: center; }
+.real-strip-node { width: 19px; height: 19px; border-radius: 50%; color: #fff; font-size: 0.62rem; font-weight: 800; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+.real-elbow-wrap { margin: -2px 0 -2px; }
+.real-elbow-wrap svg { width: 100%; height: 30px; color: var(--line); display: block; }
+.real-strip-labels { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 3px; margin-top: 6px; }
+.real-strip-labels span { font-size: 0.6rem; color: var(--muted); text-align: center; font-weight: 700; }
