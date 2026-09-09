@@ -30,14 +30,16 @@ and public.
 
 ## Prerequisite: a voice profile must exist
 
-This only works if `~/.claude/skills/my-writing-style/SKILL.md` exists. If it
-doesn't, stop and run the `setup-writing-style` skill first (see that
-skill's own guardrails on consent and sourcing); don't guess at how the owner
-writes from the site's own editorial voice, which is a different, more
-formal register aimed at a different reader. Once it exists, load it before
-drafting every post this skill produces, not just the first one, and fold
-back any feedback the owner gives on a specific post per that skill's own
-"Updating this profile" section.
+This only works if a `my-writing-style` profile is loadable. Check, in order:
+`.claude/skills/my-writing-style/SKILL.md` in this repo (the cloud-agent
+copy), then `~/.claude/skills/my-writing-style/SKILL.md` (the original Claude
+Code global path). If neither exists, stop and rebuild from his real published
+posts plus the feedback rounds already folded into this skill; don't guess at
+how the owner writes from the site's own editorial voice, which is a
+different, more formal register aimed at a different reader. Once it exists,
+load it before drafting every post this skill produces, not just the first
+one, and fold back any feedback the owner gives on a specific post per that
+skill's own "Updating this profile" section.
 
 ## The pipeline
 
