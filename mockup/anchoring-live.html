@@ -366,34 +366,34 @@ function formatDateTime(t){
 var EXAMPLES = [
   {
     label: 'Credit card minimum payments',
-    body: 'A statement that shows &ldquo;minimum payment: $35&rdquo; anchors what feels like a reasonable amount to repay, even for people who could easily pay more. One study found that simply printing a minimum payment figure measurably lowered how much people chose to repay, real money left on the table because of one printed number.',
+    body: 'Put &ldquo;minimum payment: $35&rdquo; on a statement and that figure becomes the repayment yardstick, even for people who could clear far more. Printing a minimum has been shown to lower how much people choose to repay: real money left unpaid because of one printed cue.',
     cite: 'Stewart, N. (2009). &ldquo;The Cost of Anchoring on Credit-Card Minimum Repayments.&rdquo; <a href="https://journals.sagepub.com/doi/abs/10.1111/j.1467-9280.2008.02255.x" target="_blank" rel="noopener">Psychological Science, 20(1), 39&ndash;41</a>'
   },
   {
     label: 'A home&rsquo;s asking price',
-    body: 'Real estate agents shown an inflated or deflated listing price for the identical house gave appraisals pulled toward that number, then insisted the list price hadn&rsquo;t influenced their judgment when asked directly.',
+    body: 'Show agents an inflated or deflated list price for the same house and their appraisals drift toward that figure. Asked directly, many still insist the list price played no part.',
     cite: 'Northcraft, G. B., &amp; Neale, M. A. (1987). &ldquo;Experts, Amateurs, and Real Estate.&rdquo; <a href="https://www.sciencedirect.com/science/article/abs/pii/074959788790046X" target="_blank" rel="noopener">Organizational Behavior and Human Decision Processes, 39(1), 84&ndash;97</a>'
   },
   {
     label: 'Whoever names a number first in a negotiation',
-    body: 'Across salary talks and price haggling alike, the first offer on the table predicts the final settlement better than almost anything said afterward. The rest of the negotiation mostly adjusts from that one opening anchor.',
+    body: 'In salary talks and price haggling, the opening offer predicts the final number better than most of what follows. The rest of the negotiation mostly adjusts from that first figure.',
     cite: 'Galinsky, A. D., &amp; Mussweiler, T. (2001). &ldquo;First Offers as Anchors.&rdquo; <a href="https://pubmed.ncbi.nlm.nih.gov/11642352/" target="_blank" rel="noopener">Journal of Personality and Social Psychology, 81(4), 657&ndash;669</a>'
   },
   {
     label: 'A judge&rsquo;s sentencing decision',
-    body: 'Experienced judges asked to roll a pair of dice before recommending a criminal sentence gave longer sentences after rolling high, shorter after rolling low, despite knowing full well the dice had nothing to do with the case in front of them.',
+    body: 'Ask experienced judges to roll dice before recommending a sentence and high rolls produce longer recommendations, low rolls shorter ones, even when everyone knows the dice have nothing to do with the case.',
     cite: 'Englich, B., Mussweiler, T., &amp; Strack, F. (2006). &ldquo;Playing Dice With Criminal Sentences.&rdquo; <a href="https://journals.sagepub.com/doi/10.1177/0146167205282152" target="_blank" rel="noopener">Personality and Social Psychology Bulletin, 32(2), 188&ndash;200</a>'
   },
   {
     label: 'The last two digits of your own social security number',
-    body: 'Asked to write down the last two digits of their social security number, then bid on ordinary products like wine and keyboards, people with higher digit pairs bid noticeably more, an anchor with no connection whatsoever to what the product was actually worth.',
+    body: 'People who write down high final digits of their social security number then bid higher on ordinary goods (wine, keyboards) than people with low digits. The personal number becomes an auction anchor with no link to the product&rsquo;s worth.',
     cite: 'Ariely, D., Loewenstein, G., &amp; Prelec, D. (2003). &ldquo;Coherent Arbitrariness.&rdquo; <a href="https://academic.oup.com/qje/article-abstract/118/1/73/1917051" target="_blank" rel="noopener">Quarterly Journal of Economics, 118(1), 73&ndash;106</a>'
   }
 ];
 
 function renderNarrative(byGroup){
   var section = el('div', {class:'narrative-section'}, '');
-  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'High anchor vs low anchor'));
 
   var valsA = byGroup.a.map(function(e){ return e.v; });
   var valsB = byGroup.b.map(function(e){ return e.v; });
@@ -404,24 +404,24 @@ function renderNarrative(byGroup){
 
   if (nA === 0 && nB === 0) {
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic anchoring pattern, a higher median guess from the group asked about 65% than from the group asked about 10%, or not.';
+    verdictHtml = 'No estimates yet. When both the 65% comparative question and the 10% comparative question have at least one guess, this box reports whether the high-anchor median sat above the low-anchor median, the classic Tversky &amp; Kahneman pattern.';
   } else if (nA === 0 || nB === 0) {
     var emptyLabel = (nA === 0 ? GROUPS.a.label : GROUPS.b.label).split(' (')[0];
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the anchoring effect.';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; side is still blank. Get one estimate into each group before reading an anchoring verdict.';
   } else {
     var diff = medA - medB;
     var smallN = (nA < 5 || nB < 5);
     if (diff > 0) {
       tag = 'Lined up with anchoring'; tagClass = 'aligned';
-      verdictHtml = 'The high-anchor group&rsquo;s median guess, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '), came in higher than the low-anchor group&rsquo;s, <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '). <b>That&rsquo;s the same direction Tversky and Kahneman found with their rigged wheel in 1974</b>: whichever number people heard first, even one they knew was random, pulled their guess toward it.';
-      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, <b>treat this as a live demonstration rather than a controlled study</b>. The direction is still the one decades of replication would predict.';
+      verdictHtml = 'Median guess after the high anchor: <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '). After the low anchor: <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '). <b>Same direction as the 1974 wheel study</b>: the first number people heard, random as they knew it was, still dragged the estimate toward it.';
+      if (smallN) verdictHtml += ' The thinner side has well under a dozen answers, so <b>read the gap as a room demonstration</b>. Decades of replications still predict this direction.';
     } else if (diff === 0) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups landed on the exact same median guess, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + ' and n=' + nB + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. <b>It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more answers and check back.';
+      verdictHtml = 'Both anchors produced the same median, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + ' and n=' + nB + '). At this n, <b>a dead heat is usually sampling luck around a real anchoring gap</b>. Collect more guesses and look again.';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the low-anchor group&rsquo;s median guess, <b>' + Math.round(medB) + FACT.suffix + '</b> (n=' + nB + '), came in higher than the high-anchor group&rsquo;s, <b>' + Math.round(medA) + FACT.suffix + '</b> (n=' + nA + '). <b>Tversky and Kahneman&rsquo;s own version, and dozens of replications since, are among the most reliable findings in behavioural science</b>, so one reversed session doesn&rsquo;t undo that.</p><p>What it usually means at this size is noise: <b>a handful of people per side is a small enough sample that one or two unusual guesses can flip the median entirely</b>, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'The low-anchor median landed higher this time (<b>' + Math.round(medB) + FACT.suffix + '</b>, n=' + nB + ') than the high-anchor median (<b>' + Math.round(medA) + FACT.suffix + '</b>, n=' + nA + '). <b>The 1974 result, and dozens of replications after it, sit among the most reliable findings in the field</b>. One flipped room does not rewrite that record.</p><p><b>One or two unusual guesses can invert a median when each side is tiny</b>, even while the underlying effect stays real. A single small study faces the same limit. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> shows how that overclaim looks in a published paper.';
     }
   }
 
@@ -431,9 +431,9 @@ function renderNarrative(byGroup){
   section.appendChild(verdict);
 
   section.appendChild(el('div', {class:'narrative-block'},
-    '<h4>The mechanism, in one paragraph</h4><p>This is the &ldquo;anchoring-and-adjustment&rdquo; heuristic. Instead of estimating from scratch, people start from whatever number they heard most recently, even an arbitrary one like a rigged wheel or this page&rsquo;s own comparative question, and adjust away from it. <b>That adjustment reliably stops too early, as soon as the number feels plausible, not when it&rsquo;s actually correct.</b> The result: <b>two groups shown the identical real question end up with different guesses</b>, each pulled toward whichever starting number it happened to hear. <a href="principles.html#anchoring">Read the full write-up, including the original study, on the Principles page.</a></p>'));
+    '<h4>Anchoring-and-adjustment, briefly</h4><p>People rarely invent an estimate from a blank slate. They begin at the most recent number they heard, even a rigged wheel or this page&rsquo;s comparative question, then move away from it. <b>Adjustment usually stops once the figure feels plausible, well before it is accurate.</b></p><p><b>Two groups answering the same UN question therefore land on different medians</b>, each dragged toward the starting number they saw. <a href="principles.html#anchoring">Full write-up, including the original study, on the Principles page.</a></p>'));
 
-  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Anchoring past the UN question</h4>');
   var list = el('ul', {class:'example-list'}, '');
   EXAMPLES.forEach(function(ex){
     var li = el('li', {class:'example-item'}, '');

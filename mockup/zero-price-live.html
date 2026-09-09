@@ -175,7 +175,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 (function(){
 "use strict";
 
-var CONFIG = {"toolId": "zp", "type": "choice", "toolTitle": "Live Zero Price Effect", "targetKey": "kiss", "targetHigherGroup": "b", "targetShortLabel": "the Hershey&rsquo;s Kiss", "groups": {"a": {"label": "1&cent; vs. 15&cent; chocolate", "shortLabel": "1&cent; vs 15&cent;", "scenarioTitle": "Which chocolate do you pick?", "scenarioBody": "A Hershey&rsquo;s Kiss costs 1 cent. A Lindt truffle costs 15 cents.", "options": [{"key": "kiss", "label": "Hershey&rsquo;s Kiss, 1 cent", "short": "Kiss (1&cent;)"}, {"key": "truffle", "label": "Lindt truffle, 15 cents", "short": "Truffle (15&cent;)"}]}, "b": {"label": "Free vs. 14&cent; chocolate", "shortLabel": "Free vs 14&cent;", "scenarioTitle": "Which chocolate do you pick?", "scenarioBody": "A Hershey&rsquo;s Kiss is free. A Lindt truffle costs 14 cents.", "options": [{"key": "kiss", "label": "Hershey&rsquo;s Kiss, free", "short": "Kiss (free)"}, {"key": "truffle", "label": "Lindt truffle, 14 cents", "short": "Truffle (14&cent;)"}]}}, "historicalText": "This site&rsquo;s own Zero Price Effect entry cites Shampanier, Mazar &amp; Ariely&rsquo;s 2007 study: people picked the 1 cent chocolate only 14% of the time against a 15 cent premium chocolate, but when the identical 14 cent price gap was preserved by making the cheap chocolate free, they picked it 42% of the time.", "mechanismHtml": "This is the zero price effect. Standard economics treats price as a continuous scale, a 1 cent difference should feel about the same wherever it sits. <b>People treat zero as a different category entirely.</b> Once something is free, there&rsquo;s no chance of feeling like you made a bad trade, so the choice reads as a pure gain instead of an exchange, and <b>the free option gets picked far more often than the same price gap would predict anywhere else on the scale</b>. <a href=\"principles.html#zero-price\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "Amazon France&rsquo;s one-centime shipping", "body": "When Amazon rolled out free shipping worldwide, sales jumped everywhere except France, where a pricing quirk left shipping at one franc instead of zero. Sales there barely moved until the fee was dropped to genuinely free, the same tiny price gap everywhere else, but only zero moved the needle.", "cite": "Widely reported natural experiment, discussed in Chris Anderson&rsquo;s <i>Free</i> (2009) and referenced in Shampanier, Mazar &amp; Ariely&rsquo;s own 2007 paper."}, {"label": "Free-shipping thresholds", "body": "Add-to-cart totals cluster just above a store&rsquo;s free-shipping minimum, people will spend several extra dollars on merchandise to avoid paying a much smaller shipping fee, purely to cross into free.", "cite": "General pattern; see this site&rsquo;s own <a href=\"principles.html#zero-price\">Zero Price Effect</a> entry."}, {"label": "Freemium software tiers", "body": "A free tier routinely drives adoption far beyond what an equivalent one-dollar-a-month tier would, even when the paid tier&rsquo;s price is trivial relative to the value on offer.", "cite": "Widely documented software-industry pattern; see Chris Anderson&rsquo;s <i>Free</i> (2009)."}]};
+var CONFIG = {"toolId": "zp", "type": "choice", "toolTitle": "Live Zero Price Effect", "targetKey": "kiss", "targetHigherGroup": "b", "targetShortLabel": "the Hershey&rsquo;s Kiss", "groups": {"a": {"label": "1&cent; vs. 15&cent; chocolate", "shortLabel": "1&cent; vs 15&cent;", "scenarioTitle": "Which chocolate do you pick?", "scenarioBody": "A Hershey&rsquo;s Kiss costs 1 cent. A Lindt truffle costs 15 cents.", "options": [{"key": "kiss", "label": "Hershey&rsquo;s Kiss, 1 cent", "short": "Kiss (1&cent;)"}, {"key": "truffle", "label": "Lindt truffle, 15 cents", "short": "Truffle (15&cent;)"}]}, "b": {"label": "Free vs. 14&cent; chocolate", "shortLabel": "Free vs 14&cent;", "scenarioTitle": "Which chocolate do you pick?", "scenarioBody": "A Hershey&rsquo;s Kiss is free. A Lindt truffle costs 14 cents.", "options": [{"key": "kiss", "label": "Hershey&rsquo;s Kiss, free", "short": "Kiss (free)"}, {"key": "truffle", "label": "Lindt truffle, 14 cents", "short": "Truffle (14&cent;)"}]}}, "historicalText": "This site&rsquo;s own Zero Price Effect entry cites Shampanier, Mazar &amp; Ariely&rsquo;s 2007 study: people picked the 1 cent chocolate only 14% of the time against a 15 cent premium chocolate, but when the identical 14 cent price gap was preserved by making the cheap chocolate free, they picked it 42% of the time.", "mechanismHtml": "Textbook price theory treats a continuous scale: a one-cent gap should feel similar wherever it sits. <b>Zero lands in a different mental bucket.</b> When something is free, there is no trade to regret, so the pick feels like a pure gain rather than an exchange. <b>Free then gets chosen far more often than the same gap would predict anywhere else on the scale.</b> <a href=\"principles.html#zero-price\">Full write-up on the Principles page.</a>", "examples": [{"label": "Amazon France&rsquo;s one-centime shipping", "body": "When Amazon rolled out free shipping worldwide, sales jumped everywhere except France, where a quirk left shipping at one franc instead of zero. Sales there barely moved until the fee went genuinely free. Same tiny gap elsewhere; only zero moved the needle.", "cite": "Widely reported natural experiment, discussed in Chris Anderson&rsquo;s <i>Free</i> (2009) and referenced in Shampanier, Mazar &amp; Ariely&rsquo;s own 2007 paper."}, {"label": "Free-shipping thresholds", "body": "Cart totals cluster just above a store&rsquo;s free-shipping minimum. Shoppers will add several dollars of merchandise to avoid a much smaller shipping fee, purely to cross into free.", "cite": "General pattern; see this site&rsquo;s own <a href=\"principles.html#zero-price\">Zero Price Effect</a> entry."}, {"label": "Freemium software tiers", "body": "A free tier routinely drives adoption far past what a one-dollar-a-month tier would, even when that paid price is trivial relative to the product&rsquo;s value.", "cite": "Widely documented software-industry pattern; see Chris Anderson&rsquo;s <i>Free</i> (2009)."}]};
 var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
@@ -354,7 +354,7 @@ function fmtMetric(m){
 
 function renderNarrative(currentEntries){
   var section = el('div', {class:'narrative-section'}, '');
-  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'Free vs nearly free'));
 
   var hi = CONFIG.targetHigherGroup;
   var lo = hi === 'a' ? 'b' : 'a';
@@ -367,24 +367,24 @@ function renderNarrative(currentEntries){
 
   if (mHi.n === 0 && mLo.n === 0) {
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic pattern, or not.';
+    verdictHtml = 'No chocolate picks yet. Once the 1&cent;/15&cent; menu and the free/14&cent; menu each have a choice, this box compares them to Shampanier, Mazar &amp; Ariely&rsquo;s zero-price pattern.';
   } else if (mHi.n === 0 || mLo.n === 0) {
     var emptyLabel = mHi.n === 0 ? hiLabel : loLabel;
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the effect.';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; menu still has zero picks. Add one on each pricing sheet.';
   } else {
     var diff = mHi.value - mLo.value;
     var smallN = (mHi.n < 5 || mLo.n < 5);
     if (diff > 0) {
       tag = 'Lined up with the effect'; tagClass = 'aligned';
-      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group came in at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '), higher than the &ldquo;' + loLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '). <b>That&rsquo;s the same direction the original study found.</b>';
-      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, <b>treat this as a live demonstration rather than a controlled study</b>. The direction is still the one the real research would predict.';
+      verdictHtml = 'The Kiss drew <b>' + fmtMetric(mHi) + '</b> when it was free (&ldquo;' + hiLabel + '&rdquo;, n=' + mHi.n + '), above <b>' + fmtMetric(mLo) + '</b> when it cost a cent (&ldquo;' + loLabel + '&rdquo;, n=' + mLo.n + '). <b>A one-cent gap elsewhere on the scale rarely moves people this hard.</b>';
+      if (smallN) verdictHtml += ' Fewer than five picks on one menu: <b>treat the jump as a room demo</b> that still points the way the 2007 chocolate study did.';
     } else if (diff === 0) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups landed on exactly the same figure, <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. <b>It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more answers and check back.';
+      verdictHtml = 'Both menus gave the Kiss <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). <b>Matching rates at this size usually mean not enough data yet</b>, not that free stopped mattering. Keep collecting.';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group came in at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '). <b>The original study, and the real replications since, are among the more reliable findings in behavioural science</b>, so one reversed session doesn&rsquo;t undo that.</p><p>What it usually means at this size is noise: <b>a handful of people per side is a small enough sample that one or two unusual answers can flip the result entirely</b>, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'The paid Kiss outdrew the free Kiss this time (<b>' + fmtMetric(mLo) + '</b> vs <b>' + fmtMetric(mHi) + '</b>; n=' + mLo.n + ' / n=' + mHi.n + '). <b>Zero-price effects are well established in lab and field settings</b>; a flipped session is not a disproof.</p><p><b>A couple of Lindt fans in a thin free group can invert the percentage</b> even when free still pulls hard in larger samples. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> unpacks that overclaim risk.';
     }
   }
 
@@ -394,13 +394,13 @@ function renderNarrative(currentEntries){
   section.appendChild(verdict);
 
   section.appendChild(el('div', {class:'narrative-block'},
-    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+    '<h4>Why zero is its own category</h4><p>' + CONFIG.mechanismHtml + '</p>'));
 
   if (CONFIG.illustrativeNote) {
     section.appendChild(el('p', {class:'also-illustrative'}, CONFIG.illustrativeNote));
   }
 
-  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Zero price past the chocolate bowl</h4>');
   var list = el('ul', {class:'example-list'}, '');
   CONFIG.examples.forEach(function(ex){
     var li = el('li', {class:'example-item'}, '');

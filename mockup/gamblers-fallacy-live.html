@@ -175,7 +175,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 (function(){
 "use strict";
 
-var CONFIG = {"toolId": "gf", "type": "choice", "toolTitle": "Live Gambler's Fallacy", "targetKey": "T", "targetHigherGroup": "a", "targetShortLabel": "Tails", "groups": {"a": {"label": "After a streak of heads", "shortLabel": "Streak: H H H H H", "scenarioTitle": "What comes next?", "scenarioBody": "A fair coin has just landed heads five times in a row: H, H, H, H, H. What do you think the sixth flip will be?", "options": [{"key": "H", "label": "Heads", "short": "Heads"}, {"key": "T", "label": "Tails", "short": "Tails"}]}, "b": {"label": "After an alternating run", "shortLabel": "Alternating: H T H T H", "scenarioTitle": "What comes next?", "scenarioBody": "A fair coin has just landed H, T, H, T, H, switching every single time. What do you think the sixth flip will be?", "options": [{"key": "H", "label": "Heads", "short": "Heads"}, {"key": "T", "label": "Tails", "short": "Tails"}]}}, "historicalText": "Tversky &amp; Kahneman's own 1971 survey of working research psychologists found the same pattern behind both vignettes above: people, including trained statisticians, expect a short random sequence to look balanced, and treat a run that doesn't as something the next few outcomes owe back. A coin has no memory of its last five flips, so the true odds on flip six are 50/50 whichever vignette a room saw.", "mechanismHtml": "This is the gambler's fallacy, the belief that an independent random process is somehow keeping score. <b>A coin's odds reset completely on every flip, so five heads in a row changes nothing about flip six.</b> The mind reads it differently: a long run doesn't feel random, so tails starts to feel &ldquo;due,&rdquo; a debt the sequence is about to repay. <b>The alternating sequence carries no equivalent pull in either direction</b>, which is exactly why comparing the two groups' answers isolates the effect. <a href=\"the-coin-has-no-memory.html#gamblers-fallacy\">Read the full write-up on The Coin Has No Memory.</a>", "examples": [{"label": "The Monte Carlo casino, August 1913", "body": "At the Monte Carlo casino's roulette table, the ball landed on black 26 times in a row. As the streak grew, gamblers piled increasing sums onto red, convinced it was overdue, and lost millions of francs before red finally came up. Each spin was exactly as independent as the one before it. This is a widely documented historical anecdote, illustrating the bias in the wild, not a controlled study.", "cite": "Widely documented, including on Wikipedia's own &ldquo;Gambler's fallacy&rdquo; entry, which credits this event as the origin of the term &ldquo;Monte Carlo fallacy.&rdquo;"}, {"label": "Real casino roulette players, on camera", "body": "Croson and Sundali analysed videotape of real gamblers at a Reno casino and found bet sizes on the opposite colour rose the longer a streak of one colour ran, the same pattern this vignette is testing, measured in real money at a real table rather than a survey.", "cite": "Croson, R., &amp; Sundali, J. (2005). &ldquo;The Gambler's Fallacy and the Hot Hand: Empirical Data from Casinos.&rdquo; <a href=\"https://link.springer.com/article/10.1007/s11166-005-1153-2\" target=\"_blank\" rel=\"noopener\">Journal of Risk and Uncertainty, 30(3), 195&ndash;209</a>"}]};
+var CONFIG = {"toolId": "gf", "type": "choice", "toolTitle": "Live Gambler's Fallacy", "targetKey": "T", "targetHigherGroup": "a", "targetShortLabel": "Tails", "groups": {"a": {"label": "After a streak of heads", "shortLabel": "Streak: H H H H H", "scenarioTitle": "What comes next?", "scenarioBody": "A fair coin has just landed heads five times in a row: H, H, H, H, H. What do you think the sixth flip will be?", "options": [{"key": "H", "label": "Heads", "short": "Heads"}, {"key": "T", "label": "Tails", "short": "Tails"}]}, "b": {"label": "After an alternating run", "shortLabel": "Alternating: H T H T H", "scenarioTitle": "What comes next?", "scenarioBody": "A fair coin has just landed H, T, H, T, H, switching every single time. What do you think the sixth flip will be?", "options": [{"key": "H", "label": "Heads", "short": "Heads"}, {"key": "T", "label": "Tails", "short": "Tails"}]}}, "historicalText": "Tversky &amp; Kahneman's own 1971 survey of working research psychologists found the same pattern behind both vignettes above: people, including trained statisticians, expect a short random sequence to look balanced, and treat a run that doesn't as something the next few outcomes owe back. A coin has no memory of its last five flips, so the true odds on flip six are 50/50 whichever vignette a room saw.", "mechanismHtml": "A fair coin has no memory. <b>Five heads in a row leaves flip six at the same 50/50 it always had.</b> A long streak still feels non-random, so the opposite outcome starts to feel &ldquo;due,&rdquo; as if the sequence owed a repayment. <b>The alternating sequence carries no matching pull either way</b>, which is why comparing the two groups isolates the fallacy. <a href=\"the-coin-has-no-memory.html#gamblers-fallacy\">Full write-up on The Coin Has No Memory.</a>", "examples": [{"label": "The Monte Carlo casino, August 1913", "body": "At Monte Carlo in August 1913 the roulette ball landed on black 26 times running. As the streak grew, gamblers piled money onto red, sure it was overdue, and lost millions of francs before red appeared. Each spin was as independent as the last. A famous historical anecdote illustrating the bias, not a controlled study.", "cite": "Widely documented, including on Wikipedia's own &ldquo;Gambler's fallacy&rdquo; entry, which credits this event as the origin of the term &ldquo;Monte Carlo fallacy.&rdquo;"}, {"label": "Real casino roulette players, on camera", "body": "Croson and Sundali coded videotape of real Reno casino gamblers and found bets on the opposite colour rose the longer a one-colour streak ran. The same pattern this vignette tests, measured in real money at a real table.", "cite": "Croson, R., &amp; Sundali, J. (2005). &ldquo;The Gambler's Fallacy and the Hot Hand: Empirical Data from Casinos.&rdquo; <a href=\"https://link.springer.com/article/10.1007/s11166-005-1153-2\" target=\"_blank\" rel=\"noopener\">Journal of Risk and Uncertainty, 30(3), 195&ndash;209</a>"}]};
 var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
@@ -354,7 +354,7 @@ function fmtMetric(m){
 
 function renderNarrative(currentEntries){
   var section = el('div', {class:'narrative-section'}, '');
-  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'Streak vs alternating sequence'));
 
   var hi = CONFIG.targetHigherGroup;
   var lo = hi === 'a' ? 'b' : 'a';
@@ -367,24 +367,24 @@ function renderNarrative(currentEntries){
 
   if (mHi.n === 0 && mLo.n === 0) {
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic pattern, or not.';
+    verdictHtml = 'No next-flip guesses yet. Once the streak group and the alternating group each have an answer, this box compares them to the gambler&rsquo;s-fallacy pattern.';
   } else if (mHi.n === 0 || mLo.n === 0) {
     var emptyLabel = mHi.n === 0 ? hiLabel : loLabel;
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the effect.';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; sequence still has zero guesses. Add one on each side before comparing.';
   } else {
     var diff = mHi.value - mLo.value;
     var smallN = (mHi.n < 5 || mLo.n < 5);
     if (diff > 0) {
       tag = 'Lined up with the effect'; tagClass = 'aligned';
-      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group came in at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '), higher than the &ldquo;' + loLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '). <b>That&rsquo;s the same direction the original study found.</b>';
-      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, <b>treat this as a live demonstration rather than a controlled study</b>. The direction is still the one the real research would predict.';
+      verdictHtml = 'After the streak, people picked the &ldquo;due&rdquo; outcome <b>' + fmtMetric(mHi) + '</b> of the time (&ldquo;' + hiLabel + '&rdquo;, n=' + mHi.n + '), above <b>' + fmtMetric(mLo) + '</b> after the alternating run (&ldquo;' + loLabel + '&rdquo;, n=' + mLo.n + '). <b>Independent flips; a streak still felt like a debt.</b>';
+      if (smallN) verdictHtml += ' One side is under five guesses. <b>Treat the gap as a room illustration</b> that still points the way Croson &amp; Sundali&rsquo;s casino data did.';
     } else if (diff === 0) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups landed on exactly the same figure, <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. <b>It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more answers and check back.';
+      verdictHtml = 'Both sequences landed on <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). <b>Equal rates here usually mean the room is still too thin to see the streak pull clearly</b>. Keep going.';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group came in at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '). <b>The original study, and the real replications since, are among the more reliable findings in behavioural science</b>, so one reversed session doesn&rsquo;t undo that.</p><p>What it usually means at this size is noise: <b>a handful of people per side is a small enough sample that one or two unusual answers can flip the result entirely</b>, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'The alternating group outpaced the streak group this round (<b>' + fmtMetric(mLo) + '</b> vs <b>' + fmtMetric(mHi) + '</b>; n=' + mLo.n + ' / n=' + mHi.n + '). <b>The gambler&rsquo;s fallacy is well documented in lab and field data</b>; a flipped talk does not retire it.</p><p><b>A handful of contrary guesses can invert the percentage</b> long before the underlying bias disappears. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> shows how the same over-reading shows up in papers.';
     }
   }
 
@@ -394,13 +394,13 @@ function renderNarrative(currentEntries){
   section.appendChild(verdict);
 
   section.appendChild(el('div', {class:'narrative-block'},
-    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+    '<h4>Why a fair coin feels like it keeps score</h4><p>' + CONFIG.mechanismHtml + '</p>'));
 
   if (CONFIG.illustrativeNote) {
     section.appendChild(el('p', {class:'also-illustrative'}, CONFIG.illustrativeNote));
   }
 
-  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Same bias at real tables</h4>');
   var list = el('ul', {class:'example-list'}, '');
   CONFIG.examples.forEach(function(ex){
     var li = el('li', {class:'example-item'}, '');

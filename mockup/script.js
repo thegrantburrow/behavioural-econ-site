@@ -331,7 +331,7 @@ function normalizeApostrophes(s) {
     awareness: { marketing: 'Awareness', product: 'Acquisition', desc: 'Getting noticed at all, before anyone’s comparing anything.' },
     consideration: { marketing: 'Consideration', product: 'Activation', desc: 'Weighing options — where the comparison itself gets shaped.' },
     conversion: { marketing: 'Conversion', product: 'Conversion', desc: 'The moment the price, the plan, the “yes” actually gets decided.' },
-    retention: { marketing: 'Retention', product: 'Retention', desc: 'What keeps someone coming back, or quietly cancelling.' },
+    retention: { marketing: 'Retention', product: 'Retention', desc: 'What keeps someone coming back, or cancelling.' },
     advocacy: { marketing: 'Advocacy', product: 'Referral', desc: 'Whether the experience is good enough to repeat, out loud.' }
   };
 
@@ -384,7 +384,7 @@ function normalizeApostrophes(s) {
   // a hamburger). That mismatch didn't move an anchor to the wrong element,
   // but on mobile it left far more clearance above the target than the nav
   // needed, and any future nav redesign, or a new content type someone
-  // forgot to add scroll-margin-top to, would quietly reopen the gap this
+  // forgot to add scroll-margin-top to, would reopen the gap this
   // fixes. Measuring the real nav on every page, at its real current size,
   // removes the need to keep that constant in sync with the nav by hand.
   function syncNavHeight() {

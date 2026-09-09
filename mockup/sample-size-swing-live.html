@@ -176,7 +176,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 (function(){
 "use strict";
 
-var CONFIG = {"toolId": "swing", "type": "autoflip", "toolTitle": "Live Sample Size Swing", "number": {"min": 0, "max": 100, "suffix": "%"}, "groups": {"a": {"label": "Small sample: 10 flips", "shortLabel": "n = 10", "scenarioTitle": "Flip 10 coins", "scenarioBody": "Tap the button below. The page flips 10 real coins right now and submits the exact percentage of heads automatically, no typing required.", "flipCount": 10}, "b": {"label": "Large sample: 100 flips", "shortLabel": "n = 100", "scenarioTitle": "Flip 100 coins", "scenarioBody": "Tap the button below. The page flips 100 real coins right now and submits the exact percentage of heads automatically, no typing required.", "flipCount": 100}}, "historicalText": "Statistician Howard Wainer documented the same square-root law behind both groups above in two real rankings: US counties by cancer rate, and American schools by test score. In both, the very top and the very bottom of the list were disproportionately the smallest counties and smallest schools, not because they were healthiest or sickest, smartest or weakest, but because a small sample's average naturally swings further from the true rate in both directions.", "mechanismHtml": "<b>More flips make a result more predictable, but not in a straight line.</b> Ten times the flips buys roughly three times the precision, not ten times, because the swing shrinks with the square root of the sample size, not the sample size itself. That's why a 10-flip group should routinely land nowhere near 50%, purely from arithmetic, while a 100-flip group clusters much closer to it, even though both are flipping the exact same fair coin.</p><p>The confidence interval below each group's number is that same idea made concrete: <b>a real range of plausible true values, not one exact-looking percentage.</b> <a href=\"the-coin-has-no-memory.html#power-and-confidence\">Read the full breakdown of significance, confidence, and power on The Coin Has No Memory.</a>", "examples": [{"label": "US counties, ranked by cancer rate", "body": "Wainer found the counties with the highest cancer rates, and separately the counties with the lowest, were both disproportionately the smallest, least populated ones. A health researcher chasing what protected the &ldquo;healthiest&rdquo; small counties was partly chasing statistical noise: the same small population that put a county at the bottom of the list could just as easily have put it at the top.", "cite": "Wainer, H. (2007). &ldquo;The Most Dangerous Equation.&rdquo; <a href=\"http://nsmn1.uh.edu/dgraur/niv/themostdangerousequation.pdf\" target=\"_blank\" rel=\"noopener\">American Scientist, 95(3), 249&ndash;256</a>"}, {"label": "American schools, ranked by test score", "body": "The same paper found the &ldquo;best&rdquo; and &ldquo;worst&rdquo; schools on state test-score rankings were disproportionately the smallest schools. A real school-improvement initiative once poured extra resources into small schools that topped the list, on the assumption something in their approach was working, when much of what put them there was sample size.", "cite": "See this site&rsquo;s own <a href=\"small-sample-big-claim.html\">special report on small samples</a> for how this plays out once real research, not just rankings, is involved."}]};
+var CONFIG = {"toolId": "swing", "type": "autoflip", "toolTitle": "Live Sample Size Swing", "number": {"min": 0, "max": 100, "suffix": "%"}, "groups": {"a": {"label": "Small sample: 10 flips", "shortLabel": "n = 10", "scenarioTitle": "Flip 10 coins", "scenarioBody": "Tap the button below. The page flips 10 real coins right now and submits the exact percentage of heads automatically, no typing required.", "flipCount": 10}, "b": {"label": "Large sample: 100 flips", "shortLabel": "n = 100", "scenarioTitle": "Flip 100 coins", "scenarioBody": "Tap the button below. The page flips 100 real coins right now and submits the exact percentage of heads automatically, no typing required.", "flipCount": 100}}, "historicalText": "Statistician Howard Wainer documented the same square-root law behind both groups above in two real rankings: US counties by cancer rate, and American schools by test score. In both, the very top and the very bottom of the list were disproportionately the smallest counties and smallest schools, not because they were healthiest or sickest, smartest or weakest, but because a small sample's average naturally swings further from the true rate in both directions.", "mechanismHtml": "<b>Extra flips tighten a result, but the gain is square-root, not linear.</b> Ten times the flips buys roughly three times the precision, because swing shrinks with &radic;n, not with n. A 10-flip group should often land well off 50% from arithmetic alone, while a 100-flip group clusters nearer 50% on the same fair coin.</p><p>The interval under each group&rsquo;s number makes that concrete: <b>a band of plausible true values, rather than one falsely exact percentage.</b> <a href=\"the-coin-has-no-memory.html#power-and-confidence\">Significance, confidence, and power on The Coin Has No Memory.</a>", "examples": [{"label": "US counties, ranked by cancer rate", "body": "Wainer found the counties with the highest cancer rates, and separately those with the lowest, were both disproportionately the smallest. A researcher hunting what &ldquo;protected&rdquo; the healthiest small counties was partly chasing noise: the same thin population that put a county at the bottom could as easily have put it at the top.", "cite": "Wainer, H. (2007). &ldquo;The Most Dangerous Equation.&rdquo; <a href=\"http://nsmn1.uh.edu/dgraur/niv/themostdangerousequation.pdf\" target=\"_blank\" rel=\"noopener\">American Scientist, 95(3), 249&ndash;256</a>"}, {"label": "American schools, ranked by test score", "body": "The same paper found the &ldquo;best&rdquo; and &ldquo;worst&rdquo; schools on state test rankings were disproportionately the smallest. One improvement program poured resources into small schools that topped the list, treating their approach as causal when much of the ranking was sample size.", "cite": "See this site&rsquo;s own <a href=\"small-sample-big-claim.html\">special report on small samples</a> for how this plays out once real research, not just rankings, is involved."}]};
 var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
@@ -376,7 +376,7 @@ function fmtMetric(m){
 
 function renderNarrative(currentEntries){
   var section = el('div', {class:'narrative-section'}, '');
-  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, '10 flips vs 100 flips'));
 
   var tag, tagClass, verdictHtml;
 
@@ -385,23 +385,23 @@ function renderNarrative(currentEntries){
     var mB = groupMetric(currentEntries, 'b');
     if (mA.n === 0 && mB.n === 0) {
       tag = 'Waiting for answers'; tagClass = 'wait';
-      verdictHtml = 'Nobody has flipped for either sample size yet. Once both sides have at least one flip, this box explains whether your room&rsquo;s results lined up with the square-root law, or not.';
+      verdictHtml = 'No flips recorded yet. Run at least one 10-flip round and one 100-flip round, then this box checks whether the smaller sample swung further from 50/50, as the square-root law says.';
     } else if (mA.n === 0 || mB.n === 0) {
       var emptyLabel = mA.n === 0 ? CONFIG.groups.a.label : CONFIG.groups.b.label;
       tag = 'Waiting for answers'; tagClass = 'wait';
-      verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero flips. Add at least one to each side to compare the swing.';
+      verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; side still has zero flips. Get one round on each sample size before comparing swing.';
     } else {
       var distA = Math.abs(mA.value - 50);
       var distB = Math.abs(mB.value - 50);
       if (distA > distB) {
         tag = 'Lined up with the effect'; tagClass = 'aligned';
-        verdictHtml = 'The 10-flip group swung <b>' + distA.toFixed(1) + ' points</b> from 50/50 (n=' + mA.n + '), further than the 100-flip group&rsquo;s <b>' + distB.toFixed(1) + ' points</b> (n=' + mB.n + '). <b>That&rsquo;s exactly the direction the square-root law predicts: fewer flips, more swing.</b>';
+        verdictHtml = 'Distance from 50/50: <b>' + distA.toFixed(1) + ' points</b> after 10 flips (n=' + mA.n + '), versus <b>' + distB.toFixed(1) + ' points</b> after 100 (n=' + mB.n + '). <b>Fewer flips, wider swing: the square-root law&rsquo;s direction.</b>';
       } else if (distA === distB) {
         tag = 'Too close to call'; tagClass = 'tie';
-        verdictHtml = 'Both groups have swung the exact same distance from 50/50 so far, <b>' + distA.toFixed(1) + ' points</b>. <b>Flip a few more rounds on each side to see the gap open up.</b>';
+        verdictHtml = 'Both sample sizes sit <b>' + distA.toFixed(1) + ' points</b> from 50/50 so far. <b>Run a few more rounds on each side and the gap usually opens.</b>';
       } else {
         tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-        verdictHtml = 'This time it flipped: the 100-flip group swung further from 50/50 (<b>' + distB.toFixed(1) + ' points</b>, n=' + mB.n + ') than the 10-flip group (<b>' + distA.toFixed(1) + ' points</b>, n=' + mA.n + '). That&rsquo;s the opposite of what the square-root law predicts.</p><p>The reason is simple: <b>with only a handful of rounds recorded so far, one unusual run is enough to flip which side looks &ldquo;more extreme.&rdquo;</b> A calm 10-flip run, or a wild 100-flip run, can happen by pure chance at this sample size, even though the law itself never actually breaks. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+        verdictHtml = 'This round inverted the pattern: 100 flips sat <b>' + distB.toFixed(1) + ' points</b> from 50/50 (n=' + mB.n + '), further than the 10-flip side at <b>' + distA.toFixed(1) + ' points</b> (n=' + mA.n + '). That is the opposite of the square-root prediction.</p><p><b>With only a few rounds logged, one unusual run can swap which side looks more extreme.</b> A calm short run or a wild long run can happen by chance at this n, while the law itself still holds in larger samples. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers the published form of that over-read.';
       }
     }
   } else {
@@ -414,24 +414,24 @@ function renderNarrative(currentEntries){
 
   if (mHi.n === 0 && mLo.n === 0) {
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic pattern, or not.';
+    verdictHtml = 'Fallback branch: no answers yet on either side. Once both groups have data, this box would compare them the usual way.';
   } else if (mHi.n === 0 || mLo.n === 0) {
     var emptyLabel2 = mHi.n === 0 ? hiLabel : loLabel;
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'The &ldquo;' + emptyLabel2 + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the effect.';
+    verdictHtml = 'Fallback: the &ldquo;' + emptyLabel2 + '&rdquo; group still has zero answers. Add one on each side before comparing.';
   } else {
     var diff = mHi.value - mLo.value;
     var smallN = (mHi.n < 5 || mLo.n < 5);
     if (diff > 0) {
       tag = 'Lined up with the effect'; tagClass = 'aligned';
-      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group came in at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '), higher than the &ldquo;' + loLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '). <b>That&rsquo;s the same direction the original study found.</b>';
-      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, <b>treat this as a live demonstration rather than a controlled study</b>. The direction is still the one the real research would predict.';
+      verdictHtml = 'Fallback: &ldquo;' + hiLabel + '&rdquo; at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ') sits above &ldquo;' + loLabel + '&rdquo; at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '). <b>Direction matches the cited finding.</b>';
+      if (smallN) verdictHtml += ' Fallback: thinner side under a dozen answers. <b>Read as a room demo.</b> Direction still matches the research prediction.';
     } else if (diff === 0) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups landed on exactly the same figure, <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. <b>It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more answers and check back.';
+      verdictHtml = 'Fallback: both groups at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). <b>Too little data at this n to read a gap; keep collecting.</b>';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group came in at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '). <b>The original study, and the real replications since, are among the more reliable findings in behavioural science</b>, so one reversed session doesn&rsquo;t undo that.</p><p>What it usually means at this size is noise: <b>a handful of people per side is a small enough sample that one or two unusual answers can flip the result entirely</b>, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'Fallback reverse: &ldquo;' + loLabel + '&rdquo; at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + ') above &ldquo;' + hiLabel + '&rdquo; at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '). <b>A well-replicated finding does not fall to one flipped room.</b></p><p><b>Tiny per-side samples let one or two unusual answers invert the result.</b> <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers that overclaim in published work.';
     }
   }
   }
@@ -442,13 +442,13 @@ function renderNarrative(currentEntries){
   section.appendChild(verdict);
 
   section.appendChild(el('div', {class:'narrative-block'},
-    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+    '<h4>Why swing shrinks with &radic;n</h4><p>' + CONFIG.mechanismHtml + '</p>'));
 
   if (CONFIG.illustrativeNote) {
     section.appendChild(el('p', {class:'also-illustrative'}, CONFIG.illustrativeNote));
   }
 
-  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Small-n extremes past the coin</h4>');
   var list = el('ul', {class:'example-list'}, '');
   CONFIG.examples.forEach(function(ex){
     var li = el('li', {class:'example-item'}, '');

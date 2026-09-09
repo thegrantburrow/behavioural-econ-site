@@ -220,7 +220,7 @@ var CONFIG = {
     { key: "external", label: "Something outside the change was actually responsible", short: "Something else caused it" },
     { key: "subset", label: "It worked for some people, even though the overall number didn't move", short: "Worked for some people" },
     { key: "othermetric", label: "It helped, just not in the way we were measuring", short: "Helped a different way" },
-    { key: "backfire", label: "It might be quietly causing a problem we haven't noticed yet", short: "A hidden problem" }
+    { key: "backfire", label: "It might be causing a problem we haven't noticed yet", short: "A hidden problem" }
   ],
   scenarios: [
     { id: "loan", category: "Financial services", title: "A redesigned “what happens next” screen", blurb: "A bank's home loan application flow gets a redesigned confirmation screen.", metricLabel: "Application conversion rate", metricDetail: "the share of people who started an application and went on to submit it", before: "4.2%", after: "4.3%" },
@@ -229,11 +229,11 @@ var CONFIG = {
     { id: "renewal", category: "Insurance / telco", title: "A redesigned renewal reminder email", blurb: "An insurer rewrites the email reminding customers their policy is due.", metricLabel: "Renewal rate", metricDetail: "the share of customers whose policy was due, who renewed it", before: "82.1%", after: "84.6%" },
     { id: "meeting", category: "Any workplace", title: "A weekly team meeting cut from 60 to 30 minutes", blurb: "A team halves the length of its recurring weekly meeting.", metricLabel: "Self-reported meeting usefulness (1–10 average)", metricDetail: null, before: "6.1", after: "6.9" }
   ],
-  mechanismHtml: "People don't apply one consistent standard when judging evidence. <b>Evidence that lines up with what they already believed gets accepted close to at face value; evidence that contradicts it gets picked apart for its methodology instead.</b> Read a genuinely mixed or ambiguous result through that lens, and two people who started out disagreeing don't converge. <b>They each keep the half that suits them and end up more certain of their original view than before.</b> <a href=\"principles.html#biased-assimilation\">Read the full write-up on the Principles page.</a>",
+  mechanismHtml: "Standards for &ldquo;good evidence&rdquo; shift with what someone already believes. <b>Supportive results get taken nearly at face value; contradictory ones get picked apart for method.</b> Run a mixed or ambiguous finding through that filter and two people who started apart do not meet in the middle. <b>Each keeps the half that fits and leaves more sure of the original view than before.</b> <a href=\"principles.html#biased-assimilation\">Full write-up on the Principles page.</a>",
   examples: [
-    { label: "The death penalty deterrence debate", body: "Decades of genuinely mixed research on whether the death penalty deters murder has done almost nothing to close the gap between supporters and opponents, because each side keeps citing whichever studies confirm what they already believed.", cite: "Lord, C. G., Ross, L., &amp; Lepper, M. R. (1979). <a href=\"principles.html#biased-assimilation\">Read this site's full write-up</a>." },
-    { label: "Partisans rating the identical news broadcast as biased against them", body: "Students who identified as pro-Israeli or pro-Arab watched the exact same network news coverage of a real 1982 massacre. Both sides rated the coverage, and the people who made it, as unfairly biased against their own side.", cite: "Vallone, R. P., Ross, L., &amp; Lepper, M. R. (1985). “The Hostile Media Phenomenon.” <a href=\"https://doi.org/10.1037/0022-3514.49.3.577\" target=\"_blank\" rel=\"noopener\">Journal of Personality and Social Psychology, 49(3), 577–585</a>" },
-    { label: "An ambiguous internal dashboard", body: "Two people looking at the same noisy sales figures, survey scores, or test results can each walk away more convinced their own prior read was right, grading the noisy parts of the data by the same rule this session just showed: convincing if it agrees, flawed if it doesn't.", cite: "See this site's own <a href=\"principles.html#biased-assimilation\">Biased Assimilation</a> entry." }
+    { label: "The death penalty deterrence debate", body: "Decades of mixed findings on whether the death penalty deters murder have barely narrowed the gap between supporters and opponents. Each side keeps citing the studies that fit what it already held.", cite: "Lord, C. G., Ross, L., &amp; Lepper, M. R. (1979). <a href=\"principles.html#biased-assimilation\">Read this site's full write-up</a>." },
+    { label: "Partisans rating the identical news broadcast as biased against them", body: "Pro-Israeli and pro-Arab students watched identical network coverage of a real 1982 massacre. Both sides scored the broadcast, and its makers, as tilted against their own side.", cite: "Vallone, R. P., Ross, L., &amp; Lepper, M. R. (1985). “The Hostile Media Phenomenon.” <a href=\"https://doi.org/10.1037/0022-3514.49.3.577\" target=\"_blank\" rel=\"noopener\">Journal of Personality and Social Psychology, 49(3), 577–585</a>" },
+    { label: "An ambiguous internal dashboard", body: "Two colleagues can stare at the same noisy sales figures, survey scores, or test results and leave more convinced of their prior read, grading the ambiguous bits the way this session just showed: convincing when they agree, flawed when they do not.", cite: "See this site's own <a href=\"principles.html#biased-assimilation\">Biased Assimilation</a> entry." }
   ]
 };
 
@@ -494,7 +494,7 @@ function excuseCounts(entries, g){
 
 function renderNarrative(entries){
   var section = el('div', {class:'narrative-section'}, '');
-  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'Same evidence, two priors'));
 
   var hi = CONFIG.expectedHigherGroup;
   var lo = hi === 'a' ? 'b' : 'a';
@@ -506,24 +506,24 @@ function renderNarrative(entries){
   var tag, tagClass, verdictHtml;
   if (mHi.n === 0 && mLo.n === 0) {
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'Nobody in either group has rated yet. Once at least one rating lands on each side, this box explains whether your room’s results lined up with the classic pattern, or not.';
+    verdictHtml = 'No ratings yet. Once the confident group and the doubtful group each have at least one score, this box checks whether the identical evidence split the way Lord, Ross &amp; Lepper found.';
   } else if (mHi.n === 0 || mLo.n === 0) {
     var emptyLabel = mHi.n === 0 ? hiLabel : loLabel;
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero ratings. Add at least one to each side to see whether this room’s results lined up with the effect.';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; side still has zero ratings. Get one score into each group before comparing.';
   } else {
     var diff = mHi.value - mLo.value;
     var smallN = (mHi.n < 5 || mLo.n < 5);
     if (diff >= 1) {
       tag = 'Lined up with the effect'; tagClass = 'aligned';
-      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group rated the identical evidence <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '), well above the &ldquo;' + loLabel + '&rdquo; group’s <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). <b>Same number, same room, two different verdicts, exactly the pattern Lord, Ross &amp; Lepper found.</b>';
-      if (smallN) verdictHtml += ' With well under a dozen ratings on the smaller side, treat this as a live demonstration rather than a controlled study. The direction is still the one the real research would predict.';
+      verdictHtml = 'On the same evidence, &ldquo;' + hiLabel + '&rdquo; averaged <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '), well above &ldquo;' + loLabel + '&rdquo; at <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). <b>One number, two starting beliefs, two verdicts: Lord, Ross &amp; Lepper&rsquo;s pattern.</b>';
+      if (smallN) verdictHtml += ' With well under a dozen ratings on the thinner side, <b>treat the split as a live demonstration</b>. The direction still matches what the research predicts.';
     } else if (diff > -1) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups rated the evidence within a point of each other, <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + ') versus <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). At this sample size that’s close enough to be noise either way. <b>It isn’t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more ratings and check back.';
+      verdictHtml = 'The two groups sit within a point: <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + ') versus <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '). At this n that gap is mostly bounce. <b>Too little data yet to see assimilation clearly; keep collecting ratings.</b>';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group rated the evidence <b>' + fmtRating(mLo.value) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group’s <b>' + fmtRating(mHi.value) + '</b> (n=' + mHi.n + '). <b>The original study, and the real replications since, are among the more reliable findings in behavioural science</b>, so one reversed session doesn’t undo that.</p><p>At this size, <b>a handful of ratings per side is a small enough sample that one or two unusual answers can flip the result entirely</b>, even when the underlying effect is real. <a href="small-sample-big-claim.html">This site’s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'The &ldquo;' + loLabel + '&rdquo; group scored the evidence higher this time (<b>' + fmtRating(mLo.value) + '</b>, n=' + mLo.n + ') than &ldquo;' + hiLabel + '&rdquo; (<b>' + fmtRating(mHi.value) + '</b>, n=' + mHi.n + '). <b>Biased assimilation is a durable finding across attitude domains</b>; one flipped room does not retire it.</p><p><b>One or two unusual ratings can invert the mean when each side is tiny</b>, even while the mechanism stays intact. <a href="small-sample-big-claim.html">This site’s own report on small samples</a> covers the published version of that over-read.';
     }
   }
 
@@ -533,9 +533,9 @@ function renderNarrative(entries){
   section.appendChild(verdict);
 
   section.appendChild(el('div', {class:'narrative-block'},
-    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+    '<h4>How priors rewrite the same data</h4><p>' + CONFIG.mechanismHtml + '</p>'));
 
-  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Biased assimilation past this dashboard</h4>');
   var list = el('ul', {class:'example-list'}, '');
   CONFIG.examples.forEach(function(ex){
     var li = el('li', {class:'example-item'}, '');

@@ -1,0 +1,11 @@
+#!/bin/bash
+# Strip agent co-author / Cursor attribution emails from commit messages.
+set -e
+MSG_FILE="$1"
+[ -f "$MSG_FILE" ] || exit 0
+tmp="$(mktemp)"
+grep -viE '^(Co-authored-by:|Made-with: Cursor|Made with Cursor)' "$MSG_FILE" \
+  | grep -viE 'cursoragent@cursor\.com' > "$tmp" || true
+cp "$tmp" "$MSG_FILE"
+rm -f "$tmp"
+exit 0

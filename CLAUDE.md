@@ -34,6 +34,14 @@ detection. Stamp `data-theme="light"` / `data-theme="dark"` on the root
 element from the toggle, per the dark-mode token pattern already used across
 these artifacts.
 
+## Standing policy: no co-author / Cursor emails in commit messages
+
+Cloud Agent commits must not append `Co-authored-by:` trailers or
+`cursoragent@cursor.com` lines into commit messages. The owner does not
+want those emails injected on every push. Repo hook: `.githooks/commit-msg`
+(also installed into the agent hooksPath as a no-op for the co-author
+injector plus a strip pass). Do not re-enable the co-author trailer.
+
 ## Standing policy: no watermarked images, ever
 
 Every image that goes into this site — now, and in every future session —

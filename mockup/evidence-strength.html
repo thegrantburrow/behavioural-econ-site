@@ -154,25 +154,25 @@
   <div class="wrap">
     <span class="label">Field Guide</span>
     <h1 class="principles-index-title">How strong is that evidence, actually?</h1>
-    <p class="toc-intro">Every product team, marketer, and policy office eventually says some version of the same sentence: &ldquo;this worked.&rdquo; What that sentence rests on varies enormously, from a genuinely randomised trial to two numbers that happened to move together on a dashboard. This is a field guide to telling the difference: <b>a ranked ladder of causal evidence</b>, framed around product, commercial, and digital decisions, but built on the same tools economists use to study credit risk and public policy. It ends with <b>the specific mistakes that sink careful-looking analysis</b>, with real cases where getting this wrong (or right) changed the answer.</p>
+    <p class="toc-intro">At some point almost every product team, marketer, and policy office reaches for the same verdict: &ldquo;this worked.&rdquo; Behind that verdict can sit anything from a randomised trial to two dashboard lines that moved in the same direction. This field guide sorts those claims into <b>a ranked ladder of causal evidence</b> aimed at product, commercial, and digital decisions. It borrows the same identification tools economists bring to credit risk and public policy. The last stretch covers <b>the mistakes that still wreck careful-looking analysis</b>, with cases where the rung someone stood on changed the decision.</p>
 
     <p class="story-stack-label">The story in four parts</p>
     <div class="story-stack">
       <div class="story-stack-item">
         <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="18" height="22" rx="2"></rect><line x1="9" y1="9" x2="19" y2="9"></line><line x1="9" y1="14" x2="19" y2="14" stroke="#C43E1F"></line><line x1="9" y1="19" x2="15" y2="19"></line></svg>
-        <div><h4>Every &ldquo;it worked&rdquo; claim rests on different ground</h4><p>A randomised trial and a dashboard correlation get described with the same word: evidence.</p></div>
+        <div><h4>Every &ldquo;it worked&rdquo; claim rests on different ground</h4><p>Teams still call both a randomised trial and a dashboard correlation &ldquo;evidence,&rdquo; as if the word meant one thing.</p></div>
       </div>
       <div class="story-stack-item">
         <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="18" width="5" height="6"></rect><rect x="11.5" y="13" width="5" height="11"></rect><rect x="19" y="5" width="5" height="19" fill="#1F7A6C" stroke="none"></rect></svg>
-        <div><h4>Rank them, weakest to strongest</h4><p>Raw correlation, matched comparison, natural experiment, randomised trial, in that order.</p></div>
+        <div><h4>Rank them, weakest to strongest</h4><p>Start with raw correlation, then matched comparison, then a natural experiment, then a randomised trial.</p></div>
       </div>
       <div class="story-stack-item">
         <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="3" x2="7" y2="25"></line><path d="M7 5 h14 l-4 4.5 4 4.5 h-14" fill="#E0A93A" stroke="#E0A93A" stroke-linejoin="round"></path></svg>
-        <div><h4>The weakest kind gets funded most often</h4><p>Right before a budget decision, when nobody's checking which rung the evidence is standing on.</p></div>
+        <div><h4>The weakest kind gets funded most often</h4><p>Especially in the week before a budget call, when almost nobody asks which rung the slide is standing on.</p></div>
       </div>
       <div class="story-stack-item">
         <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="14" r="11"></circle><path d="M9.5 12 L14 16.5 L18.5 12" stroke="#C43E1F"></path></svg>
-        <div><h4>Here's the full ladder, and where it breaks</h4><p>Real cases below: paid search, ad measurement, credit scoring, survivorship bias.</p></div>
+        <div><h4>The ladder in full, plus the usual breaks</h4><p>Cases further down cover paid search, ad measurement, credit scoring, and survivorship bias.</p></div>
       </div>
     </div>
   </div>
@@ -183,7 +183,7 @@
 
     <div class="report-section" id="the-ladder">
       <h3>The evidence ladder: four ways to test whether X caused Y</h3>
-      <p class="intro">All four of these get described, casually, as &ldquo;evidence that it worked.&rdquo; They are not the same evidence. Read from the top: <b>each rung down removes one more safeguard against a confound</b> quietly doing the work you're crediting to X.</p>
+      <p class="intro">Product decks, marketing decks, and policy briefs all reach for the same casual label, &ldquo;evidence that it worked,&rdquo; for designs that sit on very different rungs. Read from the top: <b>each step down drops another safeguard against a confound</b> doing the work someone is attributing to X.</p>
 
       <div class="strength-spectrum" role="img" aria-label="A horizontal strength spectrum running from raw correlation, weakest, through matched observational comparison and natural experiment, to randomised controlled trial, strongest.">
         <div class="spectrum-endpoints"><span>Weakest</span><span>Strongest</span></div>
@@ -242,7 +242,7 @@
             <span class="rung-strength">High</span>
           </div>
           <div class="rung-bar-track"><div class="rung-bar"></div></div>
-          <p class="rung-claim">A real-world rule, cutoff, or accident of timing splits people as if at random, without anyone designing an experiment: regression discontinuity at an eligibility threshold, difference-in-differences around a policy change, an instrument that shifts exposure for reasons unrelated to the outcome.</p>
+          <p class="rung-claim">A real-world rule, cutoff, or accident of timing splits people as if at random, without anyone designing an experiment. Regression discontinuity at an eligibility threshold, difference-in-differences around a policy change, an instrument that shifts exposure for reasons unrelated to the outcome.</p>
           <p class="rung-examples">A price change rolled out region by region &middot; a credit-limit rule that only applies above a score cutoff &middot; a platform outage that hits some users and not others</p>
           <div class="rung-subtypes cols-3">
             <div class="subtype"><b>Regression discontinuity</b><span>Compares people just above and just below a real cutoff, a credit score threshold, an age limit, who are otherwise near-identical.</span></div>
@@ -295,28 +295,28 @@
         </div>
 
       </div>
-      <p class="intro" style="margin-top:4px">Moving up a rung doesn't mean the lower rungs are worthless. A correlation is a reasonable place to start looking. It's <b>a bad place to stop, especially right before a budget decision</b>.</p>
+      <p class="intro" style="margin-top:4px">Climbing a rung does not make the lower ones useless. Correlation is a fair place to start hunting for a pattern. It is <b>a poor place to stop, especially the week a budget gets locked</b>.</p>
     </div>
 
     <div class="report-section" id="reading-the-claim">
       <h3>Hallmarks: what a lower rung sounds like when it's dressed up as a higher one</h3>
-      <p class="intro">None of the phrases below are lies. They're just <b>quieter about which rung they're actually standing on</b> than the sentence around them implies.</p>
+      <p class="intro">Each phrase below can be factually true on its own terms. What slips is usually the framing: <b>the surrounding sentence implies a higher rung than the design actually occupies</b>.</p>
       <div class="hallmark-list">
         <div class="hallmark-item">
           <p class="phrase">&ldquo;Users who did X converted Y% more.&rdquo;</p>
-          <p class="note">A correlation, stated with no comparison group and no mention of who chose to do X in the first place.</p>
+          <p class="note">Correlation without a comparison group, and no account of who chose to do X in the first place.</p>
         </div>
         <div class="hallmark-item">
           <p class="phrase">&ldquo;We saw a lift after launching X.&rdquo;</p>
-          <p class="note">A before-and-after on one group, with nothing else that changed over the same period ruled out.</p>
+          <p class="note">Before-and-after on a single group, with other changes over the same stretch left unruled-out.</p>
         </div>
         <div class="hallmark-item">
           <p class="phrase">&ldquo;Our top performers all do X.&rdquo;</p>
-          <p class="note">Survivorship bias: the people who tried X and failed usually aren't in the sample being described.</p>
+          <p class="note">Survivorship bias: people who tried X and failed are usually absent from the sample being described.</p>
         </div>
         <div class="hallmark-item">
           <p class="phrase">&ldquo;The data suggests a strong link.&rdquo;</p>
-          <p class="note">Correlational language, carrying unearned causal confidence by the time it reaches a decision-maker.</p>
+          <p class="note">Correlational wording that tends to arrive at a decision-maker already wearing causal confidence it has not earned.</p>
         </div>
       </div>
 
@@ -333,15 +333,15 @@
 
     <div class="report-section" id="other-fields">
       <h3>The same ladder, outside product and marketing</h3>
-      <p class="intro">This ladder isn't a product-analytics invention. It's the ordinary hierarchy economists have used for decades to study labour markets, credit, and public policy, usually under the banner economists call the &ldquo;credibility revolution&rdquo;: <b>a decades-long shift towards designs that can actually support a causal claim, not just a correlational one</b>.</p>
+      <p class="intro">The hierarchy product and marketing teams reach for is the same one economists have used for decades on labour markets, credit, and public policy. Inside the field the usual label is the &ldquo;credibility revolution&rdquo;: <b>a long shift toward designs that can carry a causal claim, rather than stopping at correlation</b>.</p>
       <div class="case-grid">
         <div class="case-card">
           <span class="case-tag">Natural experiment</span>
           <h4>The Minimum-Wage Border Study</h4>
           <p class="salient-question">Why compare fast-food jobs on <mark>two sides of a state line</mark>, instead of just before and after?</p>
           <div class="case-body">
-            <p>When New Jersey raised its minimum wage in 1992, most economists expected fewer fast-food jobs to follow. Card and Krueger compared employment at fast-food restaurants in New Jersey against restaurants just across the Pennsylvania border, whose wage floor hadn't changed, using the neighbouring state as a stand-in control group for whatever else was happening in the regional economy at the time.</p>
-            <p class="lesson"><b>What it teaches:</b> A before-and-after comparison in one place can't separate the policy's effect from everything else that also changed over that period. Finding a comparable place where the policy didn't happen turns a weak before/after into a genuine natural experiment.</p>
+            <p>New Jersey raised its minimum wage in 1992. Most economists expected fast-food employment to fall. Card and Krueger compared restaurants in New Jersey with restaurants just over the Pennsylvania line, where the wage floor stayed put. The neighbouring state absorbed whatever else was moving in the regional economy at the time, so the wage change could be isolated more cleanly.</p>
+            <p class="lesson"><b>What it teaches:</b> A single-place before-and-after cannot separate a policy from everything else that shifted in the same window. A comparable place where the policy never landed turns that weak before/after into a usable natural experiment.</p>
           </div>
           <div class="case-cite">Card, D., &amp; Krueger, A. B. (1994). &ldquo;Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania.&rdquo; <a href="https://www.jstor.org/stable/2118030" target="_blank" rel="noopener">American Economic Review, 84(4), 772&ndash;793</a></div>
         </div>
@@ -350,8 +350,8 @@
           <h4>Credit Scoring's Missing Half</h4>
           <p class="salient-question">How do you judge a lending rule on the applicants it <mark>never approved</mark>?</p>
           <div class="case-body">
-            <p>A lender only observes repayment behaviour for the applicants it actually approved. Everyone it rejected has no outcome to learn from, so a model trained naively on approved-only data is being trained on a non-random, already-filtered slice of the applicant pool. The credit-risk literature has a name for correcting this: reject inference.</p>
-            <p class="lesson"><b>What it teaches:</b> Selection isn't only about who chooses to participate. Sometimes the selection happens on the institution's side, and the missing group is the one you'd most need to see to know if the current rule is actually working.</p>
+            <p>Lenders only see repayment for people they approved. Rejected applicants leave no outcome to learn from, so a model fit only on the approved slice is learning from a filtered, non-random cut of the pool. Credit-risk researchers call the correction reject inference.</p>
+            <p class="lesson"><b>What it teaches:</b> Selection covers more than who volunteers. Institutions filter too, and the missing group is often the one needed to know whether the current rule works.</p>
           </div>
           <div class="case-cite">Hand, D. J., &amp; Henley, W. E. (1997). &ldquo;Statistical Classification Methods in Consumer Credit Scoring: A Review.&rdquo; <a href="https://doi.org/10.1111/j.1467-985X.1997.00078.x" target="_blank" rel="noopener">Journal of the Royal Statistical Society: Series A, 160(3), 523&ndash;541</a></div>
         </div>
@@ -360,8 +360,8 @@
           <h4>Lab vs. Field, Again</h4>
           <p class="salient-question">Does a result from a <mark>controlled lab</mark> travel to the market it's meant to describe?</p>
           <div class="case-body">
-            <p>This site covers the lab-versus-field gap, and the related question of whether a small pilot's effect survives being scaled up, in its own dedicated report rather than repeating it here.</p>
-            <p class="lesson"><b>What it teaches:</b> Randomisation tells you the comparison is fair. It doesn't automatically tell you the setting, the sample, or the scale is the one you actually care about, that's a separate question, covered in full at the link below.</p>
+            <p>Lab-versus-field gaps, and whether a small pilot's effect holds once it scales, already have their own report on this site. This page points there instead of restating that argument.</p>
+            <p class="lesson"><b>What it teaches:</b> Randomisation makes the comparison fair. Setting, sample, and scale are separate questions about whether the result is the one someone actually needs. Those sit in full at the links below.</p>
           </div>
           <div class="case-cite">See <a href="reading-the-research.html#lab-vs-field">Reading the Research: Lab vs. field</a>, <a href="policy-based-evidence.html">Why Governments Need Policy-Based Evidence</a> for the scaling version of this problem, and <a href="an-experiment-can-be-right-and-still-wrong.html">Five Ways an Experiment Can Be Right and Still Wrong</a> for this question's formal name, external validity, alongside four others.</div>
         </div>
@@ -370,15 +370,15 @@
 
     <div class="report-section" id="how-it-goes-wrong">
       <h3>Where careful-looking analysis still goes wrong</h3>
-      <p class="intro">Every case below used real data, competent analysts, and a plausible story. Each one still <b>produced a materially wrong answer</b>, right up until it was checked against a design higher up the ladder.</p>
+      <p class="intro">Each case below had real data, competent analysts, and a story that sounded plausible. Each still <b>returned a materially wrong answer</b> until someone checked it against a design higher on the ladder.</p>
       <div class="case-grid">
         <div class="case-card">
           <span class="case-tag">Selection bias</span>
           <h4>The Paid Search That Wasn't Doing Much</h4>
           <p class="salient-question">What happens when the people who click your ad were <mark>already going to buy</mark>?</p>
           <div class="case-body">
-            <p>Standard marketing measurement credits a sale to whichever ad a customer clicked last. On that logic, eBay's brand-keyword paid search looked highly profitable, since people who clicked those ads converted at a high rate. The confound: people already searching for &ldquo;eBay&rdquo; by name were disproportionately people who were going to visit and buy anyway, ad or no ad.</p>
-            <p class="lesson"><b>What it teaches:</b> A large-scale randomised experiment, turning brand-keyword search ads off entirely across many U.S. markets while leaving them on in others, found the true incremental effect of that spend was close to zero. The correlational read wasn't wrong about who clicked. It was wrong about what caused the sale.</p>
+            <p>Standard marketing measurement gives the sale to whichever ad a customer clicked last. Under that rule, eBay's brand-keyword paid search looked highly profitable, because clickers converted at a high rate. The confound was who those clickers were: people already searching for &ldquo;eBay&rdquo; by name were disproportionately people who would have visited and bought with or without the ad.</p>
+            <p class="lesson"><b>What it teaches:</b> A large randomised field experiment turned brand-keyword search ads off across many U.S. markets while leaving them on in others. Incremental lift from that spend sat close to zero. The correlational read described who clicked accurately. It misread what caused the sale.</p>
           </div>
           <div class="case-cite">Blake, T., Nosko, C., &amp; Tadelis, S. (2015). &ldquo;Consumer Heterogeneity and Paid Search Effectiveness: A Large-Scale Field Experiment.&rdquo; <a href="https://doi.org/10.3982/ECTA12423" target="_blank" rel="noopener">Econometrica, 83(1), 155&ndash;174</a></div>
         </div>
@@ -387,8 +387,8 @@
           <h4>Ad Measurement, Checked Against Itself</h4>
           <p class="salient-question">How far off is <mark>the ad-effectiveness number you already trust</mark>?</p>
           <div class="case-body">
-            <p>Most digital ad platforms measure lift by comparing people who were shown an ad against people who weren't, using whoever was already exposed or not through the normal delivery process, not a random split. Researchers at Facebook ran large randomised experiments (holding back a genuine control group with &ldquo;ghost ads&rdquo;) alongside the standard observational methods, on the same campaigns, to see how far apart the two answers were.</p>
-            <p class="lesson"><b>What it teaches:</b> The observational methods overstated the ad's true effect by a wide margin, in both directions depending on the method, because who a platform's delivery algorithm chooses to show an ad to is never a random sample of the audience. The gap wasn't a rounding error. It was large enough to change which campaigns looked worth funding.</p>
+            <p>Most digital ad platforms estimate lift by comparing people who saw an ad with people who did not, using whoever the delivery system already exposed or skipped through ordinary delivery. That sample is not a random split of the audience. Facebook researchers ran large randomised experiments that held back a genuine control group with &ldquo;ghost ads,&rdquo; then ran the standard observational methods on the same campaigns to measure the gap between the two answers.</p>
+            <p class="lesson"><b>What it teaches:</b> Observational methods overstated true ad effects by a wide margin, with the direction of the bias depending on the method. A platform's delivery algorithm never samples the audience at random. The gap was large enough to change which campaigns looked worth funding.</p>
           </div>
           <div class="case-cite">Gordon, B. R., Zettelmeyer, F., Bhargava, N., &amp; Chapsky, D. (2019). &ldquo;A Comparison of Approaches to Advertising Measurement: Evidence from Big Field Experiments at Facebook.&rdquo; <a href="https://doi.org/10.1287/mksc.2018.1135" target="_blank" rel="noopener">Marketing Science, 38(2), 193&ndash;225</a></div>
         </div>
@@ -397,8 +397,8 @@
           <h4>Counting Only the Cases Still in the Room</h4>
           <p class="salient-question">What's missing from a case study of <mark>companies that succeeded</mark>?</p>
           <div class="case-body">
-            <p>This site has a full principle article on survivorship bias, the pattern behind &ldquo;successful founders all did X&rdquo; claims that quietly ignore every founder who did the same X and failed.</p>
-            <p class="lesson"><b>What it teaches:</b> The fix isn't a different statistical test. It's asking who's missing from the dataset before trusting a pattern found only among the survivors.</p>
+            <p>Survivorship bias has its own principle article on this site: the pattern behind &ldquo;successful founders all did X&rdquo; claims that leave out every founder who did the same X and failed.</p>
+            <p class="lesson"><b>What it teaches:</b> The fix is rarely a fancier statistical test. Ask who is missing from the dataset before trusting a pattern that only shows up among the survivors.</p>
           </div>
           <div class="case-cite">See <a href="principles.html#survivorship-bias">Survivorship Bias</a> for the full mechanism and citation.</div>
         </div>
@@ -407,7 +407,7 @@
 
     <div class="report-section" id="evidence-strength-related">
       <h3>Continue reading</h3>
-      <p class="intro">This ladder shows up again once evidence has to survive being scaled up, not just measured once, and again in why organisations avoid running <b>the kind of test that would actually settle the question</b>.</p>
+      <p class="intro">The same ladder matters again once evidence has to hold under scale, and again when organisations duck <b>the test that would actually settle the claim</b>.</p>
       <div class="method-grid">
         <div class="method-col strength">
           <span class="lbl">Next</span>
