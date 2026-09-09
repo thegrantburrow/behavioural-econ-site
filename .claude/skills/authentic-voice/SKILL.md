@@ -119,6 +119,18 @@ The very rewrite that fixed the stuttered two-beat paragraphs above introduced a
 
 **The fix, in practice.** Sitewide pass rewrote all 93 hits into plain verbs or specific phrases, including cross-linked titles (`Finding the "Phase 2" every roadmap skips`), `search-index.js`, and `apply-data.js` blurbs. Zero `quietly` remaining in `mockup/` HTML/JS after the pass.
 
+## The 2026-09-09 distinction: stylistic fingerprint cleanup is not the same as machine-watermark dilution
+
+**Two different problems, often collapsed into one.**
+
+1. **Stylistic fingerprints** are surface tells a reader or a third-party detector can spot in the finished prose: stock adverbs (`quietly`), empty contrastive reveals (`X, not Y` with no information in the negation), uniform sentence rhythm, and long run-ons. These are greppable and fixable with targeted edits: delete the adverb, split the sentence, rewrite the empty reveal. The 2026-09-08 `quietly` pass and the sitewide ≥36-word body-paragraph pass are this layer.
+
+2. **Machine watermarks** (the EU AI Act / model-provider layer Anthropic documents separately) are statistical patterns in token choice across a passage. They do not live in any one word. Splitting a 40-word sentence into two 20-word sentences, or deleting `quietly`, leaves most of the original phrasing, clause order, and vocabulary intact, so the watermark signal can survive. The legitimate fix here is **substantive rewrite**: restating the same facts and citations in different words, different section scaffolding, and uneven rhythm, the way a specific human editor would, not a synonym-swap or a watermark-stripping tool.
+
+**The check.** Before calling a "watermark pass" finished on a page, ask whether the rewrite changed more than length and stock tells. If every section still opens with the same template ("The next mechanism…"), the same parallel examples, and the same clause inventory with periods inserted, that was fingerprint cleanup only. A watermark-facing rewrite should break templates, re-order explanations, and rephrase load-bearing sentences while keeping citations, numbers, and links honest.
+
+**Started 2026-09-09** on `you-are-already-doing-behavioural-economics.html` (killed the repeating "next mechanism" scaffold) and `not-testing-is-still-a-bet.html` (rephrased intro and case narrative). Continue page by page; principles, experiments, and science-behind remain highest exposure.
+
 ## The 2026-08-31 catch: the opening sentence of a field session is exactly where this hides best
 
 **What happened.** The Airds High School field session's very first sentence read: "When my own kids ask what I actually do at a bank, the answer that works has never been a sentence. It's a demonstration." That's hallmark #1's classic shape, "has never been X. It's Y," sitting in ordinary narrative prose (not a `.flow-insight` or `.session-quote`, the components this skill already exempts), and it fails the four-question test cleanly: deleting "has never been a sentence" loses no real information, since "the answer that works is always a demonstration" says the identical thing without the manufactured suspense. The owner's catch, verbatim: "the first sentence reads like ai." It survived because opening sentences get written once, early, before the rest of the piece exists to compare rhythm against, and then never get re-read as "new prose" once the piece is otherwise finished, the same blind spot the 2026-08-29 title catch above already documented for headlines, just one level down: not just titles, but any sentence coined early and then treated as settled scaffolding for everything written after it.
