@@ -1,0 +1,6 @@
+Topic slug: macca-golden-deal
+Previous post opener ID: A3 (tactile premium mailbox)
+Chosen: A2 B1 C3 D1 E2 F1 G2
+Anti-twin OK? (opener ≠ last; layout ≠ last; close ≠ last): Y
+Parallel examples topic-true? Y
+Photo framed as example not proof? Y
