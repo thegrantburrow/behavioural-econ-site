@@ -175,7 +175,7 @@ body.presenting .narrative-tag{font-size:clamp(12px,1.4vw,16px);}
 (function(){
 "use strict";
 
-var CONFIG = {"toolId": "pb", "type": "choice", "toolTitle": "Live Present Bias", "targetKey": "indulgent", "targetHigherGroup": "b", "targetShortLabel": "chocolate bar", "groups": {"a": {"label": "Choosing in advance", "shortLabel": "In advance", "scenarioTitle": "Which snack would you like sent to you?", "scenarioBody": "A snack will be delivered to you in exactly one week.", "options": [{"key": "healthy", "label": "Fresh fruit", "short": "Fruit"}, {"key": "indulgent", "label": "Chocolate bar", "short": "Chocolate bar"}]}, "b": {"label": "Choosing in the moment", "shortLabel": "In the moment", "scenarioTitle": "Which snack would you like?", "scenarioBody": "A snack has just arrived for you, right now.", "options": [{"key": "healthy", "label": "Fresh fruit", "short": "Fruit"}, {"key": "indulgent", "label": "Chocolate bar", "short": "Chocolate bar"}]}}, "historicalText": "Read &amp; van Leeuwen&rsquo;s original study found participants chose the unhealthy snack far more often when choosing in the moment than when choosing the identical snack a week in advance, and being hungry at the moment of choice pushed the unhealthy pick even higher.", "mechanismHtml": "<b>The value of a reward drops steeply the moment it's delayed at all</b>, so a choice made calmly in advance and the choice actually made in the moment can flatly contradict each other, even though nothing about the options changed. A week out, both snacks are equally delayed, so the healthy choice wins on its merits. The instant one option becomes available right now, <b>that immediacy itself starts winning the decision, independent of which snack is actually better for you</b>. <a href=\"principles.html#present-bias\">Read the full write-up on the Principles page.</a>", "examples": [{"label": "Gym memberships signed up in January", "body": "People confidently commit to a disciplined future self, then the actual moment to go to the gym arrives and an immediate competing priority wins instead, not through a change of values but through the same timing effect.", "cite": "See this site&rsquo;s own <a href=\"principles.html#present-bias\">Present Bias</a> entry."}, {"label": "Under-saving for retirement", "body": "Employees who say they want to save more for retirement still don't increase their contribution rate today, a real gap the Save More Tomorrow program was specifically built to close by timing the increase to a future pay rise instead.", "cite": "Thaler, R. H., &amp; Benartzi, S. (2004). “Save More Tomorrow.” <a href=\"https://www.journals.uchicago.edu/doi/10.1086/380085\" target=\"_blank\" rel=\"noopener\">Journal of Political Economy, 112(S1), S164&ndash;S187</a>"}, {"label": "Procrastinating on a deadline", "body": "The same task feels perfectly doable when it's scheduled for “later,” then gets pushed again the moment “later” actually arrives and a more immediate distraction is on the table.", "cite": "Akerlof, G. A. (1991). “Procrastination and Obedience.” <a href=\"https://www.jstor.org/stable/2006817\" target=\"_blank\" rel=\"noopener\">American Economic Review, 81(2), 1&ndash;19</a>"}]};
+var CONFIG = {"toolId": "pb", "type": "choice", "toolTitle": "Live Present Bias", "targetKey": "indulgent", "targetHigherGroup": "b", "targetShortLabel": "chocolate bar", "groups": {"a": {"label": "Choosing in advance", "shortLabel": "In advance", "scenarioTitle": "Which snack would you like sent to you?", "scenarioBody": "A snack will be delivered to you in exactly one week.", "options": [{"key": "healthy", "label": "Fresh fruit", "short": "Fruit"}, {"key": "indulgent", "label": "Chocolate bar", "short": "Chocolate bar"}]}, "b": {"label": "Choosing in the moment", "shortLabel": "In the moment", "scenarioTitle": "Which snack would you like?", "scenarioBody": "A snack has just arrived for you, right now.", "options": [{"key": "healthy", "label": "Fresh fruit", "short": "Fruit"}, {"key": "indulgent", "label": "Chocolate bar", "short": "Chocolate bar"}]}}, "historicalText": "Read &amp; van Leeuwen&rsquo;s original study found participants chose the unhealthy snack far more often when choosing in the moment than when choosing the identical snack a week in advance, and being hungry at the moment of choice pushed the unhealthy pick even higher.", "mechanismHtml": "<b>Delay the first moment of a reward and its felt value falls sharply.</b> That is why a calm choice made a week ahead can contradict the choice made when one option is available immediately, even though the snacks themselves never changed. A week out, both options are deferred, so the healthier pick can win on its merits. The instant one snack is available now, <b>immediacy starts carrying the decision on its own</b>. <a href=\"principles.html#present-bias\">Full write-up on the Principles page.</a>", "examples": [{"label": "Gym memberships signed up in January", "body": "People sign up in January for a disciplined future self. When the moment to go to the gym arrives, an immediate competing priority often wins. Values may not have changed; timing did.", "cite": "See this site&rsquo;s own <a href=\"principles.html#present-bias\">Present Bias</a> entry."}, {"label": "Under-saving for retirement", "body": "Employees who say they want to save more for retirement still often leave today&rsquo;s contribution rate untouched. Save More Tomorrow was built to close that gap by timing the increase to a future pay rise.", "cite": "Thaler, R. H., &amp; Benartzi, S. (2004). “Save More Tomorrow.” <a href=\"https://www.journals.uchicago.edu/doi/10.1086/380085\" target=\"_blank\" rel=\"noopener\">Journal of Political Economy, 112(S1), S164&ndash;S187</a>"}, {"label": "Procrastinating on a deadline", "body": "A task feels manageable when it is scheduled for &ldquo;later.&rdquo; When later arrives and a more immediate distraction is available, the task gets pushed again.", "cite": "Akerlof, G. A. (1991). “Procrastination and Obedience.” <a href=\"https://www.jstor.org/stable/2006817\" target=\"_blank\" rel=\"noopener\">American Economic Review, 81(2), 1&ndash;19</a>"}]};
 var currentSyncModeSwitch = function(){};
 
 function getGroupFromHash(){
@@ -354,7 +354,7 @@ function fmtMetric(m){
 
 function renderNarrative(currentEntries){
   var section = el('div', {class:'narrative-section'}, '');
-  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'Now vs next week'));
 
   var hi = CONFIG.targetHigherGroup;
   var lo = hi === 'a' ? 'b' : 'a';
@@ -367,24 +367,24 @@ function renderNarrative(currentEntries){
 
   if (mHi.n === 0 && mLo.n === 0) {
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic pattern, or not.';
+    verdictHtml = 'No snack choices logged. Once the &ldquo;choose now&rdquo; and &ldquo;choose for next week&rdquo; groups each have an answer, this box checks for the classic present-bias flip.';
   } else if (mHi.n === 0 || mLo.n === 0) {
     var emptyLabel = mHi.n === 0 ? hiLabel : loLabel;
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the effect.';
+    verdictHtml = 'Still waiting on &ldquo;' + emptyLabel + '&rdquo;. Get one snack pick into each timing condition.';
   } else {
     var diff = mHi.value - mLo.value;
     var smallN = (mHi.n < 5 || mLo.n < 5);
     if (diff > 0) {
       tag = 'Lined up with the effect'; tagClass = 'aligned';
-      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group came in at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '), higher than the &ldquo;' + loLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '). <b>That&rsquo;s the same direction the original study found.</b>';
-      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, <b>treat this as a live demonstration rather than a controlled study</b>. The direction is still the one the real research would predict.';
+      verdictHtml = 'Immediate temptation won <b>' + fmtMetric(mHi) + '</b> of the time in &ldquo;' + hiLabel + '&rdquo; (n=' + mHi.n + '), above <b>' + fmtMetric(mLo) + '</b> when both snacks sat a week out (&ldquo;' + loLabel + '&rdquo;, n=' + mLo.n + '). <b>Same two snacks; only the delay changed.</b>';
+      if (smallN) verdictHtml += ' Under five answers on a side: <b>read this as a live demo of timing, not a powered trial</b>. The direction still matches Read &amp; van Leeuwen&rsquo;s finding.';
     } else if (diff === 0) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups landed on exactly the same figure, <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. <b>It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more answers and check back.';
+      verdictHtml = 'Both timings produced <b>' + fmtMetric(mHi) + '</b> on the target snack (n=' + mHi.n + ' and n=' + mLo.n + '). <b>A dead heat at this n rarely means present bias vanished</b>; it usually means the sample is still thin. Add more picks.';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group came in at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '). <b>The original study, and the real replications since, are among the more reliable findings in behavioural science</b>, so one reversed session doesn&rsquo;t undo that.</p><p>What it usually means at this size is noise: <b>a handful of people per side is a small enough sample that one or two unusual answers can flip the result entirely</b>, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'The delayed group chose the target snack more often this time (<b>' + fmtMetric(mLo) + '</b> vs <b>' + fmtMetric(mHi) + '</b>; n=' + mLo.n + ' / n=' + mHi.n + '). <b>Present bias is one of the more durable findings on intertemporal choice</b>; one reversed room does not cancel it.</p><p><b>A few people who always pick fruit, or always pick chocolate, can erase the timing gap</b> in a short talk. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> is the published-paper version of that warning.';
     }
   }
 
@@ -394,13 +394,13 @@ function renderNarrative(currentEntries){
   section.appendChild(verdict);
 
   section.appendChild(el('div', {class:'narrative-block'},
-    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+    '<h4>Why &ldquo;later&rdquo; and &ldquo;now&rdquo; disagree</h4><p>' + CONFIG.mechanismHtml + '</p>'));
 
   if (CONFIG.illustrativeNote) {
     section.appendChild(el('p', {class:'also-illustrative'}, CONFIG.illustrativeNote));
   }
 
-  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Present bias past the snack bowl</h4>');
   var list = el('ul', {class:'example-list'}, '');
   CONFIG.examples.forEach(function(ex){
     var li = el('li', {class:'example-item'}, '');

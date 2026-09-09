@@ -225,11 +225,11 @@ var CONFIG = {
     }
   },
   historicalText: "Benartzi &amp; Thaler&rsquo;s 2001 study compared real employer retirement plans with different fund lineups and found employees roughly split their contributions evenly across however many funds a plan happened to offer, the &ldquo;1/n&rdquo; pattern: a plan listing mostly stock funds ended up with mostly-stock participant portfolios, almost independent of what savers said about their own risk tolerance. This room&rsquo;s version runs the identical manipulation: two plans, three funds each, a different stock-to-bond mix on the menu.",
-  mechanismHtml: "This is the diversification heuristic, sometimes called naive or &ldquo;1/n&rdquo; diversification. Weighing what each fund actually holds, its real risk, how much it overlaps with everything else on the list, takes more effort than most people have on hand in the moment. Instead, <b>the mind substitutes an easier question: how many funds are there, so what&rsquo;s an even split across them?</b> <b>A lineup weighted toward stock funds pulls the average allocation toward stock; a lineup weighted toward bond funds pulls it toward bonds</b>, almost regardless of what any one saver actually wanted their own mix to be. <a href=\"principles.html#diversification-heuristic\">Read the full write-up on the Principles page.</a>",
-  illustrativeNote: "The two fund lineups above are fictional, built to match Benartzi &amp; Thaler&rsquo;s own study design (a real retirement plan's fund count and stock/bond mix), not a screenshot of one specific live product.",
+  mechanismHtml: "Benartzi and Thaler called this naive, or &ldquo;1/n,&rdquo; diversification. Judging each fund&rsquo;s holdings, risk, and overlap takes more effort than most people spend in the moment. <b>An easier substitute wins: count the funds, then split evenly across them.</b> <b>A stock-heavy lineup therefore pulls average allocations toward stock; a bond-heavy lineup pulls them toward bonds</b>, often past what any one saver would have picked from first principles. <a href=\"principles.html#diversification-heuristic\">Full write-up on the Principles page.</a>",
+  illustrativeNote: "Both fund lineups are fictional. They mirror Benartzi &amp; Thaler&rsquo;s design (fund count and stock/bond mix from a real retirement plan), rather than screenshotting one live product.",
   examples: [
-    { label: "CommSec Pocket&rsquo;s real &ldquo;Invest in&rdquo; menu", body: "CommSec Pocket lists ten flat fund options side by side with no default and no grouping, nine of them equity funds and only one, Aussie Corporate Bonds, fixed income. A first-time investor wanting &ldquo;a spread&rdquo; who taps a handful of them ends up overwhelmingly in stock funds simply because that&rsquo;s almost everything on the menu, the same real-world version of this room&rsquo;s own manipulation.", cite: "This site&rsquo;s own <a href=\"principles.html#diversification-heuristic\">Diversification Heuristic</a> entry." },
-    { label: "Employer retirement plans", body: "Benartzi and Thaler found the identical pattern in real employer retirement plans: the share of an employee&rsquo;s contributions held in stock funds tracked closely with the share of stock funds among the total funds the plan happened to offer.", cite: "Benartzi, S., &amp; Thaler, R. H. (2001). &ldquo;Naive Diversification Strategies in Defined Contribution Saving Plans.&rdquo; American Economic Review, 91(1), 79&ndash;98." }
+    { label: "CommSec Pocket&rsquo;s real &ldquo;Invest in&rdquo; menu", body: "CommSec Pocket shows ten flat fund options with no default and no grouping: nine equity funds and one fixed-income option (Aussie Corporate Bonds). A first-time investor chasing &ldquo;a spread&rdquo; who picks several of them lands overwhelmingly in stock simply because that is almost everything on the menu, the live-product version of this room&rsquo;s manipulation.", cite: "This site&rsquo;s own <a href=\"principles.html#diversification-heuristic\">Diversification Heuristic</a> entry." },
+    { label: "Employer retirement plans", body: "In real employer retirement plans, Benartzi and Thaler found the same mapping: the share of contributions sitting in stock funds tracked the share of stock funds among the options the plan offered.", cite: "Benartzi, S., &amp; Thaler, R. H. (2001). &ldquo;Naive Diversification Strategies in Defined Contribution Saving Plans.&rdquo; American Economic Review, 91(1), 79&ndash;98." }
   ]
 };
 var currentSyncModeSwitch = function(){};
@@ -524,7 +524,7 @@ function fmtMetric(m){
 
 function renderNarrative(currentEntries){
   var section = el('div', {class:'narrative-section'}, '');
-  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'What this session shows'));
+  section.appendChild(el('div', {class:'narrative-eyebrow'}, 'How the menu shaped the mix'));
 
   var hi = CONFIG.targetHigherGroup;
   var lo = hi === 'a' ? 'b' : 'a';
@@ -537,24 +537,24 @@ function renderNarrative(currentEntries){
 
   if (mHi.n === 0 && mLo.n === 0) {
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'Nobody in either group has answered yet. Once at least one answer lands on each side, this box explains whether your room&rsquo;s results lined up with the classic pattern, or not.';
+    verdictHtml = 'No allocations yet. Once each fund lineup has at least one completed split, this box checks whether stock weight tracked the menu mix the way Benartzi &amp; Thaler found.';
   } else if (mHi.n === 0 || mLo.n === 0) {
     var emptyLabel = mHi.n === 0 ? hiLabel : loLabel;
     tag = 'Waiting for answers'; tagClass = 'wait';
-    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; group still has zero answers. Add at least one to each side to see whether this room&rsquo;s results lined up with the effect.';
+    verdictHtml = 'The &ldquo;' + emptyLabel + '&rdquo; lineup still has zero allocations. Finish one on each side before comparing stock shares.';
   } else {
     var diff = mHi.value - mLo.value;
     var smallN = (mHi.n < 5 || mLo.n < 5);
     if (diff > 0) {
       tag = 'Lined up with the effect'; tagClass = 'aligned';
-      verdictHtml = 'The &ldquo;' + hiLabel + '&rdquo; group came in at <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '), higher than the &ldquo;' + loLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '). <b>That&rsquo;s the same direction the original study found.</b>';
-      if (smallN) verdictHtml += ' With well under a dozen answers on the smaller side, <b>treat this as a live demonstration rather than a controlled study</b>. The direction is still the one the real research would predict.';
+      verdictHtml = 'Average stock weight hit <b>' + fmtMetric(mHi) + '</b> on the stock-heavy menu (&ldquo;' + hiLabel + '&rdquo;, n=' + mHi.n + '), above <b>' + fmtMetric(mLo) + '</b> on the bond-heavy menu (&ldquo;' + loLabel + '&rdquo;, n=' + mLo.n + '). <b>Savers borrowed the menu&rsquo;s mix instead of building one from scratch.</b>';
+      if (smallN) verdictHtml += ' Under five allocations on a side: <b>call this a live 1/n demo</b>. The direction still matches the retirement-plan finding.';
     } else if (diff === 0) {
       tag = 'Too close to call'; tagClass = 'tie';
-      verdictHtml = 'Both groups landed on exactly the same figure, <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). At this sample size that&rsquo;s a coin flip away from tipping either direction. <b>It isn&rsquo;t evidence the effect is missing, just too little data yet to see it clearly.</b> Add more answers and check back.';
+      verdictHtml = 'Both menus produced the same average stock weight, <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + ' and n=' + mLo.n + '). <b>A tie at this n is usually thin-sample bounce</b> around a real menu effect. Add more splits.';
     } else {
       tag = 'Didn&rsquo;t line up this time'; tagClass = 'reversed';
-      verdictHtml = 'This time it ran the other way: the &ldquo;' + loLabel + '&rdquo; group came in at <b>' + fmtMetric(mLo) + '</b> (n=' + mLo.n + '), higher than the &ldquo;' + hiLabel + '&rdquo; group&rsquo;s <b>' + fmtMetric(mHi) + '</b> (n=' + mHi.n + '). <b>The original study, and the real replications since, are among the more reliable findings in behavioural science</b>, so one reversed session doesn&rsquo;t undo that.</p><p>What it usually means at this size is noise: <b>a handful of people per side is a small enough sample that one or two unusual answers can flip the result entirely</b>, even when the underlying effect is real. That&rsquo;s a genuine lesson in its own right, the same reason a single small study, or a single small session like this one, should never settle a question the way a large replication does. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers what that looks like when it happens in a published paper instead of a room.';
+      verdictHtml = 'The bond-heavy menu produced a higher stock share this time (<b>' + fmtMetric(mLo) + '</b> vs <b>' + fmtMetric(mHi) + '</b>; n=' + mLo.n + ' / n=' + mHi.n + '). <b>Naive diversification is repeatedly documented in real plans</b>; one reversed room does not retire it.</p><p><b>A few people who ignore the menu mix can flip the average</b> when each side is tiny. <a href="small-sample-big-claim.html">This site&rsquo;s own report on small samples</a> covers the published form of that error.';
     }
   }
 
@@ -564,13 +564,13 @@ function renderNarrative(currentEntries){
   section.appendChild(verdict);
 
   section.appendChild(el('div', {class:'narrative-block'},
-    '<h4>The mechanism, in one paragraph</h4><p>' + CONFIG.mechanismHtml + '</p>'));
+    '<h4>The 1/n shortcut</h4><p>' + CONFIG.mechanismHtml + '</p>'));
 
   if (CONFIG.illustrativeNote) {
     section.appendChild(el('p', {class:'also-illustrative'}, CONFIG.illustrativeNote));
   }
 
-  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Where this shows up outside the room</h4>');
+  var examplesBlock = el('div', {class:'narrative-block'}, '<h4>Naive diversification outside the talk</h4>');
   var list = el('ul', {class:'example-list'}, '');
   CONFIG.examples.forEach(function(ex){
     var li = el('li', {class:'example-item'}, '');
