@@ -129,7 +129,7 @@ The very rewrite that fixed the stuttered two-beat paragraphs above introduced a
 
 **The check.** Before calling a "watermark pass" finished on a page, ask whether the rewrite changed more than length and stock tells. If every section still opens with the same template ("The next mechanism…"), the same parallel examples, and the same clause inventory with periods inserted, that was fingerprint cleanup only. A watermark-facing rewrite should break templates, re-order explanations, and rephrase load-bearing sentences while keeping citations, numbers, and links honest.
 
-**Started 2026-09-09** on `you-are-already-doing-behavioural-economics.html` (killed the repeating "next mechanism" scaffold) and `not-testing-is-still-a-bet.html` (rephrased intro and case narrative). Continue page by page; principles, experiments, and science-behind remain highest exposure.
+**Started 2026-09-09** on `you-are-already-doing-behavioural-economics.html` (killed the repeating "next mechanism" scaffold) and `not-testing-is-still-a-bet.html` (rephrased intro and case narrative). Full remediation shipped the same day; the repeatable on-demand pass is now the **`smokehouse`** skill (code name **Smokehouse**). When Grant says "Smokehouse", load `.claude/skills/smokehouse/SKILL.md` and run that playbook. This authentic-voice skill stays the always-on finish check for ordinary new prose; Smokehouse is the deliberate remediation sweep.
 
 ## The 2026-08-31 catch: the opening sentence of a field session is exactly where this hides best
 

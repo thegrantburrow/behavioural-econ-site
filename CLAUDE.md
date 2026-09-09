@@ -17,7 +17,11 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
 - Skills exist for the site's recurring content types — use them instead of
   improvising structure: `behavioural-principle-article`, `field-session`,
   `experiment-blueprint`, `design-options-review`, `authentic-voice`,
-  `principle-mechanism-diagram`.
+  `principle-mechanism-diagram`, `smokehouse`.
+- **Smokehouse** (code name): the on-demand AI fingerprint + machine-watermark
+  remediation pass. Invoke by saying "Smokehouse" / "run Smokehouse" /
+  "Smokehouse this page". Distinct from always-on `authentic-voice`. Full
+  playbook: `.claude/skills/smokehouse/SKILL.md`.
 - The site runs on more than a dozen distinct icon/illustration systems, not
   one — see `VISUAL-SYSTEMS.md` before building or reusing any icon,
   diagram, or mark, on the site or in an off-site artifact that's meant to
