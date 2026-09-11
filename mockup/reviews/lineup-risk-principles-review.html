@@ -4035,7 +4035,7 @@ html[data-theme="dark"] {
 <div class="review-shell">
   <h1>Five product-risk principles</h1>
   <p class="review-lede">Draft Field Notes for review. Each card is the live principle shell from <code>principles.html</code> plus embedded <code>styles.css</code> (not a restyled artifact). System&nbsp;1 eyebrow icons, System&nbsp;2 mechanism illustrations, and short mid-sentence <code>&lt;b&gt;</code> chunking match the site.</p>
-  <div class="review-ask"><b>Root-cause fix:</b> the last pass still hand-rolled preview CSS (<code>principle-summary-row</code>, approximate type sizes). That is why fonts and chunking still felt off. This file embeds the real stylesheet and the real <code>principle-details</code> anatomy.</div>
+  <div class="review-ask"><b>Root-cause fix (round 2):</b> the Implied Norms diagram was empty product tiles with a mustard accent — on-brand colours, not self-explanatory. System 2 illustrations now use literal objects (sinks on a shop page, real filter controls, returns on the Buy button) so a cold reader can name the objects and the causal claim with no article context. The <code>principle-mechanism-diagram</code> skill now encodes that zero-context stranger test as failure mode 25.</div>
 
   <div class="card" data-item data-title="1. Implied Norms">
     <div class="card-meta">
@@ -4060,23 +4060,30 @@ html[data-theme="dark"] {
               <span class="principle-chev" aria-hidden="true">&rsaquo;</span>
             </summary>
             <div class="principle-body">
-              <div class="illustration bg-teal"><svg viewBox="0 0 400 420" width="100%" role="img" aria-label="A grid of five white sinks beside one coloured sink: the majority look reads as normal, the rare look reads as risk">
-  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">FIVE WHITE, ONE COLOUR</text>
-  <text x="200" y="48" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">TEACHES WHAT LOOKS NORMAL</text>
-  <g fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="2">
-    <rect x="48" y="78" width="70" height="52" rx="6"/><rect x="132" y="78" width="70" height="52" rx="6"/>
-    <rect x="216" y="78" width="70" height="52" rx="6"/><rect x="300" y="78" width="70" height="52" rx="6"/>
-    <rect x="90" y="148" width="70" height="52" rx="6"/>
-  </g>
-  <rect x="220" y="148" width="70" height="52" rx="6" fill="none" stroke="#E0A93A" stroke-width="2.4"/>
-  <circle cx="255" cy="174" r="5" fill="#E0A93A"/>
-  <text x="200" y="240" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.1">DESCRIPTIVE NORM ON THE PAGE</text>
-  <line x1="200" y1="255" x2="200" y2="272" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
-  <path d="M192 268 L200 278 L208 268" fill="none" stroke="rgba(245,246,245,0.55)" stroke-width="2" stroke-linecap="round"/>
-  <text x="200" y="304" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#E0A93A">Majority = sensible</text>
-  <text x="200" y="336" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="rgba(245,246,245,0.95)">Rare = the risk</text>
-  <text x="200" y="372" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">No bestseller badge required.</text>
-  <text x="200" y="392" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Frequency and visual weight do the teaching.</text>
+              <div class="illustration bg-teal"><svg viewBox="0 0 400 520" width="100%" role="img" aria-label="A shop page showing five white sinks and one coloured sink teaches shoppers that white is the normal buy and colour is the risk">
+  <text x="200" y="26" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">A SHOP PAGE FULL OF WHITE SINKS</text>
+  <text x="200" y="46" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14.5" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">MAKES THE COLOURED ONE LOOK RISKY</text>
+  <!-- browser chrome -->
+  <rect x="48" y="64" width="304" height="210" rx="10" fill="none" stroke="rgba(245,246,245,0.55)" stroke-width="1.5"/>
+  <circle cx="66" cy="78" r="3.2" fill="rgba(245,246,245,0.45)"/><circle cx="78" cy="78" r="3.2" fill="rgba(245,246,245,0.45)"/><circle cx="90" cy="78" r="3.2" fill="rgba(245,246,245,0.45)"/>
+  <rect x="108" y="72" width="220" height="12" rx="4" fill="none" stroke="rgba(245,246,245,0.35)" stroke-width="1"/>
+  <text x="200" y="102" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="rgba(245,246,245,0.75)" letter-spacing="0.08">BATHROOM SINKS · 6 RESULTS</text>
+<rect x="64" y="112" width="76" height="64" rx="5" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6"/><path d="M96.0 122 h12" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><path d="M102.0 122 v8" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="102.0" cy="144" rx="18" ry="11" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.7"/><circle cx="102.0" cy="145" r="1.6" fill="rgba(245,246,245,0.92)" stroke="none"/><line x1="74" y1="166" x2="130" y2="166" stroke="rgba(245,246,245,0.92)" stroke-width="1.2" opacity="0.45"/>
+<rect x="148" y="112" width="76" height="64" rx="5" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6"/><path d="M180.0 122 h12" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><path d="M186.0 122 v8" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="186.0" cy="144" rx="18" ry="11" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.7"/><circle cx="186.0" cy="145" r="1.6" fill="rgba(245,246,245,0.92)" stroke="none"/><line x1="158" y1="166" x2="214" y2="166" stroke="rgba(245,246,245,0.92)" stroke-width="1.2" opacity="0.45"/>
+<rect x="232" y="112" width="76" height="64" rx="5" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6"/><path d="M264.0 122 h12" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><path d="M270.0 122 v8" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="270.0" cy="144" rx="18" ry="11" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.7"/><circle cx="270.0" cy="145" r="1.6" fill="rgba(245,246,245,0.92)" stroke="none"/><line x1="242" y1="166" x2="298" y2="166" stroke="rgba(245,246,245,0.92)" stroke-width="1.2" opacity="0.45"/>
+<rect x="64" y="188" width="76" height="64" rx="5" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6"/><path d="M96.0 198 h12" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><path d="M102.0 198 v8" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="102.0" cy="220" rx="18" ry="11" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.7"/><circle cx="102.0" cy="221" r="1.6" fill="rgba(245,246,245,0.92)" stroke="none"/><line x1="74" y1="242" x2="130" y2="242" stroke="rgba(245,246,245,0.92)" stroke-width="1.2" opacity="0.45"/>
+<rect x="148" y="188" width="76" height="64" rx="5" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6"/><path d="M180.0 198 h12" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><path d="M186.0 198 v8" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="186.0" cy="220" rx="18" ry="11" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="1.7"/><circle cx="186.0" cy="221" r="1.6" fill="rgba(245,246,245,0.92)" stroke="none"/><line x1="158" y1="242" x2="214" y2="242" stroke="rgba(245,246,245,0.92)" stroke-width="1.2" opacity="0.45"/>
+<rect x="232" y="188" width="76" height="64" rx="5" fill="rgba(224,169,58,0.12)" stroke="#E0A93A" stroke-width="2.2"/><path d="M264.0 198 h12" fill="none" stroke="#E0A93A" stroke-width="1.6" stroke-linecap="round"/><path d="M270.0 198 v8" fill="none" stroke="#E0A93A" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="270.0" cy="220" rx="18" ry="11" fill="none" stroke="#E0A93A" stroke-width="1.7"/><circle cx="270.0" cy="221" r="1.6" fill="#E0A93A" stroke="none"/><line x1="242" y1="242" x2="298" y2="242" stroke="#E0A93A" stroke-width="1.2" opacity="0.45"/>
+<text x="270" y="266" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" font-weight="700" fill="#E0A93A">COLOUR</text>
+<text x="140" y="266" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" font-weight="700" fill="rgba(245,246,245,0.7)">WHITE</text>
+  <text x="200" y="296" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.1">WHAT THE GRID TEACHES</text>
+  <line x1="200" y1="308" x2="200" y2="322" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
+  <path d="M192 318 L200 328 L208 318" fill="none" stroke="rgba(245,246,245,0.55)" stroke-width="2" stroke-linecap="round"/>
+  <text x="200" y="356" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#E0A93A">White looks like the normal buy</text>
+  <text x="200" y="384" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="rgba(245,246,245,0.95)">Colour looks like the gamble</text>
+  <text x="200" y="420" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Nobody labelled either sink &ldquo;safe&rdquo; or &ldquo;risky.&rdquo;</text>
+  <text x="200" y="440" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">How often each look appears on the first screen did that job.</text>
+  <text x="200" y="470" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12" fill="rgba(245,246,245,0.75)">Same products. Different mix. Different norm.</text>
 </svg></div>
               <div class="principle-continuation">
                 <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">What appears common on the page is treated as the sensible choice</span></div>
@@ -4163,24 +4170,41 @@ html[data-theme="dark"] {
               <span class="principle-chev" aria-hidden="true">&rsaquo;</span>
             </summary>
             <div class="principle-body">
-              <div class="illustration bg-mustard"><svg viewBox="0 0 400 400" width="100%" role="img" aria-label="Attribute filter vessel or drop-in collapses options early; a goal filter for kids bath keeps style variety open">
-  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1B1E24" letter-spacing="0.12">FIRST FILTER SETS THE APERTURE</text>
-  <text x="98" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">ATTRIBUTE FIRST</text>
-  <text x="302" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">GOAL FIRST</text>
-  <rect x="40" y="88" width="116" height="36" rx="6" fill="none" stroke="#1B1E24" stroke-width="1.8"/>
-  <text x="98" y="111" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">vessel / drop-in</text>
-  <rect x="244" y="88" width="116" height="36" rx="6" fill="none" stroke="#C43E1F" stroke-width="2"/>
-  <text x="302" y="111" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#C43E1F">kids / guest bath</text>
-  <line x1="98" y1="130" x2="98" y2="158" stroke="#1B1E24" stroke-width="2"/>
-  <line x1="302" y1="130" x2="302" y2="158" stroke="#C43E1F" stroke-width="2"/>
-  <text x="98" y="182" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#1B1E24">1 lane left</text>
-  <text x="302" y="182" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#C43E1F">variety stays</text>
-  <text x="98" y="220" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">ONLY WHICH VESSEL</text>
-  <text x="302" y="220" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#C43E1F">STYLE STILL OPEN</text>
-  <line x1="40" y1="250" x2="360" y2="250" stroke="rgba(27,30,36,0.25)" stroke-width="1" stroke-dasharray="3 4"/>
-  <text x="200" y="286" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="#1B1E24" letter-spacing="0.08">SCREENING IS NEVER NEUTRAL</text>
-  <text x="200" y="320" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">The first cut encodes a theory of what matters.</text>
-  <text x="200" y="342" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">Interactive aids change what survives in the set.</text>
+              <div class="illustration bg-mustard"><svg viewBox="0 0 400 480" width="100%" role="img" aria-label="Asking vessel or drop-in first collapses the set to one mount type; asking guest bath or family bath first keeps style variety open">
+  <text x="200" y="26" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1B1E24" letter-spacing="0.1">ASK &ldquo;VESSEL OR DROP-IN?&rdquo; FIRST</text>
+  <text x="200" y="46" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1B1E24" letter-spacing="0.1">AND THE BATHROOM YOU WANTED NEVER APPEARS</text>
+  <!-- attribute path -->
+  <text x="100" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="#1B1E24">FILTER BY MOUNT TYPE</text>
+  <rect x="40" y="90" width="120" height="36" rx="6" fill="none" stroke="#1B1E24" stroke-width="1.8"/>
+  <text x="100" y="113" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">Vessel &#9660;</text>
+  <line x1="100" y1="132" x2="100" y2="150" stroke="#1B1E24" stroke-width="2"/>
+  <!-- only vessel sinks left -->
+  <g fill="none" stroke="#1B1E24" stroke-width="1.5">
+    <ellipse cx="70" cy="175" rx="16" ry="9"/><path d="M64 158 h12 M70 158 v8"/>
+    <ellipse cx="100" cy="175" rx="16" ry="9"/><path d="M94 158 h12 M100 158 v8"/>
+    <ellipse cx="130" cy="175" rx="16" ry="9"/><path d="M124 158 h12 M130 158 v8"/>
+  </g>
+  <text x="100" y="204" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="#1B1E24">ONLY VESSEL SINKS LEFT</text>
+  <text x="100" y="222" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#1B1E24">Style variety gone</text>
+  <!-- goal path -->
+  <text x="300" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="#C43E1F">FILTER BY JOB FIRST</text>
+  <rect x="240" y="90" width="120" height="36" rx="6" fill="none" stroke="#C43E1F" stroke-width="2"/>
+  <text x="300" y="113" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#C43E1F">Kids bath &#9660;</text>
+  <line x1="300" y1="132" x2="300" y2="150" stroke="#C43E1F" stroke-width="2"/>
+  <g fill="none" stroke="#C43E1F" stroke-width="1.5">
+    <ellipse cx="270" cy="175" rx="16" ry="9"/><path d="M264 158 h12 M270 158 v8"/>
+    <ellipse cx="300" cy="175" rx="16" ry="9"/><path d="M294 158 h12 M300 158 v8"/>
+    <ellipse cx="330" cy="175" rx="16" ry="9"/><path d="M324 158 h12 M330 158 v8"/>
+  </g>
+  <!-- colour mark on one -->
+  <circle cx="330" cy="175" r="3" fill="#C43E1F"/>
+  <text x="300" y="204" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="#C43E1F">MIX OF SHAPES &amp; COLOURS</text>
+  <text x="300" y="222" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#C43E1F">Style still open</text>
+  <line x1="40" y1="248" x2="360" y2="248" stroke="rgba(27,30,36,0.25)" stroke-dasharray="3 4"/>
+  <text x="200" y="280" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="#1B1E24" letter-spacing="0.08">THE FIRST QUESTION SETS THE APERTURE</text>
+  <text x="200" y="314" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">Mount type is a plumbing detail, not the job.</text>
+  <text x="200" y="336" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">Lead with the bathroom, then narrow the hardware.</text>
+  <text x="200" y="368" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12" fill="#1B1E24">Same catalogue. Different first cut. Different set left.</text>
 </svg></div>
               <div class="principle-continuation">
                 <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">Early screening questions define the consideration set before goals are named</span></div>
@@ -4240,18 +4264,25 @@ html[data-theme="dark"] {
               <span class="principle-chev" aria-hidden="true">&rsaquo;</span>
             </summary>
             <div class="principle-body">
-              <div class="illustration bg-terracotta"><svg viewBox="0 0 400 400" width="100%" role="img" aria-label="Return policy beside the bold option lowers anticipated regret; the same policy in a footer does less work">
-  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">REGRET COVER AT THE DECISION</text>
-  <rect x="70" y="70" width="260" height="120" rx="10" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="2"/>
-  <text x="200" y="108" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#E0A93A">Bold option</text>
-  <text x="200" y="138" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)">30-day returns · free exchange</text>
-  <text x="200" y="168" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="rgba(245,246,245,0.85)">shown beside the risky SKU</text>
-  <line x1="200" y1="210" x2="200" y2="235" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
-  <path d="M192 231 L200 241 L208 231" fill="none" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
-  <text x="200" y="272" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#E0A93A">Order risk drops</text>
-  <text x="200" y="304" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)">SAME POLICY IN A FOOTER DOES LESS</text>
-  <text x="200" y="340" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Remote buy splits into order, then keep.</text>
-  <text x="200" y="362" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Leniency shrinks exposure before the parcel arrives.</text>
+              <div class="illustration bg-terracotta"><svg viewBox="0 0 400 460" width="100%" role="img" aria-label="A 30-day returns line beside the Buy button on a bold sink lowers order fear; the same policy buried in a footer does less">
+  <text x="200" y="26" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.1">RETURNS NEXT TO THE BUY BUTTON</text>
+  <text x="200" y="46" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.1">MAKE THE BOLD SINK FEEL REVERSIBLE</text>
+  <!-- product card -->
+  <rect x="70" y="68" width="260" height="168" rx="10" fill="none" stroke="rgba(245,246,245,0.9)" stroke-width="2"/>
+  <!-- sink icon -->
+  <ellipse cx="200" cy="118" rx="42" ry="22" fill="none" stroke="#E0A93A" stroke-width="2.2"/>
+  <path d="M178 88 h44 M200 88 v16" fill="none" stroke="#E0A93A" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="200" cy="120" r="3" fill="#E0A93A"/>
+  <text x="200" y="160" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="rgba(245,246,245,0.95)">TERRACOTTA BASIN · $489</text>
+  <rect x="110" y="172" width="180" height="28" rx="6" fill="#E0A93A"/>
+  <text x="200" y="191" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="#1B1E24">Buy · free 30-day returns</text>
+  <text x="200" y="220" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="rgba(245,246,245,0.8)">UNDO SHOWN AT THE RISK MOMENT</text>
+  <line x1="200" y1="236" x2="200" y2="252" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
+  <path d="M192 248 L200 258 L208 248" fill="none" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
+  <text x="200" y="286" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#E0A93A">Order fear drops</text>
+  <text x="200" y="314" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)">SAME POLICY IN THE FOOTER DOES LESS</text>
+  <text x="200" y="350" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Remote buy splits into order, then keep.</text>
+  <text x="200" y="372" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Cover only works if it is visible when the risk is felt.</text>
 </svg></div>
               <div class="principle-continuation">
                 <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">Reversibility at the point of risk lowers anticipated regret enough to order</span></div>
@@ -4312,25 +4343,31 @@ html[data-theme="dark"] {
               <span class="principle-chev" aria-hidden="true">&rsaquo;</span>
             </summary>
             <div class="principle-body">
-              <div class="illustration bg-ink"><svg viewBox="0 0 400 420" width="100%" role="img" aria-label="Separate evaluation compares a sink to white memory; joint evaluation compares it inside a finished room">
-  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">SAME SINK, TWO EVALUATION MODES</text>
-  <text x="110" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="rgba(245,246,245,0.9)">SEPARATE</text>
-  <text x="290" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#E0A93A">JOINT</text>
-  <rect x="55" y="88" width="110" height="90" rx="8" fill="none" stroke="rgba(245,246,245,0.85)" stroke-width="1.8"/>
-  <text x="110" y="128" text-anchor="middle" font-family="Georgia,serif" font-size="15" fill="rgba(245,246,245,0.95)">orange sink</text>
-  <text x="110" y="152" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="rgba(245,246,245,0.75)">vs white in memory</text>
-  <rect x="235" y="88" width="110" height="90" rx="8" fill="none" stroke="#E0A93A" stroke-width="2"/>
-  <text x="290" y="122" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#E0A93A">full room</text>
-  <text x="290" y="144" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="rgba(245,246,245,0.85)">sink + tile + storage</text>
-  <text x="290" y="164" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="rgba(245,246,245,0.85)">compared together</text>
-  <line x1="110" y1="195" x2="110" y2="220" stroke="rgba(245,246,245,0.5)" stroke-width="2"/>
-  <line x1="290" y1="195" x2="290" y2="220" stroke="#E0A93A" stroke-width="2"/>
-  <text x="110" y="248" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="rgba(245,246,245,0.95)">Feels riskier</text>
-  <text x="290" y="248" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#E0A93A">Feels workable</text>
+              <div class="illustration bg-ink"><svg viewBox="0 0 400 480" width="100%" role="img" aria-label="A coloured sink alone is judged against a white default in memory; the same sink inside a finished bathroom is judged as part of the room">
+  <text x="200" y="26" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.1">SAME COLOURED SINK, TWO WAYS TO JUDGE IT</text>
+  <!-- separate -->
+  <text x="110" y="64" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="rgba(245,246,245,0.85)">ALONE ON THE PAGE</text>
+  <rect x="40" y="76" width="140" height="120" rx="8" fill="none" stroke="rgba(245,246,245,0.85)" stroke-width="1.8"/>
+  <ellipse cx="110" cy="130" rx="36" ry="20" fill="none" stroke="rgba(245,246,245,0.9)" stroke-width="2"/>
+  <path d="M90 102 h40 M110 102 v14" fill="none" stroke="rgba(245,246,245,0.9)" stroke-width="1.8" stroke-linecap="round"/>
+  <text x="110" y="175" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="rgba(245,246,245,0.7)">vs white in memory</text>
+  <!-- joint -->
+  <text x="290" y="64" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="#E0A93A">INSIDE A FINISHED ROOM</text>
+  <rect x="220" y="76" width="140" height="120" rx="8" fill="none" stroke="#E0A93A" stroke-width="2"/>
+  <!-- room: tiles + sink + cabinet -->
+  <rect x="236" y="96" width="108" height="14" rx="2" fill="none" stroke="rgba(245,246,245,0.45)" stroke-width="1"/>
+  <ellipse cx="290" cy="140" rx="28" ry="14" fill="none" stroke="#E0A93A" stroke-width="2"/>
+  <path d="M276 122 h28 M290 122 v10" fill="none" stroke="#E0A93A" stroke-width="1.6"/>
+  <rect x="248" y="162" width="84" height="18" rx="2" fill="none" stroke="rgba(245,246,245,0.55)" stroke-width="1.3"/>
+  <text x="290" y="185" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="10" fill="rgba(245,246,245,0.75)">sink + tile + vanity</text>
+  <line x1="110" y1="210" x2="110" y2="228" stroke="rgba(245,246,245,0.5)" stroke-width="2"/>
+  <line x1="290" y1="210" x2="290" y2="228" stroke="#E0A93A" stroke-width="2"/>
+  <text x="110" y="254" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="rgba(245,246,245,0.95)">Feels riskier</text>
+  <text x="290" y="254" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#E0A93A">Feels workable</text>
   <line x1="40" y1="280" x2="360" y2="280" stroke="rgba(245,246,245,0.2)" stroke-dasharray="3 4"/>
-  <text x="200" y="316" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.08">HARD-TO-SCORE ATTRIBUTES NEED COMPANY</text>
-  <text x="200" y="350" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Joint evaluation makes difficult attributes comparable.</text>
-  <text x="200" y="372" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Alone, easy cues and memory defaults dominate.</text>
+  <text x="200" y="314" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.08">HARD-TO-SCORE LOOKS NEED COMPANY</text>
+  <text x="200" y="348" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Alone, the sink is scored against a white default in memory.</text>
+  <text x="200" y="370" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">In a room, it is scored as one part of a whole bathroom.</text>
 </svg></div>
               <div class="principle-continuation">
                 <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">Evaluation mode changes which attributes can be scored and which defaults win</span></div>
@@ -4392,15 +4429,23 @@ html[data-theme="dark"] {
               <span class="principle-chev" aria-hidden="true">&rsaquo;</span>
             </summary>
             <div class="principle-body">
-              <div class="illustration bg-mustard"><svg viewBox="0 0 400 400" width="100%" role="img" aria-label="Status quo path stays thick and easy; novelty path is thinner until choice architecture lowers the risk tax">
-  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1B1E24" letter-spacing="0.12">NEWNESS ALREADY CARRIES A RISK TAX</text>
-  <path d="M60 120 C120 120, 160 120, 200 160 C240 200, 280 220, 340 220" fill="none" stroke="#1B1E24" stroke-width="5" stroke-linecap="round"/>
-  <text x="200" y="100" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">STATUS QUO PATH</text>
-  <path d="M60 260 C130 250, 170 210, 220 190 C270 170, 300 150, 340 140" fill="none" stroke="#C43E1F" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6 5"/>
-  <text x="200" y="290" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#C43E1F">NOVELTY PATH</text>
-  <text x="200" y="330" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#1B1E24">Design raises or lowers the tax</text>
-  <text x="200" y="358" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">Norms, filters, regret cover, and joint looks</text>
-  <text x="200" y="378" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">are how willingness to try gets built.</text>
+              <div class="illustration bg-mustard"><svg viewBox="0 0 400 460" width="100%" role="img" aria-label="Choosing a familiar white sink is an easy thick path; choosing a new coloured look is a thinner riskier path until design lowers that tax">
+  <text x="200" y="26" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1B1E24" letter-spacing="0.1">PICKING A NEW LOOK IS ALREADY A RISK</text>
+  <text x="200" y="46" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1B1E24" letter-spacing="0.1">BEFORE PRICE EVEN ENTERS</text>
+  <!-- status quo path with white sink -->
+  <text x="200" y="78" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">FAMILIAR WHITE PATH</text>
+  <path d="M50 110 C120 110, 160 110, 200 140 C240 170, 280 190, 350 190" fill="none" stroke="#1B1E24" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="350" cy="190" rx="22" ry="12" fill="none" stroke="#1B1E24" stroke-width="1.8"/>
+  <path d="M338 172 h24 M350 172 v10" fill="none" stroke="#1B1E24" stroke-width="1.5"/>
+  <text x="200" y="230" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#C43E1F">NEW COLOUR PATH</text>
+  <path d="M50 270 C130 255, 170 220, 220 205 C270 190, 300 175, 330 165" fill="none" stroke="#C43E1F" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="7 5"/>
+  <ellipse cx="350" cy="160" rx="22" ry="12" fill="none" stroke="#C43E1F" stroke-width="2"/>
+  <path d="M338 142 h24 M350 142 v10" fill="none" stroke="#C43E1F" stroke-width="1.6"/>
+  <circle cx="350" cy="160" r="3" fill="#C43E1F"/>
+  <text x="200" y="310" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#1B1E24">Design raises or lowers that tax</text>
+  <text x="200" y="344" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">Norms, filters, return cover, and full-room looks</text>
+  <text x="200" y="366" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">are how willingness to try a new look gets built.</text>
+  <text x="200" y="398" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12" fill="#1B1E24">More SKUs alone do not clear a risk bottleneck.</text>
 </svg></div>
               <div class="principle-continuation">
                 <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">People overweight the downside of leaving the familiar relative to staying put</span></div>

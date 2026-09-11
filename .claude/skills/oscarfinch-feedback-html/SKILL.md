@@ -95,6 +95,12 @@ other live types:**
    and system 2 (mechanism `.illustration`), not a decorative one-off SVG.
    Study teardowns that belong on the live page also use the live
    `.flow-diagram` system, not a reinvented method grid.
+5. **Zero-context stranger test for every System 2 preview** (see
+   `principle-mechanism-diagram` failure mode 25): hide the surrounding card
+   copy. From the SVG alone, a cold reader must name the real objects and
+   state what happens, to whom, and why. Empty product-card rectangles,
+   abstract tiles, or slogan titles without a literal scene fail — rebuild
+   before shipping the review.
 
 Feedback chrome (toggles, comment boxes, copy panel, theme toggle) stays as
 specified below. The *preview inside each card* is a dress rehearsal of the
