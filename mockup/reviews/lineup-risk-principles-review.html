@@ -1,285 +1,570 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Review: five product-risk principles</title>
 <style>
-:root{
-  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
-  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
-  --accent:#C43E1F; --accent-ink:#F5F6F5;
-  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
-  --good:#1F7A6C; --good-ink:#F5F6F5;
-  --needs:#C43E1F; --needs-ink:#F5F6F5;
-  --mustard:#E0A93A;
+:root {
+  --ink: #1B1E24;
+  --terracotta: #C43E1F;
+  --terracotta-dim: #A6331A;
+  --mustard: #E0A93A;
+  --mustard-dim: #96691E;
+  --teal: #1F7A6C;
+  --paper: #F5F6F5;
+  --card: #FFFFFF;
+  --line: rgba(27, 30, 36, 0.12);
+  --muted: rgba(27, 30, 36, 0.6);
+  --good: #1F7A6C;
+  --needs: #C43E1F;
   --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
-    --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
-    --accent:#D97A56; --accent-ink:#1A1310;
-    --accent2:#5FA89A; --accent2-ink:#0D1917;
-    --good:#5FA89A; --good-ink:#0D1917;
-    --needs:#D97A56; --needs-ink:#1A1310;
-    --mustard:#C9A14A;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #EEEAE2; --paper: #17191A; --card: #232628;
+    --line: rgba(238,234,226,0.15); --muted: rgba(238,234,226,0.6);
+    --terracotta: #D97A56; --mustard: #C9A14A; --teal: #5FA89A;
+    --good: #5FA89A; --needs: #D97A56;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
   }
 }
-:root[data-theme="dark"]{
-  --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
-  --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
-  --accent:#D97A56; --accent-ink:#1A1310;
-  --accent2:#5FA89A; --accent2-ink:#0D1917;
-  --good:#5FA89A; --good-ink:#0D1917;
-  --needs:#D97A56; --needs-ink:#1A1310;
-  --mustard:#C9A14A;
+:root[data-theme="dark"] {
+  --ink: #EEEAE2; --paper: #17191A; --card: #232628;
+  --line: rgba(238,234,226,0.15); --muted: rgba(238,234,226,0.6);
+  --terracotta: #D97A56; --mustard: #C9A14A; --teal: #5FA89A;
+  --good: #5FA89A; --needs: #D97A56;
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
 }
-:root[data-theme="light"]{
-  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
-  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
-  --accent:#C43E1F; --accent-ink:#F5F6F5;
-  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
-  --good:#1F7A6C; --good-ink:#F5F6F5;
-  --needs:#C43E1F; --needs-ink:#F5F6F5;
-  --mustard:#E0A93A;
-  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+:root[data-theme="light"] {
+  --ink: #1B1E24; --paper: #F5F6F5; --card: #FFFFFF;
+  --line: rgba(27, 30, 36, 0.12); --muted: rgba(27, 30, 36, 0.6);
+  --terracotta: #C43E1F; --mustard: #E0A93A; --teal: #1F7A6C;
+  --good: #1F7A6C; --needs: #C43E1F;
 }
-*{box-sizing:border-box;}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
-.wrap{max-width:860px;margin:0 auto;padding:44px 20px 80px;}
-h1{font-family:Georgia,ui-serif,serif;font-size:30px;margin:0 0 6px;text-wrap:balance;}
-.sub{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:0 0 8px;max-width:62ch;}
-.ask{font-size:13.5px;color:var(--ink-soft);background:var(--paper-alt);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:18px 0 36px;line-height:1.55;}
-.ask b{color:var(--ink);}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:28px;overflow:hidden;}
-.card__head{padding:18px 22px 0;}
-.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px;}
-.card h3{font-family:Georgia,ui-serif,serif;font-size:20px;margin:0 0 6px;}
-.card p.desc{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 16px;max-width:62ch;}
-.preview{background:var(--paper-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px;}
-.draft{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 18px 8px;}
-.draft .salient{font-family:Georgia,ui-serif,serif;font-size:17px;line-height:1.45;margin:0 0 10px;}
-.draft .salient mark{background:rgba(224,169,58,.35);color:inherit;padding:0 .15em;}
-.draft .defn{font-size:14.5px;line-height:1.55;margin:0 0 16px;color:var(--ink);}
-.block{margin:0 0 14px;}
-.block .k{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent2);font-weight:700;margin:0 0 4px;}
-.block p{margin:0;font-size:14px;line-height:1.55;color:var(--ink);}
-.study{margin:14px 0 8px;padding:12px 14px;border-left:3px solid var(--mustard);background:var(--paper-alt);border-radius:0 8px 8px 0;}
-.study .cite{font-size:13px;line-height:1.5;margin:0 0 8px;}
-.study .cite a{color:var(--accent2);}
-.findings{margin:0;padding:0;list-style:none;}
-.findings li{font-size:13.5px;line-height:1.5;margin:0 0 8px;padding-left:0;}
-.findings .label{display:inline-block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;color:var(--accent);margin-right:6px;}
-.toggle{display:flex;gap:8px;padding:16px 22px 4px;flex-wrap:wrap;}
-.toggle-btn{border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
-.toggle-btn:hover{border-color:var(--accent);}
-.toggle-btn[data-active="true"][data-val="good"]{background:var(--good);border-color:var(--good);color:var(--good-ink);}
-.toggle-btn[data-active="true"][data-val="needs-work"]{background:var(--needs);border-color:var(--needs);color:var(--needs-ink);}
-.comment{margin:10px 22px 20px;}
-.comment textarea{width:100%;min-height:44px;resize:vertical;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:13.5px;padding:9px 11px;}
-.comment textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
-.feedback{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;margin-top:36px;}
-.feedback h3{font-family:Georgia,ui-serif,serif;font-size:17px;margin:0 0 10px;}
-.feedback textarea{width:100%;min-height:110px;border:1px solid var(--line);border-radius:8px;background:var(--paper-alt);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical;}
-.feedback-row{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;}
-.copy-btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;}
-.copy-btn[data-copied="true"]{background:var(--accent2);color:var(--accent2-ink);}
-.theme-toggle{position:fixed;top:14px;right:14px;z-index:20;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;padding:0;}
-.note{font-size:12.5px;color:var(--ink-soft);margin:0 0 8px;}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.15;
+  margin: 0;
+  text-wrap: balance;
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 44px 20px 80px; }
+.page-title { font-size: clamp(1.6rem, 5vw, 2.1rem); margin: 0 0 8px; }
+.lede { color: var(--muted); font-size: 0.95rem; max-width: 62ch; margin: 0 0 10px; }
+.ask {
+  font-size: 0.86rem; color: var(--muted); background: var(--card);
+  border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px;
+  margin: 16px 0 28px; line-height: 1.55;
+}
+.ask b { color: var(--ink); font-weight: 700; }
+
+/* Review chrome */
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: var(--shadow); margin-bottom: 28px; overflow: hidden;
+}
+.card-meta { padding: 16px 20px 0; }
+.sys-tag {
+  display: inline-block; font-size: 0.62rem; text-transform: uppercase;
+  letter-spacing: 0.06em; font-weight: 800; color: var(--terracotta); margin-bottom: 6px;
+}
+.card-meta .hint { font-size: 0.84rem; color: var(--muted); margin: 6px 0 12px; max-width: 62ch; }
+
+/* Site-faithful principle preview */
+.principle-preview {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  padding: 18px 16px 20px;
+}
+.principle-summary-row {
+  display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px;
+}
+.principle-number {
+  font-family: Georgia, serif;
+  font-size: 1.5rem; line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(27, 30, 36, 0.22);
+  flex-shrink: 0; margin-top: 2px;
+}
+:root[data-theme="dark"] .principle-number,
+:root:not([data-theme="light"]) .principle-number {
+  -webkit-text-stroke: 1.2px rgba(238, 234, 226, 0.28);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .principle-number {
+    -webkit-text-stroke: 1.2px rgba(238, 234, 226, 0.28);
+  }
+}
+.principle-icon {
+  width: 28px; height: 28px; color: var(--ink); flex-shrink: 0; margin-top: 4px;
+}
+.principle-summary-text { flex: 1; min-width: 0; }
+.principle-summary-text h3 {
+  font-size: clamp(1.05rem, 3.6vw, 1.3rem); margin: 0 0 6px;
+}
+.salient-question {
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700; font-style: italic;
+  font-size: 0.92rem; line-height: 1.35; margin: 0 0 8px;
+}
+.salient-question mark {
+  background: rgba(224, 169, 58, 0.35);
+  color: inherit; padding: 0 0.12em;
+}
+.definition {
+  margin: 0; font-size: 0.9rem; color: rgba(27, 30, 36, 0.85); max-width: 62ch;
+}
+:root[data-theme="dark"] .definition { color: rgba(238,234,226,0.85); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .definition { color: rgba(238,234,226,0.85); }
+}
+
+.illustration {
+  margin: 14px 0 16px; border-radius: 12px; overflow: hidden;
+  background: var(--teal);
+}
+.illustration.bg-teal { background: var(--teal); }
+.illustration.bg-mustard { background: var(--mustard); }
+.illustration.bg-terracotta { background: var(--terracotta); }
+.illustration.bg-ink { background: var(--ink); }
+.illustration svg { width: 100%; height: auto; display: block; }
+
+.mechanism-note {
+  display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline;
+  margin: 0 0 14px; font-size: 0.84rem;
+}
+.mechanism-label {
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 800; color: var(--terracotta);
+}
+.mechanism-value { color: var(--ink); }
+
+.article-block { margin-top: 14px; max-width: 62ch; }
+.article-block:first-of-type { margin-top: 0; }
+.article-block .k {
+  display: block; font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--terracotta); font-weight: 700; margin-bottom: 5px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.article-block p {
+  margin: 0; font-size: 0.92rem; color: rgba(27, 30, 36, 0.85);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+:root[data-theme="dark"] .article-block p { color: rgba(238,234,226,0.85); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .article-block p { color: rgba(238,234,226,0.85); }
+}
+.article-block p + p { margin-top: 12px; }
+.article-block b { font-weight: 700; color: var(--ink); }
+
+.study-card {
+  margin-top: 16px; background: var(--card); border: 1px solid var(--line);
+  border-radius: 12px; padding: 14px 16px; max-width: 62ch;
+}
+.study-card .citation { font-size: 0.84rem; line-height: 1.45; margin: 0 0 8px; }
+.study-card .citation a { color: var(--teal); }
+.study-card .journal { font-size: 0.82rem; color: var(--muted); margin: 0 0 10px; }
+.method-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;
+}
+@media (max-width: 640px) { .method-grid { grid-template-columns: 1fr; } }
+.method-col {
+  font-size: 0.8rem; line-height: 1.45; padding: 10px; border-radius: 8px;
+  background: var(--paper); border: 1px solid var(--line);
+}
+.method-col .lbl {
+  display: block; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 800; margin-bottom: 4px;
+}
+.method-col.strength .lbl { color: var(--teal); }
+.method-col.weakness .lbl { color: var(--terracotta); }
+.excerpts .lbl {
+  display: block; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em;
+  font-weight: 800; color: var(--terracotta); margin: 8px 0 6px;
+}
+.excerpt {
+  border-left: 3px solid var(--mustard); padding: 8px 10px; margin: 0 0 8px;
+  font-size: 0.84rem; line-height: 1.45; background: var(--paper); border-radius: 0 8px 8px 0;
+}
+.excerpt .tag {
+  display: inline-block; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.05em;
+  font-weight: 800; color: var(--terracotta); margin-right: 6px;
+}
+
+.toggle { display: flex; gap: 8px; padding: 14px 20px 4px; flex-wrap: wrap; }
+.toggle-btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--muted);
+  font-size: 0.84rem; padding: 7px 14px; border-radius: 999px; cursor: pointer;
+  font-family: inherit;
+}
+.toggle-btn:hover { border-color: var(--terracotta); }
+.toggle-btn[data-active="true"][data-val="good"] {
+  background: var(--good); border-color: var(--good); color: #F5F6F5;
+}
+.toggle-btn[data-active="true"][data-val="needs-work"] {
+  background: var(--needs); border-color: var(--needs); color: #F5F6F5;
+}
+.comment { margin: 10px 20px 18px; }
+.comment textarea {
+  width: 100%; min-height: 44px; resize: vertical; border: 1px solid var(--line);
+  border-radius: 8px; background: var(--paper); color: var(--ink);
+  font-family: inherit; font-size: 0.88rem; padding: 9px 11px;
+}
+.feedback {
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: var(--shadow); padding: 18px 20px; margin-top: 28px;
+}
+.feedback h3 { font-size: 1.15rem; margin: 0 0 8px; }
+.feedback .note { font-size: 0.8rem; color: var(--muted); margin: 0 0 8px; }
+.feedback textarea {
+  width: 100%; min-height: 110px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--paper); color: var(--ink); font-family: inherit; font-size: 0.84rem;
+  padding: 10px; resize: vertical;
+}
+.feedback-row { display: flex; justify-content: flex-end; margin-top: 10px; }
+.copy-btn {
+  background: var(--terracotta); color: #F5F6F5; border: none; border-radius: 8px;
+  padding: 9px 18px; font-size: 0.88rem; font-weight: 700; cursor: pointer;
+  font-family: inherit;
+}
+.copy-btn[data-copied="true"] { background: var(--teal); }
+.theme-toggle {
+  position: fixed; top: 14px; right: 14px; z-index: 20; width: 38px; height: 38px;
+  border-radius: 50%; border: 1px solid var(--line); background: var(--card);
+  color: var(--ink); box-shadow: var(--shadow); cursor: pointer; font-size: 17px;
+  display: flex; align-items: center; justify-content: center; padding: 0;
+}
 </style>
 </head>
 <body>
 <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">🌙</button>
-
 <div class="wrap">
-  <h1>Five product-risk principles</h1>
-  <p class="sub">Draft Field Notes for review. Each card is one principle article. Mark Looks good / Needs work, leave notes, then copy the compiled feedback at the bottom.</p>
-  <div class="ask"><b>Source framing:</b> product-risk teardown ideas (assortment norms, early filters, regret cover, simultaneous choice, novelty-as-risk). Academic anchors only. No blog attribution in the copy. These are drafts for <code>principles.html</code>, not live yet.</div>
+  <h1 class="page-title">Five product-risk principles</h1>
+  <p class="lede">Draft Field Notes for review, rendered in the site&rsquo;s principle type, chunking, and visual systems (eyebrow icon + mechanism illustration). Mark Looks good / Needs work, then copy feedback below.</p>
+  <div class="ask"><b>Root-cause fix on this pass:</b> the previous review used a generic artifact stylesheet (no Georgia/system split, no <code>&lt;b&gt;</code> chunking, no system&nbsp;1 / system&nbsp;2 drawings). This version mirrors <code>principles.html</code> anatomy.</div>
 
-  <!-- 1 -->
+
   <div class="card" data-item data-title="1. Implied Norms">
-    <div class="card__head">
-      <span class="tag">Choice · awareness / consideration</span>
-      <h3>1. Implied Norms</h3>
-      <p class="desc">What the layout treats as the safe majority, and what it frames as the odd one out.</p>
+    <div class="card-meta">
+      <span class="sys-tag">System 1 eyebrow · System 2 illustration · choice / awareness</span>
+      <p class="hint">Page composition as a descriptive norm.</p>
     </div>
-    <div class="preview">
-      <div class="draft">
-        <p class="salient">Why does a grid of <mark>white sinks</mark> make the coloured one look like a mistake?</p>
-        <p class="defn">A product page does more than list options. The mix of what it shows, and how often, teaches what &ldquo;people like us&rdquo; usually buy. The majority look becomes the descriptive norm; the rare look becomes the risk.</p>
-
-        <div class="block"><span class="k">The principle</span><p>When an assortment is heavy with one safe look, shoppers read that look as normal. The bold option is not only different. It is socially unusual on that page.</p></div>
-        <div class="block"><span class="k">The psychology</span><p>People use descriptive norms as a shortcut under uncertainty: what appears common is treated as sensible. On a retail grid, frequency and visual weight do that job without a single &ldquo;bestseller&rdquo; badge. Five white sinks beside one coloured sink is a quiet message about what buyers choose.</p></div>
-        <div class="block"><span class="k">Where it causes errors</span><p>A manufacturer that wants more colour can still lose the sale on a page that over-represents white. The layout trains the shopper to treat colour as the oddball, then asks them to pick the oddball. Logistics matter too: the majority option is simply easier to click because there are more of it.</p></div>
-        <div class="block"><span class="k">Where it can help</span><p>If the goal is to raise willingness to try a bolder SKU, rebalance what the page implies is typical. Put variety in the first screen. Let the &ldquo;safe&rdquo; option share the frame with real alternatives, so risk does not read as deviance.</p></div>
-        <div class="study">
-          <p class="cite">Goldstein, N. J., Cialdini, R. B., &amp; Griskevicius, V. (2008). &ldquo;A Room with a Viewpoint: Using Social Norms to Motivate Environmental Conservation in Hotels.&rdquo; <a href="https://doi.org/10.1086/586910" target="_blank" rel="noopener">Journal of Consumer Research, 35(3), 472&ndash;482</a>.</p>
-          <p class="note">Field tests of towel reuse: messages stating what similar guests usually did beat generic environmental appeals. The mechanism is descriptive-norm focus, the same lever a product grid pulls when it makes one look look common.</p>
-          <ul class="findings">
-            <li><span class="label">Paraphrased</span>Norm messages that named what guests in the same room typically did raised towel reuse more than standard environmental pleas.</li>
-            <li><span class="label">Paraphrased</span>Specific, identity-matched descriptive norms outperformed broader &ldquo;most guests&rdquo; claims in follow-up tests.</li>
-          </ul>
-          <div class="block"><span class="k">Methodology critique</span><p><b>Strength:</b> real hotel field behaviour, not a lab checkbox. <b>Weakness:</b> the study tests written norm messages, not assortment composition. The page-grid application is an extension of the same descriptive-norm logic, and should be labelled as such until assortment-specific tests are cited.</p></div>
+    <div class="principle-preview">
+      <div class="principle-summary-row">
+        <span class="principle-number">85</span>
+        <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <circle cx="6" cy="8" r="2.2"></circle><circle cx="12" cy="8" r="2.2"></circle><circle cx="18" cy="8" r="2.2"></circle>
+  <circle cx="6" cy="16" r="2.2"></circle><circle cx="12" cy="16" r="2.2" fill="var(--terracotta)" stroke="var(--terracotta)"></circle><circle cx="18" cy="16" r="2.2"></circle>
+</svg>
+        <div class="principle-summary-text">
+          <h3>Implied Norms</h3>
+          <p class="salient-question">Why does a grid of <mark>white sinks</mark> make the coloured one look like a mistake?</p>
+          <p class="definition">A product page does more than list options. The mix of what it shows, and how often, teaches what &ldquo;people like us&rdquo; usually buy. The majority look becomes the descriptive norm; the rare look becomes the risk.</p>
+        </div>
+      </div>
+      <div class="illustration bg-teal"><svg viewBox="0 0 400 420" role="img" aria-label="A grid of five white sinks beside one coloured sink: the majority look reads as normal, the rare look reads as risk">
+  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">FIVE WHITE, ONE COLOUR</text>
+  <text x="200" y="48" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">TEACHES WHAT LOOKS NORMAL</text>
+  <g fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="2">
+    <rect x="48" y="78" width="70" height="52" rx="6"/><rect x="132" y="78" width="70" height="52" rx="6"/>
+    <rect x="216" y="78" width="70" height="52" rx="6"/><rect x="300" y="78" width="70" height="52" rx="6"/>
+    <rect x="90" y="148" width="70" height="52" rx="6"/>
+  </g>
+  <rect x="220" y="148" width="70" height="52" rx="6" fill="none" stroke="#E0A93A" stroke-width="2.4"/>
+  <circle cx="255" cy="174" r="5" fill="#E0A93A"/>
+  <text x="200" y="240" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.1">DESCRIPTIVE NORM ON THE PAGE</text>
+  <line x1="200" y1="255" x2="200" y2="272" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
+  <path d="M192 268 L200 278 L208 268" fill="none" stroke="rgba(245,246,245,0.55)" stroke-width="2" stroke-linecap="round"/>
+  <text x="200" y="304" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#E0A93A">Majority = sensible</text>
+  <text x="200" y="336" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="rgba(245,246,245,0.95)">Rare = the risk</text>
+  <text x="200" y="372" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">No bestseller badge required.</text>
+  <text x="200" y="392" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Frequency and visual weight do the teaching.</text>
+</svg></div>
+      <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">What appears common on the page is treated as the sensible choice</span></div>
+      <div class="article-block"><span class="k">The psychology</span><p>People use <b>descriptive norms</b> as a shortcut under uncertainty: what looks common is treated as sensible. On a retail grid, frequency and visual weight do that job without a single &ldquo;bestseller&rdquo; badge.</p></div>
+<div class="article-block"><span class="k">Where it causes errors</span><p>A manufacturer that wants more colour can still lose on a page that over-represents white. The layout trains the shopper to treat colour as the oddball, then asks them to pick it. The majority option is also simply easier to click because <b>there are more of it</b>.</p></div>
+<div class="article-block"><span class="k">Where it can help</span><p>If the goal is to raise willingness to try a bolder SKU, <b>rebalance what the first screen implies is typical</b>. Let the safe option share the frame with real alternatives, so risk does not read as deviance.</p></div>
+      <div class="study-card">
+        <p class="citation">Goldstein, N. J., Cialdini, R. B., &amp; Griskevicius, V. (2008). &ldquo;A Room with a Viewpoint: Using Social Norms to Motivate Environmental Conservation in Hotels.&rdquo; <a href="https://doi.org/10.1086/586910" target="_blank" rel="noopener">Journal of Consumer Research, 35(3), 472&ndash;482</a>.</p>
+        <p class="journal">Field tests of towel reuse: identity-matched descriptive norms beat generic appeals.</p>
+        <div class="method-grid">
+          <div class="method-col strength"><span class="lbl">Strength</span>Real hotel field behaviour, not a lab checkbox.</div>
+          <div class="method-col weakness"><span class="lbl">Weakness</span>Tests written norm messages, not assortment composition. The page-grid application extends the same logic and should be labelled as such until assortment-specific tests are cited.</div>
+        </div>
+        <div class="excerpts">
+          <span class="lbl">Key findings</span>
+          <div class="excerpt"><span class="tag">Paraphrased</span>Norm messages that named what guests in the same room typically did raised towel reuse more than standard environmental pleas.</div>
+<div class="excerpt"><span class="tag">Paraphrased</span>Specific, identity-matched descriptive norms outperformed broader &ldquo;most guests&rdquo; claims in follow-up tests.</div>
         </div>
       </div>
     </div>
     <div class="toggle">
-      <button class="toggle-btn" data-val="good">Looks good</button>
-      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+      <button class="toggle-btn" data-val="good" type="button">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work" type="button">Needs work</button>
     </div>
     <div class="comment"><textarea data-comment placeholder="Notes on Implied Norms…"></textarea></div>
   </div>
 
-  <!-- 2 -->
   <div class="card" data-item data-title="2. Premature Filtering">
-    <div class="card__head">
-      <span class="tag">Choice · consideration</span>
-      <h3>2. Premature Filtering</h3>
-      <p class="desc">Early sort questions that close the aperture too soon, versus goal-based filters that keep useful variety open.</p>
+    <div class="card-meta">
+      <span class="sys-tag">System 1 eyebrow · System 2 illustration · choice / consideration</span>
+      <p class="hint">Early attribute forks vs goal-based filters.</p>
     </div>
-    <div class="preview">
-      <div class="draft">
-        <p class="salient">Why does asking <mark>vessel or drop-in</mark> first kill the bathroom you actually wanted?</p>
-        <p class="defn">The first filter teaches what the decision is about. An attribute fork (mount type, size band, brand) collapses the set before the shopper has named the job. A goal fork (guest bath, kids, storage) keeps more useful variety in view.</p>
-
-        <div class="block"><span class="k">The principle</span><p>Early screening questions define the consideration set. Screen on a narrow attribute and you lock people into one technical lane. Screen on the outcome they care about and you keep options that still differ on style and risk.</p></div>
-        <div class="block"><span class="k">The psychology</span><p>Online shoppers rarely hold the full catalogue in working memory. They screen. Interactive decision aids that help people eliminate options change both what survives and how confident people feel about the survivor. The first cut is rarely neutral. It encodes a theory of what matters.</p></div>
-        <div class="block"><span class="k">Where it causes errors</span><p>A sink finder that leads with vessel / drop-in / wall-mount teaches plumbing typology first. Once &ldquo;vessel&rdquo; is clicked, the only remaining question is which vessel. The kids-bath or statement-piece path never opens. People become experts in a subcategory they may not have needed.</p></div>
-        <div class="block"><span class="k">Where it can help</span><p>Lead with the job: guest bathroom, family bathroom, small footprint, statement piece. Inside that goal, leave room for colour and form variation. Attribute filters can come second, once the aperture has done useful work.</p></div>
-        <div class="study">
-          <p class="cite">Häubl, G., &amp; Trifts, V. (2000). &ldquo;Consumer Decision Making in Online Shopping Environments: The Effects of Interactive Decision Aids&rdquo; <a href="https://doi.org/10.1086/209610" target="_blank" rel="noopener">Journal of Consumer Research, 27(1), 4&ndash;19</a>.</p>
-          <ul class="findings">
-            <li><span class="label">Paraphrased</span>Recommendation agents and comparison matrices changed how many alternatives people considered and improved the quality of their consideration sets in a controlled online shopping environment.</li>
-            <li><span class="label">Paraphrased</span>Decision aids that supported screening and side-by-side comparison reduced search effort while raising purchase confidence on the options that remained.</li>
-          </ul>
-          <div class="block"><span class="k">Methodology critique</span><p><b>Strength:</b> process-level measures of search and consideration, not only final choice. <b>Weakness:</b> lab-style online store with student and recruited participants; the specific &ldquo;goal filter vs attribute filter&rdquo; framing is an application of the screening insight, not a verbatim condition in the paper.</p></div>
+    <div class="principle-preview">
+      <div class="principle-summary-row">
+        <span class="principle-number">86</span>
+        <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M4 5h16l-5.5 6.5V19l-5 2v-9.5L4 5z"></path>
+  <circle cx="17.5" cy="6.5" r="1.2" fill="var(--terracotta)" stroke="var(--terracotta)"></circle>
+</svg>
+        <div class="principle-summary-text">
+          <h3>Premature Filtering</h3>
+          <p class="salient-question">Why does asking <mark>vessel or drop-in</mark> first kill the bathroom you actually wanted?</p>
+          <p class="definition">The first filter teaches what the decision is about. An attribute fork collapses the set before the shopper has named the job. A goal fork keeps more useful variety in view.</p>
+        </div>
+      </div>
+      <div class="illustration bg-mustard"><svg viewBox="0 0 400 400" role="img" aria-label="Attribute filter vessel or drop-in collapses options early; a goal filter for kids bath keeps style variety open">
+  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1B1E24" letter-spacing="0.12">FIRST FILTER SETS THE APERTURE</text>
+  <text x="98" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">ATTRIBUTE FIRST</text>
+  <text x="302" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">GOAL FIRST</text>
+  <rect x="40" y="88" width="116" height="36" rx="6" fill="none" stroke="#1B1E24" stroke-width="1.8"/>
+  <text x="98" y="111" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">vessel / drop-in</text>
+  <rect x="244" y="88" width="116" height="36" rx="6" fill="none" stroke="#C43E1F" stroke-width="2"/>
+  <text x="302" y="111" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#C43E1F">kids / guest bath</text>
+  <line x1="98" y1="130" x2="98" y2="158" stroke="#1B1E24" stroke-width="2"/>
+  <line x1="302" y1="130" x2="302" y2="158" stroke="#C43E1F" stroke-width="2"/>
+  <text x="98" y="182" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#1B1E24">1 lane left</text>
+  <text x="302" y="182" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#C43E1F">variety stays</text>
+  <text x="98" y="220" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">ONLY WHICH VESSEL</text>
+  <text x="302" y="220" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#C43E1F">STYLE STILL OPEN</text>
+  <line x1="40" y1="250" x2="360" y2="250" stroke="rgba(27,30,36,0.25)" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="200" y="286" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="#1B1E24" letter-spacing="0.08">SCREENING IS NEVER NEUTRAL</text>
+  <text x="200" y="320" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">The first cut encodes a theory of what matters.</text>
+  <text x="200" y="342" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">Interactive aids change what survives in the set.</text>
+</svg></div>
+      <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">Early screening questions define the consideration set before goals are named</span></div>
+      <div class="article-block"><span class="k">The psychology</span><p>Online shoppers rarely hold the full catalogue in working memory. They <b>screen</b>. Decision aids that help people eliminate options change both what survives and how confident people feel about the survivor.</p></div>
+<div class="article-block"><span class="k">Where it causes errors</span><p>A sink finder that leads with mount type teaches plumbing typology first. Once &ldquo;vessel&rdquo; is clicked, the only remaining question is which vessel. The <b>kids-bath or statement-piece path never opens</b>.</p></div>
+<div class="article-block"><span class="k">Where it can help</span><p>Lead with the job: guest bathroom, family bathroom, small footprint, statement piece. Inside that goal, leave room for colour and form. <b>Attribute filters can come second</b>.</p></div>
+      <div class="study-card">
+        <p class="citation">Häubl, G., &amp; Trifts, V. (2000). &ldquo;Consumer Decision Making in Online Shopping Environments: The Effects of Interactive Decision Aids.&rdquo; <a href="https://doi.org/10.1086/209610" target="_blank" rel="noopener">Journal of Consumer Research, 27(1), 4&ndash;19</a>.</p>
+        <p class="journal">Process measures of search and consideration in a controlled online store.</p>
+        <div class="method-grid">
+          <div class="method-col strength"><span class="lbl">Strength</span>Process-level measures of search and consideration, not only final choice.</div>
+          <div class="method-col weakness"><span class="lbl">Weakness</span>Lab-style store with recruited participants; goal-vs-attribute framing is an application of the screening insight, not a verbatim condition in the paper.</div>
+        </div>
+        <div class="excerpts">
+          <span class="lbl">Key findings</span>
+          <div class="excerpt"><span class="tag">Paraphrased</span>Recommendation agents and comparison matrices changed how many alternatives people considered and improved consideration-set quality.</div>
+<div class="excerpt"><span class="tag">Paraphrased</span>Aids that supported screening and side-by-side comparison reduced search effort while raising purchase confidence on remaining options.</div>
         </div>
       </div>
     </div>
     <div class="toggle">
-      <button class="toggle-btn" data-val="good">Looks good</button>
-      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+      <button class="toggle-btn" data-val="good" type="button">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work" type="button">Needs work</button>
     </div>
     <div class="comment"><textarea data-comment placeholder="Notes on Premature Filtering…"></textarea></div>
   </div>
 
-  <!-- 3 -->
   <div class="card" data-item data-title="3. Regret Protection">
-    <div class="card__head">
-      <span class="tag">Risk · conversion</span>
-      <h3>3. Regret Protection</h3>
-      <p class="desc">Put return, guarantee, or undo beside the bold option. Footer fine print arrives too late to change the risk story.</p>
+    <div class="card-meta">
+      <span class="sys-tag">System 1 eyebrow · System 2 illustration · risk / conversion</span>
+      <p class="hint">Return / undo beside the bold option.</p>
     </div>
-    <div class="preview">
-      <div class="draft">
-        <p class="salient">Why does a <mark>return window</mark> next to the bold option change who buys it?</p>
-        <p class="defn">The fear that stalls a risky purchase is often anticipated regret: the future self who feels foolish. A clear reverse path, shown at the moment of risk, lowers that fear. The same policy buried in a footer does less work.</p>
-
-        <div class="block"><span class="k">The principle</span><p>Risk appetite rises when the choice looks reversible. Returns, guarantees, and easy undo are risk reducers. They need to sit next to the option that feels dangerous, because that is when the regret story is running.</p></div>
-        <div class="block"><span class="k">The psychology</span><p>Remote purchase already splits into two stages: decide to order, then decide to keep. Without touch or try-on, the first stage feels exposed. A lenient return policy is one of the few tools that shrinks that exposure before the parcel arrives.</p></div>
-        <div class="block"><span class="k">Where it causes errors</span><p>A retailer hides a fair return policy in legal copy, then wonders why the orange sink sits in the cart. The protection existed. It was not present at the decision. Or the policy is advertised loudly on a low-risk staple and silent on the SKU that actually needs it.</p></div>
-        <div class="block"><span class="k">Where it can help</span><p>Place the reverse path beside the bold choice: days to return, who pays shipping, what &ldquo;unused&rdquo; means. Honest terms beat theatre. Make the future self feel less trapped. Skip cover that promises reverse when the terms will not deliver.</p></div>
-        <div class="study">
-          <p class="cite">Wood, S. L. (2001). &ldquo;Remote Purchase Environments: The Influence of Return Policy Leniency on Two-Stage Decision Processes.&rdquo; <a href="https://doi.org/10.1509/jmkr.38.2.157.18847" target="_blank" rel="noopener">Journal of Marketing Research, 38(2), 157&ndash;169</a>.</p>
-          <ul class="findings">
-            <li><span class="label">Paraphrased</span>Lenient return policies increased willingness to order in remote channels by reducing the perceived risk of buying without inspection.</li>
-            <li><span class="label">Paraphrased</span>Across experiments, leniency did not simply inflate returns in the way retailers often fear; endowment and evaluation shifts after receipt also shaped keep-or-return behaviour.</li>
-          </ul>
-          <div class="block"><span class="k">Methodology critique</span><p><b>Strength:</b> separates order decisions from keep/return decisions, matching how catalogue and e-commerce actually work. <b>Weakness:</b> several tasks use scenario or catalogue stimuli; effect sizes on a live bathroom configurator still need field confirmation.</p></div>
+    <div class="principle-preview">
+      <div class="principle-summary-row">
+        <span class="principle-number">87</span>
+        <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"></path>
+  <path d="M9.5 12.2l1.8 1.8 3.4-3.6" stroke="var(--terracotta)" stroke-width="1.8"></path>
+</svg>
+        <div class="principle-summary-text">
+          <h3>Regret Protection</h3>
+          <p class="salient-question">Why does a <mark>return window</mark> next to the bold option change who buys it?</p>
+          <p class="definition">The fear that stalls a risky purchase is often anticipated regret: the future self who feels foolish. A clear reverse path, shown at the moment of risk, lowers that fear. The same policy buried in a footer does less work.</p>
+        </div>
+      </div>
+      <div class="illustration bg-terracotta"><svg viewBox="0 0 400 400" role="img" aria-label="Return policy beside the bold option lowers anticipated regret; the same policy in a footer does less work">
+  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">REGRET COVER AT THE DECISION</text>
+  <rect x="70" y="70" width="260" height="120" rx="10" fill="none" stroke="rgba(245,246,245,0.92)" stroke-width="2"/>
+  <text x="200" y="108" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#E0A93A">Bold option</text>
+  <text x="200" y="138" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)">30-day returns · free exchange</text>
+  <text x="200" y="168" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="rgba(245,246,245,0.85)">shown beside the risky SKU</text>
+  <line x1="200" y1="210" x2="200" y2="235" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
+  <path d="M192 231 L200 241 L208 231" fill="none" stroke="rgba(245,246,245,0.55)" stroke-width="2"/>
+  <text x="200" y="272" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="700" fill="#E0A93A">Order risk drops</text>
+  <text x="200" y="304" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)">SAME POLICY IN A FOOTER DOES LESS</text>
+  <text x="200" y="340" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Remote buy splits into order, then keep.</text>
+  <text x="200" y="362" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Leniency shrinks exposure before the parcel arrives.</text>
+</svg></div>
+      <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">Reversibility at the point of risk lowers anticipated regret enough to order</span></div>
+      <div class="article-block"><span class="k">The psychology</span><p>Remote purchase already splits into two stages: decide to order, then decide to keep. Without touch or try-on, the first stage feels exposed. A <b>lenient return policy</b> is one of the few tools that shrinks that exposure before the parcel arrives.</p></div>
+<div class="article-block"><span class="k">Where it causes errors</span><p>A retailer hides a fair return policy in legal copy, then wonders why the orange sink sits in the cart. The protection existed. It was <b>not present at the decision</b>. Or it is loud on a low-risk staple and silent on the SKU that needs it.</p></div>
+<div class="article-block"><span class="k">Where it can help</span><p>Place the reverse path beside the bold choice: days to return, who pays shipping, what &ldquo;unused&rdquo; means. <b>Honest terms beat theatre</b>. Skip cover that promises reverse when the terms will not deliver.</p></div>
+      <div class="study-card">
+        <p class="citation">Wood, S. L. (2001). &ldquo;Remote Purchase Environments: The Influence of Return Policy Leniency on Two-Stage Decision Processes.&rdquo; <a href="https://doi.org/10.1509/jmkr.38.2.157.18847" target="_blank" rel="noopener">Journal of Marketing Research, 38(2), 157&ndash;169</a>.</p>
+        <p class="journal">Separates order decisions from keep/return decisions in remote channels.</p>
+        <div class="method-grid">
+          <div class="method-col strength"><span class="lbl">Strength</span>Matches how catalogue and e-commerce actually split order from keep.</div>
+          <div class="method-col weakness"><span class="lbl">Weakness</span>Several tasks use scenario or catalogue stimuli; live configurator effect sizes still need field confirmation.</div>
+        </div>
+        <div class="excerpts">
+          <span class="lbl">Key findings</span>
+          <div class="excerpt"><span class="tag">Paraphrased</span>Lenient return policies increased willingness to order in remote channels by reducing the perceived risk of buying without inspection.</div>
+<div class="excerpt"><span class="tag">Paraphrased</span>Leniency did not simply inflate returns in the way retailers often fear; endowment and evaluation shifts after receipt also shaped keep-or-return behaviour.</div>
         </div>
       </div>
     </div>
     <div class="toggle">
-      <button class="toggle-btn" data-val="good">Looks good</button>
-      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+      <button class="toggle-btn" data-val="good" type="button">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work" type="button">Needs work</button>
     </div>
     <div class="comment"><textarea data-comment placeholder="Notes on Regret Protection…"></textarea></div>
   </div>
 
-  <!-- 4 -->
   <div class="card" data-item data-title="4. Joint Evaluation">
-    <div class="card__head">
-      <span class="tag">Choice · consideration</span>
-      <h3>4. Joint Evaluation</h3>
-      <p class="desc">Judge the risky item inside a full look, rather than alone against a safe default held in memory.</p>
+    <div class="card-meta">
+      <span class="sys-tag">System 1 eyebrow · System 2 illustration · choice / consideration</span>
+      <p class="hint">Full look vs alone-against-memory.</p>
     </div>
-    <div class="preview">
-      <div class="draft">
-        <p class="salient">Why does the orange sink look safer <mark>inside a full room</mark> than alone next to white?</p>
-        <p class="defn">Separate evaluation compares each item to a fuzzy ideal in memory, which for bathrooms is usually the white default. Joint evaluation compares items to each other, and to the scene around them. The same sink gets a different verdict.</p>
-
-        <div class="block"><span class="k">The principle</span><p>How you present options changes which attributes carry the decision. Side by side, hard-to-evaluate qualities become comparable. Alone, people lean on easy cues and on whatever default their memory supplies.</p></div>
-        <div class="block"><span class="k">The psychology</span><p>Hsee&rsquo;s evaluability work shows preference can reverse between joint and separate evaluation when one attribute is hard to score in isolation. Product pages that force a single SKU against memory recreate separate evaluation. Moodboards, complete rooms, and &ldquo;shop the look&rdquo; recreate joint evaluation.</p></div>
-        <div class="block"><span class="k">Where it causes errors</span><p>A sequential path asks &ldquo;which toilet?&rdquo; then &ldquo;which sink?&rdquo; Each time the comparison is to the white fixture in the shopper&rsquo;s head. The statement piece never gets judged as one element in a composition where everything else can stay quiet.</p></div>
-        <div class="block"><span class="k">Where it can help</span><p>Show the risky item in a finished scene: sink plus tile plus storage. Let people compare complete looks. The useful question is whether this bathroom works as a whole.</p></div>
-        <div class="study">
-          <p class="cite">Hsee, C. K. (1996). &ldquo;The Evaluability Hypothesis: An Explanation for Preference Reversals between Joint and Separate Evaluations of Alternatives.&rdquo; <a href="https://doi.org/10.1006/obhd.1996.0077" target="_blank" rel="noopener">Organizational Behavior and Human Decision Processes, 67(3), 247&ndash;257</a>.</p>
-          <ul class="findings">
-            <li><span class="label">Paraphrased</span>People can reverse preferences depending on whether options are scored side by side (joint) or one at a time (separate).</li>
-            <li><span class="label">Paraphrased</span>Hard-to-evaluate attributes weigh more in joint evaluation; easy-to-evaluate attributes dominate separate evaluation.</li>
-          </ul>
-          <div class="block"><span class="k">Methodology critique</span><p><b>Strength:</b> clean demonstration of the joint/separate split with a precise evaluability account. <b>Weakness:</b> early studies use artificial stimuli (e.g. dictionary attributes); retail &ldquo;complete the look&rdquo; is a field application of the mode distinction, not a bathroom-specific replication.</p></div>
+    <div class="principle-preview">
+      <div class="principle-summary-row">
+        <span class="principle-number">88</span>
+        <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <rect x="3" y="5" width="8" height="14" rx="1.5"></rect>
+  <rect x="13" y="5" width="8" height="14" rx="1.5" stroke="var(--terracotta)"></rect>
+  <circle cx="17" cy="12" r="1.3" fill="var(--terracotta)" stroke="var(--terracotta)"></circle>
+</svg>
+        <div class="principle-summary-text">
+          <h3>Joint Evaluation</h3>
+          <p class="salient-question">Why does the orange sink look safer <mark>inside a full room</mark> than alone next to white?</p>
+          <p class="definition">Separate evaluation compares each item to a fuzzy ideal in memory, which for bathrooms is usually the white default. Joint evaluation compares items to each other, and to the scene around them. The same sink gets a different verdict.</p>
+        </div>
+      </div>
+      <div class="illustration bg-ink"><svg viewBox="0 0 400 420" role="img" aria-label="Separate evaluation compares a sink to white memory; joint evaluation compares it inside a finished room">
+  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.12">SAME SINK, TWO EVALUATION MODES</text>
+  <text x="110" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="rgba(245,246,245,0.9)">SEPARATE</text>
+  <text x="290" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#E0A93A">JOINT</text>
+  <rect x="55" y="88" width="110" height="90" rx="8" fill="none" stroke="rgba(245,246,245,0.85)" stroke-width="1.8"/>
+  <text x="110" y="128" text-anchor="middle" font-family="Georgia,serif" font-size="15" fill="rgba(245,246,245,0.95)">orange sink</text>
+  <text x="110" y="152" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="rgba(245,246,245,0.75)">vs white in memory</text>
+  <rect x="235" y="88" width="110" height="90" rx="8" fill="none" stroke="#E0A93A" stroke-width="2"/>
+  <text x="290" y="122" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#E0A93A">full room</text>
+  <text x="290" y="144" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="rgba(245,246,245,0.85)">sink + tile + storage</text>
+  <text x="290" y="164" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="rgba(245,246,245,0.85)">compared together</text>
+  <line x1="110" y1="195" x2="110" y2="220" stroke="rgba(245,246,245,0.5)" stroke-width="2"/>
+  <line x1="290" y1="195" x2="290" y2="220" stroke="#E0A93A" stroke-width="2"/>
+  <text x="110" y="248" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="rgba(245,246,245,0.95)">Feels riskier</text>
+  <text x="290" y="248" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#E0A93A">Feels workable</text>
+  <line x1="40" y1="280" x2="360" y2="280" stroke="rgba(245,246,245,0.2)" stroke-dasharray="3 4"/>
+  <text x="200" y="316" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="700" fill="rgba(245,246,245,0.95)" letter-spacing="0.08">HARD-TO-SCORE ATTRIBUTES NEED COMPANY</text>
+  <text x="200" y="350" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Joint evaluation makes difficult attributes comparable.</text>
+  <text x="200" y="372" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="rgba(245,246,245,0.92)">Alone, easy cues and memory defaults dominate.</text>
+</svg></div>
+      <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">Evaluation mode changes which attributes can be scored and which defaults win</span></div>
+      <div class="article-block"><span class="k">The psychology</span><p>Hsee&rsquo;s evaluability work shows preference can reverse between <b>joint and separate evaluation</b> when one attribute is hard to score in isolation. Single-SKU pages recreate separate evaluation. Complete rooms recreate joint evaluation.</p></div>
+<div class="article-block"><span class="k">Where it causes errors</span><p>A sequential path asks which toilet, then which sink. Each time the comparison is to the white fixture in the shopper&rsquo;s head. The statement piece never gets judged as <b>one element in a composition</b>.</p></div>
+<div class="article-block"><span class="k">Where it can help</span><p>Show the risky item in a finished scene: sink plus tile plus storage. Let people compare complete looks. The useful question is whether <b>this bathroom works as a whole</b>.</p></div>
+      <div class="study-card">
+        <p class="citation">Hsee, C. K. (1996). &ldquo;The Evaluability Hypothesis: An Explanation for Preference Reversals between Joint and Separate Evaluations of Alternatives.&rdquo; <a href="https://doi.org/10.1006/obhd.1996.0077" target="_blank" rel="noopener">Organizational Behavior and Human Decision Processes, 67(3), 247&ndash;257</a>.</p>
+        <p class="journal">Clean demonstration of joint vs separate preference reversals.</p>
+        <div class="method-grid">
+          <div class="method-col strength"><span class="lbl">Strength</span>Precise evaluability account of when joint and separate modes diverge.</div>
+          <div class="method-col weakness"><span class="lbl">Weakness</span>Early studies use artificial stimuli; retail &ldquo;complete the look&rdquo; is a field application of the mode distinction.</div>
+        </div>
+        <div class="excerpts">
+          <span class="lbl">Key findings</span>
+          <div class="excerpt"><span class="tag">Paraphrased</span>People can reverse preferences depending on whether options are scored side by side (joint) or one at a time (separate).</div>
+<div class="excerpt"><span class="tag">Paraphrased</span>Hard-to-evaluate attributes weigh more in joint evaluation; easy-to-evaluate attributes dominate separate evaluation.</div>
         </div>
       </div>
     </div>
     <div class="toggle">
-      <button class="toggle-btn" data-val="good">Looks good</button>
-      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+      <button class="toggle-btn" data-val="good" type="button">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work" type="button">Needs work</button>
     </div>
     <div class="comment"><textarea data-comment placeholder="Notes on Joint Evaluation…"></textarea></div>
   </div>
 
-  <!-- 5 -->
   <div class="card" data-item data-title="5. Novelty Risk">
-    <div class="card__head">
-      <span class="tag">Risk · consideration / conversion</span>
-      <h3>5. Novelty Risk</h3>
-      <p class="desc">Trying anything new is already risk-taking. Choice architecture either raises or kills willingness to try.</p>
+    <div class="card-meta">
+      <span class="sys-tag">System 1 eyebrow · System 2 illustration · risk / consideration</span>
+      <p class="hint">Trying anything new is already risk-taking.</p>
     </div>
-    <div class="preview">
-      <div class="draft">
-        <p class="salient">Why is buying a <mark>new look</mark> already a risk decision, even before price enters?</p>
-        <p class="defn">Adoption is not only about liking. It is about accepting uncertainty: will this work in my space, will I regret it, will others judge it. Status quo bias and perceived risk pull toward the familiar. Design either softens that pull or sharpens it.</p>
-
-        <div class="block"><span class="k">The principle</span><p>Any departure from what someone already owns or expects counts as risk. Colour, form, brand, and category entry all inherit that tax. Pages that pile on implied norms, early locks, buried returns, and separate evaluation make the tax heavier.</p></div>
-        <div class="block"><span class="k">The psychology</span><p>People overweight the downside of changing course relative to staying put. Samuelson and Zeckhauser documented status quo bias across decisions where the current state had no special merit. In retail, the &ldquo;current state&rdquo; is often the white fixture already imagined from every listing photo.</p></div>
-        <div class="block"><span class="k">Where it causes errors</span><p>Teams treat &ldquo;interest in colour&rdquo; as a taste problem and answer with more SKUs. The bottleneck was risk. A catalogue full of bold options still converts to white if every step of the path punishes novelty.</p></div>
-        <div class="block"><span class="k">Where it can help</span><p>Treat willingness to try as a design outcome. Rebalance norms, open the aperture with goals, place regret cover on the bold SKU, and evaluate looks jointly. Those four moves are how you lower novelty risk without pretending the risk is imaginary.</p></div>
-        <div class="study">
-          <p class="cite">Samuelson, W., &amp; Zeckhauser, R. (1988). &ldquo;Status Quo Bias in Decision Making.&rdquo; <a href="https://doi.org/10.1007/BF00055564" target="_blank" rel="noopener">Journal of Risk and Uncertainty, 1(1), 7&ndash;59</a>.</p>
-          <ul class="findings">
-            <li><span class="label">Paraphrased</span>Decision makers disproportionately stick with the status quo across hypothetical and real-stake choices, even when alternatives are comparable on paper.</li>
-            <li><span class="label">Paraphrased</span>The bias appears in individual and policy-like settings; loss aversion and omission-style framing help explain why change feels costlier than staying.</li>
-          </ul>
-          <div class="block"><span class="k">Methodology critique</span><p><b>Strength:</b> wide set of decision contexts showing the same stickiness. <b>Weakness:</b> many scenarios are hypothetical questionnaires; retail novelty still needs product-specific measurement of what &ldquo;status quo&rdquo; the shopper is anchoring on (memory of past bathrooms, category conventions, last purchase).</p></div>
+    <div class="principle-preview">
+      <div class="principle-summary-row">
+        <span class="principle-number">89</span>
+        <svg class="principle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M4 18c4-2 6-6 6-10"></path>
+  <path d="M10 8h4"></path>
+  <path d="M14 8c0 5 3 8 6 10" stroke="var(--terracotta)"></path>
+  <circle cx="20" cy="18" r="1.4" fill="var(--terracotta)" stroke="var(--terracotta)"></circle>
+</svg>
+        <div class="principle-summary-text">
+          <h3>Novelty Risk</h3>
+          <p class="salient-question">Why is buying a <mark>new look</mark> already a risk decision, even before price enters?</p>
+          <p class="definition">Adoption is about accepting uncertainty as much as liking: will this work in my space, will I regret it, will others judge it. Status quo bias and perceived risk pull toward the familiar. Design either softens that pull or sharpens it.</p>
+        </div>
+      </div>
+      <div class="illustration bg-mustard"><svg viewBox="0 0 400 400" role="img" aria-label="Status quo path stays thick and easy; novelty path is thinner until choice architecture lowers the risk tax">
+  <text x="200" y="28" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1B1E24" letter-spacing="0.12">NEWNESS ALREADY CARRIES A RISK TAX</text>
+  <path d="M60 120 C120 120, 160 120, 200 160 C240 200, 280 220, 340 220" fill="none" stroke="#1B1E24" stroke-width="5" stroke-linecap="round"/>
+  <text x="200" y="100" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#1B1E24">STATUS QUO PATH</text>
+  <path d="M60 260 C130 250, 170 210, 220 190 C270 170, 300 150, 340 140" fill="none" stroke="#C43E1F" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6 5"/>
+  <text x="200" y="290" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" font-weight="700" fill="#C43E1F">NOVELTY PATH</text>
+  <text x="200" y="330" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#1B1E24">Design raises or lowers the tax</text>
+  <text x="200" y="358" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">Norms, filters, regret cover, and joint looks</text>
+  <text x="200" y="378" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="12.5" fill="#1B1E24">are how willingness to try gets built.</text>
+</svg></div>
+      <div class="mechanism-note"><span class="mechanism-label">Likely mechanism</span><span class="mechanism-value">People overweight the downside of leaving the familiar relative to staying put</span></div>
+      <div class="article-block"><span class="k">The psychology</span><p>People overweight the downside of changing course relative to staying put. Samuelson and Zeckhauser documented <b>status quo bias</b> across decisions where the current state had no special merit. In retail, that state is often the white fixture already imagined from listing photos.</p></div>
+<div class="article-block"><span class="k">Where it causes errors</span><p>Teams treat interest in colour as a taste problem and answer with more SKUs. The bottleneck was risk. A catalogue full of bold options still converts to white if <b>every step of the path punishes novelty</b>.</p></div>
+<div class="article-block"><span class="k">Where it can help</span><p>Treat willingness to try as a design outcome. Rebalance norms, open the aperture with goals, place regret cover on the bold SKU, and evaluate looks jointly. Those four moves <b>lower novelty risk</b> without pretending the risk is imaginary.</p></div>
+      <div class="study-card">
+        <p class="citation">Samuelson, W., &amp; Zeckhauser, R. (1988). &ldquo;Status Quo Bias in Decision Making.&rdquo; <a href="https://doi.org/10.1007/BF00055564" target="_blank" rel="noopener">Journal of Risk and Uncertainty, 1(1), 7&ndash;59</a>.</p>
+        <p class="journal">Wide set of contexts showing stickiness to the current state.</p>
+        <div class="method-grid">
+          <div class="method-col strength"><span class="lbl">Strength</span>Wide set of decision contexts showing the same stickiness.</div>
+          <div class="method-col weakness"><span class="lbl">Weakness</span>Many scenarios are hypothetical; retail novelty still needs product-specific measurement of what status quo the shopper is anchoring on.</div>
+        </div>
+        <div class="excerpts">
+          <span class="lbl">Key findings</span>
+          <div class="excerpt"><span class="tag">Paraphrased</span>Decision makers disproportionately stick with the status quo across hypothetical and real-stake choices, even when alternatives are comparable on paper.</div>
+<div class="excerpt"><span class="tag">Paraphrased</span>Loss aversion and omission-style framing help explain why change feels costlier than staying.</div>
         </div>
       </div>
     </div>
     <div class="toggle">
-      <button class="toggle-btn" data-val="good">Looks good</button>
-      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+      <button class="toggle-btn" data-val="good" type="button">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work" type="button">Needs work</button>
     </div>
     <div class="comment"><textarea data-comment placeholder="Notes on Novelty Risk…"></textarea></div>
   </div>
 
   <div class="feedback">
     <h3>Feedback</h3>
-    <p class="note">Only items you touch (toggle or comment) appear here.</p>
+    <p class="note">Only items you touch (toggle or comment) appear here. Paste the copy back into the parent chat.</p>
     <textarea id="fb-output" readonly placeholder="Toggle options above. Your picks and notes will build up here."></textarea>
-    <div class="feedback-row">
-      <button class="copy-btn" id="fb-copy" type="button">Copy feedback</button>
-    </div>
+    <div class="feedback-row"><button class="copy-btn" id="fb-copy" type="button">Copy feedback</button></div>
   </div>
 </div>
-
 <script>
 (function(){
   var root = document.documentElement;
   var btn = document.getElementById('theme-toggle');
-  var KEY = 'of-fb-theme';
+  var KEY = 'fn-risk-review-theme';
   var stored = null;
   try { stored = localStorage.getItem(KEY); } catch(e){}
   if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
@@ -298,7 +583,6 @@ h1{font-family:Georgia,ui-serif,serif;font-size:30px;margin:0 0 6px;text-wrap:ba
     sync();
   });
 })();
-
 document.querySelectorAll('[data-item]').forEach(function(item){
   item.querySelectorAll('.toggle-btn').forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -311,7 +595,6 @@ document.querySelectorAll('[data-item]').forEach(function(item){
   var ta = item.querySelector('[data-comment]');
   if(ta) ta.addEventListener('input', updateFeedback);
 });
-
 function updateFeedback(){
   var out = [];
   document.querySelectorAll('[data-item]').forEach(function(item){
@@ -325,11 +608,10 @@ function updateFeedback(){
   });
   document.getElementById('fb-output').value = out.length ? out.join('\n\n') : '';
 }
-
 document.getElementById('fb-copy').addEventListener('click', function(){
   var btn = this;
   var text = document.getElementById('fb-output').value;
-  if(!text){ return; }
+  if(!text) return;
   function done(){
     btn.textContent = 'Copied ✓';
     btn.setAttribute('data-copied','true');
@@ -337,16 +619,13 @@ document.getElementById('fb-copy').addEventListener('click', function(){
   }
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
-  } else {
-    fallbackCopy(text, done);
-  }
+  } else { fallbackCopy(text, done); }
 });
 function fallbackCopy(text, cb){
   var ta = document.createElement('textarea');
   ta.value = text; document.body.appendChild(ta); ta.select();
-  try{ document.execCommand('copy'); }catch(e){}
-  document.body.removeChild(ta);
-  cb();
+  try { document.execCommand('copy'); } catch(e){}
+  document.body.removeChild(ta); cb();
 }
 </script>
 </body>

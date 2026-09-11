@@ -57,6 +57,33 @@ not a reliable preview channel.
 - Treat "I verified it in a subagent" as delivery. Delivery means a URL in the
   parent message he can tap.
 
+## Site-fidelity when the review is about Field Notes content
+
+Caught 2026-09-11: a principles review shipped with a generic artifact look —
+system sans everywhere, no `<b>` chunking, no system 1 / system 2 drawings —
+and Grant flagged that fonts, chunking, and visual systems did not match the
+site. Root cause: the skill specified feedback chrome and palette tokens, but
+not that **previews of site content types must reuse that content type's live
+anatomy**.
+
+**When the cards preview principles, sessions, experiments, science-behind, or
+other live types:**
+
+1. Grep `mockup/styles.css` for the real font stacks and component rules.
+   Headings: Georgia / Times New Roman serif. Body: system sans. Do not invent
+   a third type ramp for the preview.
+2. Use the live chunking rule for that type (`behavioural-principle-article`:
+   split past ~110–120 words, **1–2 `<b>` load-bearing phrases per paragraph**).
+3. Name the visual system before drawing (`VISUAL-SYSTEMS.md`). Principles need
+   system 1 (`.principle-icon`, 24 viewBox, stroke 1.6, one terracotta accent)
+   and system 2 (mechanism `.illustration`), not a decorative one-off SVG.
+4. Prefer the live class names / structure (salient question with `<mark>`,
+   `.article-block` + `.k`, study card) so the review is a dress rehearsal of
+   the page, not a parallel design.
+
+Feedback chrome (toggles, comment boxes, copy panel, theme toggle) stays as
+specified below. The *preview inside each card* is what must match the site.
+
 ## The non-negotiable shape
 
 - **A visible, working in-page light/dark toggle button** (`#theme-toggle`, top-right,
