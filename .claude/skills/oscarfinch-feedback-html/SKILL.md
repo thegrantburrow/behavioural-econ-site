@@ -59,30 +59,47 @@ not a reliable preview channel.
 
 ## Site-fidelity when the review is about Field Notes content
 
-Caught 2026-09-11: a principles review shipped with a generic artifact look —
-system sans everywhere, no `<b>` chunking, no system 1 / system 2 drawings —
-and Grant flagged that fonts, chunking, and visual systems did not match the
-site. Root cause: the skill specified feedback chrome and palette tokens, but
-not that **previews of site content types must reuse that content type's live
-anatomy**.
+Caught 2026-09-11 (twice): a principles review shipped with a generic artifact
+look, then a "fixed" pass still hand-rolled approximate preview CSS
+(`.principle-summary-row`, guessed type sizes, reinvented study-card rules).
+Grant flagged that fonts, `<b>` chunking, and visual systems still did not
+match. Root cause both times: the skill allowed *imitating* the site. Imitation
+drifts. **Previews of site content types must reuse the live stylesheet and the
+live markup anatomy, not a parallel design.**
 
 **When the cards preview principles, sessions, experiments, science-behind, or
 other live types:**
 
-1. Grep `mockup/styles.css` for the real font stacks and component rules.
-   Headings: Georgia / Times New Roman serif. Body: system sans. Do not invent
-   a third type ramp for the preview.
-2. Use the live chunking rule for that type (`behavioural-principle-article`:
-   split past ~110–120 words, **1–2 `<b>` load-bearing phrases per paragraph**).
-3. Name the visual system before drawing (`VISUAL-SYSTEMS.md`). Principles need
+1. **Embed or link `mockup/styles.css` verbatim** (paste into a `<style>` block
+   for htmlpreview.github.io, which cannot resolve relative CSS from a raw
+   HTML file). Grep the live `:root` tokens from that file; do not copy hex
+   values from this skill, `CLAUDE.md`, or memory. **Do not re-author**
+   principle/session/experiment component CSS for the preview. Review chrome
+   (card frame, toggles, comment box, copy panel, theme button) is the only
+   CSS you write by hand.
+2. Copy the live HTML skeleton from a real page of that type. For principles,
+   lift class names from `mockup/principles.html` (do not invent near-synonyms):
+   `section.principle` → `details.principle-details` → `summary.principle-summary`
+   with `.principle-head` / `.principle-number` / `.principle-icon` /
+   `.principle-summary-text` / `.salient-question` + `<mark>` / `.definition`,
+   then `.illustration.bg-*`, `.mechanism-note`, `.article-block` + `.k`,
+   `.study-card`. Open the `<details>` for the review. If a live rule
+   line-clamps catalogue-row text (e.g. `.definition`), add a *tiny*
+   review-only override so the open preview shows the full line.
+3. Use the live chunking rule for that type (`behavioural-principle-article`:
+   split past ~110–120 words, **1–2 short `<b>` load-bearing phrases per
+   paragraph** — mechanism names and punch terms mid-sentence, not
+   clause-length bold spans).
+4. Name the visual system before drawing (`VISUAL-SYSTEMS.md`). Principles need
    system 1 (`.principle-icon`, 24 viewBox, stroke 1.6, one terracotta accent)
    and system 2 (mechanism `.illustration`), not a decorative one-off SVG.
-4. Prefer the live class names / structure (salient question with `<mark>`,
-   `.article-block` + `.k`, study card) so the review is a dress rehearsal of
-   the page, not a parallel design.
+   Study teardowns that belong on the live page also use the live
+   `.flow-diagram` system, not a reinvented method grid.
 
 Feedback chrome (toggles, comment boxes, copy panel, theme toggle) stays as
-specified below. The *preview inside each card* is what must match the site.
+specified below. The *preview inside each card* is a dress rehearsal of the
+page. If the preview still needs its own type ramp to "look right," the
+embed/link step was skipped — go back and fix that, do not tune guesses.
 
 ## The non-negotiable shape
 
