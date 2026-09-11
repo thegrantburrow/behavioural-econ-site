@@ -3,34 +3,41 @@
 Exported 2026-09-11 from Claude Code session, repo `thegrantburrow/behavioural-econ-site`,
 branch `claude/field-notes-cursor-export-8g8jf2`.
 
-This bundle is the **complete** set of Field Notes context that lived outside the
-GitHub repo, plus the in-repo context needed to use it. Where something was
-asked for and does not exist, it is marked `MISSING:` in section 1 or 6.
+This is the **complete** set of Field Notes context that lived outside the
+GitHub repo, plus the in-repo context needed to use it. Everything asked for in
+the export is now on this branch: nothing is left in a zip or in the Claude
+session. Where something was asked for and does not exist, it is marked
+`MISSING:` in section 1 or 6, and again in `cursor-export/README.md`.
 
-## Bundle contents
+## Where everything landed in the repo
 
 ```
-00-README-CURSOR-HANDOVER.md      this file (sections 3, 4, 6, 7)
-01-claude-local-skills/
-  behavioural-principle-article/  CRITICAL - was not in the repo
-    SKILL.md
+CURSOR-HANDOVER.md                this file (sections 3, 4, 6, 7)
+.claude/skills/
+  behavioural-principle-article/  CRITICAL - was Claude-local, now tracked
+    SKILL.md                      palette corrected, annotated. USE THIS ONE.
     reference/case-studies-example.html
-  setup-writing-style/            generic Anthropic skill, builds my-writing-style
-    SKILL.md
-    scripts/stylometry.py
-02-project-knowledge/
-  CLAUDE.md                       live authority on standing policy
-  PROJECT-BRIEF.md                historical design log (STALE IN PLACES, see below)
-  VISUAL-SYSTEMS.md               the 12+ icon/illustration systems
-03-repo-skills-reference/         all 12 skills already in .claude/skills/
+  (the other twelve skills, unchanged)
+cursor-export/
+  README.md                       what is parked there and why
+  claude-local-skills/
+    setup-writing-style/          generic Anthropic skill, builds my-writing-style
+      SKILL.md                    parked, not installed. See its README note.
+      scripts/stylometry.py       529 lines, stdlib only. --selftest passes.
+    behavioural-principle-article-VERBATIM-ORIGINAL/
+      SKILL.md                    unaltered record. Drifted palette. Do not build from it.
+CLAUDE.md                         live authority on standing policy
+PROJECT-BRIEF.md                  historical design log (STALE IN PLACES, see below)
+VISUAL-SYSTEMS.md                 the 12+ icon/illustration systems
 ```
 
-## Read this before using anything in 01-
+## Read this before using the exported skill
 
-### The exported skill's colour palette is WRONG. Do not copy it.
+### The verbatim original's colour palette is WRONG. Do not copy it.
 
-`behavioural-principle-article/SKILL.md` hardcodes a palette that has drifted
-from the live site. Verified today against `mockup/styles.css`'s own `:root`:
+The copy at `cursor-export/claude-local-skills/behavioural-principle-article-VERBATIM-ORIGINAL/SKILL.md`
+hardcodes a palette that has drifted from the live site. Verified 2026-09-11
+against `mockup/styles.css`'s own `:root`:
 
 | token | SKILL.md says | live `styles.css` |
 |---|---|---|
@@ -43,8 +50,11 @@ from the live site. Verified today against `mockup/styles.css`'s own `:root`:
 All five differ. `CLAUDE.md` already carries the standing rule for this: always
 grep `mockup/styles.css` for the token before hardcoding a hex anywhere. The
 live block also defines `--terracotta-dim`, `--mustard-dim`, `--nav-menu-bg` and
-`--nav-h`, which the skill does not mention at all. Treat the skill's CSS block
-as historical and the stylesheet as the source of truth.
+`--nav-h`, which the verbatim copy does not mention at all.
+
+**The installed skill at `.claude/skills/behavioural-principle-article/` already
+has this corrected** and says in the file that the stylesheet is the authority.
+Build from that one. The verbatim copy exists only so the drift is on the record.
 
 ### PROJECT-BRIEF.md is a log, not a spec
 
