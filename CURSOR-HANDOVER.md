@@ -206,20 +206,32 @@ recorded: `PROJECT-BRIEF.md`'s counts and its "two pages" framing are stale
 against a 49-page site. Nothing states which of the two documents wins. In
 practice CLAUDE.md does, and Cursor should be told so explicitly.
 
+Two smaller staleness defects were found during this export and fixed in the
+same change that added this file:
+
+1. `CLAUDE.md`'s skill roster named `design-options-review`, which nothing on
+   disk has ever answered to, and listed only seven of the thirteen skills.
+   Corrected and completed. See section 7.
+2. `authentic-voice`'s incident record quoted the backfire report's title as
+   "Backfires Have Five Different Causes." The report has since gained a sixth
+   cause and the live title reads Six. The record now carries the current title
+   and filename beside the original, so the incident stays readable without
+   sending anyone grepping for a string that is no longer on the site.
+
 ---
 
 # 7. Naming map
 
 ### `design-options-review` = `oscarfinch-feedback-html`? — **YES**
 
-Confirmed. `CLAUDE.md` lists `design-options-review` in its skill roster, but no
-skill by that name exists on disk. The skill that actually serves that role is
+Confirmed. `CLAUDE.md` listed `design-options-review` in its skill roster until
+this export corrected it, and no skill by that name exists on disk. The skill that actually serves that role is
 `.claude/skills/oscarfinch-feedback-html/`, whose own description reads: "The
 standing format for any 'give me options in HTML' request on this project
 (behavioural-econ-site) — visual mockups, copy variants, decisions, research
 summaries." It ships a `template.html` companion. Same job, different name.
 
-`CLAUDE.md`'s roster line is the stale one, not the directory.
+`CLAUDE.md` used to carry the wrong name in its skill roster. That line has since been corrected to `oscarfinch-feedback-html` and expanded to list all thirteen skills, grouped into the six content types and the seven craft and format ones, so the roster now matches what is actually on disk.
 
 ### Other aliases and near-misses Cursor should know
 
