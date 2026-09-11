@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Notes Case Studies</title>
+<style>
+:root {
+  --ink: #1E1B16;
+  --terracotta: #B2472B;
+  --mustard: #D9A441;
+  --teal: #2B6660;
+  --paper: #FBF9F4;
+  --card: #FFFFFF;
+  --line: rgba(30, 27, 22, 0.12);
+  --muted: rgba(30, 27, 22, 0.6);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+}
+a { color: var(--terracotta); }
+.shell { max-width: 720px; margin: 0 auto; padding: 32px 20px 100px; }
+
+h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.2; margin: 0; }
+.page-head h1 { font-size: clamp(1.6rem, 5vw, 2.1rem); margin-bottom: 10px; }
+.page-head p { color: var(--muted); font-size: 0.95rem; max-width: 62ch; }
+
+.caveat {
+  margin-top: 16px; padding: 12px 14px; background: #fff; border-left: 3px solid var(--terracotta);
+  border-radius: 0 8px 8px 0; font-size: 0.85rem;
+}
+
+.principle { margin-top: 52px; padding-top: 28px; border-top: 1px solid var(--line); scroll-margin-top: 20px; }
+.principle-num { font-family: Georgia, serif; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+.principle h2 { font-size: 1.6rem; margin-bottom: 4px; }
+.principle .subterm { font-size: 0.6em; color: var(--muted); font-family: inherit; }
+
+.block { margin-top: 20px; }
+.block .k {
+  display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--terracotta); font-weight: 700; margin-bottom: 6px;
+}
+.block p { margin: 0; font-size: 0.95rem; }
+.block p + p { margin-top: 8px; }
+
+.study-card {
+  margin-top: 14px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px;
+}
+.study-card .citation { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+.study-card .citation a { text-decoration: underline; }
+.study-card .journal { font-size: 0.82rem; color: var(--muted); margin-bottom: 12px; }
+
+.method-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+@media (min-width: 600px) { .method-grid { grid-template-columns: 1fr 1fr; } }
+.method-col { font-size: 0.85rem; }
+.method-col .lbl { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+.method-col.strength .lbl { color: var(--teal); }
+.method-col.weakness .lbl { color: var(--terracotta); }
+
+.excerpts { margin-top: 14px; }
+.excerpts .lbl { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); display: block; margin-bottom: 8px; }
+.excerpt {
+  font-size: 0.88rem; padding: 10px 12px; background: var(--paper); border-radius: 8px; margin-bottom: 8px;
+}
+.excerpt.quoted { border-left: 3px solid var(--teal); }
+.excerpt.paraphrase { border-left: 3px solid var(--line); }
+.excerpt .tag { display: block; font-size: 0.68rem; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+
+.also { margin-top: 12px; font-size: 0.85rem; color: var(--muted); }
+.also b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="page-head">
+    <h1>Case studies — the research behind each principle</h1>
+    <p>Full write-ups for all five: the principle, the psychology, how it misleads, how it can help, and the original academic study with a methodology critique.</p>
+    <div class="caveat"><b>On the excerpts:</b> quotes marked "verbatim (abstract)" are genuine text surfaced from the published abstract. Everything marked "paraphrased" is my summary of the finding, not the paper's exact wording — the network here can't reach full-text academic PDFs, only search snippets, so I didn't fabricate quotes I couldn't verify.</div>
+  </div>
+
+  <!-- ============ 1 ANCHORING ============ -->
+  <section class="principle" id="anchoring">
+    <div class="principle-num">01</div>
+    <h2>Anchoring</h2>
+
+    <div class="block"><span class="k">The principle</span>
+      <p>Judgment gets pulled toward whatever reference number appears first — even when that number is random, irrelevant, or openly acknowledged as arbitrary.</p>
+    </div>
+
+    <div class="block"><span class="k">The psychology</span>
+      <p>This is the "anchoring-and-adjustment" heuristic: instead of estimating from scratch, people start from the anchor and adjust away from it — but the adjustment reliably stops too early, as soon as the number feels plausible rather than when it's actually correct.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it causes errors</span>
+      <p>Overpaying because a "was" price inflates the reference point; accepting a worse negotiation outcome because the other side's opening number reframed what "reasonable" looks like; estimating quantities based on numbers you know are meaningless (a rigged wheel, a random ID number) and still being measurably swayed by them.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it can help</span>
+      <p>Opening a negotiation with a well-calibrated first offer sets a favourable anchor for both sides. Presenting a realistic reference figure (a savings target, a typical timeline) before someone decides helps them avoid over- or under-shooting from having no anchor at all.</p>
+    </div>
+
+    <div class="study-card">
+      <div class="citation">Tversky, A., & Kahneman, D. (1974). "Judgment under Uncertainty: Heuristics and Biases." <a href="https://www.scirp.org/reference/referencespapers?referenceid=2116417" target="_blank" rel="noopener">Science, 185(4157), 1124–1131</a></div>
+      <div class="journal">The foundational paper — anchoring is one of three heuristics it identifies, alongside representativeness and availability.</div>
+
+      <div class="method-grid">
+        <div class="method-col strength"><span class="lbl">Methodology — strength</span>Participants watched a wheel of fortune rigged to land on 10 or 65, then estimated the percentage of African countries in the UN. Because the wheel was visibly random, the design cleanly isolates the anchor from any actual information — a very clean causal test.</div>
+        <div class="method-col weakness"><span class="lbl">Methodology — weakness</span>Small, non-representative samples typical of 1970s lab psychology, and a single numeric-estimation task — generalising to real, multi-attribute decisions like pricing required later replication by other researchers.</div>
+      </div>
+
+      <div class="excerpts">
+        <span class="lbl">Key findings</span>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>Median estimates were reliably higher for the group anchored on 65 than the group anchored on 10 — despite everyone knowing the wheel was random.</div>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>The paper frames anchoring as a general-purpose heuristic underlying everyday probability judgment, not a quirk specific to one task.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2 SLUDGE ============ -->
+  <section class="principle" id="sludge">
+    <div class="principle-num">02</div>
+    <h2>Sludge <span class="subterm">(Obstruction)</span></h2>
+
+    <div class="block"><span class="k">The principle</span>
+      <p>Friction is deliberately added to a process the user wants to complete quickly — usually cancelling something — so giving up becomes easier than following through.</p>
+    </div>
+
+    <div class="block"><span class="k">The psychology</span>
+      <p>Exploits present bias and effort aversion: the cost of navigating the friction (extra clicks, hold music, confusing menus) is paid right now and viscerally, while the benefit of following through — money saved, an unwanted service ended — is delayed and abstract. People disproportionately abandon the effortful path even when they still want the outcome.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it causes errors</span>
+      <p>People keep paying for services they've genuinely decided to leave, purely because leaving costs more perceived effort than staying — design friction overrides real intent, not a change of mind.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it can help</span>
+      <p>The inverse — removing friction from actions that help people, like auto-enrolling employees into retirement savings, or one-click opt-outs — is "sludge removal," and is the explicit basis of the FTC's Click-to-Cancel rule requiring cancellation to be no harder than sign-up.</p>
+    </div>
+
+    <div class="study-card">
+      <div class="citation">Mathur, A., et al. (2019). "Dark Patterns at Scale: Findings from a Crawl of 11K Shopping Websites." <a href="https://arxiv.org/abs/1907.07032" target="_blank" rel="noopener">Proceedings of the ACM on Human-Computer Interaction (CSCW)</a></div>
+      <div class="journal">The largest systematic study of dark patterns to date — sludge is one of several categories it documents.</div>
+
+      <div class="method-grid">
+        <div class="method-col strength"><span class="lbl">Methodology — strength</span>Automated crawl of ~53,000 product pages across ~11,000 shopping sites, with scripted detection plus manual verification, producing a reusable taxonomy still cited in FTC enforcement actions today. Scale far beyond any single case study.</div>
+        <div class="method-col weakness"><span class="lbl">Methodology — weakness</span>Automated detection struggles with patterns that only surface deep in a multi-step flow — like a cancellation buried behind a required phone call — so the true prevalence of sludge specifically, versus more visible patterns like fake urgency, is likely understated.</div>
+      </div>
+
+      <div class="excerpts">
+        <span class="lbl">Key findings</span>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>Found 1,818 dark pattern instances spanning 15 types across 7 broader categories among the sites crawled.</div>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>Identified 22 third-party companies selling dark patterns as an installable, off-the-shelf service to other websites — this isn't incidental design, it's a market.</div>
+      </div>
+
+      <div class="also"><b>Also worth citing:</b> FTC v. Amazon (2025) — $2.5B settlement over a Prime cancellation flow requiring 4 pages, 6 clicks, and 15 options to complete. Real enforcement, not a lab finding.</div>
+    </div>
+  </section>
+
+  <!-- ============ 3 ZERO PRICE EFFECT ============ -->
+  <section class="principle" id="zero-price">
+    <div class="principle-num">03</div>
+    <h2>Zero Price Effect</h2>
+
+    <div class="block"><span class="k">The principle</span>
+      <p>A price of exactly $0 doesn't just lower cost — it changes what kind of decision you're making, producing demand far beyond what a simple cost-benefit calculation predicts.</p>
+    </div>
+
+    <div class="block"><span class="k">The psychology</span>
+      <p>Standard theory treats price as continuous — a 1-cent difference should feel roughly the same wherever it falls. People instead treat "free" as categorically different: with $0 there's no possibility of feeling like you made a bad trade, so the transaction reads as pure gain rather than an exchange.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it causes errors</span>
+      <p>Choosing a free but inferior option over a cheap superior one — even when the price gap between them is identical, in cents, to a gap elsewhere that barely moves anyone's preference.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it can help</span>
+      <p>Structuring a genuinely valuable free tier or sample lets people experience real value at zero risk — provided the free offer isn't bait for a later obstruction (see Sludge) or a degraded product.</p>
+    </div>
+
+    <div class="study-card">
+      <div class="citation">Shampanier, K., Mazar, N., & Ariely, D. (2007). "Zero as a Special Price: The True Value of Free Products." <a href="https://pubsonline.informs.org/doi/10.1287/mksc.1060.0254" target="_blank" rel="noopener">Marketing Science, 26(6), 742–757</a></div>
+      <div class="journal">The paper that gives this principle its name.</div>
+
+      <div class="method-grid">
+        <div class="method-col strength"><span class="lbl">Methodology — strength</span>Held the price <em>difference</em> between two products constant while shifting the cheaper one's price to either a low positive amount or exactly zero — isolating "zero-ness" itself, not just "cheaper sells more." Ran both a lab study (n=398, Hershey's Kiss vs. Lindt truffle) and a field study (n=232, a real MIT cafeteria promotion).</div>
+        <div class="method-col weakness"><span class="lbl">Methodology — weakness</span>Both settings involved small, low-stakes candy purchases — the size of the effect for larger or higher-stakes decisions (zero-interest financing, free-shipping thresholds) needed separate replication to confirm.</div>
+      </div>
+
+      <div class="excerpts">
+        <span class="lbl">Key findings</span>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>In the zero-price condition, demand for the cheap item jumped sharply and demand for the premium item collapsed — a shift much larger than the matched 1-cent-price condition produced.</div>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>The authors tested and ruled out competing explanations (social norms, difficulty valuing tiny amounts) before concluding that affect — the positive feeling of "free," with no perceived downside — was the most likely driver.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 DECOY EFFECT ============ -->
+  <section class="principle" id="decoy">
+    <div class="principle-num">04</div>
+    <h2>Decoy Effect <span class="subterm">(Asymmetric Dominance)</span></h2>
+
+    <div class="block"><span class="k">The principle</span>
+      <p>Add a third option that's clearly worse than one existing option (but not directly comparable to the other), and preference shifts toward whichever option the decoy makes look good — even though neither original option changed.</p>
+    </div>
+
+    <div class="block"><span class="k">The psychology</span>
+      <p>Choices are made by relative comparison, not absolute judgment. A decoy gives an easy, confident basis for one comparison ("B beats C on everything"), and that confidence spills over into the harder comparison (A vs. B) that the decoy never actually resolved.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it causes errors</span>
+      <p>Paying for an upgrade or bundle you wouldn't have chosen from a straight two-option menu, purely because a deliberately uncompetitive third option was added to manufacture comparative confidence.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it can help</span>
+      <p>Mostly protective: recognising when a "worse" third option exists purely to move you off your actual preference is itself the useful skill. Anyone building genuine decision-support tools should be actively removing decoys, not adding them.</p>
+    </div>
+
+    <div class="study-card">
+      <div class="citation">Huber, J., Payne, J. W., & Puto, C. (1982). "Adding Asymmetrically Dominated Alternatives: Violations of Regularity and the Similarity Hypothesis." <a href="https://academic.oup.com/jcr/article-abstract/9/1/90/1839380" target="_blank" rel="noopener">Journal of Consumer Research, 9(1), 90–98</a></div>
+      <div class="journal">The original paper — still taught as a foundational violation of rational-choice theory.</div>
+
+      <div class="method-grid">
+        <div class="method-col strength"><span class="lbl">Methodology — strength</span>A direct, deliberate test of "regularity" — a core axiom of rational choice theory stating that adding an option should never increase another option's market share. The experiments broke that axiom cleanly, which is why the result is still foundational reading.</div>
+        <div class="method-col weakness"><span class="lbl">Methodology — weakness</span>Used hypothetical choice tasks rather than real purchases with real money — typical of choice-experiment literature at the time, but it means the exact size of the effect (not its direction) needed real-money replication to confirm.</div>
+      </div>
+
+      <div class="excerpts">
+        <span class="lbl">Key findings</span>
+        <div class="excerpt quoted"><span class="tag">Verbatim (abstract)</span>"An asymmetrically dominated alternative is dominated by one item in the set but not by another. Adding such an alternative to a choice set can increase the probability of choosing the item that dominates it. This result points to the inadequacy of many current choice models."</div>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>The effect held across different product categories, suggesting it reflects a general property of how people compare options — not something specific to one kind of product.</div>
+      </div>
+
+      <div class="also"><b>Also worth citing:</b> Dan Ariely's Economist-subscription classroom demonstration (from <em>Predictably Irrational</em>, 2008, run with ~100 MIT Sloan students) — a popular illustrative case, not a peer-reviewed study in its own right, so worth labelling as such if it goes on the site.</div>
+    </div>
+  </section>
+
+  <!-- ============ 5 OPERATIONAL TRANSPARENCY ============ -->
+  <section class="principle" id="transparency">
+    <div class="principle-num">05</div>
+    <h2>Operational Transparency <span class="subterm">(Labor Illusion)</span></h2>
+
+    <div class="block"><span class="k">The principle</span>
+      <p>Making effort visible increases how much people value the outcome — even when the visible effort doesn't change the outcome itself.</p>
+    </div>
+
+    <div class="block"><span class="k">The psychology</span>
+      <p>People use a mental shortcut of "effort = value" — the labor illusion. Watching work happen also triggers reciprocity: if a provider visibly works hard for me, I feel inclined to value that effort in return, the way identical service can feel worse when it seems effortless.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it causes errors</span>
+      <p>Overvaluing an outcome purely because visible effort was performed — including theatrical effort, like a search deliberately slowed down — independent of whether the effort improved anything real.</p>
+    </div>
+
+    <div class="block"><span class="k">Where it can help</span>
+      <p>Genuine transparency corrects the opposite problem too: services that do excellent, fast work being undervalued because the skill behind them is invisible. An expert solving something quickly can look "too easy" — showing the real process (not fake theatre) restores a more accurate sense of what went into it.</p>
+    </div>
+
+    <div class="study-card">
+      <div class="citation">Buell, R. W., & Norton, M. I. (2011). "The Labor Illusion: How Operational Transparency Increases Perceived Value." <a href="https://pubsonline.informs.org/doi/10.1287/mnsc.1110.1376" target="_blank" rel="noopener">Management Science, 57(9), 1564–1579</a></div>
+      <div class="journal">Harvard Business School — the paper that names this specific mechanism.</div>
+
+      <div class="method-grid">
+        <div class="method-col strength"><span class="lbl">Methodology — strength</span>Five experiments simulating online travel-booking and dating services, manipulating whether users saw a visible "searching" process versus an instant result — while holding the actual outcome constant across conditions. That constant-outcome design isolates transparency itself as the cause, a clean causal test.</div>
+        <div class="method-col weakness"><span class="lbl">Methodology — weakness</span>Simulated web services in a lab/online setting; whether the effect holds at the same size for higher-stakes professional services (legal, medical), where visibly fake effort could backfire once noticed as manipulative, is a reasonable open question the paper doesn't resolve.</div>
+      </div>
+
+      <div class="excerpts">
+        <span class="lbl">Key findings</span>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>People preferred websites with visibly longer waits over instant results — even when the two produced identical outcomes.</div>
+        <div class="excerpt paraphrase"><span class="tag">Paraphrased</span>The effect ran through a specific causal chain: visible effort → perceived effort → feelings of reciprocity → higher perceived value. Not just a vague "people like watching things happen."</div>
+      </div>
+
+      <div class="also"><b>Also worth citing:</b> Domino's Pizza Tracker — reported ~26% associated sales lift after rollout; Kayak's deliberately delayed search results; TurboTax's "checking 350 deductions" messaging. All real-world corroborating cases, not academic studies themselves.</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
