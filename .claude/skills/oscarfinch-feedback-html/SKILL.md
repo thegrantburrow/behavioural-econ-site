@@ -18,6 +18,99 @@ document flow, not `position: sticky`** — sticky+bottom engages immediately on
 page (few cards) and overlaps the last card instead of sitting below it. Don't reintroduce
 sticky positioning here even though a "sticky feedback panel" sounds appealing.
 
+## Delivery (mandatory) — how Grant actually opens the review
+
+Caught 2026-09-11: a working feedback HTML was committed and verified inside a
+computer-use subagent, then Grant tapped that subagent in the Cursor UI and got
+"Couldn't load this conversation / This subagent's transcript isn't available
+right now." The review file was fine. The delivery path was not. He never got a
+parent-message link he could open on his phone.
+
+**The rule.** Every oscarfinch feedback HTML must be handed to Grant in the
+**parent** agent reply, not buried in a nested subagent transcript. Subagents
+(especially computer-use) are for the agent's own checks only. Their chat UI is
+not a reliable preview channel.
+
+**Do this every time, in order:**
+
+1. Write the file under `mockup/reviews/<slug>-review.html` (create the folder
+   if needed). Use the skill template. Grep live tokens from `mockup/styles.css`.
+2. Commit and push it on the working branch before telling Grant it is ready.
+3. In the parent reply, give a clickable interactive URL first:
+   `https://htmlpreview.github.io/?https://raw.githubusercontent.com/thegrantburrow/behavioural-econ-site/<branch>/mockup/reviews/<file>.html`
+   (repo is public; this renders the HTML with working toggles/JS). Also give the
+   GitHub blob path as a fallback for reading source.
+4. Copy the same HTML to `/opt/cursor/artifacts/` so it is downloadable from the
+   run. If you screenshot for proof, put the image in `/opt/cursor/artifacts/`
+   and reference it from the parent reply with an image tag — do not make Grant
+   open a computer-use transcript to see it.
+5. Say plainly that the page is ready for Looks good / Needs work, and that
+   compiled feedback should be pasted back into the parent chat.
+
+**Do not:**
+
+- Point Grant at a computer-use / nested-agent conversation as the way to open
+  the review.
+- Rely on a localhost server URL from the cloud VM (his phone cannot reach it).
+- Ship only a GitHub blob link when he needs to *use* the toggles — blob shows
+  source, htmlpreview runs it.
+- Treat "I verified it in a subagent" as delivery. Delivery means a URL in the
+  parent message he can tap.
+
+## Site-fidelity when the review is about Field Notes content
+
+Caught 2026-09-11 (twice): a principles review shipped with a generic artifact
+look, then a "fixed" pass still hand-rolled approximate preview CSS
+(`.principle-summary-row`, guessed type sizes, reinvented study-card rules).
+Grant flagged that fonts, `<b>` chunking, and visual systems still did not
+match. Root cause both times: the skill allowed *imitating* the site. Imitation
+drifts. **Previews of site content types must reuse the live stylesheet and the
+live markup anatomy, not a parallel design.**
+
+**When the cards preview principles, sessions, experiments, science-behind, or
+other live types:**
+
+1. **Embed or link `mockup/styles.css` verbatim** (paste into a `<style>` block
+   for htmlpreview.github.io, which cannot resolve relative CSS from a raw
+   HTML file). Grep the live `:root` tokens from that file; do not copy hex
+   values from this skill, `CLAUDE.md`, or memory. **Do not re-author**
+   principle/session/experiment component CSS for the preview. Review chrome
+   (card frame, toggles, comment box, copy panel, theme button) is the only
+   CSS you write by hand.
+2. Copy the live HTML skeleton from a real page of that type. For principles,
+   lift class names from `mockup/principles.html` (do not invent near-synonyms):
+   `section.principle` → `details.principle-details` → `summary.principle-summary`
+   with `.principle-head` / `.principle-number` / `.principle-icon` /
+   `.principle-summary-text` / `.salient-question` + `<mark>` / `.definition`,
+   then `.illustration.bg-*`, `.mechanism-note`, `.article-block` + `.k`,
+   `.study-card`. Open the `<details>` for the review. If a live rule
+   line-clamps catalogue-row text (e.g. `.definition`), add a *tiny*
+   review-only override so the open preview shows the full line.
+3. Use the live chunking rule for that type (`behavioural-principle-article`:
+   split past ~110–120 words, **1–2 short `<b>` load-bearing phrases per
+   paragraph** — mechanism names and punch terms mid-sentence, not
+   clause-length bold spans).
+4. Name the visual system before drawing (`VISUAL-SYSTEMS.md`). Principles need
+   system 1 (`.principle-icon`, 24 viewBox, stroke 1.6, one terracotta accent)
+   and system 2 (mechanism `.illustration`), not a decorative one-off SVG.
+   Study teardowns that belong on the live page also use the live
+   `.flow-diagram` system, not a reinvented method grid.
+5. **Zero-context stranger test for every System 2 preview** (see
+   `principle-mechanism-diagram` failure modes 25 and 26): hide the surrounding card
+   copy. From the SVG alone, a cold reader must name the real objects and
+   state what happens, to whom, and why. Empty product-card rectangles,
+   abstract tiles, slogan titles without a literal scene, or multi-stage icons
+   that are geometric stand-ins (a T-stroke for "parcel") fail — rebuild
+   before shipping the review. Run the same first-glance bar on the card's
+   definition and diagram caption: no clever metaphors that must be decoded
+   (mop, nagging, and similar), and no researcher surname doing the explaining
+   the title and stage outcomes should already carry.
+
+Feedback chrome (toggles, comment boxes, copy panel, theme toggle) stays as
+specified below. The *preview inside each card* is a dress rehearsal of the
+page. If the preview still needs its own type ramp to "look right," the
+embed/link step was skipped — go back and fix that, do not tune guesses.
+
 ## The non-negotiable shape
 
 - **A visible, working in-page light/dark toggle button** (`#theme-toggle`, top-right,

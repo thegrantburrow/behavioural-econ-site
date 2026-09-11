@@ -15,19 +15,71 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
   into a standalone artifact, don't trust this line on faith. Georgia/serif for headlines, system sans for
   body — no monospace.
 - Skills exist for the site's recurring content types — use them instead of
-  improvising structure: `behavioural-principle-article`, `field-session`,
-  `experiment-blueprint`, `design-options-review`, `authentic-voice`,
-  `principle-mechanism-diagram`, `smokehouse`.
-- **Smokehouse** (code name): the on-demand AI fingerprint + machine-watermark
-  remediation pass. Invoke by saying "Smokehouse" / "run Smokehouse" /
-  "Smokehouse this page". Distinct from always-on `authentic-voice`. Full
-  playbook: `.claude/skills/smokehouse/SKILL.md`.
+  improvising structure. All thirteen live in `.claude/skills/`. Six are
+  content types, and picking the wrong one is a documented failure mode:
+  `behavioural-principle-article` (mechanism-first, one academic study),
+  `science-behind-article` (object-first, a real thing a reader encounters),
+  `experiment-blueprint` (a testable control-vs-treatment design),
+  `field-session` (the owner's own talk, first person, his own photos),
+  `special-report` (argument-first, one thesis, several cited sources),
+  `natural-experiment-breakdown` (method-first, how one study proved cause
+  without an RCT). The rest are craft and format:
+  `authentic-voice`, `smokehouse`, `principle-mechanism-diagram`,
+  `spotted-in-the-wild`, `live-interactive-session`, `article-to-linkedin`,
+  and `oscarfinch-feedback-html` for any "give me options in HTML" request.
+  That last one is the skill this doc used to call `design-options-review`,
+  a name nothing on disk has ever answered to. Use the real directory name.
+- **Smokehouse** (code name): the AI fingerprint + machine-watermark
+  remediation pass. Still invokable by saying "Smokehouse" / "run
+  Smokehouse" / "Smokehouse this page", and also **mandatory** after any
+  Claude-authored reader-facing prose lands (see standing policy below).
+  Distinct from always-on `authentic-voice`. Full playbook:
+  `.claude/skills/smokehouse/SKILL.md`.
 - The site runs on more than a dozen distinct icon/illustration systems, not
   one — see `VISUAL-SYSTEMS.md` before building or reusing any icon,
   diagram, or mark, on the site or in an off-site artifact that's meant to
   represent the site's look. Confirm which system actually applies before
   writing SVG; don't default to whichever reference file is closest at
   hand.
+
+## Standing policy: Cursor owns site development; Smokehouse after Claude
+
+As of 2026-09-11 the owner prefers **Cursor agents** for ongoing Field Notes
+site development. Claude may still be used for some work, but Claude-native
+prose is not trusted to ship as-is.
+
+**The rule.** Any reader-facing prose that Claude wrote or materially rewrote
+(principle articles, field sessions, experiment blueprints, Science Behind,
+special reports, nav/meta copy, live-tool reveal HTML, options-review
+artifacts meant for Grant) is unfinished until a **full Smokehouse** pass
+has run on the touched pages: Layer 1 fingerprints *and* Layer 2
+watermark-facing substantive rewrite, per
+`.claude/skills/smokehouse/SKILL.md`. `authentic-voice` alone is not enough.
+
+**Who runs it.** Prefer a Cursor agent to run Smokehouse on Claude's diff
+(or on the whole touched page), rather than asking Claude to self-remediate.
+If Claude is the only agent in the session and it just shipped prose, it
+must still load Smokehouse and complete both layers before calling the work
+finished; do not treat "I'll Smokehouse later" as done.
+
+**Scope.** Smokehouse the pages Claude actually changed, not the whole site
+by default. Expand only when Grant says "Smokehouse the site" / "keep going".
+
+**The check.** Fingerprint greps from the Smokehouse skill pass on touched
+files; at least one load-bearing passage is a real rephrase (not split-only);
+`authentic-voice` finish read done. Do not merge or hand off Claude prose
+that skipped this.
+
+## Standing policy: feedback HTML is delivered in the parent reply
+
+When Grant asks for options / review / feedback "in HTML" (the
+`oscarfinch-feedback-html` skill), the interactive page must be usable from
+the **parent** agent message: committed under `mockup/reviews/`, pushed, and
+linked with an htmlpreview URL (plus `/opt/cursor/artifacts/` copy). Do not
+make him open a computer-use or nested-agent transcript to reach the review.
+Those transcripts often fail to load in the Cursor UI ("Couldn't load this
+conversation") even when the HTML itself is fine. Full delivery checklist:
+`.claude/skills/oscarfinch-feedback-html/SKILL.md` → "Delivery (mandatory)".
 
 ## Standing policy: light/dark toggle on every HTML artifact
 
