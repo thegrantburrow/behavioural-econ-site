@@ -18,16 +18,46 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
   improvising structure: `behavioural-principle-article`, `field-session`,
   `experiment-blueprint`, `design-options-review`, `authentic-voice`,
   `principle-mechanism-diagram`, `smokehouse`.
-- **Smokehouse** (code name): the on-demand AI fingerprint + machine-watermark
-  remediation pass. Invoke by saying "Smokehouse" / "run Smokehouse" /
-  "Smokehouse this page". Distinct from always-on `authentic-voice`. Full
-  playbook: `.claude/skills/smokehouse/SKILL.md`.
+- **Smokehouse** (code name): the AI fingerprint + machine-watermark
+  remediation pass. Still invokable by saying "Smokehouse" / "run
+  Smokehouse" / "Smokehouse this page", and also **mandatory** after any
+  Claude-authored reader-facing prose lands (see standing policy below).
+  Distinct from always-on `authentic-voice`. Full playbook:
+  `.claude/skills/smokehouse/SKILL.md`.
 - The site runs on more than a dozen distinct icon/illustration systems, not
   one — see `VISUAL-SYSTEMS.md` before building or reusing any icon,
   diagram, or mark, on the site or in an off-site artifact that's meant to
   represent the site's look. Confirm which system actually applies before
   writing SVG; don't default to whichever reference file is closest at
   hand.
+
+## Standing policy: Cursor owns site development; Smokehouse after Claude
+
+As of 2026-09-11 the owner prefers **Cursor agents** for ongoing Field Notes
+site development. Claude may still be used for some work, but Claude-native
+prose is not trusted to ship as-is.
+
+**The rule.** Any reader-facing prose that Claude wrote or materially rewrote
+(principle articles, field sessions, experiment blueprints, Science Behind,
+special reports, nav/meta copy, live-tool reveal HTML, options-review
+artifacts meant for Grant) is unfinished until a **full Smokehouse** pass
+has run on the touched pages: Layer 1 fingerprints *and* Layer 2
+watermark-facing substantive rewrite, per
+`.claude/skills/smokehouse/SKILL.md`. `authentic-voice` alone is not enough.
+
+**Who runs it.** Prefer a Cursor agent to run Smokehouse on Claude's diff
+(or on the whole touched page), rather than asking Claude to self-remediate.
+If Claude is the only agent in the session and it just shipped prose, it
+must still load Smokehouse and complete both layers before calling the work
+finished; do not treat "I'll Smokehouse later" as done.
+
+**Scope.** Smokehouse the pages Claude actually changed, not the whole site
+by default. Expand only when Grant says "Smokehouse the site" / "keep going".
+
+**The check.** Fingerprint greps from the Smokehouse skill pass on touched
+files; at least one load-bearing passage is a real rephrase (not split-only);
+`authentic-voice` finish read done. Do not merge or hand off Claude prose
+that skipped this.
 
 ## Standing policy: light/dark toggle on every HTML artifact
 
