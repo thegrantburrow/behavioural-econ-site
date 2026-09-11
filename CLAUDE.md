@@ -15,9 +15,20 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
   into a standalone artifact, don't trust this line on faith. Georgia/serif for headlines, system sans for
   body — no monospace.
 - Skills exist for the site's recurring content types — use them instead of
-  improvising structure: `behavioural-principle-article`, `field-session`,
-  `experiment-blueprint`, `design-options-review`, `authentic-voice`,
-  `principle-mechanism-diagram`, `smokehouse`.
+  improvising structure. All thirteen live in `.claude/skills/`. Six are
+  content types, and picking the wrong one is a documented failure mode:
+  `behavioural-principle-article` (mechanism-first, one academic study),
+  `science-behind-article` (object-first, a real thing a reader encounters),
+  `experiment-blueprint` (a testable control-vs-treatment design),
+  `field-session` (the owner's own talk, first person, his own photos),
+  `special-report` (argument-first, one thesis, several cited sources),
+  `natural-experiment-breakdown` (method-first, how one study proved cause
+  without an RCT). The rest are craft and format:
+  `authentic-voice`, `smokehouse`, `principle-mechanism-diagram`,
+  `spotted-in-the-wild`, `live-interactive-session`, `article-to-linkedin`,
+  and `oscarfinch-feedback-html` for any "give me options in HTML" request.
+  That last one is the skill this doc used to call `design-options-review`,
+  a name nothing on disk has ever answered to. Use the real directory name.
 - **Smokehouse** (code name): the on-demand AI fingerprint + machine-watermark
   remediation pass. Invoke by saying "Smokehouse" / "run Smokehouse" /
   "Smokehouse this page". Distinct from always-on `authentic-voice`. Full
