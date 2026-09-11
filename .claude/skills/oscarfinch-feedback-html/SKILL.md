@@ -96,11 +96,15 @@ other live types:**
    Study teardowns that belong on the live page also use the live
    `.flow-diagram` system, not a reinvented method grid.
 5. **Zero-context stranger test for every System 2 preview** (see
-   `principle-mechanism-diagram` failure mode 25): hide the surrounding card
+   `principle-mechanism-diagram` failure modes 25 and 26): hide the surrounding card
    copy. From the SVG alone, a cold reader must name the real objects and
    state what happens, to whom, and why. Empty product-card rectangles,
-   abstract tiles, or slogan titles without a literal scene fail — rebuild
-   before shipping the review.
+   abstract tiles, slogan titles without a literal scene, or multi-stage icons
+   that are geometric stand-ins (a T-stroke for "parcel") fail — rebuild
+   before shipping the review. Run the same first-glance bar on the card's
+   definition and diagram caption: no clever metaphors that must be decoded
+   (mop, nagging, and similar), and no researcher surname doing the explaining
+   the title and stage outcomes should already carry.
 
 Feedback chrome (toggles, comment boxes, copy panel, theme toggle) stays as
 specified below. The *preview inside each card* is a dress rehearsal of the
