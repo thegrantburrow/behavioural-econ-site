@@ -70,6 +70,17 @@ files; at least one load-bearing passage is a real rephrase (not split-only);
 `authentic-voice` finish read done. Do not merge or hand off Claude prose
 that skipped this.
 
+## Standing policy: feedback HTML is delivered in the parent reply
+
+When Grant asks for options / review / feedback "in HTML" (the
+`oscarfinch-feedback-html` skill), the interactive page must be usable from
+the **parent** agent message: committed under `mockup/reviews/`, pushed, and
+linked with an htmlpreview URL (plus `/opt/cursor/artifacts/` copy). Do not
+make him open a computer-use or nested-agent transcript to reach the review.
+Those transcripts often fail to load in the Cursor UI ("Couldn't load this
+conversation") even when the HTML itself is fine. Full delivery checklist:
+`.claude/skills/oscarfinch-feedback-html/SKILL.md` → "Delivery (mandatory)".
+
 ## Standing policy: light/dark toggle on every HTML artifact
 
 Any standalone HTML artifact built for this project (options-review pages,

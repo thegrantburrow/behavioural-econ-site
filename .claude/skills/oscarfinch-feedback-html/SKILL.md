@@ -18,6 +18,45 @@ document flow, not `position: sticky`** — sticky+bottom engages immediately on
 page (few cards) and overlaps the last card instead of sitting below it. Don't reintroduce
 sticky positioning here even though a "sticky feedback panel" sounds appealing.
 
+## Delivery (mandatory) — how Grant actually opens the review
+
+Caught 2026-09-11: a working feedback HTML was committed and verified inside a
+computer-use subagent, then Grant tapped that subagent in the Cursor UI and got
+"Couldn't load this conversation / This subagent's transcript isn't available
+right now." The review file was fine. The delivery path was not. He never got a
+parent-message link he could open on his phone.
+
+**The rule.** Every oscarfinch feedback HTML must be handed to Grant in the
+**parent** agent reply, not buried in a nested subagent transcript. Subagents
+(especially computer-use) are for the agent's own checks only. Their chat UI is
+not a reliable preview channel.
+
+**Do this every time, in order:**
+
+1. Write the file under `mockup/reviews/<slug>-review.html` (create the folder
+   if needed). Use the skill template. Grep live tokens from `mockup/styles.css`.
+2. Commit and push it on the working branch before telling Grant it is ready.
+3. In the parent reply, give a clickable interactive URL first:
+   `https://htmlpreview.github.io/?https://raw.githubusercontent.com/thegrantburrow/behavioural-econ-site/<branch>/mockup/reviews/<file>.html`
+   (repo is public; this renders the HTML with working toggles/JS). Also give the
+   GitHub blob path as a fallback for reading source.
+4. Copy the same HTML to `/opt/cursor/artifacts/` so it is downloadable from the
+   run. If you screenshot for proof, put the image in `/opt/cursor/artifacts/`
+   and reference it from the parent reply with an image tag — do not make Grant
+   open a computer-use transcript to see it.
+5. Say plainly that the page is ready for Looks good / Needs work, and that
+   compiled feedback should be pasted back into the parent chat.
+
+**Do not:**
+
+- Point Grant at a computer-use / nested-agent conversation as the way to open
+  the review.
+- Rely on a localhost server URL from the cloud VM (his phone cannot reach it).
+- Ship only a GitHub blob link when he needs to *use* the toggles — blob shows
+  source, htmlpreview runs it.
+- Treat "I verified it in a subagent" as delivery. Delivery means a URL in the
+  parent message he can tap.
+
 ## The non-negotiable shape
 
 - **A visible, working in-page light/dark toggle button** (`#theme-toggle`, top-right,
