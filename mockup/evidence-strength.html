@@ -164,7 +164,7 @@
       </div>
       <div class="story-stack-item">
         <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="18" width="5" height="6"></rect><rect x="11.5" y="13" width="5" height="11"></rect><rect x="19" y="5" width="5" height="19" fill="#1F7A6C" stroke="none"></rect></svg>
-        <div><h4>Rank them, weakest to strongest</h4><p>Start with raw correlation, then matched comparison, then a natural experiment, then a randomised trial.</p></div>
+        <div><h4>Rank them, weakest to strongest</h4><p>Start with raw correlation, then matched comparison, then a natural experiment, then a randomised trial. Then plot control against realism on a second axis.</p></div>
       </div>
       <div class="story-stack-item">
         <svg class="story-stack-icon" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="3" x2="7" y2="25"></line><path d="M7 5 h14 l-4 4.5 4 4.5 h-14" fill="#E0A93A" stroke="#E0A93A" stroke-linejoin="round"></path></svg>
@@ -298,9 +298,52 @@
       <p class="intro" style="margin-top:4px">Climbing a rung does not make the lower ones useless. Correlation is a fair place to start hunting for a pattern. It is <b>a poor place to stop, especially the week a budget gets locked</b>.</p>
     </div>
 
+    <div class="report-section" id="control-and-realism">
+      <h3>Control is one axis. Realism is the other.</h3>
+      <p class="intro">The ladder above ranks designs by how well they rule out a confound. That is mostly a question of <b>control over the comparison</b>. A second question sits beside it: how real were the people, the stakes, and the setting. A lab trial can sit high on the ladder and still sit far from the market someone wants to decide about.</p>
+      <p class="intro">Plot both axes and the methods people casually call &ldquo;experiments&rdquo; fan out. The fuller method-by-method walkthrough lives in <a href="dont-say-the-e-word.html#what-experiment-means">Don't Say the E-Word</a>. The chart below is the same map, kept here because a ladder alone understates the trade-off.</p>
+      <div class="case-cite" style="margin-top:6px">Harrison, G. W., &amp; List, J. A. (2004). &ldquo;Field Experiments.&rdquo; <a href="https://www.aeaweb.org/articles?id=10.1257/0022051043004577" target="_blank" rel="noopener">Journal of Economic Literature, 42(4), 1009&ndash;1055</a>.</div>
+
+      <div class="be-chart-wrap">
+        <svg class="be-chart-svg" viewBox="0 0 400 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A chart plotting six research methods on two axes: real-world stakes and realism on the horizontal axis, and control over the comparison on the vertical axis. Hypothetical scenarios are low realism, moderate control. Lab experiments are low-moderate realism, very high control. User testing is high realism, very low control. Randomised controlled trials including A/B tests are high realism, very high control. Multivariate tests are similarly high on both, slightly lower control per comparison. Natural experiments are highest realism, with control depending on the identification strategy.">
+          <line x1="50" y1="300" x2="50" y2="20" stroke="var(--line)" stroke-width="1.5"></line>
+          <path d="M45 30 L50 20 L55 30" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <line x1="50" y1="300" x2="370" y2="300" stroke="var(--line)" stroke-width="1.5"></line>
+          <path d="M362 295 L372 300 L362 305" stroke="var(--line)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <text x="4" y="12" class="be-chart-axis-label">Control over the<tspan x="4" dy="9">comparison &uarr;</tspan></text>
+          <text x="56" y="322" class="be-chart-axis-label">Real-world stakes &amp; realism &rarr;</text>
+
+          <circle cx="69" cy="118" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="80" y="115" text-anchor="start" class="be-chart-point-label">Hypothetical scenarios</text>
+          <text x="80" y="125" text-anchor="start" class="be-chart-point-sub">stated intent, not real behaviour</text>
+
+          <circle cx="114" cy="54" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="114" y="76" text-anchor="middle" class="be-chart-point-label">Lab experiments</text>
+          <text x="114" y="86" text-anchor="middle" class="be-chart-point-sub">controlled, but artificial</text>
+
+          <circle cx="236" cy="258" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="236" y="238" text-anchor="middle" class="be-chart-point-label">User testing</text>
+          <text x="236" y="248" text-anchor="middle" class="be-chart-point-sub">diagnostic, no control group</text>
+
+          <circle cx="300" cy="62" r="6.5" fill="var(--terracotta)" stroke="var(--terracotta)" stroke-width="1.8"></circle>
+          <text x="296" y="46" text-anchor="end" class="be-chart-point-label" fill="var(--terracotta)">RCTs, A/B tests included</text>
+          <text x="296" y="56" text-anchor="end" class="be-chart-point-sub">real stakes, real randomisation</text>
+
+          <circle cx="312" cy="120" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="312" y="140" text-anchor="middle" class="be-chart-point-label">Multivariate tests</text>
+          <text x="312" y="150" text-anchor="middle" class="be-chart-point-sub">more factors, thinner power</text>
+
+          <circle cx="354" cy="182" r="5.5" fill="var(--card)" stroke="var(--ink)" stroke-width="1.8"></circle>
+          <text x="350" y="200" text-anchor="end" class="be-chart-point-label">Natural experiments</text>
+          <text x="350" y="210" text-anchor="end" class="be-chart-point-sub">real world, control not guaranteed</text>
+        </svg>
+      </div>
+      <p class="flow-insight"><b>Realism and control usually trade off. Randomised field experiments (the RCTs and A/B tests in the upper right) are the rare design that gets both at once.</b> Most other points on the chart buy realism by giving up certainty, or buy certainty by stepping out of the real world.</p>
+    </div>
+
     <div class="report-section" id="reading-the-claim">
       <h3>Hallmarks: what a lower rung sounds like when it's dressed up as a higher one</h3>
-      <p class="intro">Each phrase below can be factually true on its own terms. What slips is usually the framing: <b>the surrounding sentence implies a higher rung than the design actually occupies</b>.</p>
+      <p class="intro">Once the rung and the realism are clear, the next tell is verbal. Each phrase below can be factually true on its own terms. What slips is usually the framing: <b>the surrounding sentence implies a higher rung than the design actually occupies</b>.</p>
       <div class="hallmark-list">
         <div class="hallmark-item">
           <p class="phrase">&ldquo;Users who did X converted Y% more.&rdquo;</p>
