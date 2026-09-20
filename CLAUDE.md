@@ -29,6 +29,18 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
   writing SVG; don't default to whichever reference file is closest at
   hand.
 
+## Standing policy: options always ship as feedback HTML with a link
+
+Whenever Grant asks for options, variants, directions, mockups, or "give me N
+options", the reply must include a standalone interactive feedback HTML page
+(Looks good / Needs work, comment per option, Copy feedback, light/dark
+toggle) and a working openable browser link to that file in the same turn.
+Do not wait for him to say "in HTML" or "give me the link". On this project
+use `.claude/skills/oscarfinch-feedback-html/SKILL.md`; after push, lead with
+`https://htmlpreview.github.io/?https://raw.githubusercontent.com/thegrantburrow/behavioural-econ-site/<branch>/<path>.html`
+once the raw URL returns 200. A prose list, PR-only reply, repo path, or
+screenshots without that link is incomplete.
+
 ## Standing policy: light/dark toggle on every HTML artifact
 
 Any standalone HTML artifact built for this project (options-review pages,

@@ -1,6 +1,6 @@
 ---
 name: oscarfinch-feedback-html
-description: The standing format for any "give me options in HTML" request on this project (behavioural-econ-site) — visual mockups, copy variants, decisions, research summaries. Use automatically whenever the user asks for options, mockups, or a summary "in HTML" or "as an artifact" without specifying a different format. Do not ask the user to re-specify this format — it is already decided.
+description: The standing format for ANY options / variants / mockups / design-direction request on this project (behavioural-econ-site). Trigger automatically whenever the user asks for options, "give me 3 options", mockups, variants, directions, or a summary "in HTML" / "as an artifact" — even if they do not say HTML. Do not ask them to re-specify this format. Always ship the interactive feedback page AND a working openable HTML link in the same reply.
 ---
 
 # Oscar Finch: standard interactive feedback HTML (behavioural-econ-site palette)
@@ -11,12 +11,28 @@ project's own colour tokens (terracotta / mustard / teal / paper / ink, matching
 `mockup/styles.css`) on 2026-08-21, per direct instruction. The mechanics below are
 unchanged from the original — only the palette in `template.html` differs.
 
+**Standing order (2026-09-20, owner):** every options request means this HTML format,
+every time, with a working link. He should never have to ask again for "the HTML" or
+"the link". A prose list of options, a PR-only reply, a repo path, or screenshots
+without an openable HTML URL is a failed delivery.
+
 Canonical skeleton: `template.html` in this skill's folder. Copy it, fill in the
 placeholders, keep the CSS/JS as-is (it already handles both light and dark theme via
 `prefers-color-scheme` and `data-theme` overrides). **`.feedback` is intentionally plain
 document flow, not `position: sticky`** — sticky+bottom engages immediately on a short
 page (few cards) and overlaps the last card instead of sitting below it. Don't reintroduce
 sticky positioning here even though a "sticky feedback panel" sounds appealing.
+
+## Delivery is part of the skill, not optional
+
+1. Write the HTML file (usually under `artifacts/` at the repo root, not inside
+   `mockup/`, so it is not published as live site content).
+2. Commit and push it on the working branch.
+3. Confirm the raw GitHub URL returns HTTP 200.
+4. In the same reply to Grant, lead with a markdown link he can open, using:
+   `https://htmlpreview.github.io/?https://raw.githubusercontent.com/thegrantburrow/behavioural-econ-site/<branch>/<path-to-file>.html`
+5. Only then add a short prose summary of the options. Never invert that order and
+   "forget" the link.
 
 ## The non-negotiable shape
 
