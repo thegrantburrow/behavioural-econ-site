@@ -400,43 +400,177 @@ function normalizeApostrophes(s) {
 })();
 
 (function () {
-  // Principle sections are collapsed by default. Jumping to one via any
-  // anchor link (Contents, practice grid, "see also" cross-links) should
-  // land on it already open, not force a second click after the jump. This
-  // runs on every page (ids are unique site-wide), so it also positions
-  // anchor links into non-principle content like Science Behind entries.
+  // When a hash lands on one article inside a long hub file (Principles,
+  // Field Sessions, Experiments, Science Behind), open that article and
+  // mute everything else so the page reads as that piece, not the whole
+  // library. Special reports are already one page each and skip this path.
+  // Non-article hashes (#hub, #top, etc.) clear focus and leave the full
+  // index visible.
+  var ARTICLE_SEL = 'section.principle, article.session, article.experiment, article.sb-entry';
+  var HUB_MUTE_SEL = '.landing-hub, .principles-index';
+  var focusBar = null;
+
+  function articleKind(el) {
+    if (el.classList.contains('principle')) return 'principle';
+    if (el.classList.contains('session')) return 'session';
+    if (el.classList.contains('experiment')) return 'experiment';
+    if (el.classList.contains('sb-entry')) return 'sb-entry';
+    return '';
+  }
+
+  function articleTitle(el) {
+    var h = el.querySelector('h2, h3');
+    return h ? h.textContent.replace(/\s+/g, ' ').trim() : (el.id || 'This article');
+  }
+
+  function kindLabel(kind) {
+    if (kind === 'principle') return 'principles';
+    if (kind === 'session') return 'field sessions';
+    if (kind === 'experiment') return 'experiments';
+    if (kind === 'sb-entry') return 'Science Behind entries';
+    return 'articles';
+  }
+
+  function clearArticleFocus() {
+    document.documentElement.classList.remove('article-focus');
+    document.documentElement.style.removeProperty('--focus-bar-h');
+    document.querySelectorAll('.is-focus-target, .is-focus-muted').forEach(function (el) {
+      el.classList.remove('is-focus-target', 'is-focus-muted');
+    });
+    if (focusBar && focusBar.parentNode) focusBar.parentNode.removeChild(focusBar);
+    focusBar = null;
+  }
+
+  function ensureFocusBar(target, kind) {
+    if (!focusBar) {
+      focusBar = document.createElement('div');
+      focusBar.className = 'article-focus-bar';
+      focusBar.setAttribute('role', 'status');
+      focusBar.innerHTML =
+        '<div class="article-focus-bar-inner">' +
+          '<span class="article-focus-here"><span class="article-focus-badge">You are here</span> <span class="article-focus-title"></span></span>' +
+          '<button type="button" class="article-focus-exit">Show all <span class="article-focus-kind"></span></button>' +
+        '</div>';
+      focusBar.querySelector('.article-focus-exit').addEventListener('click', function () {
+        clearArticleFocus();
+        if (history.replaceState) {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        } else {
+          window.location.hash = 'hub';
+        }
+        var hub = document.getElementById('hub') || document.getElementById('top');
+        if (hub) hub.scrollIntoView({ behavior: 'instant', block: 'start' });
+      });
+      var nav = document.querySelector('.site-nav');
+      if (nav && nav.parentNode) {
+        nav.parentNode.insertBefore(focusBar, nav.nextSibling);
+      } else {
+        document.body.insertBefore(focusBar, document.body.firstChild);
+      }
+    }
+    focusBar.querySelector('.article-focus-title').textContent = articleTitle(target);
+    focusBar.querySelector('.article-focus-kind').textContent = kindLabel(kind);
+    requestAnimationFrame(function () {
+      document.documentElement.style.setProperty('--focus-bar-h', focusBar.offsetHeight + 'px');
+    });
+  }
+
+  function applyArticleFocus(target) {
+    var kind = articleKind(target);
+    if (!kind) {
+      clearArticleFocus();
+      return false;
+    }
+
+    clearArticleFocus();
+    document.documentElement.classList.add('article-focus');
+    target.classList.add('is-focus-target');
+
+    document.querySelectorAll(ARTICLE_SEL).forEach(function (el) {
+      if (el === target) return;
+      el.classList.add('is-focus-muted');
+      var mutedDetails = el.querySelector('details.principle-details');
+      if (mutedDetails && mutedDetails.open) mutedDetails.open = false;
+    });
+
+    document.querySelectorAll(HUB_MUTE_SEL).forEach(function (el) {
+      el.classList.add('is-focus-muted');
+    });
+
+    ensureFocusBar(target, kind);
+    return true;
+  }
+
   function openTargetPrinciple(hash) {
     hash = hash || window.location.hash;
-    if (!hash || hash.length < 2) return;
-    var target = document.getElementById(hash.slice(1));
-    if (!target) return;
+    if (!hash || hash.length < 2) {
+      clearArticleFocus();
+      return;
+    }
+    var id = hash.slice(1);
+    // #hub / #top mean "show the full index", not focus an article.
+    if (id === 'hub' || id === 'top') {
+      clearArticleFocus();
+      var hubTarget = document.getElementById(id);
+      if (hubTarget) hubTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
+      return;
+    }
+    var target = document.getElementById(id);
+    if (!target) {
+      clearArticleFocus();
+      return;
+    }
+
+    applyArticleFocus(target);
+
     var details = target.matches('details.principle-details')
       ? target
       : target.querySelector('details.principle-details');
     if (details && !details.open) details.open = true;
-    // `behavior: 'instant'` overrides the site's global smooth scroll-behavior
-    // deliberately. On a long page (e.g. a Science Behind entry near the
-    // bottom), the browser's own native jump-to-fragment on load and this
-    // scrollIntoView() both inherit smooth scrolling and race each other:
-    // the native jump starts animating, this call starts a second animation
-    // toward a freshly-computed target, and the two competing smooth scrolls
-    // can cancel out and leave the page stuck a full section short, still
-    // showing whatever content sat above the real target. Landing on a
-    // target should be an instant positioning, not an animated scroll.
+    // Instant positioning: a global smooth scroll races the browser's own
+    // fragment jump and can land short of the real target.
     target.scrollIntoView({ behavior: 'instant', block: 'start' });
   }
-  // Two rAFs, not one: the initial call can otherwise fire before layout has
-  // settled (web fonts, the just-opened details' own content), landing the
-  // scroll short and leaving the target's heading partially hidden behind
-  // the sticky nav. hashchange navigation (already post-load) doesn't need
-  // this and calls the function directly.
+
   requestAnimationFrame(function () {
     requestAnimationFrame(function () { openTargetPrinciple(window.location.hash); });
   });
   window.addEventListener('hashchange', function () { openTargetPrinciple(window.location.hash); });
+  window.addEventListener('resize', function () {
+    if (focusBar) {
+      document.documentElement.style.setProperty('--focus-bar-h', focusBar.offsetHeight + 'px');
+    }
+  });
+  window.addEventListener('orientationchange', function () {
+    if (focusBar) {
+      document.documentElement.style.setProperty('--focus-bar-h', focusBar.offsetHeight + 'px');
+    }
+  });
 
-  // Exposed so a combined single-page preview can re-run this without a
-  // real page load; unused by the real two-file site.
+  // Muted siblings stay on the page as a list. Tapping one switches focus
+  // to that article instead of expanding it inside the muted state.
+  document.addEventListener('click', function (e) {
+    if (!document.documentElement.classList.contains('article-focus')) return;
+    var muted = e.target.closest && e.target.closest(ARTICLE_SEL + '.is-focus-muted');
+    if (!muted || !muted.id) return;
+    // Let principle summary still toggle open; hashchange re-applies focus.
+    if (window.location.hash !== '#' + muted.id) {
+      window.location.hash = muted.id;
+    }
+  });
+
+  // Category tiles / hub browsing should leave focus mode so the full
+  // filtered archive is visible again.
+  document.querySelectorAll('.landing-hub .cat-tile, .landing-hub .view-btn, .landing-hub .hub-anchor-link').forEach(function (el) {
+    el.addEventListener('click', function () {
+      if (!document.documentElement.classList.contains('article-focus')) return;
+      clearArticleFocus();
+      if (history.replaceState) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    });
+  });
+
   window.__openTargetPrinciple = openTargetPrinciple;
 })();
 
