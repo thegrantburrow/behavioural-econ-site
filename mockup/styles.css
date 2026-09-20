@@ -3980,29 +3980,47 @@ footer a:hover { color: var(--terracotta); }
   color: var(--mustard);
 }
 
-html.article-focus .landing-hub.is-focus-muted,
-html.article-focus .principles-index.is-focus-muted {
+/* Mute only the landing hub chrome. Never opacity/filter .principles-index
+   itself: every principle article lives inside it, so fading that container
+   would fade the focused article too. */
+html.article-focus .landing-hub.is-focus-muted {
   opacity: 0.38;
   filter: grayscale(0.35);
   pointer-events: auto;
+  padding: 14px 0 12px;
 }
 
 html.article-focus .landing-hub.is-focus-muted .landing-hub-intro,
 html.article-focus .landing-hub.is-focus-muted .view-toggle,
-html.article-focus .landing-hub.is-focus-muted .hub-panel,
+html.article-focus .landing-hub.is-focus-muted .hub-panel {
+  display: none;
+}
+
+html.article-focus .landing-hub.is-focus-muted .landing-hub-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Principles archive chrome only: leave #principlesList at full strength. */
+html.article-focus .principles-index.is-focus-muted > .wrap > .label,
+html.article-focus .principles-index.is-focus-muted > .wrap > .principles-index-title,
+html.article-focus .principles-index.is-focus-muted > .wrap > .toc-intro,
+html.article-focus .principles-index.is-focus-muted > .wrap > .principles-search,
+html.article-focus .principles-index.is-focus-muted > .wrap > .toc-tabs,
+html.article-focus .principles-index.is-focus-muted > .wrap > .principles-empty {
+  opacity: 0.38;
+  filter: grayscale(0.35);
+}
+
 html.article-focus .principles-index.is-focus-muted .principles-search,
 html.article-focus .principles-index.is-focus-muted .toc-tabs,
 html.article-focus .principles-index.is-focus-muted .toc-intro {
   display: none;
 }
 
-html.article-focus .landing-hub.is-focus-muted {
-  padding: 14px 0 12px;
-}
-
-html.article-focus .landing-hub.is-focus-muted .landing-hub-title {
+html.article-focus .principles-index.is-focus-muted > .wrap > .principles-index-title {
   font-size: 1rem;
-  margin: 0;
+  margin: 0 0 8px;
 }
 
 html.article-focus section.principle.is-focus-muted,
@@ -4065,6 +4083,8 @@ html.article-focus .is-focus-target {
   box-shadow: inset 4px 0 0 var(--terracotta);
   background: linear-gradient(90deg, rgba(196, 62, 31, 0.05), transparent 28%);
   scroll-margin-top: calc(var(--nav-h) + var(--focus-bar-h, 48px) + 8px);
+  opacity: 1;
+  filter: none;
 }
 
 html.article-focus section.principle.is-focus-target {
