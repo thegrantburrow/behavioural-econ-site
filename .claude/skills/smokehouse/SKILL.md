@@ -5,10 +5,14 @@ description: |
   "Smokehouse this", "AI detection pass", "fingerprint pass", "watermark rewrite",
   "dilute AI tells", "make this less detectable as AI", or asks to remediate
   AI stylistic fingerprints / machine-watermark exposure on Field Notes (or any
-  polished prose for him). Distinct from authentic-voice (which is the always-on
-  finish check for new writing): Smokehouse is the deliberate remediation pass
-  over existing Claude-native copy. Load this skill immediately when the code
-  name or those triggers appear; do not improvise a different cleanup playbook.
+  polished prose for him). ALSO mandatory (no need for Grant to say the code
+  name) whenever Claude wrote or materially rewrote reader-facing site prose:
+  run a full Smokehouse on the touched pages before calling that work finished.
+  Prefer a Cursor agent to run the pass on Claude's diff. Distinct from
+  authentic-voice (always-on finish check for new writing): Smokehouse is the
+  deliberate remediation pass over Claude-native / high-exposure copy. Load
+  this skill immediately when any of those triggers appear; do not improvise
+  a different cleanup playbook.
 ---
 
 # Smokehouse
@@ -16,9 +20,20 @@ description: |
 **Code name:** `Smokehouse`  
 **Say it to invoke:** "Smokehouse this page", "run Smokehouse on the special reports", "Smokehouse pass".
 
+**Also mandatory without being asked:** after any Claude-authored or
+Claude-rewritten reader-facing prose on this site (standing policy in
+`CLAUDE.md`, 2026-09-11). Cursor agents should run the full pass on Claude's
+touched pages; Claude must not treat its own draft as finished without both
+layers below.
+
 ## Why this exists
 
 On 2026-09-08/09 the site ran a full remediation after Anthropic's EU AI Act text-watermark rollout and a deep audit of AI stylistic tells. Two different problems were getting collapsed into one. This skill keeps them separate and makes the remediation repeatable on demand, across Cursor agents and Grok, without re-deriving the playbook each time.
+
+On 2026-09-11 the owner made Cursor the preferred developer for ongoing site
+work and required a full Smokehouse whenever Claude still produces prose,
+because Claude-native copy is not trusted to ship on fingerprint cleanup or
+`authentic-voice` alone.
 
 Legitimate path only: rewrite the prose. Not a watermark-stripping tool, synonym-swap script, or evasion playbook.
 
@@ -63,6 +78,9 @@ Same facts, citations, links, ids, numbers, images. Different words, clause orde
 5. `sessions.html` (first person preserved)
 6. `*-live.html` reveal `verdictHtml` / `mechanismHtml` (vary phrasing across tools; do not share one template)
 
+For the mandatory post-Claude path: Smokehouse only the pages Claude
+changed, unless Grant expands the scope.
+
 ## Standing site constraints (Smokehouse inherits all of these)
 
 - `authentic-voice` before calling prose finished
@@ -96,3 +114,4 @@ Then: authentic-voice read of openings and any remaining `X, not Y`; confirm at 
 - 2026-09-08: `quietly` purge (93 → 0); authentic-voice catch documented
 - 2026-09-09: sitewide body-`<p>` ≥36 cleared; substantive watermark rewrite across special reports, science-behind, experiments, all 84 principles (+ Strength/Weakness + validity badges), sessions, 11 live tools; shipped live via PR #6
 - 2026-09-09: skill codified as **Smokehouse** so the pass can be invoked by name
+- 2026-09-11: standing policy: Cursor preferred for site development; full Smokehouse mandatory after any Claude-authored reader-facing prose
