@@ -1,0 +1,16 @@
+---
+description: Whenever Grant asks for options, always ship interactive feedback HTML with a working openable link. Never prose-only options.
+alwaysApply: true
+---
+
+# Options always mean feedback HTML + a link
+
+Whenever Grant asks for options, variants, directions, mockups, "give me 3 options", design choices, or similar review decisions:
+
+1. **Always** build a standalone interactive feedback HTML page (Looks good / Needs work toggle, comment box per option, Copy feedback panel, light/dark toggle). On this repo, follow `.claude/skills/oscarfinch-feedback-html/SKILL.md` and its `template.html`. On other projects, use that same shape unless a project-specific feedback-HTML skill exists.
+2. **Always** give him a working, clickable link he can open in a browser in the same reply. A repo path, PR URL, or screenshot alone is not enough.
+3. For this GitHub repo, after pushing the HTML file, the default openable link is:
+   `https://htmlpreview.github.io/?https://raw.githubusercontent.com/<owner>/<repo>/<branch>/<path-to-file>.html`
+   Verify the raw file returns HTTP 200 before sending the link.
+4. Do **not** wait for him to say "in HTML", "as an artifact", or "give me the link". Asking for options already means this format.
+5. Prose can introduce the options, but the HTML link is mandatory in the same turn.
