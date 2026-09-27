@@ -1,0 +1,34 @@
+{
+  "name": "field-notes-skills",
+  "owner": {
+    "name": "Grant Burrow"
+  },
+  "metadata": {
+    "description": "Field Notes (behavioural-econ-site) content-type and writing skills for Cursor Agent and Grok Bot",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "field-notes",
+      "source": ".",
+      "description": "Recurring Field Notes workflows: principles, field sessions, experiments, Science Behind, special reports, natural experiments, live sessions, diagrams, spotted-in-the-wild screenshots, authentic-voice, Smokehouse, LinkedIn posts, and HTML options reviews.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Grant Burrow"
+      },
+      "keywords": [
+        "field-notes",
+        "behavioural-economics",
+        "content",
+        "writing",
+        "skills"
+      ],
+      "category": "productivity",
+      "tags": [
+        "field-notes",
+        "content-types"
+      ],
+      "skills": ".claude/skills"
+    }
+  ]
+}

@@ -14,10 +14,20 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
   2026-08-31; always grep `styles.css` directly before hardcoding a hex value
   into a standalone artifact, don't trust this line on faith. Georgia/serif for headlines, system sans for
   body — no monospace.
-- Skills exist for the site's recurring content types — use them instead of
-  improvising structure: `behavioural-principle-article`, `field-session`,
-  `experiment-blueprint`, `design-options-review`, `authentic-voice`,
-  `principle-mechanism-diagram`, `smokehouse`.
+- Skills live in `.claude/skills/` (mirrored into `.cursor/skills/` for Cursor
+  discovery). Use them instead of improvising structure. Full set:
+  `authentic-voice`, `smokehouse`, `experiment-blueprint`, `field-session`,
+  `science-behind-article`, `special-report`, `natural-experiment-breakdown`,
+  `principle-mechanism-diagram`, `spotted-in-the-wild`,
+  `live-interactive-session`, `oscarfinch-feedback-html`,
+  `article-to-linkedin`. (`behavioural-principle-article` and
+  `design-options-review` are still referenced by other skills but are not
+  present as skill folders in this repo yet; `oscarfinch-feedback-html` is the
+  standing HTML options-review format.)
+- **Grok Bot / plugin install:** this repo is packaged as a Cursor plugin
+  marketplace (`.cursor-plugin/marketplace.json`) so the skills can be added
+  via Customize → From GitHub Repository, then enabled for a Bot under
+  Settings → Plugins → Yours. Invoke with `/` in the Bot composer.
 - **Smokehouse** (code name): the on-demand AI fingerprint + machine-watermark
   remediation pass. Invoke by saying "Smokehouse" / "run Smokehouse" /
   "Smokehouse this page". Distinct from always-on `authentic-voice`. Full

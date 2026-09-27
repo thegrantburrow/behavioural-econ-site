@@ -1,3 +1,8 @@
+---
+name: live-interactive-session
+description: Use whenever the user asks to build or extend a live in-person behavioural demo for an audience (QR-driven conditions, phone participant page, presenter tally/reveal), for the site's Live Sessions category. Trigger on phrasing like "build a live session for X", "add another interactive session", "same pattern as the anchoring live demo", or any request for a room-ready replication of a published paradigm. Distinct from experiment-blueprint (unrun test design) and field-session (after-the-fact talk recap).
+---
+
 # Live Interactive Session
 
 ## Why this exists

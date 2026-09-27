@@ -1,3 +1,8 @@
+---
+name: article-to-linkedin
+description: Use whenever the user asks to turn a published Field Notes site piece into a LinkedIn post. Trigger on phrasing like "turn this into a LinkedIn post", "write a LinkedIn post for this article", or "share this on LinkedIn". Produces a short personal post in the owner's voice with a collage from the article's own images, a direct link, and 2-4 real hashtags. Not a press-release summary of the article.
+---
+
 # Article to LinkedIn
 
 ## Why this exists
