@@ -1,7 +1,7 @@
 {
   "name": "field-notes",
   "version": "1.0.0",
-  "description": "Field Notes site skills: content-type playbooks and writing remediation for the behavioural-econ-site.",
+  "description": "Field Notes site skills: content-type playbooks and writing remediation for behavioural-econ-site. Use with Cursor and Grok Bot.",
   "author": {
     "name": "Grant Burrow"
   },
@@ -12,6 +12,5 @@
     "content",
     "writing",
     "skills"
-  ],
-  "skills": "./skills/"
+  ]
 }

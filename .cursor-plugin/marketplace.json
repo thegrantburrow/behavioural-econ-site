@@ -4,7 +4,7 @@
     "name": "Grant Burrow"
   },
   "metadata": {
-    "description": "Field Notes (behavioural-econ-site) content-type and writing skills for Cursor Agent and Grok Bot",
+    "description": "Field Notes (behavioural-econ-site) content-type and writing skills for Cursor and Grok Bot",
     "version": "1.0.0"
   },
   "plugins": [
@@ -27,8 +27,7 @@
       "tags": [
         "field-notes",
         "content-types"
-      ],
-      "skills": ".claude/skills"
+      ]
     }
   ]
 }
