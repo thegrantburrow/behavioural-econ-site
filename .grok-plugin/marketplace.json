@@ -1,0 +1,26 @@
+{
+  "name": "field-notes-skills",
+  "description": "Field Notes skills marketplace for Grok Bot / Grok Build",
+  "owner": {
+    "name": "Grant Burrow"
+  },
+  "plugins": [
+    {
+      "name": "field-notes",
+      "description": "Full Field Notes content-type and writing skills so Grok Bot can act on the site using the same playbooks as Cursor agents.",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/thegrantburrow/behavioural-econ-site.git"
+      },
+      "homepage": "https://github.com/thegrantburrow/behavioural-econ-site",
+      "keywords": [
+        "field-notes",
+        "behavioural-economics",
+        "smokehouse",
+        "field-session",
+        "experiment-blueprint"
+      ]
+    }
+  ]
+}

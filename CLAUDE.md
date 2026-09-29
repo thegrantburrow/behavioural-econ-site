@@ -14,14 +14,25 @@ plus original case studies. Full context: `PROJECT-BRIEF.md`.
   2026-08-31; always grep `styles.css` directly before hardcoding a hex value
   into a standalone artifact, don't trust this line on faith. Georgia/serif for headlines, system sans for
   body — no monospace.
-- Skills exist for the site's recurring content types — use them instead of
-  improvising structure: `behavioural-principle-article`, `field-session`,
-  `experiment-blueprint`, `design-options-review`, `authentic-voice`,
-  `principle-mechanism-diagram`, `smokehouse`.
+- Skills live in `skills/` (canonical). Symlinked into `.claude/skills/` and
+  `.cursor/skills/` for Claude/Cursor discovery. Use them instead of
+  improvising structure. Full set: `authentic-voice`, `smokehouse`,
+  `experiment-blueprint`, `field-session`, `science-behind-article`,
+  `special-report`, `natural-experiment-breakdown`,
+  `principle-mechanism-diagram`, `spotted-in-the-wild`,
+  `live-interactive-session`, `oscarfinch-feedback-html`,
+  `article-to-linkedin`. (`behavioural-principle-article` and
+  `design-options-review` are still referenced by other skills but are not
+  present as skill folders in this repo yet; `oscarfinch-feedback-html` is the
+  standing HTML options-review format.)
+- **Grok Bot:** install once in Cursor Agent chat with
+  `/add-plugin thegrantburrow/behavioural-econ-site`, then enable
+  **field-notes** on the Bot under Settings → Plugins → Yours. Do not run
+  `/add-plugin` inside Grok Bot. Full steps: `GROK-BOT-INSTALL.md`.
 - **Smokehouse** (code name): the on-demand AI fingerprint + machine-watermark
   remediation pass. Invoke by saying "Smokehouse" / "run Smokehouse" /
   "Smokehouse this page". Distinct from always-on `authentic-voice`. Full
-  playbook: `.claude/skills/smokehouse/SKILL.md`.
+  playbook: `skills/smokehouse/SKILL.md`.
 - The site runs on more than a dozen distinct icon/illustration systems, not
   one — see `VISUAL-SYSTEMS.md` before building or reusing any icon,
   diagram, or mark, on the site or in an off-site artifact that's meant to

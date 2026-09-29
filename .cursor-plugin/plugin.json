@@ -1,0 +1,17 @@
+{
+  "name": "field-notes",
+  "version": "1.0.0",
+  "description": "Field Notes site skills: content-type playbooks and writing remediation for the behavioural-econ-site.",
+  "author": {
+    "name": "Grant Burrow"
+  },
+  "repository": "https://github.com/thegrantburrow/behavioural-econ-site",
+  "keywords": [
+    "field-notes",
+    "behavioural-economics",
+    "content",
+    "writing",
+    "skills"
+  ],
+  "skills": "./skills/"
+}
