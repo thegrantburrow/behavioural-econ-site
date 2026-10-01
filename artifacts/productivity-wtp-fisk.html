@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fisk: consumers won't pay for productivity</title>
+<style>
+:root{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+    --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+    --accent:#D97A56; --accent-ink:#1A1310;
+    --accent2:#5FA89A; --accent2-ink:#0D1917;
+    --good:#5FA89A; --good-ink:#0D1917;
+    --needs:#D97A56; --needs-ink:#1A1310;
+    --mustard:#E0A93A;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+  --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+  --accent:#D97A56; --accent-ink:#1A1310;
+  --accent2:#5FA89A; --accent2-ink:#0D1917;
+  --good:#5FA89A; --good-ink:#0D1917;
+  --needs:#D97A56; --needs-ink:#1A1310;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+}
+:root[data-theme="light"]{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.wrap{max-width:860px;margin:0 auto;padding:44px 20px 80px;}
+h1{font-family:Georgia,ui-serif,serif;font-size:30px;margin:0 0 6px;text-wrap:balance;}
+.sub{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:0 0 8px;max-width:62ch;}
+.ask{font-size:13.5px;color:var(--ink-soft);background:var(--paper-alt);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:18px 0 36px;line-height:1.55;}
+.ask b{color:var(--ink);}
+.claim-box{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--mustard);border-radius:12px;padding:16px 18px;margin:0 0 28px;box-shadow:var(--shadow);}
+.claim-box .lbl{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin:0 0 8px;}
+.claim-box p{margin:0;font-size:15px;line-height:1.55;font-family:Georgia,ui-serif,serif;}
+.verdict{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:8px;}
+.verdict.hold{background:rgba(31,122,108,.15);color:var(--accent2);}
+.verdict.partial{background:rgba(224,169,58,.22);color:var(--ink);}
+.verdict.fail{background:rgba(196,62,31,.15);color:var(--accent);}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:28px;overflow:hidden;}
+.card__head{padding:18px 22px 0;}
+.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px;}
+.card h3{font-family:Georgia,ui-serif,serif;font-size:19px;margin:0 0 6px;}
+.card p.desc{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 16px;max-width:64ch;}
+.card p.desc b{color:var(--ink);font-weight:600;}
+.preview{background:var(--paper-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 22px;}
+.preview h4{font-family:Georgia,ui-serif,serif;font-size:15px;margin:0 0 10px;}
+.preview ul{margin:0;padding-left:1.15em;font-size:13.5px;line-height:1.55;color:var(--ink);}
+.preview li{margin:0 0 8px;}
+.preview li:last-child{margin-bottom:0;}
+.preview .src{font-size:12px;color:var(--ink-soft);margin-top:12px;line-height:1.45;}
+.preview .src a{color:var(--accent2);}
+.toggle{display:flex;gap:8px;padding:16px 22px 4px;flex-wrap:wrap;}
+.toggle-btn{border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
+.toggle-btn:hover{border-color:var(--accent);}
+.toggle-btn[data-active="true"][data-val="good"]{background:var(--good);border-color:var(--good);color:var(--good-ink);}
+.toggle-btn[data-active="true"][data-val="needs-work"]{background:var(--needs);border-color:var(--needs);color:var(--needs-ink);}
+.comment{margin:10px 22px 20px;}
+.comment textarea{width:100%;min-height:44px;resize:vertical;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:13.5px;padding:9px 11px;}
+.comment textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+.feedback{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;margin-top:36px;}
+.feedback h3{font-family:Georgia,ui-serif,serif;font-size:17px;margin:0 0 10px;}
+.feedback textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;background:var(--paper-alt);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical;}
+.feedback-row{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;}
+.copy-btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;}
+.copy-btn[data-copied="true"]{background:var(--accent2);color:var(--accent2-ink);}
+.theme-toggle{position:fixed;top:14px;right:14px;z-index:20;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;padding:0;}
+.next{margin-top:8px;padding:16px 18px;border:1px dashed var(--line);border-radius:12px;background:var(--paper-alt);}
+.next h4{font-family:Georgia,ui-serif,serif;font-size:16px;margin:0 0 8px;}
+.next p{margin:0;font-size:13.5px;line-height:1.55;color:var(--ink-soft);}
+.next p + p{margin-top:8px;}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">🌙</button>
+
+<div class="wrap">
+  <h1>Fisk: &ldquo;Customers almost never pay for productivity&rdquo;</h1>
+  <p class="sub">Take the Twitter-shaped claim apart before we run behavioural analysis on it. Could not pin the exact tweet from the paraphrase alone, so this fisks the claim as you restated it.</p>
+  <div class="ask"><b>Ask:</b> Mark each section Looks good / Needs work. Next pass is the behavioural analysis (this claim + the AI agency / reactance angle).</div>
+
+  <div class="claim-box">
+    <p class="lbl">Claim as paraphrased</p>
+    <p>Consumers will almost never pay for productivity features or apps, which is why the ad model is most common. Corporates and businesses will pay.</p>
+  </div>
+
+  <!-- 1. Overall verdict -->
+  <div class="card" data-item data-title="Overall verdict">
+    <div class="card__head">
+      <span class="tag">Verdict</span>
+      <h3>Mostly true as a directional rule, false as an absolute</h3>
+      <p class="desc">
+        <span class="verdict hold">Mostly holds</span><br>
+        The consumer half is directionally right: most people will not pay for generic productivity on their own card. The business half is also right: firms pay, often a lot. The causal leap (&ldquo;which is why ads are most common&rdquo;) is the weak joint. Ads dominate where the product is attention-native and free-to-use at scale. Plenty of successful productivity businesses never use ads at all; they just sell to the buyer who is not the end user.
+      </p>
+    </div>
+    <div class="preview">
+      <h4>Three claims, three grades</h4>
+      <ul>
+        <li><b>Consumers almost never pay for productivity.</b> Soft true. Conversion is low (often 2&ndash;5%), not zero. Power users and identity-tied tools do convert.</li>
+        <li><b>Therefore ads are the most common model.</b> Overstated. Freemium-to-B2B upgrade and pure subscription are the winning productivity models. Ads are common for consumer utilities and social, not for Notion / Slack / Todoist.</li>
+        <li><b>Businesses will pay.</b> Strong true, with a caveat: they pay for organisational friction removal (admin, security, seats, compliance), not for the same &ldquo;make me personally faster&rdquo; pitch that failed on consumers.</li>
+      </ul>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on the overall verdict…"></textarea></div>
+  </div>
+
+  <!-- 2. Consumer WTP -->
+  <div class="card" data-item data-title="Claim 1: consumers almost never pay">
+    <div class="card__head">
+      <span class="tag">Claim 1</span>
+      <h3>Do consumers almost never pay for productivity?</h3>
+      <p class="desc">
+        <span class="verdict partial">Half true</span><br>
+        &ldquo;Almost never&rdquo; is too absolute. What the data actually shows is <b>low free-to-paid conversion and a stubborn ceiling on how many people will put productivity on a personal card</b>, even when the product is popular. That is enough to make consumer-only productivity a hard business, without needing the claim that nobody pays.
+      </p>
+    </div>
+    <div class="preview">
+      <h4>Evidence that supports the spirit</h4>
+      <ul>
+        <li>Consumer freemium conversion commonly sits around <b>2&ndash;5%</b>; B2C SaaS medians are often lower still (~1&ndash;3%).</li>
+        <li>Notion: ~4% of 100M+ users on paid plans. Todoist-class productivity tools report similar single-digit conversion.</li>
+        <li>Consumer AI, 2026: PNC via a16z, ~<b>2.2%</b> of consumers paying for AI at ~$31/mo average (May). Bank of America: ~<b>3%</b> of US consumers. TechCrunch&rsquo;s takeaway: labs are pivoting hard to enterprise because consumer ARPU does not cover cost.</li>
+        <li>a16z (Feb 2026) on ChatGPT usage: most queries are personal productivity (email, search, advice). Those uses rarely justify a personal subscription the way coding does. Altman&rsquo;s own line about bringing AI to &ldquo;billions who can&rsquo;t pay for subscriptions&rdquo; is the business admitting the same thing.</li>
+      </ul>
+      <h4 style="margin-top:16px">Evidence that punches holes in &ldquo;almost never&rdquo;</h4>
+      <ul>
+        <li>ChatGPT still converts ~4&ndash;10% of a huge base into paid. Absolute paying users are tens of millions.</li>
+        <li>Consumers do pay when the tool is <b>identity-tied or continuous-value</b>: Adobe Creative Cloud, Microsoft 365 Personal/Family, iCloud storage, password managers, ChatGPT Plus for heavy users.</li>
+        <li>a16z also argues GenAI raised the consumer price ceiling ($20/mo becoming normal; $200 Pro tiers existing). So &ldquo;won&rsquo;t pay&rdquo; is category- and intensity-dependent, not a law of nature.</li>
+      </ul>
+      <p class="src">Sources: RevenueCat / OpenView freemium benchmarks (via secondary summaries); Notion business-model writeups; TechCrunch &ldquo;ugly economics of consumer AI&rdquo; (30 Sep 2026); a16z &ldquo;Of course they&rsquo;re putting ads in AI&rdquo; (Feb 2026).</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on consumer WTP…"></textarea></div>
+  </div>
+
+  <!-- 3. Ads causal claim -->
+  <div class="card" data-item data-title="Claim 2: therefore ads dominate">
+    <div class="card__head">
+      <span class="tag">Claim 2</span>
+      <h3>Is that why the ad model is most common?</h3>
+      <p class="desc">
+        <span class="verdict fail">Weakest part</span><br>
+        Low consumer WTP explains why <b>some</b> products go free-with-ads. It does not explain productivity software as a category. The typical successful productivity path is freemium &rarr; team/enterprise seats, not freemium &rarr; banner ads. Ads fit attention products (search, social, short video). They fight utility products, where the job is to get in and out fast.
+      </p>
+    </div>
+    <div class="preview">
+      <h4>Where ads do follow from low WTP</h4>
+      <ul>
+        <li>Consumer AI at billion-user ambition: subscription alone cannot fund free access at that scale when inference is expensive. OpenAI testing ads for free/low-cost tiers is the claim coming true in real time.</li>
+        <li>Meta Muse / ad-funded assistants: personalisation stack already exists, so ads are the natural subsidy.</li>
+        <li>Classic Google/Facebook pattern: free consumer utility funded by ads, then B2B sold separately.</li>
+      </ul>
+      <h4 style="margin-top:16px">Where the causal story fails</h4>
+      <ul>
+        <li><b>Notion, Slack, Figma, Todoist, Linear:</b> no ad model. Monetisation is seats, feature gates, collaboration limits, admin/security.</li>
+        <li>Utility apps often have short, task-focused sessions. Ads need attention. Those incentives clash (a calculator interstitial feels absurd; a feed interstitial feels normal).</li>
+        <li>Netflix, Spotify, YouTube Premium show the other fork: ads as the free tier, subscription as the paid escape. That is still not &ldquo;productivity apps run on ads.&rdquo;</li>
+        <li>Cleaner rewrite of the claim: <b>consumers rarely fund productivity themselves, so the product either (a) gets subsidised by ads/attention, or (b) gets paid for by an employer.</b> Option (b) is the productivity industry&rsquo;s main answer. Option (a) is what consumer AI is now attempting because the cost base is unusually high.</li>
+      </ul>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on the ads causal leap…"></textarea></div>
+  </div>
+
+  <!-- 4. Businesses pay -->
+  <div class="card" data-item data-title="Claim 3: businesses will pay">
+    <div class="card__head">
+      <span class="tag">Claim 3</span>
+      <h3>Will corporates and businesses pay?</h3>
+      <p class="desc">
+        <span class="verdict hold">Strong true</span><br>
+        Yes, and the mechanism matters for the later behavioural piece. Businesses do not pay because they love productivity features. They pay because the cost sits on a company card, the benefit is measured in team output or risk avoided, and procurement already expects software invoices. What converts is often not &ldquo;faster writing&rdquo; but <b>admin, SSO, audit logs, seat management, data retention, compliance</b>.
+      </p>
+    </div>
+    <div class="preview">
+      <h4>What the numbers look like</h4>
+      <ul>
+        <li>B2B freemium conversion typically higher than pure B2C (roughly 5&ndash;15% self-serve; sales-assisted higher). Team/org conversion can land in the teens to twenties for strong PLG products.</li>
+        <li>OpenAI enterprise bookings reportedly doubling through mid/late 2026 while consumer pay rates crawl. Same product family, different buyer.</li>
+        <li>Microsoft 365 Copilot attach is still modest (~3.4% of M365 customers in one cited figure), which is a useful brake: businesses will pay, but not automatically, and not for every AI add-on at any price.</li>
+        <li>Anthropic-style lab strategy (enterprise contracts, vertical expansion) is the industry reading the same tea leaves.</li>
+      </ul>
+      <h4 style="margin-top:16px">The buyer/user split</h4>
+      <ul>
+        <li>Consumer: user = payer. WTP must clear a personal budget and subscription fatigue.</li>
+        <li>Business: user &ne; payer. The employee feels the productivity gain; finance/IT feels the invoice. That separation is why the same feature that looks &ldquo;not worth $20/mo to me&rdquo; looks &ldquo;cheap at $30/seat&rdquo; to a team lead.</li>
+      </ul>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on B2B willingness to pay…"></textarea></div>
+  </div>
+
+  <!-- 5. Steelman rewrite -->
+  <div class="card" data-item data-title="Steelman rewrite of the claim">
+    <div class="card__head">
+      <span class="tag">Rewrite</span>
+      <h3>A version of the claim that survives the fisk</h3>
+      <p class="desc">
+        If we keep the insight and drop the overreach, the claim becomes specific enough to analyse behaviourally.
+      </p>
+    </div>
+    <div class="preview">
+      <h4>Proposed steelman</h4>
+      <ul>
+        <li><b>Individuals rarely open their own wallet for generic productivity gains</b>, especially when a free tier or free substitute is &ldquo;good enough,&rdquo; the time saved is hard to feel, and another subscription is painful.</li>
+        <li><b>Employers will fund those same gains</b> when they reduce organisational cost, risk, or coordination friction, and when payment is an expense line rather than a personal subscription.</li>
+        <li><b>Ads appear when you insist on serving the non-paying mass</b> (consumer AI at scale, attention products). They are not the default endpoint of every productivity product; B2B monetisation is.</li>
+      </ul>
+      <p class="src">This is the version worth putting under behavioural analysis next, not the absolute &ldquo;almost never / therefore ads.&rdquo;</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Rewrite the steelman if you want a different cut…"></textarea></div>
+  </div>
+
+  <!-- 6. Behavioural hooks preview -->
+  <div class="card" data-item data-title="Behavioural hooks for next pass">
+    <div class="card__head">
+      <span class="tag">Next pass preview</span>
+      <h3>Mechanisms already sitting under this claim</h3>
+      <p class="desc">
+        Not the full analysis yet. Just the shortlist so you can kill any that should not make the cut.
+      </p>
+    </div>
+    <div class="preview">
+      <h4>On &ldquo;why consumers won&rsquo;t pay&rdquo;</h4>
+      <ul>
+        <li><b>Zero Price Effect</b> (already on Principles): free is a category, not a price. A $0 productivity app and a $12/mo one are not adjacent points on a line.</li>
+        <li><b>Pain of paying / Payment Transparency</b>: a personal subscription is a vivid recurring loss; a company SaaS invoice is not felt by the user who benefits.</li>
+        <li><b>Mental accounting</b>: &ldquo;work tools&rdquo; feel like they belong on the employer&rsquo;s bill. Entertainment sits in a different mental pot (Netflix yes, Todoist Pro maybe).</li>
+        <li><b>Present bias + quantifiability failure</b>: the time saved is diffuse and future; the charge is crisp and monthly. Value is hard to feel at the moment of paywall.</li>
+        <li><b>Reference prices / anchoring</b>: decades of free Google Docs / free Gmail trained a near-zero anchor for personal productivity.</li>
+      </ul>
+      <h4 style="margin-top:16px">On the AI agency piece (separate but adjacent)</h4>
+      <ul>
+        <li><b>Psychological reactance / Not Enough Choice</b> (already on site): automation that removes the freedom to decide can trigger pushback, especially when unexplained.</li>
+        <li><b>Algorithm aversion</b> (Dietvorst, Simmons &amp; Massey 2015): people abandon algorithms after seeing them err, even when the algorithm still beats humans. Desire for agency is a named driver.</li>
+        <li><b>Slight control restores use</b> (Dietvorst et al. 2016/2018): even tiny ability to modify an algorithm&rsquo;s output sharply raises uptake. Pure &ldquo;bot decides for you&rdquo; is the hostile design.</li>
+        <li><b>Explainability / process transparency</b>: opaque recommendations feel like loss of agency even when the outcome is good. Site already has Operational Transparency / Tradeoff Transparency as cousins.</li>
+        <li><b>Existing Field Notes neighbour:</b> <code>ai-over-trusted-then-under-trusted.html</code> covers automation bias and blame. Your new angle (agency, reactance, opaque recs) is the other side of that coin, not a duplicate.</li>
+      </ul>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Cut / add mechanisms for the behavioural pass…"></textarea></div>
+  </div>
+
+  <!-- 7. Scope for next piece -->
+  <div class="card" data-item data-title="Scope for the piece(s)">
+    <div class="card__head">
+      <span class="tag">Scope</span>
+      <h3>One piece or two?</h3>
+      <p class="desc">
+        You named two ideas in one note: (1) AI decision-making backfiring via loss of agency / reactance / opaque recs, and (2) the consumer-won&rsquo;t-pay / business-will fisk above. They share a spine (who decides, who pays, who feels control), but they are different articles if both get the full Field Notes treatment.
+      </p>
+    </div>
+    <div class="preview">
+      <h4>Options</h4>
+      <ul>
+        <li><b>A. Two pieces.</b> (i) Behavioural fisk / Science Behind on consumer vs business WTP for productivity/AI. (ii) Separate piece on agency, reactance, and explainability when bots decide for you. Cleaner, each with one job.</li>
+        <li><b>B. One double feature.</b> Open with the monetisation claim, then show that even when businesses buy automation, end users may reject it for agency reasons. One narrative, two mechanisms. Risk: reads like two essays stapled together.</li>
+        <li><b>C. Sequence.</b> Ship the WTP behavioural analysis first (this fisk is the brief). Then the AI-agency piece as a follow-on that cites it.</li>
+      </ul>
+      <p class="src">Default recommendation if you do not push back: <b>C</b>. This fisk is already done; next turn does the WTP behavioural analysis; agency piece follows once that lands.</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Pick A / B / C, or rewrite the plan…"></textarea></div>
+  </div>
+
+  <div class="next">
+    <h4>Sources used (not exhaustive)</h4>
+    <p>a16z, &ldquo;Of course they&rsquo;re putting ads in AI&rdquo; (Bryan Kim, Feb 2026). TechCrunch, &ldquo;The ugly economics of consumer AI&rdquo; (30 Sep 2026). Freemium conversion benchmarks (RevenueCat / OpenView, via secondary summaries). Notion ~4% paid conversion writeups. Dietvorst, Simmons &amp; Massey (2015) algorithm aversion; Dietvorst et al. (2018) modifiable algorithms. Field Notes: Not Enough Choice / reactance series; <code>ai-over-trusted-then-under-trusted.html</code>.</p>
+    <p>If you have the original tweet URL or screenshot, drop it in feedback and I will re-fisk against the exact wording rather than the paraphrase.</p>
+  </div>
+
+  <div class="feedback">
+    <h3>Feedback</h3>
+    <textarea id="fb-output" readonly placeholder="Toggle options above. Your picks and notes will build up here."></textarea>
+    <div class="feedback-row">
+      <button class="copy-btn" id="fb-copy">Copy feedback</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var KEY = 'of-fb-theme-prod-wtp-fisk';
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch(e){}
+  if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+  function sync(){
+    var cur = root.getAttribute('data-theme');
+    var isDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  sync();
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var curDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = curDark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch(e){}
+    sync();
+  });
+})();
+
+document.querySelectorAll('[data-item]').forEach(function(item){
+  item.querySelectorAll('.toggle-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var already = btn.getAttribute('data-active') === 'true';
+      item.querySelectorAll('.toggle-btn').forEach(function(b){ b.removeAttribute('data-active'); });
+      if(!already) btn.setAttribute('data-active','true');
+      updateFeedback();
+    });
+  });
+  var ta = item.querySelector('[data-comment]');
+  if(ta) ta.addEventListener('input', updateFeedback);
+});
+
+function updateFeedback(){
+  var out = [];
+  document.querySelectorAll('[data-item]').forEach(function(item){
+    var active = item.querySelector('.toggle-btn[data-active="true"]');
+    var comment = item.querySelector('[data-comment]');
+    var commentVal = comment ? comment.value.trim() : '';
+    if(!active && !commentVal) return;
+    var title = item.getAttribute('data-title');
+    var choice = active ? active.textContent.trim() : '(no choice)';
+    out.push('— ' + title + '\n  Choice: ' + choice + (commentVal ? '\n  Comment: ' + commentVal : ''));
+  });
+  document.getElementById('fb-output').value = out.length ? out.join('\n\n') : '';
+}
+
+document.getElementById('fb-copy').addEventListener('click', function(){
+  var btn = this;
+  var text = document.getElementById('fb-output').value;
+  if(!text){ return; }
+  function done(){
+    btn.textContent = 'Copied ✓';
+    btn.setAttribute('data-copied','true');
+    setTimeout(function(){ btn.textContent = 'Copy feedback'; btn.removeAttribute('data-copied'); }, 1800);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+  } else {
+    fallbackCopy(text, done);
+  }
+});
+function fallbackCopy(text, cb){
+  var ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  cb();
+}
+</script>
+</body>
+</html>
