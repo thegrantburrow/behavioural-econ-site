@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saline PTO form → charity piece: 3 directions</title>
+<style>
+:root{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+    --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+    --accent:#D97A56; --accent-ink:#1A1310;
+    --accent2:#5FA89A; --accent2-ink:#0D1917;
+    --good:#5FA89A; --good-ink:#0D1917;
+    --needs:#D97A56; --needs-ink:#1A1310;
+    --mustard:#E0A93A;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+  --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+  --accent:#D97A56; --accent-ink:#1A1310;
+  --accent2:#5FA89A; --accent2-ink:#0D1917;
+  --good:#5FA89A; --good-ink:#0D1917;
+  --needs:#D97A56; --needs-ink:#1A1310;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+}
+:root[data-theme="light"]{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.wrap{max-width:860px;margin:0 auto;padding:44px 20px 80px;}
+h1{font-family:Georgia,ui-serif,serif;font-size:28px;margin:0 0 6px;text-wrap:balance;}
+.sub{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:0 0 8px;max-width:64ch;}
+.ask{font-size:13.5px;color:var(--ink-soft);background:var(--paper-alt);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:18px 0 28px;line-height:1.55;}
+.ask b{color:var(--ink);}
+
+.source{display:flex;gap:16px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 36px;box-shadow:var(--shadow);}
+.source img{width:148px;max-width:38%;height:auto;border-radius:8px;border:1px solid var(--line);flex-shrink:0;}
+.source-body{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
+.source-body b{color:var(--ink);}
+.source-body code{font-size:12px;background:var(--paper-alt);padding:1px 5px;border-radius:4px;}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:28px;overflow:hidden;}
+.card__head{padding:18px 22px 0;}
+.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px;}
+.card h3{font-family:Georgia,ui-serif,serif;font-size:19px;margin:0 0 6px;}
+.card p.desc{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 16px;max-width:64ch;}
+
+.preview{background:var(--paper-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 16px;}
+.preview-caption{font-size:12px;color:var(--ink-soft);margin:12px auto 0;line-height:1.45;max-width:62ch;}
+
+.mock{max-width:640px;margin:0 auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);}
+.mock-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line);font-size:11px;color:var(--ink-soft);background:var(--paper-alt);}
+.mock-bar b{color:var(--ink);font-family:Georgia,serif;}
+.mock-body{padding:16px 16px 18px;}
+.mock-kicker{font-size:10px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:var(--accent);margin:0 0 6px;}
+.mock h4{font-family:Georgia,serif;font-size:clamp(17px,4.2vw,21px);margin:0 0 8px;line-height:1.25;text-wrap:balance;}
+.mock-lead{font-size:13px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;}
+.chip{font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-weight:600;}
+.block{border-left:3px solid var(--accent2);padding:8px 0 8px 12px;margin:0 0 12px;}
+.block .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--accent2);margin:0 0 3px;}
+.block p{font-size:12.5px;line-height:1.5;margin:0;color:var(--ink);}
+.apply-box{background:var(--paper-alt);border:1px dashed var(--line);border-radius:10px;padding:12px;margin-top:4px;}
+.apply-box .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--accent);margin:0 0 4px;}
+.apply-box p{font-size:12.5px;line-height:1.5;margin:0;color:var(--ink);}
+.cite{font-size:11px;color:var(--ink-soft);margin:10px 0 0;line-height:1.45;}
+
+.tier{display:grid;grid-template-columns:52px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.4;}
+.tier:last-child{border-bottom:0;}
+.tier b{font-family:Georgia,serif;font-size:14px;color:var(--accent);}
+.tier span{color:var(--ink-soft);}
+
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,2vw,12px);margin-top:10px;}
+.ab > div{background:var(--paper-alt);border:1px solid var(--line);border-radius:8px;padding:10px;}
+.ab .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;margin:0 0 4px;}
+.ab .lbl.ctrl{color:var(--ink-soft);}
+.ab .lbl.tx{color:var(--accent2);}
+.ab p{font-size:11.5px;line-height:1.4;margin:0;color:var(--ink);}
+
+.toggle{display:flex;gap:8px;padding:16px 22px 4px;flex-wrap:wrap;}
+.toggle-btn{border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
+.toggle-btn:hover{border-color:var(--accent);}
+.toggle-btn[data-active="true"][data-val="good"]{background:var(--good);border-color:var(--good);color:var(--good-ink);}
+.toggle-btn[data-active="true"][data-val="needs-work"]{background:var(--needs);border-color:var(--needs);color:var(--needs-ink);}
+.comment{margin:10px 22px 20px;}
+.comment textarea{width:100%;min-height:44px;resize:vertical;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:13.5px;padding:9px 11px;}
+.comment textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+
+.feedback{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;margin-top:36px;}
+.feedback h3{font-family:Georgia,ui-serif,serif;font-size:17px;margin:0 0 10px;}
+.feedback textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;background:var(--paper-alt);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical;}
+.feedback-row{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;}
+.copy-btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;}
+.copy-btn[data-copied="true"]{background:var(--accent2);color:var(--accent2-ink);}
+.theme-toggle{position:fixed;top:14px;right:14px;z-index:20;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;padding:0;}
+
+@media (max-width:520px){
+  .source{flex-direction:column;}
+  .source img{width:100%;max-width:100%;}
+  .ab{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">🌙</button>
+<div class="wrap">
+  <h1>Saline PTO form → website piece: 3 directions</h1>
+  <p class="sub">Same photo, three ways to turn it into Field Notes content: which behavioural spine, which page type, and how a charity would steal the move, with John List’s field experiments in the mix.</p>
+  <div class="ask"><b>Pick a direction.</b> Each option carries a full mechanism read of the form, a charity application, and the List papers it leans on. Toggle Looks good / Needs work, add notes, copy feedback at the bottom.</div>
+
+  <div class="source">
+    <img src="saline-middle-school-pto-form.jpg" width="1539" height="1016" alt="Printed Saline Middle School PTO donation form with humorous buy-out tiers from $10 to $100">
+    <p class="source-body"><b>Source:</b> Saline Middle School PTO donation slip (shared via X). Opens by naming what it replaces (door-to-door selling, collecting, delivering), then sells fixed amounts as “money I would have spent on cupcakes / wrapping paper / a ‘free’ t-shirt,” up to “$100 to forget my name.” Website note: this is a tactic in use, not proof the form raised more money than a bake sale.</p>
+  </div>
+
+  <!-- ========== OPTION A ========== -->
+  <div class="card" data-item data-title="A. Science Behind: social-pressure buyout">
+    <div class="card__head">
+      <span class="tag">Option A · Science Behind</span>
+      <h3>Decode the form as a social-pressure buyout</h3>
+      <p class="desc">Object-first piece on <code>science-behind.html</code>. Spine is DellaVigna, List &amp; Malmendier (2012): a chunk of door-to-door giving is people paying to avoid saying no. The PTO form sells that escape upfront, with humour, so the gift can stay closer to warm glow than to awkward compliance.</p>
+    </div>
+    <div class="preview">
+      <div class="mock">
+        <div class="mock-bar"><b>The Science Behind</b><span>new entry</span></div>
+        <div class="mock-body">
+          <p class="mock-kicker">Real form · Saline Middle School PTO</p>
+          <h4>Why does a school ask for $50 so you never have to do a “thon”?</h4>
+          <p class="mock-lead">The slip doesn’t ask for a gift in the abstract. It prices out of the fundraising theatre parents already resent: baking, wrapping-paper sales, galas, door-to-door. Same dollars, different story about what they’re buying.</p>
+          <div class="chips">
+            <span class="chip">Framing Effect</span>
+            <span class="chip">Mental Accounting</span>
+            <span class="chip">Anchoring</span>
+            <span class="chip">Warm-Glow Giving</span>
+          </div>
+          <div class="block">
+            <p class="lbl">List bridge</p>
+            <p>In DellaVigna, List &amp; Malmendier’s door-to-door drive, a flyer with a “Do Not Disturb” box cut giving by roughly 28–42%, mostly gifts under $10. People sort away when escape is cheap. Saline’s form is the reverse product: escape is the offer, and the price is printed.</p>
+          </div>
+          <div class="apply-box">
+            <p class="lbl">Charity apply</p>
+            <p>Stop manufacturing the charade your donors will pay to skip. Offer a quiet path with named amounts before you lean on peer pressure or in-person asks. Keep the joke if it fits the brand; keep the honesty either way. Pair with a real use of funds so warm glow isn’t the only fuel.</p>
+          </div>
+          <p class="cite">Cite: DellaVigna, List &amp; Malmendier, QJE 2012; site principles Framing Effect, Mental Accounting, Anchoring, Warm-Glow Giving. Screenshot proves the tactic exists, not that it raised more than wrapping paper.</p>
+        </div>
+      </div>
+      <p class="preview-caption">Landing shape: Science Behind entry with photo of the slip, four mechanism chips, List social-pressure bridge, short charity apply close. Best if you want one shareable decode that links back to existing Principles.</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on Option A…"></textarea></div>
+  </div>
+
+  <!-- ========== OPTION B ========== -->
+  <div class="card" data-item data-title="B. Experiment: avoidance-framed tiers vs plain ask">
+    <div class="card__head">
+      <span class="tag">Option B · Experiment blueprint</span>
+      <h3>Test the buy-out ladder against a plain donation card</h3>
+      <p class="desc">Put it on <code>experiments.html</code> as a control-vs-treatment charity mail or email test. Theory: reframing the gift as money you’d have spent on the annoying alternative raises response and average gift size. List’s matching and challenge work sits in the design notes: change the story of the ask before you throw a richer match ratio at it.</p>
+    </div>
+    <div class="preview">
+      <div class="mock">
+        <div class="mock-bar"><b>Digital &amp; Product Experiments</b><span>blueprint</span></div>
+        <div class="mock-body">
+          <p class="mock-kicker">Builds on · Framing Effect · Mental Accounting · Anchoring</p>
+          <h4>Does an “I don’t want to bake” ladder beat “Please donate $X”?</h4>
+          <p class="mock-lead">A mid-size charity’s warm list gets one of two reply cards. Same suggested amounts ($25 / $50 / $100 / other). Only the line under each amount changes.</p>
+          <div class="ab">
+            <div>
+              <p class="lbl ctrl">Control</p>
+              <p>$50: Support this year’s student programs.</p>
+            </div>
+            <div>
+              <p class="lbl tx">Treatment</p>
+              <p>$50: I don’t want another “thon.” Here’s what the free t-shirt would have cost.</p>
+            </div>
+          </div>
+          <div class="block" style="margin-top:14px">
+            <p class="lbl">List design notes</p>
+            <p>Karlan &amp; List (AER 2007): a match lifts response (~22%) and revenue per piece (~19%), but 2:1 and 3:1 add nothing over 1:1. Rondeau &amp; List (Sierra Club field): an announced challenge gift beat matching on total dollars. So: test the frame first; if you add a price tool later, prefer a simple 1:1 match or a named challenge over a flashier ratio.</p>
+          </div>
+          <div class="apply-box">
+            <p class="lbl">Primary outcomes</p>
+            <p>Response rate; average gift among donors; total revenue per solicitation. Secondary: share picking the top printed tier ($100), and open-text “other” amounts. Power for a small relative lift in response on a warm list, same discipline as other blueprints on the page.</p>
+          </div>
+          <p class="cite">Cite: Karlan &amp; List 2007; Rondeau &amp; List challenge/match field work; mechanism pages above. Ethics: no false claim that a gift cancels a real event the charity still plans to run.</p>
+        </div>
+      </div>
+      <p class="preview-caption">Landing shape: full experiment blueprint. Use this if the interesting question is “does the joke ladder actually move money,” not only “what mechanisms are on the slip.”</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on Option B…"></textarea></div>
+  </div>
+
+  <!-- ========== OPTION C ========== -->
+  <div class="card" data-item data-title="C. Reading the Research brief: List first, form as proof">
+    <div class="card__head">
+      <span class="tag">Option C · Reading the Research</span>
+      <h3>List’s charity findings first; the PTO slip as the worked example</h3>
+      <p class="desc">Flip the order. Open on what List’s field experiments already showed about pressure, price, and leadership gifts, then show the Saline slip as a practitioner who stumbled into the same logic without the papers. Charity apply becomes a short field guide, not a product decode.</p>
+    </div>
+    <div class="preview">
+      <div class="mock">
+        <div class="mock-bar"><b>Reading the Research</b><span>short report</span></div>
+        <div class="mock-body">
+          <p class="mock-kicker">Field experiments · charitable giving</p>
+          <h4>Three List results every fundraiser should steal, and a middle-school form that already did</h4>
+          <div class="tier"><b>1</b><span><b>Social pressure is expensive.</b> Flyer + opt-out cut door-to-door giving hard (DellaVigna, List &amp; Malmendier 2012). If donors will pay to avoid the ask, don’t build campaigns that only work when escape is hard.</span></div>
+          <div class="tier"><b>2</b><span><b>A match moves people; a richer match mostly doesn’t.</b> Karlan &amp; List 2007: any match lifted response and revenue; 3:1 ≈ 1:1. Spend the major gift on presence, not on a flashier ratio.</span></div>
+          <div class="tier"><b>3</b><span><b>Announce a challenge, don’t only match.</b> Rondeau &amp; List’s Sierra Club mailers: challenge gift raised donors (~23%) and dollars (~18%) vs control; matching underperformed on total money.</span></div>
+          <div class="block" style="margin-top:12px">
+            <p class="lbl">Worked example</p>
+            <p>Saline Middle School PTO: names the friction it removes, prices the buy-out ($10–$100), files each gift under a mental account (“cupcakes,” “wrapping paper,” “forget my name”). That’s framing + mental accounting + anchoring in one strip of paper, aimed at the same pressure List measured at the door.</p>
+          </div>
+          <div class="apply-box">
+            <p class="lbl">Charity field guide</p>
+            <p>(1) Offer a no-theatre path with printed amounts. (2) If you add a price tool, use 1:1 or a named challenge, not 3:1 theatre. (3) Never invent an event you’ll still force people through after they’ve paid to skip it. (4) Measure response and dollars, not likes on the joke.</p>
+          </div>
+          <p class="cite">Same List papers as above. Form photo as illustration only. Tone closer to <code>dont-say-the-e-word</code> / <code>policy-based-evidence</code> than to a Science Behind product walkthrough.</p>
+        </div>
+      </div>
+      <p class="preview-caption">Landing shape: short Reading the Research report. Use this if List is the headline and the PTO form is the sticky example, especially for charity / NFP readers.</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on Option C…"></textarea></div>
+  </div>
+
+  <div class="feedback">
+    <h3>Feedback</h3>
+    <textarea id="fb-output" readonly placeholder="Toggle options above. Your picks and notes will build up here."></textarea>
+    <div class="feedback-row">
+      <button class="copy-btn" id="fb-copy">Copy feedback</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var KEY = 'of-fb-theme';
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch(e){}
+  if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+  function sync(){
+    var cur = root.getAttribute('data-theme');
+    var isDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  sync();
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var curDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = curDark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch(e){}
+    sync();
+  });
+})();
+
+document.querySelectorAll('[data-item]').forEach(function(item){
+  item.querySelectorAll('.toggle-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var already = btn.getAttribute('data-active') === 'true';
+      item.querySelectorAll('.toggle-btn').forEach(function(b){ b.removeAttribute('data-active'); });
+      if(!already) btn.setAttribute('data-active','true');
+      updateFeedback();
+    });
+  });
+  var ta = item.querySelector('[data-comment]');
+  if(ta) ta.addEventListener('input', updateFeedback);
+});
+
+function updateFeedback(){
+  var out = [];
+  document.querySelectorAll('[data-item]').forEach(function(item){
+    var active = item.querySelector('.toggle-btn[data-active="true"]');
+    var comment = item.querySelector('[data-comment]');
+    var commentVal = comment ? comment.value.trim() : '';
+    if(!active && !commentVal) return;
+    var title = item.getAttribute('data-title');
+    var choice = active ? active.textContent.trim() : '(no choice)';
+    out.push('— ' + title + '\n  Choice: ' + choice + (commentVal ? '\n  Comment: ' + commentVal : ''));
+  });
+  document.getElementById('fb-output').value = out.length ? out.join('\n\n') : '';
+}
+
+document.getElementById('fb-copy').addEventListener('click', function(){
+  var btn = this;
+  var text = document.getElementById('fb-output').value;
+  if(!text){ return; }
+  function done(){
+    btn.textContent = 'Copied ✓';
+    btn.setAttribute('data-copied','true');
+    setTimeout(function(){ btn.textContent = 'Copy feedback'; btn.removeAttribute('data-copied'); }, 1800);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+  } else {
+    fallbackCopy(text, done);
+  }
+});
+function fallbackCopy(text, cb){
+  var ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  cb();
+}
+</script>
+</body>
+</html>
