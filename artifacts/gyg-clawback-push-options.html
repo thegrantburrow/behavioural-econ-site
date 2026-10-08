@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GYG clawback push → website piece: 3 directions</title>
+<style>
+:root{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+    --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+    --accent:#D97A56; --accent-ink:#1A1310;
+    --accent2:#5FA89A; --accent2-ink:#0D1917;
+    --good:#5FA89A; --good-ink:#0D1917;
+    --needs:#D97A56; --needs-ink:#1A1310;
+    --mustard:#E0A93A;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+  --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+  --accent:#D97A56; --accent-ink:#1A1310;
+  --accent2:#5FA89A; --accent2-ink:#0D1917;
+  --good:#5FA89A; --good-ink:#0D1917;
+  --needs:#D97A56; --needs-ink:#1A1310;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+}
+:root[data-theme="light"]{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.wrap{max-width:860px;margin:0 auto;padding:44px 20px 80px;}
+h1{font-family:Georgia,ui-serif,serif;font-size:28px;margin:0 0 6px;text-wrap:balance;}
+.sub{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:0 0 8px;max-width:64ch;}
+.ask{font-size:13.5px;color:var(--ink-soft);background:var(--paper-alt);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:18px 0 28px;line-height:1.55;}
+.ask b{color:var(--ink);}
+
+.source{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:0 0 36px;box-shadow:var(--shadow);}
+.source img{width:100%;max-width:640px;height:auto;border-radius:8px;border:1px solid var(--line);display:block;margin:0 auto 12px;}
+.source-body{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin:0;max-width:62ch;}
+.source-body b{color:var(--ink);}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:28px;overflow:hidden;}
+.card__head{padding:18px 22px 0;}
+.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px;}
+.card h3{font-family:Georgia,ui-serif,serif;font-size:19px;margin:0 0 6px;}
+.card p.desc{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 16px;max-width:64ch;}
+
+.preview{background:var(--paper-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 16px;}
+.preview-caption{font-size:12px;color:var(--ink-soft);margin:12px auto 0;line-height:1.45;max-width:62ch;}
+
+.mock{max-width:640px;margin:0 auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);}
+.mock-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line);font-size:11px;color:var(--ink-soft);background:var(--paper-alt);}
+.mock-bar b{color:var(--ink);font-family:Georgia,serif;}
+.mock-body{padding:16px 16px 18px;}
+.mock-kicker{font-size:10px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:var(--accent);margin:0 0 6px;}
+.mock h4{font-family:Georgia,serif;font-size:clamp(17px,4.2vw,21px);margin:0 0 8px;line-height:1.25;text-wrap:balance;}
+.mock-lead{font-size:13px;color:var(--ink-soft);line-height:1.55;margin:0 0 12px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;}
+.chip{font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-weight:600;}
+.block{border-left:3px solid var(--accent2);padding:8px 0 8px 12px;margin:0 0 12px;}
+.block .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--accent2);margin:0 0 3px;}
+.block p{font-size:12.5px;line-height:1.5;margin:0;color:var(--ink);}
+.apply-box{background:var(--paper-alt);border:1px dashed var(--line);border-radius:10px;padding:12px;margin-top:4px;}
+.apply-box .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--accent);margin:0 0 4px;}
+.apply-box p{font-size:12.5px;line-height:1.5;margin:0;color:var(--ink);}
+.cite{font-size:11px;color:var(--ink-soft);margin:10px 0 0;line-height:1.45;}
+
+.tier{display:grid;grid-template-columns:52px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.4;}
+.tier:last-child{border-bottom:0;}
+.tier b{font-family:Georgia,serif;font-size:14px;color:var(--accent);}
+.tier span{color:var(--ink-soft);}
+
+.push-mock{max-width:420px;margin:0 auto;background:#2a2a2a;color:#f5f5f5;border-radius:14px;padding:12px;font-size:12px;line-height:1.45;box-shadow:var(--shadow);}
+.push-mock .head{font-weight:700;margin-bottom:4px;color:#fff;}
+.push-mock .loss{color:#ffb4a2;}
+.push-mock .thumb{float:right;width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,#5a2d82,#3d1f5c);margin-left:8px;font-size:8px;text-align:center;padding:4px;color:#fff;}
+
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,2vw,12px);margin-top:10px;}
+.ab > div{background:var(--paper-alt);border:1px solid var(--line);border-radius:8px;padding:10px;}
+.ab .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;margin:0 0 4px;}
+.ab .lbl.ctrl{color:var(--ink-soft);}
+.ab .lbl.tx{color:var(--accent2);}
+.ab p{font-size:11.5px;line-height:1.4;margin:0;color:var(--ink);}
+
+.toggle{display:flex;gap:8px;padding:16px 22px 4px;flex-wrap:wrap;}
+.toggle-btn{border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
+.toggle-btn:hover{border-color:var(--accent);}
+.toggle-btn[data-active="true"][data-val="good"]{background:var(--good);border-color:var(--good);color:var(--good-ink);}
+.toggle-btn[data-active="true"][data-val="needs-work"]{background:var(--needs);border-color:var(--needs);color:var(--needs-ink);}
+.comment{margin:10px 22px 20px;}
+.comment textarea{width:100%;min-height:44px;resize:vertical;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:13.5px;padding:9px 11px;}
+.comment textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+
+.feedback{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;margin-top:36px;}
+.feedback h3{font-family:Georgia,ui-serif,serif;font-size:17px;margin:0 0 10px;}
+.feedback textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;background:var(--paper-alt);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical;}
+.feedback-row{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;}
+.copy-btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;}
+.copy-btn[data-copied="true"]{background:var(--accent2);color:var(--accent2-ink);}
+.theme-toggle{position:fixed;top:14px;right:14px;z-index:20;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;padding:0;}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">🌙</button>
+<div class="wrap">
+  <h1>GYG push → clawback piece: 3 directions</h1>
+  <p class="sub">Real GOMEX Rewards notification (“Don’t lose your free medium fries”), three ways to publish it on Field Notes: mechanism decode, principle upgrade, or a List-centred research brief with the limits.</p>
+  <div class="ask"><b>Pick a direction.</b> Each card maps the push to <a href="../mockup/principles.html#clawback">Clawback</a>, cites List’s field experiments (and the seminal work underneath), and shows how a loyalty or app team would apply it. Toggle per option, copy feedback at the bottom.</div>
+
+  <div class="source">
+    <img src="gyg-clawback-push-notification.jpg" width="1179" height="370" alt="GYG push notification: Don't Lose Your Free Medium Fries, 11 more days, open GOMEX Rewards in the app">
+    <p class="source-body"><b>Source:</b> Guzman y Gomez app push, captured Oct 2026. Headline leads with loss (“Don’t lose”), body treats fries as already waiting (“Your FREE Medium Fries”), deadline (“11 more days”), channel lock-in (“exclusively in the GYG app”). Screenshot proves copy in use, not that this push beat a gain-framed variant in a test.</p>
+  </div>
+
+  <div class="card" data-item data-title="A. Science Behind: GOMEX expiry as clawback">
+    <div class="card__head">
+      <span class="tag">Option A · Science Behind</span>
+      <h3>Decode the push as a loyalty clawback</h3>
+      <p class="desc">New <code>science-behind.html</code> entry on GYG’s GOMEX reward, not fast food in general. Walk the notification in order: loss headline, endowed reward, countdown, app-only redemption. Bridge to Hossain &amp; List’s factory framing and to Kahneman &amp; Tversky’s reference-point logic.</p>
+    </div>
+    <div class="preview">
+      <div class="mock">
+        <div class="mock-bar"><b>The Science Behind</b><span>new entry</span></div>
+        <div class="mock-body">
+          <p class="mock-kicker">Real notification · GYG GOMEX Rewards</p>
+          <h4>Why does a free-fries push open with “Don’t lose” instead of “You’ve earned”?</h4>
+          <p class="mock-lead">The fries may still sit behind a tap in the app, but the copy puts them on the loss side of the ledger: already yours, expiring, retrievable only if you show up in GOMEX before day 11.</p>
+          <div class="chips">
+            <span class="chip">Clawback</span>
+            <span class="chip">Loss Aversion</span>
+            <span class="chip">Scarcity</span>
+            <span class="chip">Zero-Price</span>
+          </div>
+          <div class="block">
+            <p class="lbl">List bridge</p>
+            <p>Hossain &amp; List (Management Science 2012) paid the same RMB bonus either as “earn it if you hit target” or “it’s already yours; we take it back if you miss.” Teams produced about 1% more under the loss frame. GYG is doing the consumer version: a reward already credited in language, with expiry as the clawback.</p>
+          </div>
+          <div class="apply-box">
+            <p class="lbl">Apply (loyalty / app)</p>
+            <p>Credit the reward in copy before the deadline, name what lapses, leave a real window to act, and keep the channel honest. Pair loss framing with a disclosed expiry date, the way Up’s bonus-interest nudge does for banking, not a surprise forfeiture after the fact.</p>
+          </div>
+          <p class="cite">Cite: Hossain &amp; List 2012; Kahneman &amp; Tversky, Econometrica 1979 (reference points); site principles above. Photo is GYG’s own marketing text, not proof of incremental redemptions.</p>
+        </div>
+      </div>
+      <p class="preview-caption">Best if you want a shareable product decode with the real push photo up front, linking into the existing Clawback principle and Up/GoalSaver Science Behind entries.</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on Option A…"></textarea></div>
+  </div>
+
+  <div class="card" data-item data-title="B. Clawback principle: second Spotted in the wild">
+    <div class="card__head">
+      <span class="tag">Option B · Principles upgrade</span>
+      <h3>Add GYG beside Up on the Clawback article</h3>
+      <p class="desc">Keep the Hossain &amp; List study card as the academic anchor. Extend the existing <code>.spotted-wild</code> block on <code>principles.html#clawback</code> with a two-up grid: Up’s honest pre-lapse bank nudge (already live) plus this GYG push as the retail/loyalty version of the same loss frame.</p>
+    </div>
+    <div class="preview">
+      <div class="mock">
+        <div class="mock-bar"><b>Principles · Clawback</b><span>spotted block</span></div>
+        <div class="mock-body">
+          <p class="mock-lead">Intro line stays: one shows a timely warning before a rate lapses; the other shows a reward treated as already held until the app deadline.</p>
+          <div class="ab">
+            <div>
+              <p class="lbl ctrl">Already on site</p>
+              <p>Up Bank inbox: “Bonus Interest Qualification” with time left to qualify.</p>
+            </div>
+            <div>
+              <p class="lbl tx">New</p>
+              <p>GYG push: “Don’t lose your free medium fries … 11 more days … GOMEX Rewards.”</p>
+            </div>
+          </div>
+          <div class="block" style="margin-top:14px">
+            <p class="lbl">List tie-in (one paragraph in article)</p>
+            <p>Fryer, Levitt, List &amp; Sadoff (AEJ: Economic Policy 2022) ran the same teacher bonus as end-of-year gain vs up-front payment clawed back for missed targets. Pooled loss frame ≈ 0.124σ on math scores vs ≈ 0.051σ for gain frame. Mention as “clawback at scale outside the factory,” with the usual caveat that wave two faded.</p>
+          </div>
+          <div class="apply-box">
+            <p class="lbl">Caption honesty</p>
+            <p>Both images prove the tactic is deployed. Neither proves the loss headline outperformed a gain headline unless GYG (or Up) ran that test.</p>
+          </div>
+        </div>
+      </div>
+      <p class="preview-caption">Smallest diff: one new image, caption, and optional teacher-study paragraph. Good if the goal is to arm the Clawback page with a second real vertical, not a whole new content type.</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on Option B…"></textarea></div>
+  </div>
+
+  <div class="card" data-item data-title="C. Reading the Research: clawback evidence map">
+    <div class="card__head">
+      <span class="tag">Option C · Reading the Research</span>
+      <h3>List’s clawback results, the reversals, and GYG as the retail example</h3>
+      <p class="desc">Short report for <code>reading-the-research.html</code>: seminal reference-point theory, then List-co-authored field tests (factory, teachers), then the large car-dealer reversal (Pierce, Rees-Jones &amp; Blank 2020, not List but essential), closing on what honest loyalty copy should steal from GYG.</p>
+    </div>
+    <div class="preview">
+      <div class="mock">
+        <div class="mock-bar"><b>Reading the Research</b><span>report</span></div>
+        <div class="mock-body">
+          <p class="mock-kicker">Clawback / loss-framed incentives</p>
+          <h4>When “already yours, don’t lose it” works, and when it backfires</h4>
+          <div class="tier"><b>0</b><span><b>Reference points.</b> Kahneman &amp; Tversky (1979): value is judged on gains and losses from a reference point; losses bite harder. Clawback engineering moves the reference point up before the deadline.</span></div>
+          <div class="tier"><b>1</b><span><b>Factory (+).</b> Hossain &amp; List (2012): prepaid bonus clawed back for missed output ≈ +1% team productivity vs gain-framed bonus.</span></div>
+          <div class="tier"><b>2</b><span><b>Schools (+/−).</b> Fryer, Levitt, List &amp; Sadoff (2022): loss-framed teacher pay beat gain-framed in pooled math scores; second wave null, so treat persistence as open.</span></div>
+          <div class="tier"><b>3</b><span><b>Dealerships (−).</b> Pierce, Rees-Jones &amp; Blank (2020): prepaid sales bonuses clawed back cut sales ≈ 5% at 294 dealerships (gaming and effort reallocation), a real counterweight to “always use loss framing.”</span></div>
+          <div class="block" style="margin-top:12px">
+            <p class="lbl">Worked example</p>
+            <p>GYG GOMEX push: headline = protect; body = endowed free item + dated expiry + app channel. Same structure as factory clawback, different stakes (fries, not wages) and no published A/B on the headline.</p>
+          </div>
+          <div class="apply-box">
+            <p class="lbl">Field guide</p>
+            <p>(1) Only use loss framing when the reward is real, dated, and redeemable as described. (2) Test gain vs loss copy where you can; List’s own portfolio includes wins and nulls. (3) Watch for gaming when clawback touches sales targets or multi-step redemption. (4) Keep Up-style warnings as the banking benchmark for “honest clawback.”</p>
+          </div>
+        </div>
+      </div>
+      <p class="preview-caption">Best for readers who want the research stack first (seminal + List + limits) with GYG as the sticky retail screenshot, similar in spirit to the Saline/List charity brief.</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on Option C…"></textarea></div>
+  </div>
+
+  <div class="feedback">
+    <h3>Feedback</h3>
+    <textarea id="fb-output" readonly placeholder="Toggle options above. Your picks and notes will build up here."></textarea>
+    <div class="feedback-row">
+      <button class="copy-btn" id="fb-copy">Copy feedback</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var KEY = 'of-fb-theme';
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch(e){}
+  if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+  function sync(){
+    var cur = root.getAttribute('data-theme');
+    var isDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  sync();
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var curDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = curDark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch(e){}
+    sync();
+  });
+})();
+
+document.querySelectorAll('[data-item]').forEach(function(item){
+  item.querySelectorAll('.toggle-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var already = btn.getAttribute('data-active') === 'true';
+      item.querySelectorAll('.toggle-btn').forEach(function(b){ b.removeAttribute('data-active'); });
+      if(!already) btn.setAttribute('data-active','true');
+      updateFeedback();
+    });
+  });
+  var ta = item.querySelector('[data-comment]');
+  if(ta) ta.addEventListener('input', updateFeedback);
+});
+
+function updateFeedback(){
+  var out = [];
+  document.querySelectorAll('[data-item]').forEach(function(item){
+    var active = item.querySelector('.toggle-btn[data-active="true"]');
+    var comment = item.querySelector('[data-comment]');
+    var commentVal = comment ? comment.value.trim() : '';
+    if(!active && !commentVal) return;
+    var title = item.getAttribute('data-title');
+    var choice = active ? active.textContent.trim() : '(no choice)';
+    out.push('— ' + title + '\n  Choice: ' + choice + (commentVal ? '\n  Comment: ' + commentVal : ''));
+  });
+  document.getElementById('fb-output').value = out.length ? out.join('\n\n') : '';
+}
+
+document.getElementById('fb-copy').addEventListener('click', function(){
+  var btn = this;
+  var text = document.getElementById('fb-output').value;
+  if(!text){ return; }
+  function done(){
+    btn.textContent = 'Copied ✓';
+    btn.setAttribute('data-copied','true');
+    setTimeout(function(){ btn.textContent = 'Copy feedback'; btn.removeAttribute('data-copied'); }, 1800);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+  } else {
+    fallbackCopy(text, done);
+  }
+});
+function fallbackCopy(text, cb){
+  var ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  cb();
+}
+</script>
+</body>
+</html>
