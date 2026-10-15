@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Article discovery: 3 options</title>
+<style>
+:root{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+    --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+    --accent:#D97A56; --accent-ink:#1A1310;
+    --accent2:#5FA89A; --accent2-ink:#0D1917;
+    --good:#5FA89A; --good-ink:#0D1917;
+    --needs:#D97A56; --needs-ink:#1A1310;
+    --mustard:#E0A93A;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#17191A; --paper-alt:#1D2023; --panel:#232628; --line:rgba(238,234,226,0.15);
+  --ink:#EEEAE2; --ink-soft:rgba(238,234,226,0.6);
+  --accent:#D97A56; --accent-ink:#1A1310;
+  --accent2:#5FA89A; --accent2-ink:#0D1917;
+  --good:#5FA89A; --good-ink:#0D1917;
+  --needs:#D97A56; --needs-ink:#1A1310;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+}
+:root[data-theme="light"]{
+  --paper:#F5F6F5; --paper-alt:#EBECEC; --panel:#FFFFFF; --line:rgba(27,30,36,0.12);
+  --ink:#1B1E24; --ink-soft:rgba(27,30,36,0.6);
+  --accent:#C43E1F; --accent-ink:#F5F6F5;
+  --accent2:#1F7A6C; --accent2-ink:#F5F6F5;
+  --good:#1F7A6C; --good-ink:#F5F6F5;
+  --needs:#C43E1F; --needs-ink:#F5F6F5;
+  --mustard:#E0A93A;
+  --shadow: 0 1px 2px rgba(27,30,36,.06), 0 8px 24px rgba(27,30,36,.08);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.wrap{max-width:860px;margin:0 auto;padding:44px 20px 80px;}
+h1{font-family:Georgia,ui-serif,serif;font-size:30px;margin:0 0 6px;text-wrap:balance;}
+.sub{color:var(--ink-soft);font-size:15px;line-height:1.6;margin:0 0 8px;max-width:60ch;}
+.ask{font-size:13.5px;color:var(--ink-soft);background:var(--paper-alt);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:18px 0 36px;line-height:1.55;}
+.ask b{color:var(--ink);}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:28px;overflow:hidden;}
+.card__head{padding:18px 22px 0;}
+.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:6px;}
+.card h3{font-family:Georgia,ui-serif,serif;font-size:19px;margin:0 0 6px;}
+.card p.desc{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:0 0 16px;max-width:62ch;}
+
+.preview{background:var(--paper-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 22px;}
+.preview-caption{font-size:12px;color:var(--ink-soft);margin:12px 0 0;line-height:1.45;max-width:62ch;}
+
+.toggle{display:flex;gap:8px;padding:16px 22px 4px;flex-wrap:wrap;}
+.toggle-btn{border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);font-size:13px;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.15s;}
+.toggle-btn:hover{border-color:var(--accent);}
+.toggle-btn[data-active="true"][data-val="good"]{background:var(--good);border-color:var(--good);color:var(--good-ink);}
+.toggle-btn[data-active="true"][data-val="needs-work"]{background:var(--needs);border-color:var(--needs);color:var(--needs-ink);}
+
+.comment{margin:10px 22px 20px;}
+.comment textarea{width:100%;min-height:44px;resize:vertical;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font-family:inherit;font-size:13.5px;padding:9px 11px;}
+.comment textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+
+.feedback{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px 20px;margin-top:36px;}
+.feedback h3{font-family:Georgia,ui-serif,serif;font-size:17px;margin:0 0 10px;}
+.feedback textarea{width:100%;min-height:90px;border:1px solid var(--line);border-radius:8px;background:var(--paper-alt);color:var(--ink);font-family:inherit;font-size:13px;padding:10px;resize:vertical;}
+.feedback-row{display:flex;justify-content:flex-end;gap:10px;margin-top:10px;}
+.copy-btn{background:var(--accent);color:var(--accent-ink);border:none;border-radius:8px;padding:9px 18px;font-size:13.5px;font-weight:600;cursor:pointer;}
+.copy-btn[data-copied="true"]{background:var(--accent2);color:var(--accent2-ink);}
+
+.theme-toggle{position:fixed;top:14px;right:14px;z-index:20;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;padding:0;}
+
+/* —— site mock primitives —— */
+.mock{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  max-width:520px;
+  margin:0 auto;
+  box-shadow:var(--shadow);
+}
+.mock-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;border-bottom:1px solid var(--line);
+  background:var(--panel);
+}
+.mock-logo{font-family:Georgia,serif;font-size:12px;font-weight:700;letter-spacing:.02em;}
+.mock-nav-icons{display:flex;gap:8px;color:var(--ink-soft);font-size:11px;}
+.mock-body{padding:16px 16px 18px;}
+.mock-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent);margin:0 0 6px;}
+.mock-h1{font-family:Georgia,serif;font-size:clamp(16px,3.8vw,20px);margin:0 0 8px;line-height:1.25;}
+.mock-lede{font-size:12px;color:var(--ink-soft);line-height:1.5;margin:0;}
+
+/* Option A */
+.trail{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  padding:8px 14px;border-bottom:1px solid var(--line);
+  background:var(--paper-alt);font-size:11px;color:var(--ink-soft);
+}
+.trail a{color:var(--accent2);text-decoration:none;font-weight:600;}
+.trail .here{color:var(--ink);font-weight:600;}
+.sibling-strip{
+  display:flex;gap:6px;overflow-x:auto;padding:10px 14px;
+  border-bottom:1px solid var(--line);
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+}
+.sib{
+  flex:none;font-size:11px;padding:6px 10px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink-soft);
+  white-space:nowrap;
+}
+.sib.current{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:600;}
+.sib.prevnext{border-style:dashed;color:var(--accent2);}
+
+/* Option B */
+.index-panel{border:1px solid var(--line);border-radius:10px;margin:0 0 14px;overflow:hidden;background:var(--panel);}
+.index-toggle{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:11px 12px;border:0;background:var(--paper-alt);cursor:pointer;
+  font:inherit;color:var(--ink);text-align:left;
+}
+.index-toggle b{font-size:12.5px;}
+.index-toggle span{font-size:11px;color:var(--ink-soft);}
+.index-list{display:none;padding:6px 0 8px;max-height:180px;overflow:auto;}
+.index-panel[data-open="true"] .index-list{display:block;}
+.index-panel[data-open="true"] .chev{transform:rotate(180deg);}
+.chev{transition:transform .15s;color:var(--ink-soft);font-size:12px;}
+.index-row{
+  display:flex;gap:8px;align-items:baseline;padding:7px 12px;font-size:12px;
+  color:var(--ink-soft);text-decoration:none;
+}
+.index-row:hover{background:var(--paper-alt);color:var(--ink);}
+.index-row.current{color:var(--ink);font-weight:700;background:rgba(196,62,31,.08);}
+.index-num{flex:none;width:1.4em;font-size:10px;font-weight:700;color:var(--muted, var(--ink-soft));}
+
+/* Option C */
+.hub-cta{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  margin:0 0 14px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;
+  background:var(--paper-alt);
+}
+.hub-cta p{margin:0;font-size:12px;color:var(--ink-soft);line-height:1.4;max-width:28ch;}
+.hub-cta a{
+  flex:none;font-size:12px;font-weight:700;color:var(--accent-ink);background:var(--accent);
+  padding:8px 12px;border-radius:8px;text-decoration:none;
+}
+.hub-mock .hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.hub-tile{
+  border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--panel);
+}
+.hub-tile .t{font-size:9px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--accent);margin:0 0 4px;}
+.hub-tile h4{font-family:Georgia,serif;font-size:12px;margin:0 0 4px;line-height:1.25;}
+.hub-tile p{font-size:10.5px;color:var(--ink-soft);margin:0;line-height:1.4;}
+.hub-filter{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0 0;}
+.hub-chip{font-size:10px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink-soft);}
+.hub-chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+.pair{display:grid;grid-template-columns:1fr;gap:14px;}
+@media (min-width:640px){
+  .pair.two{grid-template-columns:1fr 1fr;}
+}
+.pair-label{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px;}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">🌙</button>
+
+<div class="wrap">
+  <h1>Articles get lost inside sections</h1>
+  <p class="sub">Reading the Research alone has 24 essays. Once you open one, the rest mostly live in a nav dropdown. Three ways to keep the article findable without turning every page into a directory.</p>
+  <div class="ask"><b>Pick a direction.</b> Toggle Looks good / Needs work on each option, add notes, then copy feedback. These are IA/chrome options for the live site, not copy edits.</div>
+
+  <!-- Option A -->
+  <div class="card" data-item data-title="A — You-are-here trail + sibling strip">
+    <div class="card__head">
+      <span class="tag">Option A · Chrome on every article</span>
+      <h3>You-are-here trail + sibling strip</h3>
+      <p class="desc">Put orientation on the article itself: a breadcrumb back to the section hub, plus a horizontal strip of other essays in that section with the current one marked. Recovery without opening the nav, and without dumping a full directory into the body.</p>
+    </div>
+    <div class="preview">
+      <div class="mock" aria-label="Mock article with trail and sibling chips">
+        <div class="mock-nav">
+          <div class="mock-logo">What Works &amp; Why</div>
+          <div class="mock-nav-icons">Search · Menu</div>
+        </div>
+        <div class="trail">
+          <a href="#">Reading the Research</a>
+          <span>›</span>
+          <span class="here">How strong is that evidence?</span>
+        </div>
+        <div class="sibling-strip" role="navigation" aria-label="Other essays in this section">
+          <span class="sib prevnext">‹ Prev</span>
+          <span class="sib">Don't say the E-word</span>
+          <span class="sib current">How strong is that evidence?</span>
+          <span class="sib">Policy-based evidence</span>
+          <span class="sib">Not testing is still a bet</span>
+          <span class="sib">…20 more</span>
+          <span class="sib prevnext">Next ›</span>
+        </div>
+        <div class="mock-body">
+          <p class="mock-label">Field Guide</p>
+          <h2 class="mock-h1">How strong is that evidence, actually?</h2>
+          <p class="mock-lede">A ranked ladder of causal evidence for product and commercial decisions…</p>
+        </div>
+      </div>
+      <p class="preview-caption">Tapping the section name returns to the hub. Swiping the strip browses siblings. Same pattern could apply to Principles categories, Science Behind domains, and Experiments.</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on trail + sibling strip…"></textarea></div>
+  </div>
+
+  <!-- Option B -->
+  <div class="card" data-item data-title="B — Collapsible section index on the article">
+    <div class="card__head">
+      <span class="tag">Option B · Full list, one click away</span>
+      <h3>Collapsible section index on every article</h3>
+      <p class="desc">A closed-by-default panel near the top: “All 24 essays in Reading the Research.” Open it and you get the full section list, current piece highlighted. Solves the buried-nav problem without permanent chrome eating the first viewport.</p>
+    </div>
+    <div class="preview">
+      <div class="mock" aria-label="Mock article with collapsible section index">
+        <div class="mock-nav">
+          <div class="mock-logo">What Works &amp; Why</div>
+          <div class="mock-nav-icons">Search · Menu</div>
+        </div>
+        <div class="mock-body">
+          <p class="mock-label">Field Guide · Reading the Research</p>
+          <h2 class="mock-h1">How strong is that evidence, actually?</h2>
+
+          <div class="index-panel" data-open="true" id="demo-index">
+            <button type="button" class="index-toggle" id="demo-index-btn" aria-expanded="true">
+              <span><b>All essays in this section</b><br><span>24 in Reading the Research · you are on #1</span></span>
+              <span class="chev" aria-hidden="true">▾</span>
+            </button>
+            <div class="index-list">
+              <a class="index-row current" href="#"><span class="index-num">01</span>How strong is that evidence?</a>
+              <a class="index-row" href="#"><span class="index-num">02</span>Policy-based evidence, not evidence-based policy</a>
+              <a class="index-row" href="#"><span class="index-num">03</span>Don't say the E-word</a>
+              <a class="index-row" href="#"><span class="index-num">04</span>How you pay changes what you spend</a>
+              <a class="index-row" href="#"><span class="index-num">05</span>The test was real. The conclusion wasn't.</a>
+              <a class="index-row" href="#"><span class="index-num">06</span>Not testing is still a bet</a>
+              <a class="index-row" href="#"><span class="index-num">…</span>and 18 more</a>
+            </div>
+          </div>
+
+          <p class="mock-lede">A ranked ladder of causal evidence for product and commercial decisions…</p>
+        </div>
+      </div>
+      <p class="preview-caption">Shown open here so you can see the list. On the live site it would start closed, so the article still opens on its own title. One shared component across every section that has many children.</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on the collapsible section index…"></textarea></div>
+  </div>
+
+  <!-- Option C -->
+  <div class="card" data-item data-title="C — Hub-first: section page is the map">
+    <div class="card__head">
+      <span class="tag">Option C · One map, articles point back</span>
+      <h3>Make the section hub the map; articles only point back</h3>
+      <p class="desc">Don't put 24 links on every article. Upgrade each section hub into a scannable, filterable index of everything in that section. On the article: a clear breadcrumb, a single “Browse all essays in this section” button, and the existing short Continue reading pair. The hub is where you recover; the article stays an article.</p>
+    </div>
+    <div class="preview">
+      <div class="pair two">
+        <div>
+          <p class="pair-label">On the article</p>
+          <div class="mock" aria-label="Mock article pointing back to hub">
+            <div class="mock-nav">
+              <div class="mock-logo">What Works &amp; Why</div>
+              <div class="mock-nav-icons">Menu</div>
+            </div>
+            <div class="trail">
+              <a href="#">Reading the Research</a>
+              <span>›</span>
+              <span class="here">How strong is that evidence?</span>
+            </div>
+            <div class="mock-body">
+              <div class="hub-cta">
+                <p>Lost the thread? The full list of 24 essays lives on the section page.</p>
+                <a href="#">Browse all essays</a>
+              </div>
+              <p class="mock-label">Field Guide</p>
+              <h2 class="mock-h1">How strong is that evidence, actually?</h2>
+              <p class="mock-lede">Article body continues as today…</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="pair-label">On the upgraded hub</p>
+          <div class="mock hub-mock" aria-label="Mock upgraded Reading the Research hub">
+            <div class="mock-body">
+              <p class="mock-label">Section index</p>
+              <h2 class="mock-h1">Reading the Research</h2>
+              <p class="mock-lede">24 essays on evidence quality, validity, and applied mechanism design.</p>
+              <div class="hub-filter">
+                <span class="hub-chip on">All</span>
+                <span class="hub-chip">Evidence quality</span>
+                <span class="hub-chip">Validity</span>
+                <span class="hub-chip">Applied</span>
+              </div>
+              <div class="hub-grid">
+                <div class="hub-tile"><p class="t">Field guide</p><h4>How strong is that evidence?</h4><p>Causal ladder from correlation to RCT.</p></div>
+                <div class="hub-tile"><p class="t">Report</p><h4>Don't say the E-word</h4><p>Why teams rename the test and drop the control.</p></div>
+                <div class="hub-tile"><p class="t">Report</p><h4>Not testing is still a bet</h4><p>Pre/post that looked like measurement.</p></div>
+                <div class="hub-tile"><p class="t">Report</p><h4>Policy-based evidence</h4><p>Why pilots don't survive scale.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="preview-caption">Article stays light. Hub becomes the permanent recovery surface (Reading the Research already has a partial card list; this option makes that the product, not a buried afterthought).</p>
+    </div>
+    <div class="toggle">
+      <button class="toggle-btn" data-val="good">Looks good</button>
+      <button class="toggle-btn" data-val="needs-work">Needs work</button>
+    </div>
+    <div class="comment"><textarea data-comment placeholder="Notes on hub-first recovery…"></textarea></div>
+  </div>
+
+  <div class="feedback">
+    <h3>Feedback</h3>
+    <textarea id="fb-output" readonly placeholder="Toggle options above. Your picks and notes will build up here."></textarea>
+    <div class="feedback-row">
+      <button class="copy-btn" id="fb-copy">Copy feedback</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var KEY = 'of-fb-theme';
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch(e){}
+  if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+  function sync(){
+    var cur = root.getAttribute('data-theme');
+    var isDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀️' : '🌙';
+  }
+  sync();
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var curDark = cur === 'dark' || (cur !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = curDark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch(e){}
+    sync();
+  });
+})();
+
+(function(){
+  var panel = document.getElementById('demo-index');
+  var btn = document.getElementById('demo-index-btn');
+  if(!panel || !btn) return;
+  btn.addEventListener('click', function(){
+    var open = panel.getAttribute('data-open') === 'true';
+    panel.setAttribute('data-open', open ? 'false' : 'true');
+    btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+  });
+})();
+
+document.querySelectorAll('[data-item]').forEach(function(item){
+  item.querySelectorAll('.toggle-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var already = btn.getAttribute('data-active') === 'true';
+      item.querySelectorAll('.toggle-btn').forEach(function(b){ b.removeAttribute('data-active'); });
+      if(!already) btn.setAttribute('data-active','true');
+      updateFeedback();
+    });
+  });
+  var ta = item.querySelector('[data-comment]');
+  if(ta) ta.addEventListener('input', updateFeedback);
+});
+
+function updateFeedback(){
+  var out = [];
+  document.querySelectorAll('[data-item]').forEach(function(item){
+    var active = item.querySelector('.toggle-btn[data-active="true"]');
+    var comment = item.querySelector('[data-comment]');
+    var commentVal = comment ? comment.value.trim() : '';
+    if(!active && !commentVal) return;
+    var title = item.getAttribute('data-title');
+    var choice = active ? active.textContent.trim() : '(no choice)';
+    out.push('— ' + title + '\n  Choice: ' + choice + (commentVal ? '\n  Comment: ' + commentVal : ''));
+  });
+  document.getElementById('fb-output').value = out.length ? out.join('\n\n') : '';
+}
+
+document.getElementById('fb-copy').addEventListener('click', function(){
+  var btn = this;
+  var text = document.getElementById('fb-output').value;
+  if(!text){ return; }
+  function done(){
+    btn.textContent = 'Copied ✓';
+    btn.setAttribute('data-copied','true');
+    setTimeout(function(){ btn.textContent = 'Copy feedback'; btn.removeAttribute('data-copied'); }, 1800);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+  } else {
+    fallbackCopy(text, done);
+  }
+});
+function fallbackCopy(text, cb){
+  var ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); }catch(e){}
+  document.body.removeChild(ta);
+  cb();
+}
+</script>
+</body>
+</html>
